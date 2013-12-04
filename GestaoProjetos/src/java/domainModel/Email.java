@@ -24,9 +24,10 @@ public class Email implements Serializable {
     
     @Column(nullable=false)
     private String enderecoEmail;
+    
     private boolean status;
     
-    //Getter e Setter
+   
 
     public Long getIdEmail() {
         return idEmail;
@@ -50,7 +51,8 @@ public class Email implements Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }   
+    }
+
     
    
 

@@ -16,72 +16,69 @@ import javax.persistence.Id;
  * @author Isla Guedes
  */
 @Entity
-public class Telefone implements Serializable {
+public class Curso implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idTelefone;
-    
-    @Column(length=2) // ver lenght máximo p/ DDD
-    private int ddd;
+    private Long idCurso;
     
     @Column(nullable=false)
-    private int numero;    //ver lenght máximo P/NUMERO 
+    private String nomeCurso;
     
-    private int status;  
+    @Column(nullable=false)
+    private String siglaCurso;
     
+    private boolean status; //ver se é necessário
 
-    public Long getIdTelefone() {
-        return idTelefone;
+    public Long getIdCurso() {
+        return idCurso;
     }
 
-    public void setIdTelefone(Long idTelefone) {
-        this.idTelefone = idTelefone;
+    public void setIdCurso(Long idCurso) {
+        this.idCurso = idCurso;
     }
 
-    public int getDdd() {
-        return ddd;
+    public String getNomeCurso() {
+        return nomeCurso;
     }
 
-    public void setDdd(int ddd) {
-        this.ddd = ddd;
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
     }
 
-    public int getNumero() {
-        return numero;
+    public String getSiglaCurso() {
+        return siglaCurso;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setSiglaCurso(String siglaCurso) {
+        this.siglaCurso = siglaCurso;
     }
 
-    public int getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
-
-   
     
     
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idTelefone != null ? idTelefone.hashCode() : 0);
+        hash += (idCurso != null ? idCurso.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Telefone)) {
+        if (!(object instanceof Curso)) {
             return false;
         }
-        Telefone other = (Telefone) object;
-        if ((this.idTelefone == null && other.idTelefone != null) || (this.idTelefone != null && !this.idTelefone.equals(other.idTelefone))) {
+        Curso other = (Curso) object;
+        if ((this.idCurso == null && other.idCurso != null) || (this.idCurso != null && !this.idCurso.equals(other.idCurso))) {
             return false;
         }
         return true;
@@ -89,7 +86,7 @@ public class Telefone implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Telefone[ id=" + idTelefone + " ]";
+        return "domainModel.Curso[ id=" + idCurso + " ]";
     }
     
 }

@@ -20,24 +20,29 @@ public class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idEndereco;
+    private Long idEndereco;   
+    
+    @Column(nullable=false)
+    private String bairro;
+    
+    @Column(nullable=false)
+    private String rua;  
     
     @Column(nullable=false)
     private int numero;
-    @Column(nullable=false)
-    private String bairro;
-    @Column(nullable=false)
-    private String rua;  
+    
     @Column(nullable=false)
     private String cidade;
+    
     @Column(length=9)
     private String cep;  
+    
     @Column(nullable=false)
     private String complemento;
+    
     private boolean status;  
     
     
-    //Getter e Setter
 
     public Long getIdEndereco() {
         return idEndereco;
@@ -45,14 +50,6 @@ public class Endereco implements Serializable {
 
     public void setIdEndereco(Long idEndereco) {
         this.idEndereco = idEndereco;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
     }
 
     public String getBairro() {
@@ -69,6 +66,14 @@ public class Endereco implements Serializable {
 
     public void setRua(String rua) {
         this.rua = rua;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public String getCidade() {
@@ -102,8 +107,9 @@ public class Endereco implements Serializable {
     public void setStatus(boolean status) {
         this.status = status;
     }
-        
+
     
+   
 
     @Override
     public int hashCode() {

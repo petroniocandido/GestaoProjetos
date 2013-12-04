@@ -24,11 +24,10 @@ public class Nacionalidade implements Serializable {
     private Long idNacionalidade;
     
     @Column(nullable=false)  
-    private String nome;
-    private boolean status;
+    private String nacionalidade;
     
-
-    //Getter e Setter
+    private boolean status;
+   
 
     public Long getIdNacionalidade() {
         return idNacionalidade;
@@ -38,12 +37,12 @@ public class Nacionalidade implements Serializable {
         this.idNacionalidade = idNacionalidade;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNacionalidade() {
+        return nacionalidade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
     }
 
     public boolean isStatus() {
@@ -54,6 +53,7 @@ public class Nacionalidade implements Serializable {
         this.status = status;
     }
     
+      
     
 
     @Override

@@ -23,12 +23,13 @@ public class Estado implements Serializable {
     private Long idEstado;
 
     @Column(nullable=false)
-    private String nome;
+    private String nomeEstado;
+    
     @Column(nullable=false,length=2)
     private String uf;
+    
     private boolean status;
 
-    //Getter e Setter
 
     public Long getIdEstado() {
         return idEstado;
@@ -36,14 +37,14 @@ public class Estado implements Serializable {
 
     public void setIdEstado(Long idEstado) {
         this.idEstado = idEstado;
+    }  
+
+    public String getNomeEstado() {
+        return nomeEstado;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeEstado(String nomeEstado) {
+        this.nomeEstado = nomeEstado;
     }
 
     public String getUf() {

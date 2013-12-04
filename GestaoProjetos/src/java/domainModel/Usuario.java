@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
@@ -20,42 +21,64 @@ import javax.persistence.Temporal;
  * @author Isla Guedes
  */
 @Entity
-public class Usuario implements Serializable {
+public class Usuario{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
     
-    //Dados Aluno/Orientador   extends Usuario 
-    
+    //Dados Aluno/Orientador    
     @Column(nullable=false)
     private String nome;
+    
     @Column(nullable=false)  
     private String rg;
+    
     @Column(length=14)
     private int cpf;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable=false)
     private Date dataNascimento;
+    
     @Column(nullable=false)
     private String orgaoExpeditor;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable=false)
     private Date dataExpedicao;
-    private boolean status;
     
-    @ManyToOne //verificar
+    @Column(length=2)
+    private String naturalidadeUF;
+    
+    @Column(nullable=false)
+    private String titulação;
+    
+    private String observacao;
+    
+    private boolean status; //VER SER É NECESSARIO
+    
+    //Verificar RELACIONAMENTOS    
+    @ManyToOne 
     private Campus campus;
     
-    private List<Endereco> endereco;    
-    private List<Telefone> telefone;
-    private List<Email> email;
-    private Estado estado;    
-    private Nacionalidade nacionalidade;
+    @ManyToMany 
+    private List<Endereco> endereco;  
     
-    //private CursoArea cursoArea; Só para Aluno??
+    @ManyToMany
+    private List<Telefone> telefone;
+    
+    @ManyToMany
+    private List<Email> email;
+    
+    @ManyToMany
+    private Estado estado;  
+    
+    @ManyToMany
+    private Nacionalidade nacionalidade;   
+    
   
-   // FALTA  //Getter e Setter
+   // FALTA  GETTER E SETTER
 
     public Long getIdUsuario() {
         return idUsuario;
