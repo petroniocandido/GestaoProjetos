@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,7 +22,7 @@ public class CronogramaAtividade implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idCronogramaAtividade;   
+    private Long id;   
     
     @Column(nullable=false)
     private String descricao;
@@ -37,15 +37,15 @@ public class CronogramaAtividade implements Serializable {
     
     @Column(nullable=false)
     private int ordem;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
-
-    public Long getIdCronogramaAtividade() {
-        return idCronogramaAtividade;
-    }
-
-    public void setIdCronogramaAtividade(Long idCronogramaAtividade) {
-        this.idCronogramaAtividade = idCronogramaAtividade;
-    }
 
     public String getDescricao() {
         return descricao;
@@ -84,7 +84,7 @@ public class CronogramaAtividade implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCronogramaAtividade != null ? idCronogramaAtividade.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -95,7 +95,7 @@ public class CronogramaAtividade implements Serializable {
             return false;
         }
         CronogramaAtividade other = (CronogramaAtividade) object;
-        if ((this.idCronogramaAtividade == null && other.idCronogramaAtividade != null) || (this.idCronogramaAtividade != null && !this.idCronogramaAtividade.equals(other.idCronogramaAtividade))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class CronogramaAtividade implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.CronogramaAtividade[ id=" + idCronogramaAtividade + " ]";
+        return "domainModel.CronogramaAtividade[ id=" + id + " ]";
     }
     
 }

@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -12,8 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -25,16 +26,16 @@ public class Projeto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idProjeto;
+    private Long id;
     
     //identificação do projeto
     @Column(nullable=false)
-    private String tituloProjeto; 
+    private String titulo; 
     
-    private int numeroCadastroProjeto; //VER SER É NECESSÁRIO
+    private int numeroCadastro; 
     
     //informações adicionais
-    @OneToMany //VERIFICAR
+    @ManyToMany //VERIFICAR
     private List<AreaConhecimento> areaConhecimento;
     
     private boolean grupoPesquisa;
@@ -46,11 +47,11 @@ public class Projeto implements Serializable {
     private Campus campus;
     
     //Resumo do projeto
-    @Column(nullable=false)
+    @Column(nullable=false, length= 2000)
     private String resumo;
     
-    @Column(nullable=false)
-    private String palavrasChaveProjeto;
+    @Column(nullable=false, length=500)
+    private String palavrasChave;
     
     //Duração do projeto
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -62,8 +63,9 @@ public class Projeto implements Serializable {
     private Date dataTermino;
     
     //Coordenação do projeto
-     @Column(nullable=false)
-     private String nomeCoordenador;
+    @ManyToOne 
+    @Column(nullable=false)
+     private Orientador coordenador;
      
      @Column(nullable=false)
      private String setorCoordenador;
@@ -72,7 +74,7 @@ public class Projeto implements Serializable {
      private boolean projetoFinanciamento;
      
      @Column(nullable=false)
-     private double valorFinanciamento;
+     private BigInteger valorFinanciamento;
      
      @Temporal(javax.persistence.TemporalType.DATE)
      @Column(nullable=false)
@@ -83,8 +85,8 @@ public class Projeto implements Serializable {
      @Column(nullable=false)
      private int numeroBolsas;
      
-     @OneToMany     
-     private List<AgenciaFinanciadora> agenciaFinanciadora; 
+     @ManyToOne     
+     private AgenciaFinanciadora agenciaFinanciadora; 
      
      //Convênio/Gestão
      private boolean projetoConvenio;
@@ -100,7 +102,7 @@ public class Projeto implements Serializable {
      private boolean projetoMulticampi;
      
      //Identificação dos Participantes dos Projetos
-     @OneToMany
+     @ManyToMany
      private List<Usuario> participantesProjeto;   
      
      
@@ -110,7 +112,7 @@ public class Projeto implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idProjeto != null ? idProjeto.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -121,7 +123,7 @@ public class Projeto implements Serializable {
             return false;
         }
         Projeto other = (Projeto) object;
-        if ((this.idProjeto == null && other.idProjeto != null) || (this.idProjeto != null && !this.idProjeto.equals(other.idProjeto))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -129,7 +131,7 @@ public class Projeto implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Projeto[ id=" + idProjeto + " ]";
+        return "domainModel.Projeto[ id=" + id + " ]";
     }
     
 }

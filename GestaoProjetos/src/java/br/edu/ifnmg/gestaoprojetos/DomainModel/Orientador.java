@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.List;

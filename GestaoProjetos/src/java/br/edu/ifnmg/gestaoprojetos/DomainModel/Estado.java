@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -20,10 +20,10 @@ public class Estado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idEstado;
+    private Long id;
 
     @Column(nullable=false)
-    private String nomeEstado;
+    private String nome;
     
     @Column(nullable=false,length=2)
     private String uf;
@@ -31,22 +31,7 @@ public class Estado implements Serializable {
     private boolean status;
 
 
-    public Long getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(Long idEstado) {
-        this.idEstado = idEstado;
-    }  
-
-    public String getNomeEstado() {
-        return nomeEstado;
-    }
-
-    public void setNomeEstado(String nomeEstado) {
-        this.nomeEstado = nomeEstado;
-    }
-
+   
     public String getUf() {
         return uf;
     }
@@ -62,13 +47,30 @@ public class Estado implements Serializable {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     
     
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEstado != null ? idEstado.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -79,7 +81,7 @@ public class Estado implements Serializable {
             return false;
         }
         Estado other = (Estado) object;
-        if ((this.idEstado == null && other.idEstado != null) || (this.idEstado != null && !this.idEstado.equals(other.idEstado))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -87,7 +89,7 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Estado[ id=" + idEstado + " ]";
+        return "domainModel.Estado[ id=" + id + " ]";
     }
     
 }

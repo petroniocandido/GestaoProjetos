@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -21,48 +21,44 @@ public class Edital implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idEdital;
+    private Long id;
     
     @Column(nullable=false)
-    private int numeroEdital;
+    private int numero;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable=false)
-    private int dataExpedicaoEdital;
-        
-    
+    private int dataExpedicao;
 
-    public Long getIdEdital() {
-        return idEdital;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdEdital(Long idEdital) {
-        this.idEdital = idEdital;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public int getNumeroEdital() {
-        return numeroEdital;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setNumeroEdital(int numeroEdital) {
-        this.numeroEdital = numeroEdital;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
-    public int getDataExpedicaoEdital() {
-        return dataExpedicaoEdital;
+    public int getDataExpedicao() {
+        return dataExpedicao;
     }
 
-    public void setDataExpedicaoEdital(int dataExpedicaoEdital) {
-        this.dataExpedicaoEdital = dataExpedicaoEdital;
+    public void setDataExpedicao(int dataExpedicao) {
+        this.dataExpedicao = dataExpedicao;
     }
-    
    
-    
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEdital != null ? idEdital.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -73,7 +69,7 @@ public class Edital implements Serializable {
             return false;
         }
         Edital other = (Edital) object;
-        if ((this.idEdital == null && other.idEdital != null) || (this.idEdital != null && !this.idEdital.equals(other.idEdital))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -81,7 +77,7 @@ public class Edital implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Edital[ id=" + idEdital + " ]";
+        return "domainModel.Edital[ id=" + id + " ]";
     }
     
 }

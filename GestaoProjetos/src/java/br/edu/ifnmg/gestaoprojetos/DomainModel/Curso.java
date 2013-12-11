@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -16,35 +16,46 @@ import javax.persistence.Id;
  * @author Isla Guedes
  */
 @Entity
-public class Email implements Serializable {
+public class Curso implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idEmail;
+    private Long id;
     
     @Column(nullable=false)
-    private String enderecoEmail;
+    private String nome;
     
-    private boolean status;
+    @Column(nullable=false)
+    private String sigla;
     
-   
+    private boolean status; //ver se é necessário
 
-    public Long getIdEmail() {
-        return idEmail;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdEmail(Long idEmail) {
-        this.idEmail = idEmail;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getEnderecoEmail() {
-        return enderecoEmail;
+    public String getNome() {
+        return nome;
     }
 
-    public void setEnderecoEmail(String enderecoEmail) {
-        this.enderecoEmail = enderecoEmail;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+ 
+    
+    
     public boolean isStatus() {
         return status;
     }
@@ -52,25 +63,24 @@ public class Email implements Serializable {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
     
-   
-
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEmail != null ? idEmail.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Email)) {
+        if (!(object instanceof Curso)) {
             return false;
         }
-        Email other = (Email) object;
-        if ((this.idEmail == null && other.idEmail != null) || (this.idEmail != null && !this.idEmail.equals(other.idEmail))) {
+        Curso other = (Curso) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -78,7 +88,7 @@ public class Email implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Email[ id=" + idEmail + " ]";
+        return "domainModel.Curso[ id=" + id + " ]";
     }
     
 }

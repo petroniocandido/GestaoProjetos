@@ -2,64 +2,76 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
  * @author Isla Guedes
  */
 @Entity
-public class Campus implements Serializable {
+public class Email implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idCampus;
+    private Long id;
     
     @Column(nullable=false)
-    private String nomeCampus;
+    private String endereco;
     
-    @ManyToMany  //verificar se está correto
-    private List<Endereco> endereco;    
-    
+    private boolean status;
 
-    public Long getIdCampus() {
-        return idCampus;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdCampus(Long idCampus) {
-        this.idCampus = idCampus;
+    public void setId(Long id) {
+        this.id = id;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
     
-    //falta getter e setter
    
+
+   
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     
+   
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCampus != null ? idCampus.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Campus)) {
+        if (!(object instanceof Email)) {
             return false;
         }
-        Campus other = (Campus) object;
-        if ((this.idCampus == null && other.idCampus != null) || (this.idCampus != null && !this.idCampus.equals(other.idCampus))) {
+        Email other = (Email) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -67,7 +79,7 @@ public class Campus implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Campus[ id=" + idCampus + " ]";
+        return "domainModel.Email[ id=" + id + " ]";
     }
     
 }

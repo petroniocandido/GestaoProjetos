@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +22,7 @@ public class PlanoTrabalho implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idPlanoTrabalho; 
+    private Long id; 
     
     //Dados do Aluno    
     @OneToMany
@@ -71,16 +71,16 @@ public class PlanoTrabalho implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idPlanoTrabalho != null ? idPlanoTrabalho.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     public Long getIdPlanoTrabalho() {
-        return idPlanoTrabalho;
+        return id;
     }
 
     public void setIdPlanoTrabalho(Long idPlanoTrabalho) {
-        this.idPlanoTrabalho = idPlanoTrabalho;
+        this.id = idPlanoTrabalho;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class PlanoTrabalho implements Serializable {
             return false;
         }
         PlanoTrabalho other = (PlanoTrabalho) object;
-        if ((this.idPlanoTrabalho == null && other.idPlanoTrabalho != null) || (this.idPlanoTrabalho != null && !this.idPlanoTrabalho.equals(other.idPlanoTrabalho))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -98,7 +98,7 @@ public class PlanoTrabalho implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.PlanoTrabalho[ id=" + idPlanoTrabalho + " ]";
+        return "domainModel.PlanoTrabalho[ id=" + id + " ]";
     }
     
 }

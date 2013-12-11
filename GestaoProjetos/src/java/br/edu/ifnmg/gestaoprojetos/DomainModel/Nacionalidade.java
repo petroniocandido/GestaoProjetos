@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -21,22 +21,23 @@ public class Nacionalidade implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idNacionalidade;
+    private Long id;
     
     @Column(nullable=false)  
     private String nacionalidade;
     
     private boolean status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
    
 
-    public Long getIdNacionalidade() {
-        return idNacionalidade;
-    }
-
-    public void setIdNacionalidade(Long idNacionalidade) {
-        this.idNacionalidade = idNacionalidade;
-    }
-
+   
     public String getNacionalidade() {
         return nacionalidade;
     }
@@ -59,7 +60,7 @@ public class Nacionalidade implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idNacionalidade != null ? idNacionalidade.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -70,7 +71,7 @@ public class Nacionalidade implements Serializable {
             return false;
         }
         Nacionalidade other = (Nacionalidade) object;
-        if ((this.idNacionalidade == null && other.idNacionalidade != null) || (this.idNacionalidade != null && !this.idNacionalidade.equals(other.idNacionalidade))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -78,7 +79,7 @@ public class Nacionalidade implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Nacionalidade[ id=" + idNacionalidade + " ]";
+        return "domainModel.Nacionalidade[ id=" + id + " ]";
     }
     
 }

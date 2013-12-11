@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -20,7 +20,7 @@ public class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idEndereco;   
+    private Long id;   
     
     @Column(nullable=false)
     private String bairro;
@@ -41,16 +41,18 @@ public class Endereco implements Serializable {
     private String complemento;
     
     private boolean status;  
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
     
 
-    public Long getIdEndereco() {
-        return idEndereco;
-    }
-
-    public void setIdEndereco(Long idEndereco) {
-        this.idEndereco = idEndereco;
-    }
+   
 
     public String getBairro() {
         return bairro;
@@ -114,7 +116,7 @@ public class Endereco implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEndereco != null ? idEndereco.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +127,7 @@ public class Endereco implements Serializable {
             return false;
         }
         Endereco other = (Endereco) object;
-        if ((this.idEndereco == null && other.idEndereco != null) || (this.idEndereco != null && !this.idEndereco.equals(other.idEndereco))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -133,7 +135,7 @@ public class Endereco implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.endereco[ id=" + idEndereco + " ]";
+        return "domainModel.endereco[ id=" + id + " ]";
     }
     
 }

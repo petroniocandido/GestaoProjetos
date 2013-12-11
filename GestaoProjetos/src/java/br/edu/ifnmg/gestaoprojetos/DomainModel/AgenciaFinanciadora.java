@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -20,44 +20,44 @@ public class AgenciaFinanciadora implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idAgenciaFinanciadora;
+    private Long id;
     
     @Column(nullable=false)
-    private String nomeAgenciaFinanciadora;
+    private String nome;
     
     @Column(nullable=false)
-    private String siglaAgenciaFinanciadora;
+    private String sigla;
     
     
-    public Long getIdAgenciaFinanciadora() {
-        return idAgenciaFinanciadora;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdAgenciaFinanciadora(Long idAgenciaFinanciadora) {
-        this.idAgenciaFinanciadora = idAgenciaFinanciadora;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNomeAgenciaFinanciadora() {
-        return nomeAgenciaFinanciadora;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeAgenciaFinanciadora(String nomeAgenciaFinanciadora) {
-        this.nomeAgenciaFinanciadora = nomeAgenciaFinanciadora;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getSiglaAgenciaFinanciadora() {
-        return siglaAgenciaFinanciadora;
+    public String getSigla() {
+        return sigla;
     }
 
-    public void setSiglaAgenciaFinanciadora(String siglaAgenciaFinanciadora) {
-        this.siglaAgenciaFinanciadora = siglaAgenciaFinanciadora;
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
     
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idAgenciaFinanciadora != null ? idAgenciaFinanciadora.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -68,7 +68,7 @@ public class AgenciaFinanciadora implements Serializable {
             return false;
         }
         AgenciaFinanciadora other = (AgenciaFinanciadora) object;
-        if ((this.idAgenciaFinanciadora == null && other.idAgenciaFinanciadora != null) || (this.idAgenciaFinanciadora != null && !this.idAgenciaFinanciadora.equals(other.idAgenciaFinanciadora))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -76,7 +76,7 @@ public class AgenciaFinanciadora implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.agenciaFinanciadora[ id=" + idAgenciaFinanciadora + " ]";
+        return "domainModel.agenciaFinanciadora[ id=" + id + " ]";
     }
     
 }

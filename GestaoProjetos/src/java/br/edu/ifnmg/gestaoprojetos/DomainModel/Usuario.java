@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class Usuario{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
+    private Long id;
     
     //Dados Aluno/Orientador    
     @Column(nullable=false)
@@ -80,19 +80,11 @@ public class Usuario{
   
    // FALTA  GETTER E SETTER
 
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -103,7 +95,7 @@ public class Usuario{
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -111,7 +103,7 @@ public class Usuario{
   
     @Override
     public String toString() {
-        return "domainModel.Usuario[ id=" + idUsuario + " ]";
+        return "domainModel.Usuario[ id=" + id + " ]";
     }
     
 }

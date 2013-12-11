@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainModel;
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -20,7 +20,7 @@ public class Telefone implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idTelefone;
+    private Long id;
     
     @Column(length=2) // ver lenght máximo p/ DDD
     private int ddd;
@@ -29,15 +29,15 @@ public class Telefone implements Serializable {
     private int numero;    //ver lenght máximo P/NUMERO 
     
     private int status;  
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
-
-    public Long getIdTelefone() {
-        return idTelefone;
-    }
-
-    public void setIdTelefone(Long idTelefone) {
-        this.idTelefone = idTelefone;
-    }
 
     public int getDdd() {
         return ddd;
@@ -70,7 +70,7 @@ public class Telefone implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idTelefone != null ? idTelefone.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -81,7 +81,7 @@ public class Telefone implements Serializable {
             return false;
         }
         Telefone other = (Telefone) object;
-        if ((this.idTelefone == null && other.idTelefone != null) || (this.idTelefone != null && !this.idTelefone.equals(other.idTelefone))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -89,7 +89,7 @@ public class Telefone implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Telefone[ id=" + idTelefone + " ]";
+        return "domainModel.Telefone[ id=" + id + " ]";
     }
     
 }
