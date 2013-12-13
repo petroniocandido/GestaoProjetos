@@ -50,8 +50,6 @@ public class AlunoDAO
                 filtros += "a.nome like '%" + obj.getNome() + "%'"; 
             }
             
-            
-            
         }
         
         if(filtros.length() > 0){

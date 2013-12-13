@@ -2,28 +2,54 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
         <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
-        <title>Facelets Template</title>
+        <title>Sistema de Gestão de Projetos</title>
     </h:head>
 
     <h:body>
 
-        <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+         <div id="top">
+            <img src="resources/img/ifnmg.png"/>
+            <div id="textop" align="center">
+                <h3>Sistema de Gestão de Projetos</h3>
         </div>
+        </div>
+        
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" />   
+            <p:menubar>
+                <p:menuitem value="Login" icon="ui-icon-key" />  
+                <p:submenu label="Cadastro de Usuário " icon="ui-icon-pencil">  
+                     
+                </p:submenu>
+             
+               
+            </p:menubar>
+            
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+            
+        </h:form>
+        
 
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
+        
 
         <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+            <ui:insert name="bottom">
+                <center>Desenvolvido por Isla Guedes, analista de sistema</center>
+                &copy; 2014 Gestão Projetos - Todos os direitos reservados
+            </ui:insert>
         </div>
+        
+       
 
     </h:body>
 
