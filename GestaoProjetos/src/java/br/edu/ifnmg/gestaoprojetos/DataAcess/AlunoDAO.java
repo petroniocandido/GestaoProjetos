@@ -34,10 +34,11 @@ public class AlunoDAO
             if(obj.getId() != null){
                 filtros += "a.id = " + obj.getId();
             }
+            
         if(obj.getMatricula() > 0){
                 if(filtros.length() > 0)
                     filtros += " and ";
-                filtros += "a.nome like '%" + obj.getNome() + "%'"; 
+                filtros += "a.matricula = " + obj.getMatricula() ; 
             }
             
            
@@ -62,11 +63,6 @@ public class AlunoDAO
         return consulta.getResultList();
     }
   
-    
-    
-    
-    
-    
     
 }
 
