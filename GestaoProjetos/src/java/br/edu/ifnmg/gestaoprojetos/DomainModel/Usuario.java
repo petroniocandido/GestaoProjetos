@@ -35,7 +35,10 @@ public class Usuario{
     private String rg;
     
     @Column(length=14)
-    private int cpf;
+    private int cpf;   //CPF LOGIN
+    
+    @Column (nullable=false) 
+    private String senha;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable=false)
@@ -54,9 +57,9 @@ public class Usuario{
     @Column(nullable=false)
     private String titulação;
     
-    private String observacao;
+    private String observacao;//VER SER É NECESSARIO
     
-    private boolean status; //VER SER É NECESSARIO
+   
     
     //Verificar RELACIONAMENTOS    
     @ManyToOne 
@@ -71,14 +74,152 @@ public class Usuario{
     @ManyToMany
     private List<Email> email;
     
-    @ManyToMany
+    @ManyToOne
     private Estado estado;  
     
-    @ManyToMany
+    @ManyToOne
     private Nacionalidade nacionalidade;   
     
   
-   // FALTA  GETTER E SETTER
+   //GETTER E SETTER
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public int getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getOrgaoExpeditor() {
+        return orgaoExpeditor;
+    }
+
+    public void setOrgaoExpeditor(String orgaoExpeditor) {
+        this.orgaoExpeditor = orgaoExpeditor;
+    }
+
+    public Date getDataExpedicao() {
+        return dataExpedicao;
+    }
+
+    public void setDataExpedicao(Date dataExpedicao) {
+        this.dataExpedicao = dataExpedicao;
+    }
+
+    public String getNaturalidadeUF() {
+        return naturalidadeUF;
+    }
+
+    public void setNaturalidadeUF(String naturalidadeUF) {
+        this.naturalidadeUF = naturalidadeUF;
+    }
+
+    public String getTitulação() {
+        return titulação;
+    }
+
+    public void setTitulação(String titulação) {
+        this.titulação = titulação;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
+
+    public List<Endereco> getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(List<Endereco> endereco) {
+        this.endereco = endereco;
+    }
+
+    public List<Telefone> getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(List<Telefone> telefone) {
+        this.telefone = telefone;
+    }
+
+    public List<Email> getEmail() {
+        return email;
+    }
+
+    public void setEmail(List<Email> email) {
+        this.email = email;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public Nacionalidade getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(Nacionalidade nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    }
+    
+    
 
    
     @Override
@@ -100,10 +241,11 @@ public class Usuario{
         }
         return true;
     }
-  
+
     @Override
     public String toString() {
-        return "domainModel.Usuario[ id=" + id + " ]";
+        return "Usuario{" + "id=" + id + '}';
     }
+  
     
 }

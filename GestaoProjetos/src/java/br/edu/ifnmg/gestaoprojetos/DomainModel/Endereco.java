@@ -40,8 +40,9 @@ public class Endereco implements Serializable {
     @Column(nullable=false)
     private String complemento;
     
-    private boolean status;  
-
+    
+    //GETTER E SETTER
+    
     public Long getId() {
         return id;
     }
@@ -51,9 +52,6 @@ public class Endereco implements Serializable {
     }
     
     
-
-   
-
     public String getBairro() {
         return bairro;
     }
@@ -102,16 +100,6 @@ public class Endereco implements Serializable {
         this.complemento = complemento;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    
-   
 
     @Override
     public int hashCode() {
@@ -135,7 +123,9 @@ public class Endereco implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.endereco[ id=" + id + " ]";
+        return "Endereco{" + "id=" + id + '}';
     }
+
+   
     
 }

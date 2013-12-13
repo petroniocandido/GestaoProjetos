@@ -76,7 +76,8 @@ public class AgenciaFinanciadora implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.agenciaFinanciadora[ id=" + id + " ]";
+        return "AgenciaFinanciadora{" + "id=" + id + '}';
     }
+
     
 }

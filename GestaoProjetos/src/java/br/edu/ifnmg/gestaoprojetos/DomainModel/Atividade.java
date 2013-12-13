@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Temporal;
 
 /**
@@ -18,12 +19,13 @@ import javax.persistence.Temporal;
  * @author Isla Guedes
  */
 @Entity
-public class CronogramaAtividade implements Serializable {
+public class Atividade implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;   
+    private Long id;  
     
+    @Lob
     @Column(nullable=false)
     private String descricao;
     
@@ -38,6 +40,9 @@ public class CronogramaAtividade implements Serializable {
     @Column(nullable=false)
     private int ordem;
 
+    
+    //GETTER E SETTER
+    
     public Long getId() {
         return id;
     }
@@ -91,10 +96,10 @@ public class CronogramaAtividade implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CronogramaAtividade)) {
+        if (!(object instanceof Atividade)) {
             return false;
         }
-        CronogramaAtividade other = (CronogramaAtividade) object;
+        Atividade other = (Atividade) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -103,7 +108,9 @@ public class CronogramaAtividade implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.CronogramaAtividade[ id=" + id + " ]";
+        return "Atividade{" + "id=" + id + '}';
     }
+
+   
     
 }

@@ -24,10 +24,11 @@ public class Nacionalidade implements Serializable {
     private Long id;
     
     @Column(nullable=false)  
-    private String nacionalidade;
+    private String nome;
     
-    private boolean status;
-
+    
+    //GETTER E SETTER
+    
     public Long getId() {
         return id;
     }
@@ -35,26 +36,16 @@ public class Nacionalidade implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
    
-
-   
-    public String getNacionalidade() {
-        return nacionalidade;
-    }
-
-    public void setNacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
     
-      
     
 
     @Override
@@ -79,7 +70,8 @@ public class Nacionalidade implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Nacionalidade[ id=" + id + " ]";
+        return "Nacionalidade{" + "id=" + id + '}';
     }
+
     
 }

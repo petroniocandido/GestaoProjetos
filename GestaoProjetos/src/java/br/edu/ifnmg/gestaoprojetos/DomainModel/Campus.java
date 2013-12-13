@@ -32,9 +32,34 @@ public class Campus implements Serializable {
     @ManyToOne //verificar se está correto
     private Endereco endereco;    
     
-
     
-    //falta getter e setter
+   //GETTER E SETTER
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    
+    
    
     
 
@@ -60,7 +85,9 @@ public class Campus implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Campus[ id=" + id + " ]";
+        return "Campus{" + "id=" + id + '}';
     }
+
+    
     
 }

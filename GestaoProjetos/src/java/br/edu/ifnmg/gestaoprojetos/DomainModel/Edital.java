@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -26,10 +28,19 @@ public class Edital implements Serializable {
     @Column(nullable=false)
     private int numero;
     
+    @ManyToOne
+    private AgenciaFinanciadora agenciaFinanciadora;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable=false)
     private int dataExpedicao;
-
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(nullable=false)
+    private int dataFinal;
+    
+    //GETTER E SETTER
+    
     public Long getId() {
         return id;
     }
@@ -38,6 +49,22 @@ public class Edital implements Serializable {
         this.id = id;
     }
 
+    public int getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(int dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
+    public AgenciaFinanciadora getAgenciaFinanciadora() {
+        return agenciaFinanciadora;
+    }
+
+    public void setAgenciaFinanciadora(AgenciaFinanciadora agenciaFinanciadora) {
+        this.agenciaFinanciadora = agenciaFinanciadora;
+    }
+    
     public int getNumero() {
         return numero;
     }
@@ -53,6 +80,8 @@ public class Edital implements Serializable {
     public void setDataExpedicao(int dataExpedicao) {
         this.dataExpedicao = dataExpedicao;
     }
+    
+    
    
 
     @Override
@@ -77,7 +106,9 @@ public class Edital implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Edital[ id=" + id + " ]";
+        return "Edital{" + "id=" + id + '}';
     }
+
+    
     
 }

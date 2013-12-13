@@ -28,24 +28,15 @@ public class Estado implements Serializable {
     @Column(nullable=false,length=2)
     private String uf;
     
-    private boolean status;
+    
+    //GETTER E SETTER
 
-
-   
     public String getUf() {
         return uf;
     }
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public Long getId() {
@@ -63,8 +54,6 @@ public class Estado implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    
     
 
     @Override
@@ -89,7 +78,8 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Estado[ id=" + id + " ]";
+        return "Estado{" + "id=" + id + '}';
     }
+
     
 }

@@ -28,13 +28,38 @@ public class LocalTrabalho implements Serializable {
     @Column(nullable=false)
     private String nome;
     
-    private boolean status;
-    
     @OneToMany
     private List<Telefone> telefone;
    
 
-    //getter e setter
+    //GETTER E SETTER
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Telefone> getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(List<Telefone> telefone) {
+        this.telefone = telefone;
+    }
+    
+    
+    
     
     @Override
     public int hashCode() {
@@ -58,7 +83,7 @@ public class LocalTrabalho implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.LocalTrabalho[ id=" + id + " ]";
+        return "LocalTrabalho{" + "id=" + id + '}';
     }
     
 }

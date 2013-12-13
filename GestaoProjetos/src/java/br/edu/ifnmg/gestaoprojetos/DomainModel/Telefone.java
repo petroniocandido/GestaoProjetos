@@ -28,7 +28,7 @@ public class Telefone implements Serializable {
     @Column(nullable=false)
     private int numero;    //ver lenght máximo P/NUMERO 
     
-    private int status;  
+      
 
     public Long getId() {
         return id;
@@ -55,14 +55,7 @@ public class Telefone implements Serializable {
         this.numero = numero;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
+   
    
     
     
@@ -89,7 +82,8 @@ public class Telefone implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Telefone[ id=" + id + " ]";
+        return "Telefone{" + "id=" + id + '}';
     }
+
     
 }

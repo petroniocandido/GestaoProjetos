@@ -25,6 +25,8 @@ public class AreaConhecimento implements Serializable {
     @Column(nullable=false)
     private String nome;
 
+    
+    //GETTER E SETTER
     public Long getId() {
         return id;
     }
@@ -66,7 +68,9 @@ public class AreaConhecimento implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.AreaConhecimento[ id=" + id + " ]";
+        return "AreaConhecimento{" + "id=" + id + '}';
     }
+
+   
     
 }

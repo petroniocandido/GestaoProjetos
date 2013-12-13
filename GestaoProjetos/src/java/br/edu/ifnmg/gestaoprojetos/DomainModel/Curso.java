@@ -28,7 +28,8 @@ public class Curso implements Serializable {
     @Column(nullable=false)
     private String sigla;
     
-    private boolean status; //ver se é necessário
+    
+    //GETTER E SETTER
 
     public Long getId() {
         return id;
@@ -56,16 +57,6 @@ public class Curso implements Serializable {
  
     
     
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -88,7 +79,8 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Curso[ id=" + id + " ]";
+        return "Curso{" + "id=" + id + '}';
     }
-    
+
+   
 }

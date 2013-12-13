@@ -25,7 +25,7 @@ public class Email implements Serializable {
     @Column(nullable=false)
     private String endereco;
     
-    private boolean status;
+    //GETTER E SETTER
 
     public Long getId() {
         return id;
@@ -43,19 +43,6 @@ public class Email implements Serializable {
         this.endereco = endereco;
     }
     
-   
-
-   
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    
-   
 
     @Override
     public int hashCode() {
@@ -79,7 +66,8 @@ public class Email implements Serializable {
 
     @Override
     public String toString() {
-        return "domainModel.Email[ id=" + id + " ]";
+        return "Email{" + "id=" + id + '}';
     }
+
     
 }
