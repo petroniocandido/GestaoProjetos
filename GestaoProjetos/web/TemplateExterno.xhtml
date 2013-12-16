@@ -17,20 +17,17 @@
 
          <div id="top">
             <img src="resources/img/ifnmg.png"/>
-            <div id="textop" align="center">
+             <div id="textop" align="center">
                 <h3>Sistema de Gestão de Projetos</h3>
-        </div>
+        '    </div>
         </div>
         
         <h:form>
             <p:growl id="growl" showDetail="true" sticky="true" />   
-            <p:menubar>
-                <p:menuitem value="Login" icon="ui-icon-key" />  
-                <p:submenu label="Cadastro de Usuário " icon="ui-icon-pencil">  
-                     
-                </p:submenu>
-             
-               
+            <p:menubar>                
+                <p:menuitem value="Login" icon="ui-icon-key" url="login.xhtml"/>  
+                <p:menuitem value="Cadastro de Usuário" icon="ui-icon-key"/> 
+                <p:menuitem value="Nova Senha" icon="ui-icon-key" />
             </p:menubar>
             
             <div id="content" class="center_content">
@@ -38,19 +35,14 @@
             </div>
             
         </h:form>
-        
 
-        
-
-        <div id="bottom">
-            <ui:insert name="bottom">
-                <center>Desenvolvido por Isla Guedes, analista de sistema</center>
-                &copy; 2014 Gestão Projetos - Todos os direitos reservados
-            </ui:insert>
+        <div id="bottom">          
+           <center>
+              Desenvolvido por Isla Guedes, analista de sistema
+              &copy; 2014 Gestão Projetos - Todos os direitos reservados
+           </center>         
         </div>
         
-       
-
     </h:body>
 
 </html>
