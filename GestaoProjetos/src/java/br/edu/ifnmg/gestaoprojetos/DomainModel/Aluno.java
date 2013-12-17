@@ -24,7 +24,7 @@ public class Aluno extends Usuario implements Serializable{
     private static final long serialVersionUID = 1L;
     
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     private int matricula;   
     
     //Documentos   
