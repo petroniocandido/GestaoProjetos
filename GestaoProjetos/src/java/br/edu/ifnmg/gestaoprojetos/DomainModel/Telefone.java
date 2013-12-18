@@ -25,7 +25,7 @@ public class Telefone implements Serializable {
     @Column(length=2) // ver lenght máximo p/ DDD
     private int ddd;
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true) //vai ser unique??
     private int numero;    //ver lenght máximo P/NUMERO 
     
       
@@ -54,11 +54,6 @@ public class Telefone implements Serializable {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-
-   
-   
-    
-    
 
     @Override
     public int hashCode() {

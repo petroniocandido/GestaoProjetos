@@ -5,6 +5,7 @@
 package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Edital implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     private int numero;
     
     @ManyToOne
@@ -33,11 +34,11 @@ public class Edital implements Serializable {
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable=false)
-    private int dataExpedicao;
+    private Date dataExpedicao;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable=false)
-    private int dataFinal;
+    private Date dataFinal;
     
     //GETTER E SETTER
     
@@ -49,13 +50,22 @@ public class Edital implements Serializable {
         this.id = id;
     }
 
-    public int getDataFinal() {
+    public Date getDataExpedicao() {
+        return dataExpedicao;
+    }
+
+    public void setDataExpedicao(Date dataExpedicao) {
+        this.dataExpedicao = dataExpedicao;
+    }
+
+    public Date getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(int dataFinal) {
+    public void setDataFinal(Date dataFinal) {
         this.dataFinal = dataFinal;
     }
+
 
     public AgenciaFinanciadora getAgenciaFinanciadora() {
         return agenciaFinanciadora;
@@ -73,13 +83,7 @@ public class Edital implements Serializable {
         this.numero = numero;
     }
 
-    public int getDataExpedicao() {
-        return dataExpedicao;
-    }
-
-    public void setDataExpedicao(int dataExpedicao) {
-        this.dataExpedicao = dataExpedicao;
-    }
+   
     
     
    

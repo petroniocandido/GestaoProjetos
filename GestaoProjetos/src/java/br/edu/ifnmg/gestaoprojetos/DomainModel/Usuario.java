@@ -31,10 +31,10 @@ public class Usuario{
     @Column(nullable=false)
     private String nome;
     
-    @Column(nullable=false)  
+    @Column(nullable=false)  //vai ser unique??
     private String rg;
     
-    @Column(length=14)
+    @Column(length=14) //vai ser unique??
     private int cpf;   //CPF LOGIN
     
     @Column (nullable=false) 
@@ -59,7 +59,6 @@ public class Usuario{
     
     private String observacao;//VER SER É NECESSARIO
     
-   
     
     //Verificar RELACIONAMENTOS    
     @ManyToOne 

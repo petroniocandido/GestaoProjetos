@@ -30,9 +30,10 @@ public class Projeto implements Serializable {
     private Long id;
     
     //identificação do projeto
-    @Column(nullable=false)
+    @Column(nullable=false) //vai ser unique??
     private String titulo; 
     
+    @Column(nullable=false) //vai ser unique??
     private int numeroCadastro; 
     
     //informações adicionais

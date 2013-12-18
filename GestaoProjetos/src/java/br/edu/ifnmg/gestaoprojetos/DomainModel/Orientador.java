@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 public class Orientador extends Usuario implements Serializable{
     private static final long serialVersionUID = 1L;
    
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     private int matriculaSiape;  
     
     @Column(nullable=false)
