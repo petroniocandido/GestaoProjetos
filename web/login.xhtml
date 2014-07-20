@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./TemplateExterno.xhtml">
+
+          <ui:define name="content">
+             <h:form>
+              <div align="center">
+               
+                 <p:panel header="Login" style="width: 40%; font: medium; color: blue"/>
+                 <p:messages autoUpdate="true"/>
+            
+                <p:growl id="growl" showDetail="true" sticky="true" />   
+
+                <p:panelGrid columns="1" style="width: 41%" >  
+                 
+                    <h:outputLabel value="Usuário*:" />
+                    <p:inputText value="" required="true" size="50"/>  
+
+                    <h:outputLabel value="Senha*:" /> 
+                    <p:password label="senha" size="26" value="" required="true" /> 
+
+                </p:panelGrid>
+                
+                
+                <p:panel id="Rodape" style="width: 40%" >
+                
+                    <p:commandButton value="Entrar" /> <br/> 
+                    <p:commandLink  value="Cadastrar Usuário"  immediate="true" action="${usuarioController.novo()}"/>                
+                    <p:commandLink value="Esqueci a Senha" immediate="true" action="${usuarioController.novaSenha()}"/> 
+                            
+                    
+                </p:panel>  
+                
+                
+                
+                  
+            </div>
+                 
+          </h:form>
+        </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./TemplateAdmin.xhtml">
+
+            <ui:define name="content">
+              <br/>  
+              <center>
+               <p:panelGrid columns="2" style="color: blue" >
+                    
+                   <f:facet name="header">  
+                       <h2 style="font: medium; color: blue"> Filtros - Tipo de Documento </h2> 
+                   </f:facet>  
+
+                   <h:outputLabel value="Nome:" />
+                   <p:inputText value="${tipoDocumentoController.filtro.nome}"/>  
+
+                   <f:facet name="footer">  
+                       <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${tipoDocumentoController.filtrar()}" style="margin:0"/>  
+                       <p:commandButton ajax="false" value="Novo Tipo de Documento" action="${tipoDocumentoController.novo()}" />
+                   </f:facet>
+                   
+               </p:panelGrid>
+                
+            <br/>
+            <br/>
+            </center>
+              
+         <p:dataTable value="${tipoDocumentoController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
+            <p:column sortBy="nome" headerText="Nome">
+                ${item.nome}
+            </p:column>            
+           
+            <p:column headerText="Editar">
+                <p:commandButton value="Editar" ajax="false" action="${tipoDocumentoController.abrir()}">
+                    <f:setPropertyActionListener target="${tipoDocumentoController.entidade}" value="${item}" />
+                </p:commandButton>
+            </p:column>
+              
+          </p:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

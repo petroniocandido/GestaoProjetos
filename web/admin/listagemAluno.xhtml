@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./TemplateAdmin.xhtml">
+
+           <ui:define name="content">
+             <br/>  
+              <center>
+             
+              <p:panelGrid columns="2" style="color: blue">
+                    
+                   <f:facet name="header">  
+                     <h2 style="font: medium; color: blue"> Filtros - Bolsista </h2>   
+                   </f:facet>  
+
+                   <h:outputLabel value="Matrícula:" />
+                   <p:inputText value="${alunoController.filtro.matricula}"/>  
+
+                   <h:outputLabel value="Nome:" />
+                   <p:inputText value="${alunoController.filtro.nome}"/>
+                   
+                   <h:outputLabel value="Curso:" />
+                   <p:selectOneMenu value="${alunoController.filtro.curso}" label="Curso" 
+                                    converter="${cursoConverter}" required="false" >
+                       <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                       <f:selectItems value="${cursoController.listagem}" />
+                       
+                   </p:selectOneMenu>
+                  
+                   <f:facet name="footer">  
+                     <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${alunoController.filtrar}" style="margin:0"/>  
+                     <p:commandButton ajax="false" value="Novo Bolsista" action="${alunoController.novo}" />
+                   </f:facet>
+                   
+             </p:panelGrid>
+            </center>
+            <br/>
+            <br/>
+              
+             
+         <p:dataTable value="${alunoController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
+            <p:column sortBy="matricula" headerText="Matricula">
+                ${item.matricula}
+            </p:column>
+
+            <p:column sortBy="nome" headerText="Nome">
+                ${item.nome}
+            </p:column>
+              
+            <p:column sortBy="curso" headerText="Curso">
+                ${item.curso}
+            </p:column>
+           
+            <p:column headerText="Editar">
+                <p:commandButton value="Editar" ajax="false" action="${alunoController.abrir}">
+                    <f:setPropertyActionListener target="${alunoController.entidade}" value="${item}" />
+                </p:commandButton>
+            </p:column>
+              
+          </p:dataTable>
+
+          
+        </ui:define>
+
+      </ui:composition>
+
+    </body>
+</html>

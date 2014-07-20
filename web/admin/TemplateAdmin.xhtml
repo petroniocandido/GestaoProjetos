@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Sistema de Gestão de Projetos</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            
+           <img src="resources/img/ifnmg.png"/>
+             <div id="textop" align="center">
+                <h2 style="font: medium; color: #ffffff">Sistema de Gestão de Projetos</h2>
+             </div>
+
+        </div>
+
+              
+       <h:form> 
+         <p:growl id="growl" showDetail="true" sticky="true" />
+         
+         <p:menubar style="font: message-box; color: blue">
+
+             <p:submenu label="Cadastros" icon="ui-icon-pencil" > 
+
+                 <p:menuitem value="Bolsistas" url="listagemAluno.xhtml"  />                    
+                 <p:menuitem value="Orientadores" url="listagemOrientador.xhtml"/> 
+                 <p:menuitem value="Áreas de Conhecimento" url="listagemAreaConhecimento.xhtml" />
+                 <p:menuitem value="Cursos" url="listagemCurso.xhtml"/>
+                 <p:menuitem value="Campus" url="listagemCampus.xhtml" />
+                 <p:menuitem value="Modalidades" url="listagemModalidade.xhtml" />
+                 <p:menuitem value="Agências Financiadoras" url="listagemAgenciaFinanciadora.xhtml" /> 
+                 <p:menuitem value="Editais" url="listagemEdital.xhtml" />
+                 <p:menuitem value="Tipos de Documentos" url="listagemTipoDocumento.xhtml" />
+                
+             </p:submenu>
+
+             <p:menuitem value="Projetos" icon="ui-icon-pencil" url="listagemProjeto.xhtml" />
+
+             <p:submenu label="Relatórios" icon="ui-icon-pencil" >
+                <p:menuitem value="Relat 1"  />     
+            </p:submenu>
+
+             <p:submenu label="Segurança" icon="ui-icon-pencil"  >
+
+               <p:menuitem value="Meus Dados" />                    
+               <p:menuitem value="Logs"  /> 
+
+            </p:submenu>
+
+       </p:menubar>
+     
+
+      <div id="content" class="center_content">
+        <ui:insert name="content"> </ui:insert>
+      </div>
+         
+    </h:form>
+     
+     <div id="bottom">
+           <center>
+              Desenvolvido por Isla Guedes, Analista de Sistema <br/>
+              &copy; 2014 Gestão Projetos - Todos os direitos reservados
+           </center>          
+     </div>
+
+  </h:body>
+
+</html>

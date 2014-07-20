@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+     <body>
+
+        <ui:composition template="./TemplateExterno.xhtml">
+
+            <ui:define name="content">
+              <div align="center" >
+                 <p:panel header="Nova Senha" style="width: 40%; font: medium; color: blue"/>
+                    <p:messages autoUpdate="true"/>
+                      
+                    <h:form>
+                    
+                       <p:growl id="growl" showDetail="true" sticky="true" />   
+                    
+                       <p:panelGrid columns="1" style="width: 40%"  >  
+                 
+                         
+                         <h:outputLabel value="Email*:" /> 
+                         <p:inputText value="" required="true" size="50"/> 
+                         
+                            
+                         (*)Campo de preenchimento obrigatório.
+          
+                      </p:panelGrid>
+                    
+                    <p:panel id="Rodape">
+                        
+                        <p:commandButton value="Enviar Nova Senha para Email" icon="ui-icon-pencil" /> 
+                        <p:commandButton value="Voltar" immediate="true" action="${usuarioController.cancelar()}"/>
+                        
+                    </p:panel>
+                 </h:form>
+                  
+              </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

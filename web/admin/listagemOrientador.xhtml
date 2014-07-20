@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./TemplateAdmin.xhtml">
+
+          <ui:define name="content">
+            <br/>  
+              <center>  
+              <p:panelGrid columns="2" style="color: blue" >
+                    
+                   <f:facet name="header">  
+                       <h2 style="font: medium; color: blue"> Filtros - Orientador </h2>
+                   </f:facet>  
+
+                   <h:outputLabel value="Matrícula SIAPE:" />
+                   <p:inputText value="${orientadorController.filtro.matriculaSiape}"/>  
+
+                   <h:outputLabel value="Nome:" />
+                   <p:inputText value="${orientadorController.filtro.nome}"/>
+                   
+                   
+                  
+                   <f:facet name="footer">  
+                     <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${orientadorController.filtrar}" style="margin:0"/>  
+                     <p:commandButton ajax="false" value="Novo Orientador" action="${orientadorController.novo}" />
+                   </f:facet>
+                   
+               </p:panelGrid>
+              </center>
+            <br/>
+            <br/>
+              
+              
+          <p:dataTable value="${orientadorController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
+            <p:column sortBy="matriculaSiape" headerText="Matricula SIAPE">
+                ${item.matriculaSiape}
+            </p:column>
+
+            <p:column sortBy="nome" headerText="Nome">
+                ${item.nome}
+            </p:column>
+              
+            <p:column sortBy="areaConhecimento" headerText="Área de Conhecimento">
+                ${item.areaConhecimento}
+            </p:column>
+           
+            <p:column headerText="Editar">
+                <p:commandButton value="Editar" ajax="false" action="${orientadorController.abrir}">
+                    <f:setPropertyActionListener target="${orientadorController.entidade}" value="${item}" />
+                </p:commandButton>
+            </p:column>
+              
+          </p:dataTable>
+
+
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>
+
