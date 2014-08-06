@@ -81,6 +81,7 @@ public class Usuario implements Entidade, Serializable{
     private String nacionalidade;   
 
     public Usuario() {
+        id = 0L;
         this.endereco = new ArrayList<Endereco>();
         this.telefone = new ArrayList<Telefone>();
         this.email = new ArrayList<Email>();

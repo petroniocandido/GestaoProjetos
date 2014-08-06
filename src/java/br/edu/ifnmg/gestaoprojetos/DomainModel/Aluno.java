@@ -82,7 +82,7 @@ public class Aluno extends Usuario implements Entidade, Serializable{
 
     public Aluno() {
         
-        super();
+        super();  //PRECISA ??
     }
 
     

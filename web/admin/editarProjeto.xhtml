@@ -87,7 +87,7 @@
                  
                 <br/>
                       
-                  <p:dataTable  value="${projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+             <p:dataTable  value="${projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                             <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
                                 ${item.nome}
                             </p:column>                                                   
@@ -104,7 +104,8 @@
             </p:tab>   
                 
          
-               <p:tab rendered="#{projetoController.entidade.id > 0}" title="Resumo do Projeto">
+           
+           <p:tab rendered="#{projetoController.entidade.id > 0}" title="Resumo do Projeto">
                    <br/>
                    
                 <h:panelGrid columns="2">
@@ -137,8 +138,7 @@
                 <h:panelGrid columns="2">
                     
                  <h:outputLabel value="Nome do Coordenador*:" />                             
-                 
-                                   
+                                                    
                  <p:autoComplete converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
                                  completeMethod="#{orientadorConverter.autoCompleteOrientador}"
                                  var="item" itemLabel="#{item.nome}" itemValue="#{item}">
@@ -152,12 +152,42 @@
                 
             </p:tab>
                
+             
+            <p:tab rendered="#{projetoController.entidade.id > 0}" title="Orientandos">
+                <br/>
+                <h:panelGrid columns="2">
+                    
+                 <h:outputLabel value="Nome do Orientando*:" />                 
+                               
+                 <p:autoComplete converter="#{alunoConverter}" value="#{projetoController.orientandos}"
+                                 completeMethod="#{alunoConverter.autoCompleteAluno}" 
+                                 var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                     #{item.nome}
+                 </p:autoComplete>
+                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                  action="${projetoController.addAluno()}" style="margin:0"/>
+                 
+                  
+                </h:panelGrid>
+                
+                <br/>
+                
+                <p:dataTable  value="${projetoController.entidade.orientandos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:column sortBy="orientandos" headerText="Orientandos" >
+                                ${item.nome}
+                            </p:column>                                                   
+                            
+                            <p:column sortBy="remover" headerText="Remover" >
+                                <p:commandButton ajax="false" value="Remover"  action="#{projetoController.removeAluno()}">
+                                    <f:setPropertyActionListener target="#{projetoController.orientandos}" value="#{item}" />
+                                </p:commandButton>
+                            </p:column>
+
+                </p:dataTable>
+                
+            </p:tab>
                
-          
-               
-               
-               
-               <p:tab rendered="#{projetoController.entidade.id > 0}" title="Documentos">
+            <p:tab rendered="#{projetoController.entidade.id > 0}" title="Documentos">
                         <br/>
                         <h:panelGrid columns="4">                    
 
@@ -206,11 +236,15 @@
                             </p:column>
                             
                             <p:column sortBy="dataPrevista" headerText="Data Prevista">
-                                ${item.dataPrevista}
+                                <h:outputLabel value="${item.dataPrevista}">
+                                    <f:convertDateTime pattern="MM/yyyy" />
+                                </h:outputLabel>
                             </p:column>
                             
                             <p:column sortBy="dataEfetiva" headerText="Data Efetiva">
-                                ${item.dataEfetiva}
+                                <h:outputLabel value="${item.dataEfetiva}">
+                                    <f:convertDateTime pattern="DD/MM/yyyy" />
+                                </h:outputLabel>
                             </p:column>
                             
                             <p:column sortBy="editar" headerText="Editar">

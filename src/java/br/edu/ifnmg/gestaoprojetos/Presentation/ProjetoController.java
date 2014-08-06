@@ -31,12 +31,11 @@ public class ProjetoController
      * Creates a new instance of ProjetoController
      */
     
-    public ProjetoController() {
-      
+    public ProjetoController() {      
         filtro = new Projeto();
         entidade = new Projeto();  
         areaConhecimento = new AreaConhecimento();
-        orientandos = new Aluno();
+        //orientandos = new Aluno();
         documentos = new Documento();
     }
     
@@ -136,13 +135,13 @@ public class ProjetoController
        public void addAluno(){
         entidade.addAluno(orientandos);
         dao.Salvar(entidade);
-        orientandos = new Aluno();
+        //orientandos = new Aluno();
      }
       
       public void removeAluno(){
         entidade.removeAluno(orientandos);
         dao.Salvar(entidade);
-        orientandos = new Aluno();
+        //orientandos = new Aluno();
       } 
       
       public void addDocumento(){
