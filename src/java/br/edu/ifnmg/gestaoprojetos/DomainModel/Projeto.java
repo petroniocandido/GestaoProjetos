@@ -81,8 +81,39 @@ public class Projeto implements Entidade, Serializable {
     @OneToMany(cascade= CascadeType.ALL) 
     private List<Documento> documentos;
     
+    
+    // Plano de Trabalho 
+    
+    private String localRealizacaoProjeto; //laboratorio, sala, etc
+    
+    @Lob
+    private String programaPlano; //programa a que o plano esta¡ envolvido
+    
+    @Lob
+    private String introducao; //problema a ser estudado;
    
-     
+    @Lob
+    private String justificativa;
+    
+    @Lob
+    private String objetivos;
+    
+    @Lob
+    private String metodologia;
+    
+    @Lob
+    private String resutadosEsperados;
+    
+    @Lob
+    private String referenciasBibliograficas;
+    
+    
+    //Cronograma de Atividade
+    @OneToMany
+    private List<Atividade> cronogramaAtividade;
+    
+    
+   
      //Financiamento/IniciaÃ§Ã£o cientÃ­fica
      private boolean projetoFinanciamento;
      
@@ -393,11 +424,79 @@ public class Projeto implements Entidade, Serializable {
         this.documentos = documentos;
     }
 
-   
+    public String getLocalRealizacaoProjeto() {
+        return localRealizacaoProjeto;
+    }
+
+    public void setLocalRealizacaoProjeto(String localRealizacaoProjeto) {
+        this.localRealizacaoProjeto = localRealizacaoProjeto;
+    }
+
+    public String getProgramaPlano() {
+        return programaPlano;
+    }
+
+    public void setProgramaPlano(String programaPlano) {
+        this.programaPlano = programaPlano;
+    }
+
+    public String getIntroducao() {
+        return introducao;
+    }
+
+    public void setIntroducao(String introducao) {
+        this.introducao = introducao;
+    }
+
+    public String getJustificativa() {
+        return justificativa;
+    }
+
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
+    }
+
+    public String getObjetivos() {
+        return objetivos;
+    }
+
+    public void setObjetivos(String objetivos) {
+        this.objetivos = objetivos;
+    }
+
+    public String getMetodologia() {
+        return metodologia;
+    }
+
+    public void setMetodologia(String metodologia) {
+        this.metodologia = metodologia;
+    }
+
+    public String getResutadosEsperados() {
+        return resutadosEsperados;
+    }
+
+    public void setResutadosEsperados(String resutadosEsperados) {
+        this.resutadosEsperados = resutadosEsperados;
+    }
+
+    public String getReferenciasBibliograficas() {
+        return referenciasBibliograficas;
+    }
+
+    public void setReferenciasBibliograficas(String referenciasBibliograficas) {
+        this.referenciasBibliograficas = referenciasBibliograficas;
+    }
+
+    public List<Atividade> getCronogramaAtividade() {
+        return cronogramaAtividade;
+    }
+
+    public void setCronogramaAtividade(List<Atividade> cronogramaAtividade) {
+        this.cronogramaAtividade = cronogramaAtividade;
+    }
     
-    
-    
-    
+        
 
     @Override
     public int hashCode() {

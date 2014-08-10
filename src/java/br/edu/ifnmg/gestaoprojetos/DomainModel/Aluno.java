@@ -63,8 +63,7 @@ public class Aluno extends Usuario implements Entidade, Serializable{
     //Dados da Conta
     private String banco;
     
-    private int contaBancaria;
-    
+    private int contaBancaria;   
     
     private int agencia;      
     
@@ -77,8 +76,7 @@ public class Aluno extends Usuario implements Entidade, Serializable{
    
     private String localTrabalho;  
     
-    @OneToMany
-    private List<PlanoTrabalho> planoTrabalho;
+   
 
     public Aluno() {
         
@@ -250,13 +248,5 @@ public class Aluno extends Usuario implements Entidade, Serializable{
 
    
 
-    public List<PlanoTrabalho> getPlanoTrabalho() {
-        return planoTrabalho;
-    }
-
-    public void setPlanoTrabalho(List<PlanoTrabalho> planoTrabalho) {
-        this.planoTrabalho = planoTrabalho;
-    }
     
-   
 }

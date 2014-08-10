@@ -32,7 +32,7 @@ public class AlunoDAO
         String filtros = "";
         
         if(obj != null){
-            if(obj.getId() != null){
+            if(obj.getId() != null && obj.getId() > 0 ){ 
                 filtros += "a.id = " + obj.getId();
             }
             

@@ -24,8 +24,8 @@ public class ProjetoController
     extends ControllerGenerico<Projeto> implements Serializable {
     
     AreaConhecimento areaConhecimento;
-    Aluno orientandos;
-    Documento documentos;
+    Aluno orientando;
+    Documento documento;
 
     /**
      * Creates a new instance of ProjetoController
@@ -36,7 +36,7 @@ public class ProjetoController
         entidade = new Projeto();  
         areaConhecimento = new AreaConhecimento();
         //orientandos = new Aluno();
-        documentos = new Documento();
+        documento = new Documento();
     }
     
     @EJB
@@ -99,20 +99,20 @@ public class ProjetoController
         this.areaConhecimento = areaConhecimento;
     }
 
-    public Aluno getOrientandos() {
-        return orientandos;
+    public Aluno getOrientando() {
+        return orientando;
     }
 
-    public void setOrientandos(Aluno orientandos) {
-        this.orientandos = orientandos;
+    public void setOrientando(Aluno orientandos) {
+        this.orientando = orientandos;
     }
 
-    public Documento getDocumentos() {
-        return documentos;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setDocumentos(Documento documentos) {
-        this.documentos = documentos;
+    public void setDocumento(Documento documentos) {
+        this.documento = documentos;
     }
     
     
@@ -133,27 +133,27 @@ public class ProjetoController
       } 
       
        public void addAluno(){
-        entidade.addAluno(orientandos);
+        entidade.addAluno(orientando);
         dao.Salvar(entidade);
         //orientandos = new Aluno();
      }
       
       public void removeAluno(){
-        entidade.removeAluno(orientandos);
+        entidade.removeAluno(orientando);
         dao.Salvar(entidade);
         //orientandos = new Aluno();
       } 
       
       public void addDocumento(){
-        entidade.addDocumento(documentos);
+        entidade.addDocumento(documento);
         dao.Salvar(entidade);
-        documentos = new Documento();
+        documento = new Documento();
      }
       
       public void removeDocumento(){
-        entidade.removeDocumento(documentos);
+        entidade.removeDocumento(documento);
         dao.Salvar(entidade);
-        documentos = new Documento();
+        documento = new Documento();
       } 
     
 }

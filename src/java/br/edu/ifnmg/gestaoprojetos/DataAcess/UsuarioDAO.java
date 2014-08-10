@@ -30,8 +30,8 @@ public class UsuarioDAO
         
         String filtros = "";
         
-        if(obj != null){
-            if(obj.getId() != null){
+        if(obj != null ){
+            if(obj.getId() != null && obj.getId() > 0 ){
                 filtros += "u.id = " + obj.getId();
             }
             if(obj.getNome() != null){

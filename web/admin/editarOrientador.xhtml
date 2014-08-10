@@ -67,7 +67,7 @@
               <br/>
                   <h:panelGrid columns="2">
                             <h:outputLabel value="Area de Conhecimento*:" />           
-                            <p:selectOneMenu value="${orientadorController.areaConhecimento}" label="Area de Conhecimento"
+                            <p:selectOneMenu id="txtAreaConhecimento" value="${orientadorController.areaConhecimento}" label="Area de Conhecimento"
                                              converter="${areaConhecimentoConverter}" required="false"
                                             >
                                 <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
@@ -75,13 +75,13 @@
 
                             </p:selectOneMenu>
                             <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                             action="${orientadorController.addAreaConhecimento()}" style="margin:0"/>
+                                             update="tblAreaConhecimento txtAreaConhecimento" action="${orientadorController.addAreaConhecimento()}" style="margin:0"/>
 
                   </h:panelGrid> 
                         
                         <br/>
                         
-                        <p:dataTable  value="${orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                        <p:dataTable id="tblAreaConhecimento"  value="${orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                             <p:column sortBy="nome" headerText="Nome" >
                                 ${item.nome}
                             </p:column>                                                     

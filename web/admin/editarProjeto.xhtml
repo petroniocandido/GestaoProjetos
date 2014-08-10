@@ -73,7 +73,7 @@
                 <h:panelGrid columns="3">
                 
                  <h:outputLabel value="Area de Conhecimento*:" />           
-                    <p:selectOneMenu value="${projetoController.areaConhecimento}" label="Area de Conhecimento"
+                 <p:selectOneMenu id="txtareaConhecimento" value="${projetoController.areaConhecimento}" label="Area de Conhecimento"
                                              converter="${areaConhecimentoConverter}" required="false">
                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
                        <f:selectItems value="${areaConhecimentoController.listagem}"/>
@@ -81,13 +81,14 @@
                     </p:selectOneMenu>
                  
                  <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                        action="${projetoController.addAreaConhecimento()}" style="margin:0"/>
+                        action="${projetoController.addAreaConhecimento()}" style="margin:0"
+                        update="tblAreaConhecimento txtareaConhecimento"/>
 
                 </h:panelGrid>                                     
                  
                 <br/>
                       
-             <p:dataTable  value="${projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                <p:dataTable id="tblAreaConhecimento"  value="${projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                             <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
                                 ${item.nome}
                             </p:column>                                                   
@@ -139,7 +140,7 @@
                     
                  <h:outputLabel value="Nome do Coordenador*:" />                             
                                                     
-                 <p:autoComplete converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
+                 <p:autoComplete  converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
                                  completeMethod="#{orientadorConverter.autoCompleteOrientador}"
                                  var="item" itemLabel="#{item.nome}" itemValue="#{item}">
                      #{item.nome}
@@ -155,31 +156,37 @@
              
             <p:tab rendered="#{projetoController.entidade.id > 0}" title="Orientandos">
                 <br/>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="3">
                     
                  <h:outputLabel value="Nome do Orientando*:" />                 
                                
-                 <p:autoComplete converter="#{alunoConverter}" value="#{projetoController.orientandos}"
+                 <p:autoComplete id="txtNome" converter="#{alunoConverter}" value="#{projetoController.orientando}"
                                  completeMethod="#{alunoConverter.autoCompleteAluno}" 
                                  var="item" itemLabel="#{item.nome}" itemValue="#{item}">
                      #{item.nome}
                  </p:autoComplete>
                  <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                  action="${projetoController.addAluno()}" style="margin:0"/>
+                                  action="${projetoController.addAluno()}" style="margin:0"
+                                  update="tblOrientandos txtNome"/>
                  
                   
                 </h:panelGrid>
                 
                 <br/>
                 
-                <p:dataTable  value="${projetoController.entidade.orientandos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                            <p:column sortBy="orientandos" headerText="Orientandos" >
+                <p:dataTable id="tblOrientandos"  value="${projetoController.entidade.orientandos}" var="item" 
+                              emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:column  headerText="Orientando" >
                                 ${item.nome}
-                            </p:column>                                                   
+                            </p:column>     
+                             
+                             <p:column  headerText="CPF" >
+                                ${item.cpf}
+                            </p:column>     
                             
                             <p:column sortBy="remover" headerText="Remover" >
                                 <p:commandButton ajax="false" value="Remover"  action="#{projetoController.removeAluno()}">
-                                    <f:setPropertyActionListener target="#{projetoController.orientandos}" value="#{item}" />
+                                    <f:setPropertyActionListener target="#{projetoController.orientando}" value="#{item}" />
                                 </p:commandButton>
                             </p:column>
 
@@ -192,14 +199,14 @@
                         <h:panelGrid columns="4">                    
 
                             <h:outputLabel value="Funcionário Recebedor*:" />
-                            <p:autoComplete id="txtFuncRecebdor" converter="#{usuarioConverter}" value="#{projetoController.documentos.funcionarioRecebedor}"
+                            <p:autoComplete id="txtFuncRecebdor" converter="#{usuarioConverter}" value="#{projetoController.documento.funcionarioRecebedor}"
                                             completeMethod="#{usuarioConverter.autoCompleteUsuario}"
                                  var="item" itemLabel="#{item.nome}" itemValue="#{item}">
                                  #{item.nome}
                             </p:autoComplete>
                             
                             <h:outputLabel value="Tipo de Documento*:" />
-                            <p:selectOneMenu id="txtTipoDocumento" value="${projetoController.documentos.tipoDocumento}" label="Tipo de Documento"
+                            <p:selectOneMenu id="txtTipoDocumento" value="${projetoController.documento.tipoDocumento}" label="Tipo de Documento"
                                               converter="${tipoDocumentoConverter}" required="false">
                                 <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
                                 <f:selectItems value="${tipoDocumentoController.listagem}"/>
@@ -207,11 +214,11 @@
                              </p:selectOneMenu>
                             
                             <h:outputLabel value="Data Prevista*:" />
-                            <p:calendar id="txtDataPrevista" value="${projetoController.documentos.dataPrevista}" required="false"
+                            <p:calendar id="txtDataPrevista" value="${projetoController.documento.dataPrevista}" required="false"
                                label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
                             
                             <h:outputLabel value="Data Efetiva*:" />
-                            <p:calendar id="txtDataEfetiva" value="${projetoController.documentos.dataEfetiva}" required="false"
+                            <p:calendar id="txtDataEfetiva" value="${projetoController.documento.dataEfetiva}" required="false"
                                label="Data Efetiva" pattern="dd/MM/yyyy" locale="pt_BR"/>
                            
                             
@@ -243,19 +250,19 @@
                             
                             <p:column sortBy="dataEfetiva" headerText="Data Efetiva">
                                 <h:outputLabel value="${item.dataEfetiva}">
-                                    <f:convertDateTime pattern="DD/MM/yyyy" />
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputLabel>
                             </p:column>
                             
                             <p:column sortBy="editar" headerText="Editar">
                                 <p:commandButton ajax="false" value="Editar" >
-                                    <f:setPropertyActionListener target="#{projetoController.documentos}" value="#{item}" />
+                                    <f:setPropertyActionListener target="#{projetoController.documento}" value="#{item}" />
                                 </p:commandButton>
                             </p:column>
                             
                             <p:column sortBy="remover" headerText="Remover" >
                                 <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeDocumento()}">
-                                    <f:setPropertyActionListener target="#{projetoController.documentos}" value="#{item}" />
+                                    <f:setPropertyActionListener target="#{projetoController.documento}" value="#{item}" />
                                 </p:commandButton>
                             </p:column>
                             
