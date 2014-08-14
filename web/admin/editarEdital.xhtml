@@ -34,6 +34,14 @@
                         
                    </p:selectOneMenu>
                     
+                    <h:outputLabel value="Campus do IFNMG*:" />                   
+                    <p:selectOneMenu value="${editalController.entidade.campus}" label="Campus" 
+                                     converter="${campusConverter}" required="false" >
+                       <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                       <f:selectItems value="${campusController.listagem}"/>
+                        
+                     </p:selectOneMenu>
+                    
                    <h:outputLabel value="Data de Expedição*:" />
                    <p:calendar value="${editalController.entidade.dataExpedicao}" required="true"
                                label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/>
@@ -41,6 +49,9 @@
                    <h:outputLabel value="Data Final*:" />
                    <p:calendar value="${editalController.entidade.dataFinal}" required="true"
                                label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                   
+                   <h:outputLabel value="Sigla*:" />
+                   <p:inputText value="${editalController.entidade.sigla}" required="true"/>    
                    
                    
                 </h:panelGrid>

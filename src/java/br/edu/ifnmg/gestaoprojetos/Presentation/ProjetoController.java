@@ -6,6 +6,7 @@ package br.edu.ifnmg.gestaoprojetos.Presentation;
 
 import br.edu.ifnmg.gestaoprojetos.DomainModel.Aluno;
 import br.edu.ifnmg.gestaoprojetos.DomainModel.AreaConhecimento;
+import br.edu.ifnmg.gestaoprojetos.DomainModel.Atividade;
 import br.edu.ifnmg.gestaoprojetos.DomainModel.Documento;
 import br.edu.ifnmg.gestaoprojetos.DomainModel.Projeto;
 import br.edu.ifnmg.gestaoprojetos.DomainModel.ProjetoRepositorio;
@@ -26,6 +27,7 @@ public class ProjetoController
     AreaConhecimento areaConhecimento;
     Aluno orientando;
     Documento documento;
+    Atividade atividade;
 
     /**
      * Creates a new instance of ProjetoController
@@ -37,6 +39,7 @@ public class ProjetoController
         areaConhecimento = new AreaConhecimento();
         //orientandos = new Aluno();
         documento = new Documento();
+        atividade = new Atividade();
     }
     
     @EJB
@@ -114,8 +117,14 @@ public class ProjetoController
     public void setDocumento(Documento documentos) {
         this.documento = documentos;
     }
-    
-    
+
+    public Atividade getAtividade() {
+        return atividade;
+    }
+
+    public void setAtividade(Atividade atividade) {
+        this.atividade = atividade;
+    }
     
     
     //Metodos
@@ -154,6 +163,18 @@ public class ProjetoController
         entidade.removeDocumento(documento);
         dao.Salvar(entidade);
         documento = new Documento();
+      } 
+      
+      public void addAtividade(){
+        entidade.addAtividade(atividade);
+        dao.Salvar(entidade);
+        atividade = new Atividade();
+     }
+      
+      public void removeAtividade(){
+        entidade.removeAtividade(atividade);
+        dao.Salvar(entidade);
+        atividade = new Atividade();
       } 
     
 }

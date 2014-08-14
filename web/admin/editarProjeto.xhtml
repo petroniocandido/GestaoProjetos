@@ -61,7 +61,15 @@
                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                        <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
                         
-                     </p:selectOneMenu>
+                   </p:selectOneMenu>
+                   
+                    <h:outputLabel value="Edital*:" />                    
+                    <p:selectOneMenu value="${projetoController.entidade.edital}" label="edital" 
+                                     converter="${editalConverter}" required="false" >
+                       <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                       <f:selectItems value="${editalController.listagem}"/>
+                        
+                   </p:selectOneMenu>
                   
                     <h:outputLabel value="Grupo de Pesquisa (se houver):" /> 
                     <p:inputText value="${projetoController.entidade.nomegrupoPesquisa}" required="false"/>
@@ -78,7 +86,7 @@
                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
                        <f:selectItems value="${areaConhecimentoController.listagem}"/>
 
-                    </p:selectOneMenu>
+                 </p:selectOneMenu>
                  
                  <p:commandButton value="Adicionar" icon="ui-icon-check" 
                         action="${projetoController.addAreaConhecimento()}" style="margin:0"
@@ -89,14 +97,14 @@
                 <br/>
                       
                 <p:dataTable id="tblAreaConhecimento"  value="${projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                            <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
-                                ${item.nome}
-                            </p:column>                                                   
+                     <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
+                         ${item.nome}
+                     </p:column>                                                   
                             
-                            <p:column sortBy="remover" headerText="Remover" >
-                                <p:commandButton ajax="false" value="Remover"  action="#{projetoController.removeAreaConhecimento()}">
+                      <p:column sortBy="remover" headerText="Remover" >
+                          <p:commandButton ajax="false" value="Remover"  action="#{projetoController.removeAreaConhecimento()}">
                                     <f:setPropertyActionListener target="#{projetoController.areaConhecimento}" value="#{item}" />
-                                </p:commandButton>
+                          </p:commandButton>
                             </p:column>
 
                   </p:dataTable>
@@ -111,7 +119,7 @@
                    
                 <h:panelGrid columns="2">
                  <h:outputLabel value="Resumo*:" /> 
-                 <p:editor id="editor" required="false" widgetVar="editorWidget" value="${projetoController.entidade.resumo}" width="600" />
+                 <p:editor required="false" value="${projetoController.entidade.resumo}" width="600" height="200" />
  
                  
                <h:outputLabel value="Palavras-Chave*:" />
@@ -193,6 +201,107 @@
                 </p:dataTable>
                 
             </p:tab>
+               
+           <p:tab rendered="#{projetoController.entidade.id > 0}" title="Plano de Trabalho">
+               <br/>
+               <h:panelGrid columns="2">                   
+                   <h:outputLabel value="Local de realização do Projeto(Laboratório, sala, etc):" />
+                   <p:inputText value="${projetoController.entidade.localRealizacaoProjeto}" required="false"/> 
+                   
+                   <h:outputLabel value="Programa a que o plano está envolvido:" />
+                   <p:inputText value="${projetoController.entidade.programaPlano}" required="false"/> 
+                                      
+                   <h:outputLabel value="Introdução / Programa a ser estudado*:" />
+                   <p:editor required="false" value="${projetoController.entidade.introducao}" width="600" height="200" />
+ 
+                   <h:outputLabel value="Justificativa*:" />
+                   <p:editor required="false"  value="${projetoController.entidade.justificativa}" width="600" height="200" />
+ 
+                   <h:outputLabel value="Objetivos*:" />
+                   <p:editor required="false" value="${projetoController.entidade.objetivos}" width="600" height="200" />
+ 
+                   <h:outputLabel value="Metodologia:" />
+                   <p:editor required="false" value="${projetoController.entidade.metodologia}" width="600" height="200" />
+ 
+                   <h:outputLabel value="Resultados Esperados*:" />
+                   <p:editor required="false" value="${projetoController.entidade.resutadosEsperados}" width="600" height="200" />
+ 
+                   <h:outputLabel value="Referências Bibliográficas*:" />
+                   <p:editor required="false" value="${projetoController.entidade.referenciasBibliograficas}" width="600" height="200" />
+ 
+                   
+               </h:panelGrid>
+           </p:tab>
+               
+           <p:tab rendered="#{projetoController.entidade.id > 0}" title="Cronograma Atividades">
+                        <br/>
+                        <h:panelGrid columns="2">                    
+
+                            <h:outputLabel value="Descrição:" />
+                            <p:inputText id="txtDescricao" value="${projetoController.atividade.descricao}" required="false"/>   
+
+
+                           <h:outputLabel value="Data Início*:" />
+                           <p:calendar id="txtDataInicio" value="${projetoController.atividade.dataInicio}" required="false"
+                               label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                            
+                           <h:outputLabel value="Data Fim*:" />
+                           <p:calendar id="txtDataFim" value="${projetoController.atividade.dataFim}" required="false"
+                               label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                            
+                            <h:outputLabel value="Ordem*:" />
+                            <p:inputText id="txtOrdem" value="${projetoController.atividade.ordem}" required="false"/> 
+                            
+                            
+                            <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                             action="${projetoController.addAtividade()}" style="margin:0"
+                                             update="tblAtividades txtDescricao txtDataInicio txtDataFim 
+                                             txtOrdem" /> 
+
+                        </h:panelGrid>
+                        
+                        <br/>
+                        
+                        <p:dataTable id="tblAtividades" value="${projetoController.entidade.cronogramaAtividade}" 
+                                     var="item" emptyMessage="Registros não Encontrados!" 
+                                     style="font: medium; color: blue">
+                            
+                            <p:column sortBy="ordem" headerText="Ordem">
+                                ${item.ordem}
+                            </p:column>
+                            
+                            <p:column sortBy="descrcao" headerText="Descrição">
+                                ${item.descricao}
+                            </p:column>
+                            
+                            <p:column sortBy="dataInicio" headerText="Data Início">
+                                <h:outputLabel value="${item.dataInicio}">
+                                    <f:convertDateTime pattern="MM/yyyy" />
+                                </h:outputLabel>
+                            </p:column>
+                            
+                            <p:column sortBy="dataFim" headerText="Data Fim">
+                                <h:outputLabel value="${item.dataFim}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputLabel>
+                            </p:column>
+                            
+                            <p:column sortBy="editar" headerText="Editar">
+                                <p:commandButton ajax="false" value="Editar" >
+                                    <f:setPropertyActionListener target="#{projetoController.atividade}" value="#{item}" />
+                                </p:commandButton>
+                            </p:column>
+                            
+                            <p:column sortBy="remover" headerText="Remover" >
+                                <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeAtividade()}">
+                                    <f:setPropertyActionListener target="#{projetoController.atividade}" value="#{item}" />
+                                </p:commandButton>
+                            </p:column>                           
+
+                        </p:dataTable>
+
+             </p:tab>
+
                
             <p:tab rendered="#{projetoController.entidade.id > 0}" title="Documentos">
                         <br/>

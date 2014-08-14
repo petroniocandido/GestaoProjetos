@@ -275,43 +275,6 @@
             </p:tab>
                 
            
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Dados Solicitação">
-                <br/>
-                <h:panelGrid columns="2">
-                    
-                   <h:outputLabel value="Número de Cadastro do Projeto / Título*:" />           
-                    <p:selectOneMenu value="${orientadorController.entidade.projetos}" label="Projeto" required="false" >
-                       <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                        
-                    </p:selectOneMenu>
-                   
-                   <h:outputLabel value="Nome do Estudante 1*:" />
-                    <p:selectOneMenu value="${orientadorController.entidade.alunos}" label="Estudante 1" required="false" >
-                       <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                        
-                    </p:selectOneMenu>
-                   
-                   <h:outputLabel value="Nome do Estudante 2*:" />
-                    <p:selectOneMenu value="${orientadorController.entidade.alunos}" label="Estudante 2" required="false" >
-                       <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                        
-                    </p:selectOneMenu>
-                   
-                  
-                   
-                </h:panelGrid>  
-                
-                 
-                   *Obs:Caso o projeto não possua cadastro, preencher o Formulário de Cadastro de Projeto (Formulário 3)
-                   e entregá-lo em três vias à Diretoria de Pesquisa do Campus ou órgão equivalente.
-                  
-                   
-            </p:tab> 
-                
-            
-             
-            
-           
         </p:tabView>                     
         
         (*) Campos de Preenchimento Obrigatório

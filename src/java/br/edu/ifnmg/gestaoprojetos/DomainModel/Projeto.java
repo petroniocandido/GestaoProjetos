@@ -32,7 +32,7 @@ public class Projeto implements Entidade, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    //identificaÃ§Ã£o do projeto
+    //identificação do projeto
     
     private String titulo; 
     
@@ -49,6 +49,10 @@ public class Projeto implements Entidade, Serializable {
     
     @ManyToOne  //VERIFICAR
     private Campus campus;
+    
+    @ManyToOne
+    private Edital edital;
+    
     
     @ManyToOne  //VERIFICAR
     private Modalidade modalidade;
@@ -109,12 +113,12 @@ public class Projeto implements Entidade, Serializable {
     
     
     //Cronograma de Atividade
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL) 
     private List<Atividade> cronogramaAtividade;
     
     
    
-     //Financiamento/IniciaÃ§Ã£o cientÃ­fica
+     //Financiamento/Iniciacao cientifica
      private boolean projetoFinanciamento;
      
      private BigInteger valorFinanciamento;
@@ -142,13 +146,13 @@ public class Projeto implements Entidade, Serializable {
      @ManyToMany(cascade= CascadeType.MERGE)
      private List<Aluno> orientandos;   
      
-     @ManyToOne
-     private Edital edital;
+     
 
     public Projeto() {
         this.areaConhecimento = new ArrayList<AreaConhecimento>();
         this.orientandos = new ArrayList<Aluno>();
         this.documentos = new ArrayList<Documento>();
+        this.cronogramaAtividade = new ArrayList<Atividade>();
     }
      
      public void addAreaConhecimento(AreaConhecimento a){
@@ -195,6 +199,21 @@ public class Projeto implements Entidade, Serializable {
      public void removeDocumento(Documento d){
         if(documentos.contains(d)){
             documentos.remove(d);
+        }
+    }
+     
+     public void addAtividade(Atividade a){
+        if(cronogramaAtividade == null) {
+            cronogramaAtividade = new ArrayList<Atividade>();
+        }
+        if(!cronogramaAtividade.contains(a)){
+            cronogramaAtividade.add(a);
+        }
+   }
+    
+     public void removeAtividade(Atividade a){
+        if(cronogramaAtividade.contains(a)){
+            cronogramaAtividade.remove(a);
         }
     }
    
@@ -495,6 +514,7 @@ public class Projeto implements Entidade, Serializable {
     public void setCronogramaAtividade(List<Atividade> cronogramaAtividade) {
         this.cronogramaAtividade = cronogramaAtividade;
     }
+    
     
         
 

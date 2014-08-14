@@ -24,8 +24,7 @@ public class EditalController
     extends ControllerGenerico<Edital> implements Serializable {
 
     List<AgenciaFinanciadora> listagemAgencia;
-
-    
+        
     
     /**
      * Creates a new instance of EditalController

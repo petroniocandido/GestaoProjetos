@@ -30,11 +30,9 @@ public class Atividade implements Entidade, Serializable {
     private String descricao;
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(nullable=false)
     private Date dataInicio;
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(nullable=false)
     private Date dataFim;
     
     @Column(nullable=false)
@@ -94,17 +92,33 @@ public class Atividade implements Entidade, Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Atividade)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Atividade other = (Atividade) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Atividade other = (Atividade) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
+            return false;
+        }
+        if (this.dataInicio != other.dataInicio && (this.dataInicio == null || !this.dataInicio.equals(other.dataInicio))) {
+            return false;
+        }
+        if (this.dataFim != other.dataFim && (this.dataFim == null || !this.dataFim.equals(other.dataFim))) {
+            return false;
+        }
+        if (this.ordem != other.ordem) {
             return false;
         }
         return true;
     }
+
+   
 
     @Override
     public String toString() {

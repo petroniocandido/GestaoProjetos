@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -31,11 +32,16 @@ public class Edital implements Entidade, Serializable {
     @ManyToOne
     private AgenciaFinanciadora agenciaFinanciadora;
     
+    @OneToOne
+    private Campus campus;
+    
     @Temporal(javax.persistence.TemporalType.DATE) 
     private Date dataExpedicao;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataFinal;
+    
+    private String sigla;
     
     //GETTER E SETTER
     
@@ -79,6 +85,25 @@ public class Edital implements Entidade, Serializable {
     public void setNumero(int numero) {
         this.numero = numero;
     }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+    
+    
+    
     
    
 
@@ -104,7 +129,7 @@ public class Edital implements Entidade, Serializable {
 
     @Override
     public String toString() {
-        return "Edital{" + "id=" + id + '}';
+        return sigla + "/" + Integer.toString(numero);
     }
 
     
