@@ -1,0 +1,105 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.edu.ifnmg.gestaoprojetos.DomainModel;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+
+/**
+ *
+ * @author Isla Guedes
+ */
+@Entity
+public class Documento implements Serializable, Entidade {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @ManyToOne
+    private Usuario funcionarioRecebedor;
+    
+    @ManyToOne
+    private TipoDocumento tipoDocumento;
+    
+    @Temporal(javax.persistence.TemporalType.DATE) 
+    private Date dataPrevista;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataEfetiva;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Usuario getFuncionarioRecebedor() {
+        return funcionarioRecebedor;
+    }
+
+    public void setFuncionarioRecebedor(Usuario funcionarioRecebedor) {
+        this.funcionarioRecebedor = funcionarioRecebedor;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public Date getDataPrevista() {
+        return dataPrevista;
+    }
+
+    public void setDataPrevista(Date dataPrevista) {
+        this.dataPrevista = dataPrevista;
+    }
+
+    public Date getDataEfetiva() {
+        return dataEfetiva;
+    }
+
+    public void setDataEfetiva(Date dataEfetiva) {
+        this.dataEfetiva = dataEfetiva;
+    }
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Documento)) {
+            return false;
+        }
+        Documento other = (Documento) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ifnmg.gestaoprojetos.DomainModel.Documento[ id=" + id + " ]";
+    }
+    
+}

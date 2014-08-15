@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./TemplateAdmin.xhtml">
+
+            <ui:define name="content">
+              <p:panel style="font: medium; color: blue">
+                <f:facet name="header" >
+                   <center>
+                       <h2 style="font: medium; color: blue"> Editar Campus </h2>
+                   </center>
+                </f:facet>
+                  
+           <p:tabView id="tabView"> 
+                    
+            
+            <p:tab title="Dados Gerais">
+                <br/>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputLabel value="Nome*:" />
+                    <p:inputText value="${campusController.entidade.nome}" required="true" style="width: 150%"/>                      
+                      
+                   
+                </h:panelGrid>
+            </p:tab>
+                    
+                    
+           <p:tab title="Endereço">
+               <br/>
+                        <h:panelGrid columns="6">                    
+
+                            <h:outputLabel value="Rua/Av/Estrada*:" />
+                            <p:inputText value="${campusController.entidade.endereco.rua}" required="true"/>   
+
+
+                            <h:outputLabel value="Número*:" />
+                            <p:inputText value="${campusController.entidade.endereco.numero}" required="true"/>   
+
+                            <h:outputLabel value="Complemento:" />
+                            <p:inputText value="${campusController.entidade.endereco.complemento}" required="false"/>                      
+
+                            <h:outputLabel value="Bairro*:" />
+                            <p:inputText value="${campusController.entidade.endereco.bairro}" required="true"/> 
+
+                            <h:outputLabel value="Cidade*:" />
+                            <p:inputText value="${campusController.entidade.endereco.cidade}" required="true"/>  
+
+                            <h:outputLabel value="Cep*:" />
+                            <p:inputText value="${campusController.entidade.endereco.cep}" required="true"/> 
+
+                            
+                        </h:panelGrid>
+                 <br/>
+                        
+           </p:tab>   
+         
+           
+        </p:tabView>                     
+        
+        (*) Campos de Preenchimento Obrigatório
+        
+        <p:panel id="Rodape">
+            <p:commandButton value="Salvar" onclick="msgSalvar.show()" />
+            <p:commandButton rendered="#{campusController.entidade.id > 0}" value="Remover" onclick="msgRemover.show()"/>
+            <p:commandButton value="Cancelar" ajax="false" immediate="true" action="${campusController.cancelar()}" />
+        </p:panel>       
+        <p:confirmDialog id="confirmaSalvar" message="Deseja realmente Salvar os Dados?" header="Confirmação"
+                         severity="alert" widgetVar="msgSalvar">
+            <p:commandButton ajax="false" value="SIM" action="${campusController.salvar}" />
+            <p:commandButton ajax="false" value="NÃO" onclick="msgSalvar.hide()" />                    
+        </p:confirmDialog>
+
+        <p:confirmDialog id="confirmaRemover" message="Deseja realmente Remover os Dados?" header="Confirmação"
+                         severity="alert" widgetVar="msgRemover">
+            <p:commandButton ajax="false" value="SIM" action="${campusController.excluir}" />
+            <p:commandButton ajax="false" value="NÃO" onclick="msgRemover.hide()" />
+
+        </p:confirmDialog>
+       </p:panel>
+         
+      </ui:define>
+
+    </ui:composition>
+
+   </body>
+</html>
+

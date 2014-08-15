@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./TemplateAdmin.xhtml">
+
+          <ui:define name="content">
+              <p:panel style="font: medium; color: blue">
+                <f:facet name="header" >
+                   <center>
+                       <h2 style="font: medium; color: blue"> Editar Edital </h2>
+                   </center>
+                </f:facet>
+             <p:tabView id="tabView"> 
+            
+            <p:tab title="Dados Gerais">
+                <br/>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputLabel value="Número*:" />
+                    <p:inputText value="${editalController.entidade.numero}" required="true"/>                      
+                        
+                    <h:outputLabel value="Agência Financiadora*:" />           
+                    <p:selectOneMenu value="${editalController.entidade.agenciaFinanciadora}" label="Agência Financiadora" 
+                                     converter="#{agenciaFinanciadoraConverter}" required="true" >
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="${agenciaFinanciadoraController.listagem}" />
+                        
+                   </p:selectOneMenu>
+                    
+                    <h:outputLabel value="Campus do IFNMG*:" />                   
+                    <p:selectOneMenu value="${editalController.entidade.campus}" label="Campus" 
+                                     converter="${campusConverter}" required="false" >
+                       <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                       <f:selectItems value="${campusController.listagem}"/>
+                        
+                     </p:selectOneMenu>
+                    
+                   <h:outputLabel value="Data de Expedição*:" />
+                   <p:calendar value="${editalController.entidade.dataExpedicao}" required="true"
+                               label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    
+                   <h:outputLabel value="Data Final*:" />
+                   <p:calendar value="${editalController.entidade.dataFinal}" required="true"
+                               label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                   
+                   <h:outputLabel value="Sigla*:" />
+                   <p:inputText value="${editalController.entidade.sigla}" required="true"/>    
+                   
+                   
+                </h:panelGrid>
+            </p:tab>
+           
+        </p:tabView>                     
+        
+        (*) Campos de Preenchimento Obrigatório
+        
+        <p:panel id="Rodape">
+            <p:commandButton value="Salvar" onclick="msgSalvar.show()" />
+            <p:commandButton rendered="#{editalController.entidade.id > 0}" value="Remover" onclick="msgRemover.show()"/>
+            <p:commandButton value="Cancelar" ajax="false" immediate="true" action="${editalController.cancelar()}" />
+        </p:panel>       
+        <p:confirmDialog id="confirmaSalvar" message="Deseja realmente Salvar os Dados?" header="Confirmação"
+                         severity="alert" widgetVar="msgSalvar">
+            <p:commandButton ajax="false" value="SIM" action="${editalController.salvar}" />
+            <p:commandButton ajax="false" value="NÃO" onclick="msgSalvar.hide()" />                    
+        </p:confirmDialog>
+
+        <p:confirmDialog id="confirmaRemover" message="Deseja realmente Remover os Dados?" header="Confirmação"
+                         severity="alert" widgetVar="msgRemover">
+            <p:commandButton ajax="false" value="SIM" action="${editalController.excluir}" />
+            <p:commandButton ajax="false" value="NÃO" onclick="msgRemover.hide()" />
+
+        </p:confirmDialog>
+
+          </p:panel> 
+         </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

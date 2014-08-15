@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./TemplateAdmin.xhtml">
+
+          <ui:define name="content">              
+             <br/>  
+              <center>
+               <p:panelGrid columns="2" style="color: blue">
+                    
+                   <f:facet name="header">  
+                    <h2 style="font: medium; color: blue"> Filtros - Agência Financiadora </h2>   
+                   </f:facet>  
+
+                   <h:outputLabel value="Nome:" />
+                   <p:inputText value="${agenciaFinanciadoraController.filtro.nome}"/>  
+
+                   <h:outputLabel value="Sigla:" />
+                   <p:inputText value="${agenciaFinanciadoraController.filtro.sigla}"/>
+                  
+                   <f:facet name="footer">  
+                     <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${agenciaFinanciadoraController.filtrar}" />  
+                     <p:commandButton ajax="false" value="Nova Agência Financiadora" action="${agenciaFinanciadoraController.novo}" />
+                   </f:facet>
+                   
+                 </p:panelGrid>
+               </center>
+            <br/>
+            <br/>
+              
+              
+          <p:dataTable value="${agenciaFinanciadoraController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
+            <p:column sortBy="nome" headerText="Nome">
+                ${item.nome}
+            </p:column>
+
+            <p:column sortBy="sigla" headerText="Sigla">
+                ${item.sigla}
+            </p:column>
+           
+            <p:column headerText="Editar">
+                <p:commandButton value="Editar" ajax="false" action="${agenciaFinanciadoraController.abrir}">
+                    <f:setPropertyActionListener target="${agenciaFinanciadoraController.entidade}" value="${item}" />
+                </p:commandButton>
+            </p:column>
+              
+          </p:dataTable>
+
+               
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_gProjetos_gProjetosPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="1527"/>
+        <property name="databaseName" value="gProjetos"/>
+        <property name="User" value="gProjetos"/>
+        <property name="Password" value="isla"/>
+        <property name="URL" value="jdbc:derby://localhost:1527/gProjetos"/>
+        <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="gestaoProjetos" object-type="user" pool-name="derby_net_gProjetos_gProjetosPool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_gestaoProjetos_gestaoProjetosPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="1527"/>
+        <property name="databaseName" value="gestaoProjetos"/>
+        <property name="User" value="gestaoProjetos"/>
+        <property name="Password" value="isla"/>
+        <property name="URL" value="jdbc:derby://localhost:1527/gestaoProjetos"/>
+        <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="gProjetos" object-type="user" pool-name="derby_net_gestaoProjetos_gestaoProjetosPool"/>
+    <jdbc-resource enabled="true" jndi-name="gestaoP" object-type="user" pool-name="derby_net_gestaoProjetos_gestaoProjetosPool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_GestaoProjetos_GestaoProjetosPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="1527"/>
+        <property name="databaseName" value="GestaoProjetos"/>
+        <property name="User" value="GestaoProjetos"/>
+        <property name="Password" value="isla"/>
+        <property name="URL" value="jdbc:derby://localhost:1527/GestaoProjetos"/>
+        <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="gestaoProj" object-type="user" pool-name="derby_net_GestaoProjetos_GestaoProjetosPool"/>
+    <jdbc-resource enabled="true" jndi-name="gprojeto" object-type="user" pool-name="derby_net_gestaoProjetos_gestaoProjetosPool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_SisGProjetos_SisGProjetosPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="1527"/>
+        <property name="databaseName" value="SisGProjetos"/>
+        <property name="User" value="SisGProjetos"/>
+        <property name="Password" value="isla"/>
+        <property name="URL" value="jdbc:derby://localhost:1527/SisGProjetos"/>
+        <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="Gprojetos" object-type="user" pool-name="derby_net_SisGProjetos_SisGProjetosPool"/>
+</resources>
