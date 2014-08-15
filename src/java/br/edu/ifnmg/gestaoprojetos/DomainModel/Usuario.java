@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
@@ -82,15 +84,15 @@ public class Usuario implements Entidade, Serializable{
 
     public Usuario() {
         id = 0L;
-        this.endereco = new ArrayList<Endereco>();
-        this.telefone = new ArrayList<Telefone>();
-        this.email = new ArrayList<Email>();
+        this.endereco = new ArrayList<>();
+        this.telefone = new ArrayList<>();
+        this.email = new ArrayList<>();
     }
 
     
     public void addTelefone(Telefone t){
         if(telefone == null)
-            telefone = new ArrayList<Telefone>();
+            telefone = new ArrayList<>();
         if(!telefone.contains(t)){
             telefone.add(t);
         }
@@ -105,7 +107,7 @@ public class Usuario implements Entidade, Serializable{
     
     public void addEmail(Email e){
         if(email == null)
-            email = new ArrayList<Email>();
+            email = new ArrayList<>();
         if(!email.contains(e)){
             email.add(e);
         }
@@ -120,7 +122,7 @@ public class Usuario implements Entidade, Serializable{
     
      public void addEndereco(Endereco e){         
           if(endereco == null)
-            endereco = new ArrayList<Endereco>();
+            endereco = new ArrayList<>();
         if(!endereco.contains(e)){
             endereco.add(e);
         }
@@ -137,10 +139,12 @@ public class Usuario implements Entidade, Serializable{
   
    //GETTER E SETTER
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -300,5 +304,68 @@ public class Usuario implements Entidade, Serializable{
         return nome;
     }
   
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pessoa criador;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pessoa ultimoAlterador;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataUltimaAlteracao;
+    
+    @Version
+    private Long versao;
+    
+
+    @Override
+    public Pessoa getCriador() {
+        return criador;
+    }
+
+    @Override
+    public void setCriador(Pessoa criador) {
+        this.criador = criador;
+    }
+
+    @Override
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    @Override
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    @Override
+    public Pessoa getUltimoAlterador() {
+        return ultimoAlterador;
+    }
+
+    @Override
+    public void setUltimoAlterador(Pessoa ultimoAlterador) {
+        this.ultimoAlterador = ultimoAlterador;
+    }
+
+    @Override
+    public Date getDataUltimaAlteracao() {
+        return dataUltimaAlteracao;
+    }
+
+    @Override
+    public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
+        this.dataUltimaAlteracao = dataUltimaAlteracao;
+    }
+
+    @Override
+    public Long getVersao() {
+        return versao;
+    }
+
+    public void setVersao(Long versao) {
+        this.versao = versao;
+    }
 }

@@ -6,87 +6,84 @@ package br.edu.ifnmg.gestaoprojetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
  * @author Isla Guedes
  */
 @Entity
-public class Aluno extends Usuario implements Entidade, Serializable{
+public class Aluno extends Usuario implements Entidade, Serializable {
+
     private static final long serialVersionUID = 1L;
-    
-    @Column(unique=true)
-    private int matricula;   
-    
+
+    @Column(unique = true)
+    private int matricula;
+
     //Documentos   
-   
     private String tituloEleitoral;
-    
+
     private String secaoEleitoral;
-    
+
     private String zonaEleitoral;
-    
+
     private String situacaoMilitar;
-    
+
     private String certidaoMilitar;
-    
+
     private boolean trabalhoStatus;
-    
+
     //Dados dos pais    
     private String nomePai;
-    
+
     private String rgPai;
-    
+
     private String orgaoExpedidorPai;
-    
-    @Column(length=14)
+
+    @Column(length = 14)
     private String cpfPai;
-    
+
     private String nomeMae;
-    
+
     private String rgMae;
-    
+
     private String orgaoExpedidorMae;
-    
-    @Column(length=14)
+
+    @Column(length = 14)
     private String cpfMae;
-   
+
     //Dados da Conta
     private String banco;
-    
-    private int contaBancaria;   
-    
-    private int agencia;      
-    
-    //Verificar RELACIONAMENTOS 
-     
 
+    private int contaBancaria;
+
+    private int agencia;
+
+    //Verificar RELACIONAMENTOS 
     @ManyToOne
-    private Curso curso;  
-    
-   
-    private String localTrabalho;  
-    
-   
+    private Curso curso;
+
+    private String localTrabalho;
 
     public Aluno() {
-        
+
         super();  //PRECISA ??
     }
 
-    
-    
     //GETTER E SETTER
-
     public int getMatricula() {
         return matricula;
     }
@@ -166,6 +163,7 @@ public class Aluno extends Usuario implements Entidade, Serializable{
     public void setOrgaoExpedidorPai(String orgaoExpedidorPai) {
         this.orgaoExpedidorPai = orgaoExpedidorPai;
     }
+
     public String getNomeMae() {
         return nomeMae;
     }
@@ -246,7 +244,68 @@ public class Aluno extends Usuario implements Entidade, Serializable{
         this.localTrabalho = localTrabalho;
     }
 
-   
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pessoa criador;
 
-    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pessoa ultimoAlterador;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataUltimaAlteracao;
+
+    @Version
+    private Long versao;
+
+    @Override
+    public Pessoa getCriador() {
+        return criador;
+    }
+
+    @Override
+    public void setCriador(Pessoa criador) {
+        this.criador = criador;
+    }
+
+    @Override
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    @Override
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    @Override
+    public Pessoa getUltimoAlterador() {
+        return ultimoAlterador;
+    }
+
+    @Override
+    public void setUltimoAlterador(Pessoa ultimoAlterador) {
+        this.ultimoAlterador = ultimoAlterador;
+    }
+
+    @Override
+    public Date getDataUltimaAlteracao() {
+        return dataUltimaAlteracao;
+    }
+
+    @Override
+    public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
+        this.dataUltimaAlteracao = dataUltimaAlteracao;
+    }
+
+    @Override
+    public Long getVersao() {
+        return versao;
+    }
+
+    public void setVersao(Long versao) {
+        this.versao = versao;
+    }
+
 }
