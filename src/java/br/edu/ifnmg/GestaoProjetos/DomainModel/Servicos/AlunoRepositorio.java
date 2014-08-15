@@ -5,7 +5,6 @@
 package br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos;
 
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Repositorio;
 import javax.ejb.Local;
 
 /**

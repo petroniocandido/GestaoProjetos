@@ -15,42 +15,21 @@ import javax.persistence.Query;
  *
  * @author HOME
  */
-@Stateless(name= "TipoDocumentoRepositorio")
-public class TipoDocumentoDAO 
+@Stateless(name = "TipoDocumentoRepositorio")
+public class TipoDocumentoDAO
+        extends DAOGenerico<TipoDocumento>
+        implements TipoDocumentoRepositorio {
 
-    extends DAOGenerico<TipoDocumento>
-    implements TipoDocumentoRepositorio{
-    
     public TipoDocumentoDAO() {
         super(TipoDocumento.class);
     }
-    
+
     @Override
-    public List<TipoDocumento> Buscar(TipoDocumento obj) {
-        String sql = "select t from TipoDocumento t";
-        
-        String filtros = "";
-        
-        if(obj != null){
-            if(obj.getId() != null){
-                filtros += "t.id = " + obj.getId();
-            }
-            if(obj.getNome() != null){
-                if(filtros.length() > 0)
-                    filtros += " and ";
-                filtros += "t.nome like '%" + obj.getNome() + "%'"; 
-            }
-           
-        }
-        
-        if(filtros.length() > 0){
-            sql += " where " + filtros;
-        }
-        
-        Query consulta = manager.createQuery(sql);
-        
-        return consulta.getResultList();
+    public List<TipoDocumento> Buscar(TipoDocumento filtro) {
+        return IgualA("id", filtro.getId())
+                .Like("nome", filtro.getNome())
+                .Buscar();
+
     }
-    
-    
+
 }

@@ -8,7 +8,6 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 
 /**
  *
@@ -26,33 +25,10 @@ public class AgenciaFinanciadoraDAO
     
     @Override
     public List<AgenciaFinanciadora> Buscar(AgenciaFinanciadora obj) {
-        String sql = "select a from AgenciaFinanciadora a";
-        
-        String filtros = "";
-        
-        if(obj != null){
-            if(obj.getId() != null){
-                filtros += "a.id = " + obj.getId();
-            }
-            if(obj.getNome() != null){
-                if(filtros.length() > 0)
-                    filtros += " and ";
-                filtros += "a.nome like '%" + obj.getNome() + "%'"; 
-            }
-            if(obj.getSigla() != null){
-                if(filtros.length() > 0)
-                    filtros += " and ";
-                filtros += "a.sigla like '%" + obj.getSigla() + "%'"; 
-            }
-        }
-        
-        if(filtros.length() > 0){
-            sql += " where " + filtros;
-        }
-        
-        Query consulta = manager.createQuery(sql);
-        
-        return consulta.getResultList();
+        return IgualA("id", obj.getId())
+                .Like("nome", obj.getNome())
+                .IgualA("sigla", obj.getSigla())
+                .Buscar();
     }
     
 }

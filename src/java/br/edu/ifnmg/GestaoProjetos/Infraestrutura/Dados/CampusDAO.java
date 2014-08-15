@@ -14,43 +14,20 @@ import javax.persistence.Query;
  *
  * @author Isla Guedes
  */
-@Stateless(name="CampusRepositorio")
-public class CampusDAO 
+@Stateless(name = "CampusRepositorio")
+public class CampusDAO
+        extends DAOGenerico<Campus>
+        implements CampusRepositorio {
 
-    extends DAOGenerico<Campus>
-    implements CampusRepositorio {
-    
     public CampusDAO() {
         super(Campus.class);
     }
-    
+
     @Override
-    public List<Campus> Buscar(Campus obj) {
-        String sql = "select c from Campus c";
-        
-        String filtros = "";
-        
-        if(obj != null){
-            if(obj.getId() != null){
-                filtros += "c.id = " + obj.getId();
-            }
-            if(obj.getNome() != null){
-                if(filtros.length() > 0)
-                    filtros += " and ";
-                filtros += "c.nome like '%" + obj.getNome() + "%'"; 
-            }
-            
-        }
-        
-        if(filtros.length() > 0){
-            sql += " where " + filtros;
-        }
-        
-        Query consulta = manager.createQuery(sql);
-        
-        return consulta.getResultList();
+    public List<Campus> Buscar(Campus filtro) {
+        return IgualA("id", filtro.getId())
+                .Like("nome", filtro.getNome())
+                .Buscar();
     }
-    
-    
-    
+
 }

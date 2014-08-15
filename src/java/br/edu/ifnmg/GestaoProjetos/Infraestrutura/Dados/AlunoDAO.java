@@ -8,7 +8,6 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 
 /**
  *
@@ -26,46 +25,13 @@ public class AlunoDAO
     }
     
      @Override
-    public List<Aluno> Buscar(Aluno obj) {
-        String sql = "select a from Aluno a";
-        
-        String filtros = "";
-        
-        if(obj != null){
-            if(obj.getId() != null && obj.getId() > 0 ){ 
-                filtros += "a.id = " + obj.getId();
-            }
-            
-        if(obj.getMatricula() > 0){
-                if(filtros.length() > 0)
-                    filtros += " and ";
-                filtros += "a.matricula = " + obj.getMatricula() ; 
-            }
-            
-           
-        if(obj.getNome() != null){
-                if(filtros.length() > 0)
-                    filtros += " and ";
-                filtros += "a.nome like '%" + obj.getNome() + "%'"; 
-            }
-        
-         if(obj.getCurso() != null){
-                if(filtros.length() > 0)
-                    filtros += " and ";
-                filtros += "a.curso like '%" + obj.getCurso() + "%'"; 
-            }
-        
-        }
-        
-        if(filtros.length() > 0){
-            sql += " where " + filtros;
-        }
-        
-        Query consulta = manager.createQuery(sql);
-        
-        return consulta.getResultList();
+    public List<Aluno> Buscar(Aluno filtro) {
+        return IgualA("id", filtro.getId())
+                .Like("nome", filtro.getNome())
+                .IgualA("matricula", filtro.getMatricula())
+                .IgualA("curso", filtro.getCurso())
+                .Buscar();
     }
-  
     
 }
 
