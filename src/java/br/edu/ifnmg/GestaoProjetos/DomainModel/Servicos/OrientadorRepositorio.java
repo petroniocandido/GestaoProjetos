@@ -12,11 +12,6 @@ import javax.ejb.Local;
  * @author Isla Guedes
  */
 @Local
-public interface OrientadorRepositorio 
+public interface OrientadorRepositorio extends Repositorio<Orientador> {
 
-    extends Repositorio<Orientador> 
-
-   {
-    
 }
-

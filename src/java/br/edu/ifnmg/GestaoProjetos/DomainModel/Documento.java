@@ -28,7 +28,7 @@ public class Documento implements Serializable, Entidade {
     private Long id;
     
     @ManyToOne
-    private Usuario funcionarioRecebedor;
+    private Pessoa funcionarioRecebedor;
     
     @ManyToOne
     private TipoDocumento tipoDocumento;
@@ -39,19 +39,21 @@ public class Documento implements Serializable, Entidade {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataEfetiva;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Usuario getFuncionarioRecebedor() {
+    public Pessoa getFuncionarioRecebedor() {
         return funcionarioRecebedor;
     }
 
-    public void setFuncionarioRecebedor(Usuario funcionarioRecebedor) {
+    public void setFuncionarioRecebedor(Pessoa funcionarioRecebedor) {
         this.funcionarioRecebedor = funcionarioRecebedor;
     }
 

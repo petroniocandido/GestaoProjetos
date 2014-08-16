@@ -24,7 +24,7 @@ import javax.persistence.Version;
  * @author Isla Guedes
  */
 @Entity
-public class Orientador extends Usuario implements Entidade, Serializable{
+public class Orientador extends Pessoa implements Entidade, Serializable{
     private static final long serialVersionUID = 1L;
    
     @Column(unique=true)
