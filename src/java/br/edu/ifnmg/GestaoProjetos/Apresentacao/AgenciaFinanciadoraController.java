@@ -4,21 +4,23 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Isla Guedes
  */
 @Named(value = "agenciaFinanciadoraController")
-@SessionScoped
+@RequestScoped
 public class AgenciaFinanciadoraController 
-    extends ControllerGenerico<AgenciaFinanciadora> implements Serializable {
+    extends ControllerBaseEntidade<AgenciaFinanciadora> implements Serializable {
  
     
     /**
@@ -33,54 +35,35 @@ public class AgenciaFinanciadoraController
     @EJB
     AgenciaFinanciadoraRepositorio dao;
 
-    @Override
-    public void salvar() {
-        if(dao.Salvar(entidade)){
-            listagem = null;
-        } else {
-            //mensagem de erro
+        @Override
+    public AgenciaFinanciadora getFiltro() {
+        if (filtro == null) {
+            filtro = new AgenciaFinanciadora();
+            filtro.setNome(getSessao("agctrl_nome"));
+            filtro.setSigla(getSessao("agctrl_sigla"));
         }
+        return filtro;
     }
 
     @Override
-    public String novo(){
-        entidade = new AgenciaFinanciadora();
-        return "editarAgenciaFinanciadora.xhtml";
+    public void setFiltro(AgenciaFinanciadora filtro) {
+        this.filtro = filtro;
+        if (filtro != null) {
+            setSessao("agctrl_nome", filtro.getNome());
+            setSessao("agctrl_sigla", filtro.getSigla());
+        }
+    }
+    
+    @PostConstruct
+    public void init() {
+        setRepositorio(dao);
+        setPaginaEdicao("editarAgenciaFinanciadora.xhtml");
+        setPaginaListagem("listagemAgenciaFinanciadora.xhtml");
     }
     
     @Override
-    public String abrir() {
-        return "editarAgenciaFinanciadora.xhtml";
+    public void limpar() {
+        setEntidade(new AgenciaFinanciadora());
     }
-
-    @Override
-    public String cancelar() {
-        return "listagemAgenciaFinanciadora.xhtml";
-    }
-
-    
-    @Override
-    public String excluir() {
-        if(dao.Apagar(entidade)){
-            listagem = null;
-            return "listagemAgenciaFinanciadora.xhtml";
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public void filtrar() {
-        listagem = dao.Buscar(filtro);
-    }
-
-    public AgenciaFinanciadoraRepositorio getDao() {
-        return dao;
-    }
-
-    public void setDao(AgenciaFinanciadoraRepositorio dao) {
-        this.dao = dao;
-    }
-  
   
 }

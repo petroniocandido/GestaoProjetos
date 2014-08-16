@@ -4,21 +4,24 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Isla Guedes
  */
 @Named(value = "campusController")
-@SessionScoped
+@RequestScoped
 public class CampusController
-    extends ControllerGenerico<Campus> implements Serializable {
+    extends ControllerBaseEntidade<Campus> implements Serializable {
 
     /**
      * Creates a new instance of CampusController
@@ -32,56 +35,32 @@ public class CampusController
     CampusRepositorio dao;
     
     @Override
-    public void salvar() {
-        if(dao.Salvar(entidade)){
-            listagem = null;
-            
-        } else {
-            //mensagem de erro
+    public Campus getFiltro() {
+        if (filtro == null) {
+            filtro = new Campus();
+            filtro.setNome(getSessao("cctrl_nome"));
+        }
+        return filtro;
+    }
+
+    @Override
+    public void setFiltro(Campus filtro) {
+        this.filtro = filtro;
+        if (filtro != null) {
+            setSessao("cctrl_nome", filtro.getNome());
         }
     }
 
-    @Override
-    public String novo(){
-        entidade = new Campus();
-        return "editarCampus.xhtml";
+    @PostConstruct
+    public void init() {
+        setRepositorio(dao);
+        setPaginaEdicao("editarCampus.xhtml");
+        setPaginaListagem("listagemCampus.xhtml");
     }
     
     @Override
-    public String abrir() {
-        return "editarCampus.xhtml";
+    public void limpar() {
+        setEntidade(new Campus());
     }
-
-    @Override
-    public String cancelar() {
-        return "listagemCampus.xhtml";
-    }
-
-    
-    @Override
-    public String excluir() {
-        if(dao.Apagar(entidade)){
-            listagem = null;
-            return "listagemCampus.xhtml";
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public void filtrar() {
-        listagem = dao.Buscar(filtro);
-    }
-
-    public CampusRepositorio getDao() {
-        return dao;
-    }
-
-    public void setDao(CampusRepositorio dao) {
-        this.dao = dao;
-    }
-    
-    
-
 }
 

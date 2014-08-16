@@ -4,24 +4,26 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Email;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Isla Guedes
  */
 @Named(value = "alunoController")
-@SessionScoped
+@RequestScoped
 public class AlunoController 
-    extends ControllerGenerico<Aluno> implements Serializable {
+    extends ControllerBaseEntidade<Aluno> implements Serializable {
     
      Email email;
      Telefone telefone;
@@ -42,60 +44,36 @@ public class AlunoController
     
     @EJB
     AlunoRepositorio dao;
+    
+    @Override
+    public Aluno getFiltro() {
+        if (filtro == null) {
+            filtro = new Aluno();
+            filtro.setNome(getSessao("alctrl_nome"));
+        }
+        return filtro;
+    }
+
+    @Override
+    public void setFiltro(Aluno filtro) {
+        this.filtro = filtro;
+        if (filtro != null) {
+            setSessao("alctrl_nome", filtro.getNome());
+        }
+    }
+
+    @PostConstruct
+    public void init() {
+        setRepositorio(dao);
+        setPaginaEdicao("editarAluno.xhtml");
+        setPaginaListagem("listagemAlunos.xhtml");
+    }
+    
+    @Override
+    public void limpar() {
+        setEntidade(new Aluno());
+    }
      
-    @Override
-    public void salvar() {
-        if(dao.Salvar(entidade)){
-            listagem = null;            
-            
-        } else {
-            //mensagem de erro
-        }
-    }
-
-    @Override
-    public String novo(){
-        entidade = new Aluno();
-        return "editarAluno.xhtml";
-    }
-    
-    @Override
-    public String abrir() {
-        return "editarAluno.xhtml";
-    }
-
-    @Override
-    public String cancelar() {
-        return "listagemAluno.xhtml";
-    }
-
-    
-    @Override
-    public String excluir() {
-        if(dao.Apagar(entidade)){
-            listagem = null;
-            return "listagemAluno.xhtml";
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public void filtrar() {
-        listagem = dao.Buscar(filtro);
-    }
-
-    
-    
-   //getter e setter
-    
-    public AlunoRepositorio getDao() {
-        return dao;
-    }
-
-    public void setDao(AlunoRepositorio dao) {
-        this.dao = dao;
-    }
 
     public Email getEmail() {
         return email;
@@ -120,10 +98,6 @@ public class AlunoController
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
-    
-    
-    //Metodos
     
     
     public void addTelefone(){
