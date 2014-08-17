@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -24,6 +26,8 @@ import javax.persistence.Version;
  * @author Isla Guedes
  */
 @Entity
+@Table(name="orientadores")
+@Cacheable(false)
 public class Orientador extends Pessoa implements Entidade, Serializable{
     private static final long serialVersionUID = 1L;
    
@@ -32,7 +36,7 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
     
     private String localPermanencia;
     
-    @ManyToMany(cascade= CascadeType.MERGE)
+    @ManyToMany
     private List<AreaConhecimento> areaConhecimento;
     
    //Dados de Formação     
@@ -43,12 +47,10 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
     
     
    //Dados de Solicitação
-    @OneToMany
-     private List<Projeto> projetos;
+    @OneToMany(mappedBy = "coordenador", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Projeto> projetos;
     
-    @OneToMany
-    private List<Aluno> alunos;
-
+  
     public Orientador() {
         this.areaConhecimento = new ArrayList<>();
     }
@@ -119,14 +121,6 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
         this.projetos = projetos;
     }
 
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
-
-    public void setAlunos(List<Aluno> alunos) {
-        this.alunos = alunos;
-    }
-    
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa criador;

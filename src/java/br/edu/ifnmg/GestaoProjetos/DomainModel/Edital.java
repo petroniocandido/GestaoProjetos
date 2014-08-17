@@ -6,14 +6,18 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -23,6 +27,8 @@ import javax.persistence.Version;
  * @author Isla Guedes
  */
 @Entity
+@Table(name="editais")
+@Cacheable(true)
 public class Edital implements Entidade, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,6 +51,9 @@ public class Edital implements Entidade, Serializable {
     private Date dataFinal;
     
     private String sigla;
+    
+    @ManyToMany
+    private List<Arquivo> arquivos;
     
     //GETTER E SETTER
     
@@ -106,12 +115,16 @@ public class Edital implements Entidade, Serializable {
     public void setSigla(String sigla) {
         this.sigla = sigla;
     }
-    
-    
-    
-    
-   
 
+    public List<Arquivo> getArquivos() {
+        return arquivos;
+    }
+
+    public void setArquivos(List<Arquivo> arquivos) {
+        this.arquivos = arquivos;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -6,6 +6,7 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -23,12 +25,17 @@ import javax.persistence.Version;
  * @author Isla Guedes
  */
 @Entity
+@Table(name="atividades")
+@Cacheable(false)
 public class Atividade implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @ManyToOne
+    private Projeto projeto;
 
     @Lob
     @Column(nullable = false)
@@ -44,13 +51,24 @@ public class Atividade implements Entidade, Serializable {
     private int ordem;
 
     //GETTER E SETTER
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
+       
 
     public String getDescricao() {
         return descricao;

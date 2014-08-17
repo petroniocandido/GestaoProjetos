@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -29,6 +31,8 @@ import javax.persistence.Version;
  * @author Isla Guedes
  */
 @Entity
+@Table(name="projetos")
+@Cacheable(true)
 public class Projeto implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,7 +46,7 @@ public class Projeto implements Entidade, Serializable {
     @Column(unique = true) //vai ser unique??
     private int numeroCadastro;
 
-    //informaÃ§Ãµes adicionais
+    
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<AreaConhecimento> areaConhecimento;
 
@@ -69,14 +73,12 @@ public class Projeto implements Entidade, Serializable {
     @Column(length = 500)
     private String palavrasChave;
 
-    //DuraÃ§Ã£o do projeto
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataInicio;
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataTermino;
 
-    //CoordenaÃ§Ã£o do projeto
     @ManyToOne(optional = false)
     private Orientador coordenador;
 
@@ -110,11 +112,9 @@ public class Projeto implements Entidade, Serializable {
     @Lob
     private String referenciasBibliograficas;
 
-    //Cronograma de Atividade
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Atividade> cronogramaAtividade;
 
-    //Financiamento/Iniciacao cientifica
     private boolean projetoFinanciamento;
 
     private BigInteger valorFinanciamento;
@@ -126,7 +126,6 @@ public class Projeto implements Entidade, Serializable {
 
     private int numeroBolsas;
 
-    //ConvÃªnio/GestÃ£o
     private boolean projetoConvenio;
 
     private String nomeConvenio;
@@ -137,7 +136,7 @@ public class Projeto implements Entidade, Serializable {
 
     private boolean projetoMulticampi;
 
-    //IdentificaÃ§Ã£o dos Participantes dos Projetos
+    
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Aluno> orientandos;
 
@@ -149,9 +148,6 @@ public class Projeto implements Entidade, Serializable {
     }
 
     public void addAreaConhecimento(AreaConhecimento a) {
-        if (areaConhecimento == null) {
-            areaConhecimento = new ArrayList<>();
-        }
         if (!areaConhecimento.contains(a)) {
             areaConhecimento.add(a);
         }
@@ -165,9 +161,6 @@ public class Projeto implements Entidade, Serializable {
     }
 
     public void addAluno(Aluno a) {
-        if (orientandos == null) {
-            orientandos = new ArrayList<Aluno>();
-        }
         if (!orientandos.contains(a)) {
             orientandos.add(a);
         }
@@ -181,9 +174,6 @@ public class Projeto implements Entidade, Serializable {
     }
 
     public void addDocumento(Documento d) {
-        if (documentos == null) {
-            documentos = new ArrayList<Documento>();
-        }
         if (!documentos.contains(d)) {
             documentos.add(d);
         }
@@ -196,9 +186,6 @@ public class Projeto implements Entidade, Serializable {
     }
 
     public void addAtividade(Atividade a) {
-        if (cronogramaAtividade == null) {
-            cronogramaAtividade = new ArrayList<Atividade>();
-        }
         if (!cronogramaAtividade.contains(a)) {
             cronogramaAtividade.add(a);
         }
@@ -211,10 +198,12 @@ public class Projeto implements Entidade, Serializable {
     }
 
      //GETTER E SETTER
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
