@@ -41,7 +41,6 @@ import javax.persistence.Version;
     @Index(columnList = "cpf"),
     @Index(columnList = "email")})
 @Inheritance(strategy= InheritanceType.JOINED)
-@DiscriminatorColumn(name = "DTYPE")
 public class Pessoa implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
