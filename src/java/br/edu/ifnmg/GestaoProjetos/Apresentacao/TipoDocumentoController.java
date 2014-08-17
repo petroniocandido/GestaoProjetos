@@ -4,21 +4,24 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author HOME
  */
 @Named(value = "tipoDocumentoController")
-@SessionScoped
+@RequestScoped
 public class TipoDocumentoController 
-    extends ControllerGenerico<TipoDocumento> implements Serializable {
+    extends ControllerBaseEntidade<TipoDocumento> implements Serializable {
 
     /**
      * Creates a new instance of TipoDocumentoController
@@ -32,55 +35,33 @@ public class TipoDocumentoController
     TipoDocumentoRepositorio dao;
     
     @Override
-    public void salvar() {
-        if(dao.Salvar(entidade)){
-          listagem = null;  
-        } else {
-            //mensagem de erro
+    public TipoDocumento getFiltro() {
+        if (filtro == null) {
+            filtro = new TipoDocumento();
+            filtro.setNome(getSessao("tdctrl_nome"));
+            filtro.setSigla(getSessao("tdctrl_sigla"));
+        }
+        return filtro;
+    }
+
+    @Override
+    public void setFiltro(TipoDocumento filtro) {
+        this.filtro = filtro;
+        if (filtro != null) {
+            setSessao("tdctrl_nome", filtro.getNome());
+            setSessao("tdctrl_sigla",filtro.getSigla());
         }
     }
 
-    @Override
-    public String novo(){
-        entidade = new TipoDocumento();
-        return "editarTipoDocumento.xhtml";
+    @PostConstruct
+    public void init() {
+        setRepositorio(dao);
+        setPaginaEdicao("editarTipoDocumento.xhtml");
+        setPaginaListagem("listagemTipoDocumentos.xhtml");
     }
     
     @Override
-    public String abrir() {
-        return "editarTipoDocumento.xhtml";
+    public void limpar() {
+        setEntidade(new TipoDocumento());
     }
-
-    @Override
-    public String cancelar() {
-        return "listagemTipoDocumento.xhtml";
-    }
-
-    
-    @Override
-    public String excluir() {
-        if(dao.Apagar(entidade)){
-            listagem = null;  
-            return "listagemTipoDocumento.xhtml";
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public void filtrar() {
-        listagem = dao.Buscar(filtro);
-    }
-
-    public TipoDocumentoRepositorio getDao() {
-        return dao;
-    }
-
-    public void setDao(TipoDocumentoRepositorio dao) {
-        this.dao = dao;
-    }
-    
-    
-
-    
 }

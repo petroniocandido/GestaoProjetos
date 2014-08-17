@@ -4,24 +4,28 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Isla Guedes
  */
 @Named(value = "editalController")
-@SessionScoped
+@RequestScoped
 public class EditalController 
-    extends ControllerGenerico<Edital> implements Serializable {
+    extends ControllerBaseEntidade<Edital> implements Serializable {
 
     List<AgenciaFinanciadora> listagemAgencia;
         
@@ -40,53 +44,42 @@ public class EditalController
     @EJB
     AgenciaFinanciadoraRepositorio daoAgencia;
     
+    @EJB
+    CampusRepositorio daoCampus;
+    
     @Override
-    public void salvar() {
-        if(dao.Salvar(entidade)){
-           listagem = null; 
-        } else {
-            //mensagem de erro
+    public Edital getFiltro() {
+        if (filtro == null) {
+            filtro = new Edital();
+            filtro.setNumero(Integer.parseInt(getSessao("edctrl_numero")));
+            filtro.setSigla(getSessao("edctrl_sigla"));
+            filtro.setAgenciaFinanciadora((AgenciaFinanciadora)getSessao("edctrl_agencia", daoAgencia));
+            filtro.setCampus((Campus)getSessao("edctrl_campus", daoAgencia));
+        }
+        return filtro;
+    }
+
+    @Override
+    public void setFiltro(Edital filtro) {
+        this.filtro = filtro;
+        if (filtro != null) {
+            setSessao("edctrl_numero",Integer.toString(filtro.getNumero()));
+            setSessao("edctrl_sigla",filtro.getSigla());
+            setSessao("edctrl_agencia", filtro.getAgenciaFinanciadora());
+            setSessao("edctrl_campus", filtro.getCampus());
         }
     }
 
-    @Override
-    public String novo(){
-        entidade = new Edital();
-        return "editarEdital.xhtml";
+    @PostConstruct
+    public void init() {
+        setRepositorio(dao);
+        setPaginaEdicao("editarEdital.xhtml");
+        setPaginaListagem("listagemEdital.xhtml");
     }
     
     @Override
-    public String abrir() {
-        return "editarEdital.xhtml";
-    }
-
-    @Override
-    public String cancelar() {
-        return "listagemEdital.xhtml";
-    }
-
-    
-    @Override
-    public String excluir() {
-        if(dao.Apagar(entidade)){
-            listagem = null; 
-            return "listagemEdital.xhtml";
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public void filtrar() {
-        listagem = dao.Buscar(filtro);
-    }
-
-    public EditalRepositorio getDao() {
-        return dao;
-    }
-
-    public void setDao(EditalRepositorio dao) {
-        this.dao = dao;
+    public void limpar() {
+        setEntidade(new Edital());
     }
     
     public List<AgenciaFinanciadora> getListagemAgencia() {

@@ -4,22 +4,24 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author HOME
  */
 @Named(value = "modalidadeController")
-@SessionScoped
+@RequestScoped
 public class ModalidadeController 
-    extends ControllerGenerico<Modalidade> implements Serializable {
+    extends ControllerBaseEntidade<Modalidade> implements Serializable {
 
     /**
      * Creates a new instance of ModalidadeController
@@ -33,53 +35,33 @@ public class ModalidadeController
     ModalidadeRepositorio dao;
     
     @Override
-    public void salvar() {
-        if(dao.Salvar(entidade)){
-            listagem = null;
-        } else {
-            //mensagem de erro
+    public Modalidade getFiltro() {
+        if (filtro == null) {
+            filtro = new Modalidade();
+            filtro.setNome(getSessao("mdctrl_nome"));
+            filtro.setSigla(getSessao("mdctrl_sigla"));
+        }
+        return filtro;
+    }
+
+    @Override
+    public void setFiltro(Modalidade filtro) {
+        this.filtro = filtro;
+        if (filtro != null) {
+            setSessao("mdctrl_nome", filtro.getNome());
+            setSessao("mdctrl_sigla", filtro.getSigla());
         }
     }
 
-    @Override
-    public String novo(){
-        entidade = new Modalidade();
-        return "editarModalidade.xhtml";
+    @PostConstruct
+    public void init() {
+        setRepositorio(dao);
+        setPaginaEdicao("editarModalidade.xhtml");
+        setPaginaListagem("listagemModalidades.xhtml");
     }
     
     @Override
-    public String abrir() {
-        return "editarModalidade.xhtml";
+    public void limpar() {
+        setEntidade(new Modalidade());
     }
-
-    @Override
-    public String cancelar() {
-        return "listagemModalidade.xhtml";
-    }
-
-    
-    @Override
-    public String excluir() {
-        if(dao.Apagar(entidade)){
-            listagem = null;
-            return "listagemModalidade.xhtml";
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public void filtrar() {
-        listagem = dao.Buscar(filtro);
-    }
-
-    public ModalidadeRepositorio getDao() {
-        return dao;
-    }
-
-    public void setDao(ModalidadeRepositorio dao) {
-        this.dao = dao;
-    }
-    
-    
 }

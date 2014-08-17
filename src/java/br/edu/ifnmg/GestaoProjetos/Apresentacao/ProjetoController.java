@@ -4,15 +4,23 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
 /**
@@ -22,7 +30,7 @@ import javax.ejb.EJB;
 @Named(value = "projetoController")
 @SessionScoped
 public class ProjetoController 
-    extends ControllerGenerico<Projeto> implements Serializable {
+    extends ControllerBaseEntidade<Projeto> implements Serializable {
     
     AreaConhecimento areaConhecimento;
     Aluno orientando;
@@ -45,55 +53,49 @@ public class ProjetoController
     @EJB
     ProjetoRepositorio dao;
     
+    @EJB
+    AgenciaFinanciadoraRepositorio daoAgencia;
+    
+    @EJB
+    CampusRepositorio daoCampus;
+    
+    @EJB
+    EditalRepositorio daoEdital;
+    
      @Override
-    public void salvar() {
-        if(dao.Salvar(entidade)){
-            listagem = null; 
-        } else {
-            //mensagem de erro
+    public Projeto getFiltro() {
+        if (filtro == null) {
+            filtro = new Projeto();
+            filtro.setTitulo(getSessao("prctrl_titulo"));
+            filtro.setAgenciaFinanciadora((AgenciaFinanciadora)getSessao("prctrl_agencia",daoAgencia));
+            filtro.setCampus((Campus)getSessao("prctrl_campus",daoCampus));
+            filtro.setEdital((Edital)getSessao("prctrl_edital",daoEdital));
+        }
+        return filtro;
+    }
+
+    @Override
+    public void setFiltro(Projeto filtro) {
+        this.filtro = filtro;
+        if (filtro != null) {
+            setSessao("prctrl_titulo",filtro.getTitulo());
+            setSessao("prctrl_agencia",filtro.getAgenciaFinanciadora());
+            setSessao("prctrl_campus",filtro.getCampus());
+            setSessao("prctrl_edital",filtro.getEdital());
         }
     }
 
-    @Override
-    public String novo(){
-        entidade = new Projeto();
-        return "editarProjeto.xhtml";
+    @PostConstruct
+    public void init() {
+        setRepositorio(dao);
+        setPaginaEdicao("editarProjeto.xhtml");
+        setPaginaListagem("listagemProjetos.xhtml");
     }
     
     @Override
-    public String abrir() {
-        return "editarProjeto.xhtml";
+    public void limpar() {
+        setEntidade(new Projeto());
     }
-
-    @Override
-    public String cancelar() {
-        return "listagemProjeto.xhtml";
-    }
-
-    
-    @Override
-    public String excluir() {
-        if(dao.Apagar(entidade)){
-            listagem = null; 
-            return "listagemProjeto.xhtml";
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public void filtrar() {
-        listagem = dao.Buscar(filtro);
-    }
-
-    public ProjetoRepositorio getDao() {
-        return dao;
-    }
-
-    public void setDao(ProjetoRepositorio dao) {
-        this.dao = dao;
-    }
-
     public AreaConhecimento getAreaConhecimento() {
         return areaConhecimento;
     }

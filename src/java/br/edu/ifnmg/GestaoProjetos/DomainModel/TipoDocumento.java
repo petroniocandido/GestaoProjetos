@@ -28,6 +28,8 @@ public class TipoDocumento implements Serializable, Entidade {
     private Long id;
     
     private String nome;
+    
+    private String sigla;
 
     @Override
     public Long getId() {
@@ -45,6 +47,14 @@ public class TipoDocumento implements Serializable, Entidade {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
     
 
