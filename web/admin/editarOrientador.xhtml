@@ -5,302 +5,276 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-
     <body>
-
         <ui:composition template="./TemplateAdmin.xhtml">
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Editar Orientador 
+                    </f:facet>
+                    <p:tabView id="tabView">  
+                        <p:tab id="tabDados" title="Dados Gerais">                   
+                            <h:panelGrid columns="2">
 
-           <ui:define name="content">
-               <p:panel style="font: medium; color: blue">
-                <f:facet name="header" >
-                   <center>
-                       <h2 style="font: medium; color: blue"> Editar Orientador </h2>
-                   </center>
-                </f:facet>
-                   
-            <p:tabView id="tabView">              
-            
-             <p:tab title="Dados Gerais">
-                <br/>
-                <h:panelGrid columns="2">
-                    
-                    <h:outputLabel value="Nome Completo*:" />
-                    <p:inputText value="${orientadorController.entidade.nome}" required="true" style="width: 200%"/>                      
-                        
-                    <h:outputLabel value="Matrícula SIAPE*:" />
-                    <p:inputText value="${orientadorController.entidade.matriculaSiape}" required="true"/>  
-                   
-                    
-                    <h:outputLabel value="Campus onde trabalha*:" />           
-                    <p:selectOneMenu value="${orientadorController.entidade.campus}" label="Campus" 
-                                     converter="${campusConverter}" required="true" >
-                       <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                       <f:selectItems value="${campusController.listagem}"/>
-                        
-                    </p:selectOneMenu>
-                    
-                    <h:outputLabel value="Local de Permanência*:" />
-                    <p:inputText value="${orientadorController.entidade.localPermanencia}" required="true"/>   
-                    
-                    
-                    
-                   <h:outputLabel value="Data de Nascimento*:" />
-                   <p:calendar value="${orientadorController.entidade.dataNascimento}" required="true"
-                               label="Data de Nascimento" pattern="dd/MM/yyyy" locale="pt_BR"/>                   
-                    
-                   <h:outputLabel value="Naturalidade-UF*:" />
-                   <p:inputText value="${orientadorController.entidade.naturalidadeUF}" required="true" maxlength="2"/> 
-                    
-                    <h:outputLabel value="Nacionalidade*:" />           
-                    <p:inputText value="${orientadorController.entidade.nacionalidade}" required="true"/>
-                    
-                    
-                    <h:outputLabel value="Estado*:" />           
-                    <p:inputText value="${orientadorController.entidade.estado}" required="true"/>
-                    
-               
-             </h:panelGrid>
-          </p:tab>
-                
-                
-          <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Área Conhecimento" >
-              <br/>
-                  <h:panelGrid columns="2">
-                            <h:outputLabel value="Area de Conhecimento*:" />           
-                            <p:selectOneMenu id="txtAreaConhecimento" value="${orientadorController.areaConhecimento}" label="Area de Conhecimento"
-                                             converter="${areaConhecimentoConverter}" required="false"
-                                            >
-                                <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                                <f:selectItems value="${areaConhecimentoController.listagem}"/>
+                                <h:outputLabel value="Nome Completo*:" />
+                                <p:inputText value="${orientadorController.entidade.nome}" required="true" style="width: 200%"/>                      
 
-                            </p:selectOneMenu>
-                            <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                             update="tblAreaConhecimento txtAreaConhecimento" action="${orientadorController.addAreaConhecimento()}" style="margin:0"/>
-
-                  </h:panelGrid> 
-                        
-                        <br/>
-                        
-                        <p:dataTable id="tblAreaConhecimento"  value="${orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                            <p:column sortBy="nome" headerText="Nome" >
-                                ${item.nome}
-                            </p:column>                                                     
-                            
-                           
-                            
-                            <p:column sortBy="remover" headerText="Remover" >
-                                <p:commandButton ajax="false" value="Remover"  action="#{orientadorController.removeAreaConhecimento()}">
-                                    <f:setPropertyActionListener target="#{orientadorController.areaConhecimento}" value="#{item}" />
-                                </p:commandButton>
-                            </p:column>
-
-                        </p:dataTable>
-
-                    
-          </p:tab>       
-                
-         
-          <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Endereço">
-              <br/>
-                        <h:panelGrid columns="4">                    
-
-                            <h:outputLabel value="Rua/Av/Estrada*:" />
-                            <p:inputText id="txtRua" value="${orientadorController.endereco.rua}" required="false"/>   
+                                <h:outputLabel value="Matrícula SIAPE*:" />
+                                <p:inputText value="${orientadorController.entidade.matriculaSiape}" required="true"/>  
 
 
-                            <h:outputLabel value="Número*:" />
-                            <p:inputText id="txtNum" value="${orientadorController.endereco.numero}" required="false"/>   
+                                <h:outputLabel value="Campus onde trabalha*:" />           
+                                <p:selectOneMenu value="${orientadorController.entidade.campus}" label="Campus" 
+                                                 converter="${campusConverter}" required="true" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${campusController.listagem}"/>
 
-                            <h:outputLabel value="Complemento:" />
-                            <p:inputText id="txtComplemento" value="${orientadorController.endereco.complemento}" required="false"/>                      
+                                </p:selectOneMenu>
 
-                            <h:outputLabel value="Bairro*:" />
-                            <p:inputText id="txtBairro" value="${orientadorController.endereco.bairro}" required="false"/> 
+                                <h:outputLabel value="Local de Permanência*:" />
+                                <p:inputText value="${orientadorController.entidade.localPermanencia}" required="true"/>   
 
-                            <h:outputLabel value="Cidade*:" />
-                            <p:inputText id="txtCidade" value="${orientadorController.endereco.cidade}" required="false"/>  
 
-                            <h:outputLabel value="Cep*:" />
-                            <p:inputText id="txtCep" value="${orientadorController.endereco.cep}" required="false"/> 
 
-                            <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                             action="${orientadorController.addEndereco()}" style="margin:0"
-                                             update="tblEnderecos txtRua txtNum txtComplemento txtBairro 
-                                             txtCidade txtCep" /> 
+                                <h:outputLabel value="Data de Nascimento*:" />
+                                <p:calendar value="${orientadorController.entidade.dataNascimento}" required="true"
+                                            label="Data de Nascimento" pattern="dd/MM/yyyy" locale="pt_BR"/>                   
 
-                        </h:panelGrid>
-                        
-                        <br/>
-                        
-                        <p:dataTable id="tblEnderecos" value="${orientadorController.entidade.endereco}" 
-                                     var="item" emptyMessage="Registros não Encontrados!" 
-                                     style="font: medium; color: blue">
-                            
-                            <p:column sortBy="endereco" headerText="Endereço">
-                                ${item}
-                            </p:column>
-                            
-                            <p:column sortBy="editar" headerText="Editar">
-                                <p:commandButton ajax="false" value="Editar" >
-                                    <f:setPropertyActionListener target="#{orientadorController.endereco}" value="#{item}" />
-                                </p:commandButton>
-                            </p:column>
-                            
-                            <p:column sortBy="remover" headerText="Remover" >
-                                <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeEndereco()}">
-                                    <f:setPropertyActionListener target="#{orientadorController.endereco}" value="#{item}" />
-                                </p:commandButton>
-                            </p:column>
-                            
+                                <h:outputLabel value="Naturalidade-UF*:" />
+                                <p:inputText value="${orientadorController.entidade.naturalidadeUF}" required="true" maxlength="2"/> 
 
-                        </p:dataTable>
+                                <h:outputLabel value="Nacionalidade*:" />           
+                                <p:inputText value="${orientadorController.entidade.nacionalidade}" required="true"/>
 
-                        
-                    </p:tab>  
-                
-                <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Telefone">
-                    <br/>
-                        <h:panelGrid columns="5">
-                            <h:outputLabel value="DDD*:" />
-                            <p:inputText id="txtDDD" value="${orientadorController.telefone.ddd}" required="false"/>   
 
-                            <h:outputLabel value="Número*:" />
-                            <p:inputText id="txtNumero" value="${orientadorController.telefone.numero}" required="false"/>                      
+                                <h:outputLabel value="Estado*:" />           
+                                <p:inputText value="${orientadorController.entidade.estado}" required="true"/>
 
-                            <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                             action="${orientadorController.addTelefone}" style="margin:0"
-                                             update="tblTelefone txtDDD txtNumero"/>
-                            
-                            
 
-                        </h:panelGrid> 
-                        <br/>
-                        
-                        <p:dataTable id="tblTelefone" value="${orientadorController.entidade.telefone}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                            <p:column sortBy="ddd" headerText="DDD">
-                                ${item.ddd}
-                            </p:column>
+                            </h:panelGrid>
+                        </p:tab>
 
-                            <p:column sortBy="numero" headerText="Número">
-                                ${item.numero}
-                            </p:column>                            
-                            
-                            <p:column sortBy="editar" headerText="Editar">
-                                <p:commandButton ajax="false" value="Editar" >
-                                    <f:setPropertyActionListener target="#{orientadorController.telefone}" value="#{item}" />
-                                </p:commandButton>
-                            </p:column>
-                            
-                            <p:column sortBy="remover" headerText="Remover" >
-                                <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeTelefone()}">
-                                    <f:setPropertyActionListener target="#{orientadorController.telefone}" value="#{item}" />
-                                </p:commandButton>
-                            </p:column>
 
-                        </p:dataTable>
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Área Conhecimento" >
+                            <br/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Area de Conhecimento*:" />           
+                                <p:selectOneMenu id="txtAreaConhecimento" value="${orientadorController.areaConhecimento}" label="Area de Conhecimento"
+                                                 converter="${areaConhecimentoConverter}" required="false"
+                                                 >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
+                                    <f:selectItems value="${areaConhecimentoController.listagem}"/>
 
-                    </p:tab>
-                
-                
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="E-mail">
-                <br/>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="E-mail*:" />
-                            <p:inputText id="txtEndereco" value="${orientadorController.email.endereco}" required="false" style="width: 150%"/>   
+                                </p:selectOneMenu>
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 update="tblAreaConhecimento txtAreaConhecimento" action="${orientadorController.addAreaConhecimento()}" style="margin:0"/>
 
-                            <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                             action="${orientadorController.addEmail()}" style="margin:0"
-                                             update="tblEmail txtEndereco"/>
+                            </h:panelGrid> 
 
-                        </h:panelGrid> 
-                        
-                        <br/>
-                        
-                        <p:dataTable id="tblEmail" value="${orientadorController.entidade.email}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                            <p:column sortBy="endereco" headerText="Email">
-                                ${item.endereco}
-                            </p:column>                                                     
-                            
-                            <p:column sortBy="editar" headerText="Editar">
-                                <p:commandButton ajax="false" value="Editar" >
-                                    <f:setPropertyActionListener target="#{orientadorController.email}" value="#{item}" />
-                                </p:commandButton>
-                            </p:column>
-                            
-                            <p:column sortBy="remover" headerText="Remover" >
-                                <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeEmail()}">
-                                    <f:setPropertyActionListener target="#{orientadorController.email}" value="#{item}" />
-                                </p:commandButton>
-                            </p:column>
+                            <br/>
 
-                        </p:dataTable>
+                            <p:dataTable id="tblAreaConhecimento"  value="${orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column sortBy="nome" headerText="Nome" >
+                                    ${item.nome}
+                                </p:column>                                                     
 
-                    </p:tab> 
-           
-              
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Documentos">
-               <br/>
-                <h:panelGrid columns="4">
-                   <h:outputLabel value="Carteira de identidade*:" />
-                   <p:inputText value="${orientadorController.entidade.rg}" required="false"/>   
-                    
-                   <h:outputLabel value="Órgão Expeditor*:" />
-                   <p:inputText value="${orientadorController.entidade.orgaoExpeditor}" required="false"/>                      
-               
-                   <h:outputLabel value="Data de Expedição*:" />
-                   <p:calendar value="${orientadorController.entidade.dataExpedicao}" required="false"
-                               label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/> 
-                   
-                   
-                   <h:outputLabel value="CPF*:" />
-                   <p:inputMask value="${orientadorController.entidade.cpf}" label="CPF" 
-                                required="false" mask="999.999.999-99"/>
-                   
-                </h:panelGrid> 
-                
-            </p:tab>
-              
-          
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Dados Formação">
-                <br/>
-                <h:panelGrid columns="2">
-                  <h:outputLabel value="Formação Universitária*:" /> 
-                  <p:inputText value="${orientadorController.entidade.formacaoUniversitaria}" required="false"/> 
-                  
-                  <h:outputLabel value="Título Acadêmico(Maior)*:" />
-                  <p:inputText value="${orientadorController.entidade.tituloAcademico}" required="false"/> 
-                
-                </h:panelGrid> 
-                
-            </p:tab>
-                
-           
-        </p:tabView>                     
-        
-        (*) Campos de Preenchimento Obrigatório
-        
-        <p:panel id="Rodape">
-            <p:commandButton value="Salvar" onclick="msgSalvar.show()" />
-            <p:commandButton rendered="#{orientadorController.entidade.id > 0}" value="Remover" onclick="msgRemover.show()"/>
-            <p:commandButton value="Cancelar" ajax="false" immediate="true" action="${orientadorController.cancelar()}" />
-        </p:panel>       
-        <p:confirmDialog id="confirmaSalvar" message="Deseja realmente Salvar os Dados?" header="Confirmação"
-                         severity="alert" widgetVar="msgSalvar">
-            <p:commandButton ajax="false" value="SIM" action="${orientadorController.salvar}" />
-            <p:commandButton ajax="false" value="NÃO" onclick="msgSalvar.hide()" />                    
-        </p:confirmDialog>
 
-        <p:confirmDialog id="confirmaRemover" message="Deseja realmente Remover os Dados?" header="Confirmação"
-                         severity="alert" widgetVar="msgRemover">
-            <p:commandButton ajax="false" value="SIM" action="${orientadorController.excluir}" />
-            <p:commandButton ajax="false" value="NÃO" onclick="msgRemover.hide()" />
 
-        </p:confirmDialog>
-       </p:panel>
-      </ui:define>
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover"  action="#{orientadorController.removeAreaConhecimento()}">
+                                        <f:setPropertyActionListener target="#{orientadorController.areaConhecimento}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
 
-    </ui:composition>
+                            </p:dataTable>
 
-  </body>
+
+                        </p:tab>       
+
+
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Endereço">
+                            <br/>
+                            <h:panelGrid columns="4">                    
+
+                                <h:outputLabel value="Rua/Av/Estrada*:" />
+                                <p:inputText id="txtRua" value="${orientadorController.endereco.rua}" required="false"/>   
+
+
+                                <h:outputLabel value="Número*:" />
+                                <p:inputText id="txtNum" value="${orientadorController.endereco.numero}" required="false"/>   
+
+                                <h:outputLabel value="Complemento:" />
+                                <p:inputText id="txtComplemento" value="${orientadorController.endereco.complemento}" required="false"/>                      
+
+                                <h:outputLabel value="Bairro*:" />
+                                <p:inputText id="txtBairro" value="${orientadorController.endereco.bairro}" required="false"/> 
+
+                                <h:outputLabel value="Cidade*:" />
+                                <p:inputText id="txtCidade" value="${orientadorController.endereco.cidade}" required="false"/>  
+
+                                <h:outputLabel value="Cep*:" />
+                                <p:inputText id="txtCep" value="${orientadorController.endereco.cep}" required="false"/> 
+
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 action="${orientadorController.addEndereco()}" style="margin:0"
+                                                 update="tblEnderecos txtRua txtNum txtComplemento txtBairro 
+                                                 txtCidade txtCep" /> 
+
+                            </h:panelGrid>
+
+                            <br/>
+
+                            <p:dataTable id="tblEnderecos" value="${orientadorController.entidade.endereco}" 
+                                         var="item" emptyMessage="Registros não Encontrados!" 
+                                         style="font: medium; color: blue">
+
+                                <p:column sortBy="endereco" headerText="Endereço">
+                                    ${item}
+                                </p:column>
+
+                                <p:column sortBy="editar" headerText="Editar">
+                                    <p:commandButton ajax="false" value="Editar" >
+                                        <f:setPropertyActionListener target="#{orientadorController.endereco}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeEndereco()}">
+                                        <f:setPropertyActionListener target="#{orientadorController.endereco}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+
+                            </p:dataTable>
+
+
+                        </p:tab>  
+
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Telefone">
+                            <br/>
+                            <h:panelGrid columns="5">
+                                <h:outputLabel value="DDD*:" />
+                                <p:inputText id="txtDDD" value="${orientadorController.telefone.ddd}" required="false"/>   
+
+                                <h:outputLabel value="Número*:" />
+                                <p:inputText id="txtNumero" value="${orientadorController.telefone.numero}" required="false"/>                      
+
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 action="${orientadorController.addTelefone}" style="margin:0"
+                                                 update="tblTelefone txtDDD txtNumero"/>
+
+
+
+                            </h:panelGrid> 
+                            <br/>
+
+                            <p:dataTable id="tblTelefone" value="${orientadorController.entidade.telefone}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column sortBy="ddd" headerText="DDD">
+                                    ${item.ddd}
+                                </p:column>
+
+                                <p:column sortBy="numero" headerText="Número">
+                                    ${item.numero}
+                                </p:column>                            
+
+                                <p:column sortBy="editar" headerText="Editar">
+                                    <p:commandButton ajax="false" value="Editar" >
+                                        <f:setPropertyActionListener target="#{orientadorController.telefone}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeTelefone()}">
+                                        <f:setPropertyActionListener target="#{orientadorController.telefone}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:tab>
+
+
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="E-mail">
+                            <br/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="E-mail*:" />
+                                <p:inputText id="txtEndereco" value="${orientadorController.email.endereco}" required="false" style="width: 150%"/>   
+
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 action="${orientadorController.addEmail()}" style="margin:0"
+                                                 update="tblEmail txtEndereco"/>
+
+                            </h:panelGrid> 
+
+                            <br/>
+
+                            <p:dataTable id="tblEmail" value="${orientadorController.entidade.email}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column sortBy="endereco" headerText="Email">
+                                    ${item.endereco}
+                                </p:column>                                                     
+
+                                <p:column sortBy="editar" headerText="Editar">
+                                    <p:commandButton ajax="false" value="Editar" >
+                                        <f:setPropertyActionListener target="#{orientadorController.email}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeEmail()}">
+                                        <f:setPropertyActionListener target="#{orientadorController.email}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:tab> 
+
+
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Documentos">
+                            <br/>
+                            <h:panelGrid columns="4">
+                                <h:outputLabel value="Carteira de identidade*:" />
+                                <p:inputText value="${orientadorController.entidade.rg}" required="false"/>   
+
+                                <h:outputLabel value="Órgão Expeditor*:" />
+                                <p:inputText value="${orientadorController.entidade.orgaoExpeditor}" required="false"/>                      
+
+                                <h:outputLabel value="Data de Expedição*:" />
+                                <p:calendar value="${orientadorController.entidade.dataExpedicao}" required="false"
+                                            label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/> 
+
+
+                                <h:outputLabel value="CPF*:" />
+                                <p:inputMask value="${orientadorController.entidade.cpf}" label="CPF" 
+                                             required="false" mask="999.999.999-99"/>
+
+                            </h:panelGrid> 
+
+                        </p:tab>
+
+
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Dados Formação">
+                            <br/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Formação Universitária*:" /> 
+                                <p:inputText value="${orientadorController.entidade.formacaoUniversitaria}" required="false"/> 
+
+                                <h:outputLabel value="Título Acadêmico(Maior)*:" />
+                                <p:inputText value="${orientadorController.entidade.tituloAcademico}" required="false"/> 
+
+                            </h:panelGrid> 
+
+                        </p:tab>
+                        <ui:include src="./comum/tabSeguranca.xhtml">
+                            <ui:param name="controller" value="#{orientadorController}"  />
+                        </ui:include>
+                    </p:tabView>
+                    <ui:include src="./comum/botoesEntidade.xhtml">
+                        <ui:param name="controller" value="#{orientadorController}"  />
+                    </ui:include>
+                    (*) Campos de Preenchimento Obrigatório
+                </p:panel>
+            </ui:define>                     
+        </ui:composition>
+    </body>
 </html>
-
