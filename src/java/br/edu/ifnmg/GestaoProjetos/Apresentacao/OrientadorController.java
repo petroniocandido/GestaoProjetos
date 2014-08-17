@@ -12,17 +12,17 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Isla Guedes
  */
 @Named(value = "orientadorController")
-@SessionScoped
+@RequestScoped
 public class OrientadorController
         extends ControllerBaseEntidade<Orientador> implements Serializable {
 
@@ -71,7 +71,7 @@ public class OrientadorController
     public void init() {
         setRepositorio(dao);
         setPaginaEdicao("editarOrientador.xhtml");
-        setPaginaListagem("listagemOrientador.xhtml");
+        setPaginaListagem("listagemOrientadores.xhtml");
     }
 
     @Override

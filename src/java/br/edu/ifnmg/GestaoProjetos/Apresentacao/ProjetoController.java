@@ -18,17 +18,17 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Isla Guedes
  */
 @Named(value = "projetoController")
-@SessionScoped
+@RequestScoped
 public class ProjetoController 
     extends ControllerBaseEntidade<Projeto> implements Serializable {
     

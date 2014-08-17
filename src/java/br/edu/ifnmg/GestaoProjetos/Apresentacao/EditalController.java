@@ -74,7 +74,7 @@ public class EditalController
     public void init() {
         setRepositorio(dao);
         setPaginaEdicao("editarEdital.xhtml");
-        setPaginaListagem("listagemEdital.xhtml");
+        setPaginaListagem("listagemEditais.xhtml");
     }
     
     @Override

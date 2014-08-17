@@ -55,7 +55,7 @@ public class CursoController
     public void init() {
         setRepositorio(dao);
         setPaginaEdicao("editarCurso.xhtml");
-        setPaginaListagem("listagemCurso.xhtml");
+        setPaginaListagem("listagemCursos.xhtml");
     }
     
     @Override

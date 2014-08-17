@@ -8,7 +8,6 @@ import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

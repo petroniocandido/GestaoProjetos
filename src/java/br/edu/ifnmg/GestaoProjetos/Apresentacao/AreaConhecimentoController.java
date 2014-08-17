@@ -5,21 +5,20 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AreaConhecimentoRepositorio;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Isla Guedes
  */
 @Named(value = "areaConhecimentoController")
-@SessionScoped
+@RequestScoped
 public class AreaConhecimentoController
     extends ControllerBaseEntidade<AreaConhecimento> implements Serializable {
 
@@ -53,7 +52,7 @@ public class AreaConhecimentoController
     public void init() {
         setRepositorio(dao);
         setPaginaEdicao("editarAreaConhecimento.xhtml");
-        setPaginaListagem("listagemAreaConhecimento.xhtml");
+        setPaginaListagem("listagemAreasConhecimento.xhtml");
     }
     
     @Override
