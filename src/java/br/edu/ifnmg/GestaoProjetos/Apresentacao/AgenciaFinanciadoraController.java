@@ -58,7 +58,7 @@ public class AgenciaFinanciadoraController
     public void init() {
         setRepositorio(dao);
         setPaginaEdicao("editarAgenciaFinanciadora.xhtml");
-        setPaginaListagem("listagemAgenciaFinanciadora.xhtml");
+        setPaginaListagem("listagemAgenciasFinanciadoras.xhtml");
     }
     
     @Override

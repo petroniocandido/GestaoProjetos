@@ -8,62 +8,44 @@
 
     <body>
 
-        <ui:composition template="./TemplateAdmin.xhtml">
+        <ui:composition template="./AdminTemplate.xhtml">
 
-          <ui:define name="content">
-            <br/>  
-              <center>  
-              <p:panelGrid columns="2" style="color: blue" >
-                    
-                   <f:facet name="header">  
-                       <h2 style="font: medium; color: blue"> Filtros - Orientador </h2>
-                   </f:facet>  
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Listagem de Orientadores
+                    </f:facet>
+                    <p:accordionPanel styleClass="teste">
+                        <p:tab title="Filtros">
+                            <p:panelGrid columns="2">
+                                <h:outputLabel value="Matrícula SIAPE:" />
+                                <p:inputText value="${orientadorController.filtro.matriculaSiape}"/>  
 
-                   <h:outputLabel value="Matrícula SIAPE:" />
-                   <p:inputText value="${orientadorController.filtro.matriculaSiape}"/>  
+                                <h:outputLabel value="Nome:" />
+                                <p:inputText value="${orientadorController.filtro.nome}"/>
+                            </p:panelGrid>
+                            <ui:include src="./comum/botoesListagem.xhtml">
+                                <ui:param name="controller" value="#{orientadorController}"  />
+                                <ui:param name="campos" value=""  />
+                            </ui:include>
+                        </p:tab>
+                    </p:accordionPanel>
 
-                   <h:outputLabel value="Nome:" />
-                   <p:inputText value="${orientadorController.filtro.nome}"/>
-                   
-                   
-                  
-                   <f:facet name="footer">  
-                     <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${orientadorController.filtrar}" style="margin:0"/>  
-                     <p:commandButton ajax="false" value="Novo Orientador" action="${orientadorController.novo}" />
-                   </f:facet>
-                   
-               </p:panelGrid>
-              </center>
-            <br/>
-            <br/>
-              
-              
-          <p:dataTable value="${orientadorController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
-            <p:column sortBy="matriculaSiape" headerText="Matricula SIAPE">
-                ${item.matriculaSiape}
-            </p:column>
+                    <p:dataTable value="#{orientadorController.dataModel}" var="item" selectionMode="single"
+                                 paginator="true" rows="30"  lazy="true" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-            <p:column sortBy="nome" headerText="Nome">
-                ${item.nome}
-            </p:column>
-              
-            <p:column sortBy="areaConhecimento" headerText="Área de Conhecimento">
-                ${item.areaConhecimento}
-            </p:column>
-           
-            <p:column headerText="Editar">
-                <p:commandButton value="Editar" ajax="false" action="${orientadorController.abrir}">
-                    <f:setPropertyActionListener target="${orientadorController.entidade}" value="${item}" />
-                </p:commandButton>
-            </p:column>
-              
-          </p:dataTable>
+                        <p:ajax event="rowSelect" listener="#{orientadorController.onRowSelect}" />
+                        <p:column sortBy="matriculaSiape" headerText="Matricula SIAPE">
+                            ${item.matriculaSiape}
+                        </p:column>
 
-
-      </ui:define>
-
-    </ui:composition>
-
-  </body>
+                        <p:column sortBy="nome" headerText="Nome">
+                            ${item.nome}
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </body>
 </html>
-

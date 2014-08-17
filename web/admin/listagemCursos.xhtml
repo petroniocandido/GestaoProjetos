@@ -5,60 +5,49 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-    
+
     <body>
 
-        <ui:composition template="./TemplateAdmin.xhtml">
+        <ui:composition template="./AdminTemplate.xhtml">
 
             <ui:define name="content">
-              <br/>  
-              <center>  
-               <p:panelGrid columns="2" style="color: blue" >
-                    
-                   <f:facet name="header">  
-                       <h2 style="font: medium; color: blue"> Filtros - Curso </h2>  
-                   </f:facet>  
+                <p:panel>
+                    <f:facet name="header">
+                        Listagem de Cursos
+                    </f:facet>
+                    <p:accordionPanel styleClass="teste">
+                        <p:tab title="Filtros">
+                            <p:panelGrid columns="2">
 
-                   <h:outputLabel value="Nome:" />
-                   <p:inputText value="${cursoController.filtro.nome}"/>  
+                                <h:outputLabel value="Nome:" />
+                                <p:inputText value="${cursoController.filtro.nome}"/>  
 
-                   <h:outputLabel value="Sigla:" />
-                   <p:inputText value="${cursoController.filtro.sigla}"/>
-                  
-                   
-                  
-                   <f:facet name="footer">  
-                       <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${cursoController.filtrar()}" style="margin:0"/>  
-                       <p:commandButton ajax="false" value="Novo Curso" action="${cursoController.novo()}" />
-                   </f:facet>
-                   
-               </p:panelGrid>
-              </center> 
-            <br/>
-            <br/>
-              
-              
-           <p:dataTable value="${cursoController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
-            <p:column sortBy="nome" headerText="Nome">
-                ${item.nome}
-            </p:column>
-               
-             <p:column sortBy="sigla" headerText="Sigla">
-                ${item.sigla}
-            </p:column>
+                                <h:outputLabel value="Sigla:" />
+                                <p:inputText value="${cursoController.filtro.sigla}"/>
+                            </p:panelGrid>
+                            <ui:include src="./comum/botoesListagem.xhtml">
+                                <ui:param name="controller" value="#{cursoController}"  />
+                                <ui:param name="campos" value=""  />
+                            </ui:include>
+                        </p:tab>
+                    </p:accordionPanel>
 
-            
-           
-            <p:column headerText="Editar">
-                <p:commandButton value="Editar" ajax="false" action="${cursoController.abrir()}">
-                    <f:setPropertyActionListener target="${cursoController.entidade}" value="${item}" />
-                </p:commandButton>
-            </p:column>
-              
-          </p:dataTable>
-       </ui:define>
+                    <p:dataTable value="#{cursoController.dataModel}" var="item" selectionMode="single"
+                                 paginator="true" rows="30"  lazy="true" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-     </ui:composition>
+                        <p:ajax event="rowSelect" listener="#{cursoController.onRowSelect}" />
+                        <p:column sortBy="nome" headerText="Nome">
+                            ${item.nome}
+                        </p:column>
 
+                        <p:column sortBy="sigla" headerText="Sigla">
+                            ${item.sigla}
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
     </body>
 </html>

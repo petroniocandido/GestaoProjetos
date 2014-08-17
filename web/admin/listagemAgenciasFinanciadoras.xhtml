@@ -13,32 +13,35 @@
             <ui:define name="content">
                 <p:panel>
                     <f:facet name="header">
-                        Listagem de Campus
+                        Listagem de Perfis
                     </f:facet>
                     <p:accordionPanel styleClass="teste">
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
                                 <h:outputLabel value="Nome:" />
-                                <p:inputText value="${campusController.filtro.nome}"/>  
+                                <p:inputText value="${agenciaFinanciadoraController.filtro.nome}"/>  
+
+                                <h:outputLabel value="Sigla:" />
+                                <p:inputText value="${agenciaFinanciadoraController.filtro.sigla}"/>
                             </p:panelGrid>
                             <ui:include src="./comum/botoesListagem.xhtml">
-                                <ui:param name="controller" value="#{campusController}"  />
-                                <ui:param name="campos" value=""  />
+                                <ui:param name="controller" value="#{agenciaFinanciadoraController}"  />
+                                <ui:param name="campos" value="txtNome cbxPadrao"  />
                             </ui:include>
                         </p:tab>
                     </p:accordionPanel>
 
-                    <p:dataTable value="#{campusController.dataModel}" var="item" selectionMode="single"
+                    <p:dataTable value="#{agenciaFinanciadoraController.dataModel}" var="item" selectionMode="single"
                                  paginator="true" rows="30"  lazy="true" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-                        <p:ajax event="rowSelect" listener="#{campusController.onRowSelect}" />
+                        <p:ajax event="rowSelect" listener="#{agenciaFinanciadoraController.onRowSelect}" />
                         <p:column sortBy="nome" headerText="Nome">
                             ${item.nome}
                         </p:column>
 
-                        <p:column sortBy="endereço" headerText="Endereço">
-                            ${item.endereco}
+                        <p:column sortBy="sigla" headerText="Sigla">
+                            ${item.sigla}
                         </p:column>
                     </p:dataTable>
                 </p:panel>

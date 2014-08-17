@@ -13,32 +13,47 @@
             <ui:define name="content">
                 <p:panel>
                     <f:facet name="header">
-                        Listagem de Campus
+                        Listagem de Bolsistas
                     </f:facet>
                     <p:accordionPanel styleClass="teste">
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
+                                <h:outputLabel value="Matrícula:" />
+                                <p:inputText value="${alunoController.filtro.matricula}"/>  
+
                                 <h:outputLabel value="Nome:" />
-                                <p:inputText value="${campusController.filtro.nome}"/>  
+                                <p:inputText value="${alunoController.filtro.nome}"/>
+
+                                <h:outputLabel value="Curso:" />
+                                <p:selectOneMenu value="${alunoController.filtro.curso}" label="Curso" 
+                                                 converter="${cursoConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="${cursoController.listagem}" />
+
+                                </p:selectOneMenu>
                             </p:panelGrid>
                             <ui:include src="./comum/botoesListagem.xhtml">
-                                <ui:param name="controller" value="#{campusController}"  />
+                                <ui:param name="controller" value="#{cursoController}"  />
                                 <ui:param name="campos" value=""  />
                             </ui:include>
                         </p:tab>
                     </p:accordionPanel>
 
-                    <p:dataTable value="#{campusController.dataModel}" var="item" selectionMode="single"
+                    <p:dataTable value="#{cursoController.dataModel}" var="item" selectionMode="single"
                                  paginator="true" rows="30"  lazy="true" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-                        <p:ajax event="rowSelect" listener="#{campusController.onRowSelect}" />
+                        <p:ajax event="rowSelect" listener="#{cursoController.onRowSelect}" />
+                        <p:column sortBy="matricula" headerText="Matricula">
+                            ${item.matricula}
+                        </p:column>
+
                         <p:column sortBy="nome" headerText="Nome">
                             ${item.nome}
                         </p:column>
 
-                        <p:column sortBy="endereço" headerText="Endereço">
-                            ${item.endereco}
+                        <p:column sortBy="curso" headerText="Curso">
+                            ${item.curso}
                         </p:column>
                     </p:dataTable>
                 </p:panel>

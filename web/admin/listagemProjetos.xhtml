@@ -8,60 +8,56 @@
 
     <body>
 
-        <ui:composition template="./TemplateAdmin.xhtml">
+        <ui:composition template="./AdminTemplate.xhtml">
 
             <ui:define name="content">
-                 <br/>  
-              <center>  
-               <p:panelGrid columns="2" style="color: blue" >
-                    
-                   <f:facet name="header">  
-                       <h2 style="font: medium; color: blue"> Filtros - Projetos </h2>  
-                   </f:facet>  
+                <p:panel>
+                    <f:facet name="header">
+                        Listagem de Projetos 
+                    </f:facet>
+                    <p:accordionPanel styleClass="teste">
+                        <p:tab title="Filtros">
+                            <p:panelGrid columns="2">
+                                <h:outputLabel value="Número de Cadastro:" />
+                                <p:inputText value="${projetoController.filtro.numeroCadastro}"/>  
 
-                   <h:outputLabel value="Número de Cadastro:" />
-                   <p:inputText value="${projetoController.filtro.numeroCadastro}"/>  
+                                <h:outputLabel value="Título:" />
+                                <p:inputText value="${projetoController.filtro.titulo}"/>
+                            </p:panelGrid>
+                            <ui:include src="./comum/botoesListagem.xhtml">
+                                <ui:param name="controller" value="#{projetoController}"  />
+                                <ui:param name="campos" value=""  />
+                            </ui:include>
+                        </p:tab>
+                    </p:accordionPanel>
 
-                   <h:outputLabel value="Título:" />
-                   <p:inputText value="${projetoController.filtro.titulo}"/>
-                  
-                   
-                  
-                   <f:facet name="footer">  
-                       <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${projetoController.filtrar()}" style="margin:0"/>  
-                       <p:commandButton ajax="false" value="Novo Projeto" action="${projetoController.novo()}" />
-                   </f:facet>
-                   
-               </p:panelGrid>
-              </center> 
-            <br/>
-            <br/>
-            
-            <p:dataTable value="${projetoController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
-            <p:column sortBy="numeroCadastro" headerText="Número de Cadastro">
-                ${item.numeroCadastro}
-            </p:column>
+                    <p:dataTable value="#{projetoController.dataModel}" var="item" selectionMode="single"
+                                 paginator="true" rows="30"  lazy="true" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-            <p:column sortBy="titulo" headerText="Título">
-                ${item.titulo}
-            </p:column>
-              
-            <p:column sortBy="Orientador" headerText="Orientador">
-                ${item.coordenador}
-            </p:column>
-           
-            <p:column headerText="Editar">
-                <p:commandButton value="Editar" ajax="false" action="${projetoController.abrir}">
-                    <f:setPropertyActionListener target="${projetoController.entidade}" value="${item}" />
-                </p:commandButton>
-            </p:column>
-              
-          </p:dataTable>        
-            
-            
+                        <p:ajax event="rowSelect" listener="#{projetoController.onRowSelect}" />
+                        <p:column sortBy="numeroCadastro" headerText="Número de Cadastro">
+                            ${item.numeroCadastro}
+                        </p:column>
+                        
+                        <p:column sortBy="campus" headerText="Campus">
+                            ${item.campus}
+                        </p:column>
+
+                        <p:column sortBy="modalidade" headerText="Modalidade">
+                            ${item.modalidade}
+                        </p:column>
+                        
+                        <p:column sortBy="titulo" headerText="Título">
+                            ${item.titulo}
+                        </p:column>
+
+                        <p:column sortBy="Orientador" headerText="Orientador">
+                            ${item.coordenador}
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

@@ -8,53 +8,45 @@
 
     <body>
 
-        <ui:composition template="./TemplateAdmin.xhtml">
+        <ui:composition template="./AdminTemplate.xhtml">
 
             <ui:define name="content">
-              <br/>  
-              <center>
-                   <p:panelGrid columns="2" style="color: blue">
-                    
-                   <f:facet name="header">  
-                    <h2 style="font: medium; color: blue"> Filtros - Modalidades </h2>   
-                   </f:facet>  
+                <p:panel>
+                    <f:facet name="header">
+                        Listagem de Modalidades
+                    </f:facet>
+                    <p:accordionPanel styleClass="teste">
+                        <p:tab title="Filtros">
+                            <p:panelGrid columns="2">
 
-                   <h:outputLabel value="Nome:" />
-                   <p:inputText value="${modalidadeController.filtro.nome}"/>  
+                                <h:outputLabel value="Nome:" />
+                                <p:inputText value="${modalidadeController.filtro.nome}"/>  
 
-                   <h:outputLabel value="Sigla:" />
-                   <p:inputText value="${modalidadeController.filtro.sigla}"/>
-                  
-                   <f:facet name="footer">  
-                       <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${modalidadeController.filtrar()}" />  
-                       <p:commandButton ajax="false" value="Nova Modalidade" action="${modalidadeController.novo()}" />
-                   </f:facet>
-                   
-                 </p:panelGrid>
-               </center>
-            <br/>
-            <br/>
-            
-            <p:dataTable value="${modalidadeController.listagem}" var="item" emptyMessage="Registros não Encontrados!">
-            <p:column sortBy="nome" headerText="Nome">
-                ${item.nome}
-            </p:column>
+                                <h:outputLabel value="Sigla:" />
+                                <p:inputText value="${modalidadeController.filtro.sigla}"/>
+                            </p:panelGrid>
+                            <ui:include src="./comum/botoesListagem.xhtml">
+                                <ui:param name="controller" value="#{modalidadeController}"  />
+                                <ui:param name="campos" value=""  />
+                            </ui:include>
+                        </p:tab>
+                    </p:accordionPanel>
 
-            <p:column sortBy="sigla" headerText="Sigla">
-                ${item.sigla}
-            </p:column>
-           
-            <p:column headerText="Editar">
-                <p:commandButton value="Editar" ajax="false" action="${modalidadeController.abrir}">
-                    <f:setPropertyActionListener target="${modalidadeController.entidade}" value="${item}" />
-                </p:commandButton>
-            </p:column>
-              
-          </p:dataTable>
+                    <p:dataTable value="#{modalidadeController.dataModel}" var="item" selectionMode="single"
+                                 paginator="true" rows="30"  lazy="true" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-          </ui:define>
+                        <p:ajax event="rowSelect" listener="#{modalidadeController.onRowSelect}" />
+                        <p:column sortBy="nome" headerText="Nome">
+                            ${item.nome}
+                        </p:column>
 
+                        <p:column sortBy="sigla" headerText="Sigla">
+                            ${item.sigla}
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </ui:define>
         </ui:composition>
-
     </body>
 </html>

@@ -8,58 +8,52 @@
 
     <body>
 
-        <ui:composition template="./TemplateAdmin.xhtml">
+        <ui:composition template="./AdminTemplate.xhtml">
 
-          <ui:define name="content">
-                
-            <br/>  
-             <center>
-              <p:panelGrid columns="2" style="color: blue" >
-                    
-                   <f:facet name="header"> 
-                     <h2 style="font: medium; color: blue"> Filtros - Edital </h2>                       
-                   </f:facet>  
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Listagem de Edital
+                    </f:facet>
+                    <p:accordionPanel styleClass="teste">
+                        <p:tab title="Filtros">
+                            <p:panelGrid columns="2">
+                                <h:outputLabel value="Número:"  />
+                                <p:inputText value="${editalController.filtro.numero}"/>  
 
-                   <h:outputLabel value="Número:"  />
-                   <p:inputText value="${editalController.filtro.numero}"/>  
+                                <h:outputLabel value="Agência Financiadora:"  />
+                                <p:selectOneMenu value="${editalController.filtro.agenciaFinanciadora}" 
+                                                 converter="#{agenciaFinanciadoraConverter}" label="Agência Financiadora" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="${agenciaFinanciadoraController.listagem}" />                      
 
-                   <h:outputLabel value="Agência Financiadora:"  />
-                   <p:selectOneMenu value="${editalController.filtro.agenciaFinanciadora}" 
-                                    converter="#{agenciaFinanciadoraConverter}" label="Agência Financiadora" >
-                       <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                       <f:selectItems value="${agenciaFinanciadoraController.listagem}" />                      
-                      
-                   </p:selectOneMenu>
-                   
-                   <f:facet name="footer">  
-                       <p:commandButton ajax="false" value="Filtrar" icon="ui-icon-check" action="${editalController.filtrar()}" />  
-                       <p:commandButton ajax="false" value="Novo Edital" action="${editalController.novo()}"  />
-                   </f:facet>
-                   
-                 </p:panelGrid>    
-             </center>
-             <br/> <br/>           
-              
-              
-           <p:dataTable value="${editalController.listagem}" var="item" emptyMessage="Registros não Encontrados!" >
-            <p:column sortBy="numero" headerText="Número">
-                ${item.numero}
-            </p:column>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <ui:include src="./comum/botoesListagem.xhtml">
+                                <ui:param name="controller" value="#{editalController}"  />
+                                <ui:param name="campos" value="txtNome cbxPadrao"  />
+                            </ui:include>
+                        </p:tab>
+                    </p:accordionPanel>
 
-            <p:column sortBy="agenciaFinanciadora" headerText="Agência Financiadora">
-                ${item.agenciaFinanciadora}
-            </p:column>
-           
-            <p:column headerText="Editar">
-                <p:commandButton value="Editar" ajax="false" action="${editalController.abrir}" >
-                    <f:setPropertyActionListener target="${editalController.entidade}" value="${item}" />
-                </p:commandButton>
-            </p:column>
-              
-          </p:dataTable>
-        </ui:define>
+                    <p:dataTable value="#{editalController.dataModel}" var="item" selectionMode="single"
+                                 paginator="true" rows="30"  lazy="true" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-      </ui:composition>
+                        <p:ajax event="rowSelect" listener="#{editalController.onRowSelect}" />
+                        <p:column sortBy="campus" headerText="Campus">
+                            ${item.campus}
+                        </p:column>
+                        <p:column sortBy="numero" headerText="Número">
+                            ${item.numero}
+                        </p:column>
 
+                        <p:column sortBy="agenciaFinanciadora" headerText="Agência Financiadora">
+                            ${item.agenciaFinanciadora}
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
     </body>
 </html>
