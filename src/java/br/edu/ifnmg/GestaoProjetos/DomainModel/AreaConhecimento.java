@@ -7,7 +7,6 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Cacheable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,12 +33,16 @@ public class AreaConhecimento implements Entidade, Serializable {
 
     private Long id;
     private String nome;
+    
+    private String numeroCNPQ;
 
     //GETTER E SETTER
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -51,6 +54,17 @@ public class AreaConhecimento implements Entidade, Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getNumeroCNPQ() {
+        return numeroCNPQ;
+    }
+
+    public void setNumeroCNPQ(String numeroCNPQ) {
+        this.numeroCNPQ = numeroCNPQ;
+    }
+
+    
+    
 
     @Override
     public int hashCode() {
