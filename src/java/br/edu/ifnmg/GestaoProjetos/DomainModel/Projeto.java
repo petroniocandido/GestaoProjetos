@@ -85,7 +85,7 @@ public class Projeto implements Entidade, Serializable {
     private String setorCoordenador;
 
     //Documentos
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Documento> documentos;
 
     // Plano de Trabalho 
@@ -135,7 +135,6 @@ public class Projeto implements Entidade, Serializable {
     private String nomeProjetoFundacao;
 
     private boolean projetoMulticampi;
-
     
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Aluno> orientandos;

@@ -32,6 +32,9 @@ public class Documento implements Serializable, Entidade {
     private Long id;
     
     @ManyToOne
+    private Projeto projeto;
+    
+    @ManyToOne
     private Pessoa funcionarioRecebedor;
     
     @ManyToOne

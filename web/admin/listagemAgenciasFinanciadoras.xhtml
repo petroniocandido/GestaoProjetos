@@ -13,20 +13,20 @@
             <ui:define name="content">
                 <p:panel>
                     <f:facet name="header">
-                        Listagem de Perfis
+                        Listagem de Agências Financiadoras
                     </f:facet>
                     <p:accordionPanel styleClass="teste">
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
-                                <h:outputLabel value="Nome:" />
+                                <h:outputLabel id="txtNome" value="Nome:" />
                                 <p:inputText value="${agenciaFinanciadoraController.filtro.nome}"/>  
 
-                                <h:outputLabel value="Sigla:" />
+                                <h:outputLabel id="txtSigla" value="Sigla:" />
                                 <p:inputText value="${agenciaFinanciadoraController.filtro.sigla}"/>
                             </p:panelGrid>
                             <ui:include src="./comum/botoesListagem.xhtml">
                                 <ui:param name="controller" value="#{agenciaFinanciadoraController}"  />
-                                <ui:param name="campos" value="txtNome cbxPadrao"  />
+                                <ui:param name="campos" value="txtNome txtSigla"  />
                             </ui:include>
                         </p:tab>
                     </p:accordionPanel>

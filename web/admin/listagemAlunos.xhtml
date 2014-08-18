@@ -33,17 +33,17 @@
                                 </p:selectOneMenu>
                             </p:panelGrid>
                             <ui:include src="./comum/botoesListagem.xhtml">
-                                <ui:param name="controller" value="#{cursoController}"  />
+                                <ui:param name="controller" value="#{alunoController}"  />
                                 <ui:param name="campos" value=""  />
                             </ui:include>
                         </p:tab>
                     </p:accordionPanel>
 
-                    <p:dataTable value="#{cursoController.dataModel}" var="item" selectionMode="single"
+                    <p:dataTable value="#{alunoController.dataModel}" var="item" selectionMode="single"
                                  paginator="true" rows="30"  lazy="true" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-                        <p:ajax event="rowSelect" listener="#{cursoController.onRowSelect}" />
+                        <p:ajax event="rowSelect" listener="#{alunoController.onRowSelect}" />
                         <p:column sortBy="matricula" headerText="Matricula">
                             ${item.matricula}
                         </p:column>
