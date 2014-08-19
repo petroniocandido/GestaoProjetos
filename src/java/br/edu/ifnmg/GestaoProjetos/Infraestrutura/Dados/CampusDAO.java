@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
+import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import java.util.List;
@@ -28,6 +29,11 @@ public class CampusDAO
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
                 .Buscar();
+    }
+
+    @Override
+    public Campus Abrir(String sigla) {
+        return IgualA("sigla", sigla).Abrir();
     }
 
 }

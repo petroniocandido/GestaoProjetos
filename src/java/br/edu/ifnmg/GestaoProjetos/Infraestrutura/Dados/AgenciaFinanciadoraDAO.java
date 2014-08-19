@@ -15,7 +15,6 @@ import javax.ejb.Stateless;
  */
 @Stateless(name= "AgenciaFinanciadoraRepositorio")
 public class AgenciaFinanciadoraDAO
-
     extends DAOGenerico<AgenciaFinanciadora>
     implements AgenciaFinanciadoraRepositorio {
 
@@ -29,6 +28,11 @@ public class AgenciaFinanciadoraDAO
                 .Like("nome", obj.getNome())
                 .IgualA("sigla", obj.getSigla())
                 .Buscar();
+    }
+
+    @Override
+    public AgenciaFinanciadora Abrir(String sigla) {
+        return IgualA("sigla", sigla).Abrir();
     }
     
 }

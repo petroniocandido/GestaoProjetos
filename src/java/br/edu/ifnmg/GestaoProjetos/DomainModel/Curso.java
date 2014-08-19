@@ -36,7 +36,7 @@ public class Curso implements Entidade, Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable=false, unique = true)
     private String sigla;
 
     //GETTER E SETTER

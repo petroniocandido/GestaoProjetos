@@ -7,6 +7,7 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class TipoDocumento implements Serializable, Entidade {
     
     private String nome;
     
+    @Column(nullable=false, unique = true)
     private String sigla;
 
     @Override

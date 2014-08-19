@@ -50,6 +50,7 @@ public class Edital implements Entidade, Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataFinal;
     
+    @Column(nullable=false, unique = true)
     private String sigla;
     
     @ManyToMany

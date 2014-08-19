@@ -30,4 +30,9 @@ public class ModalidadeDAO
                 .Buscar();
     }
 
+    @Override
+    public Modalidade Abrir(String sigla) {
+        return IgualA("sigla", sigla).Abrir();
+    }
+
 }

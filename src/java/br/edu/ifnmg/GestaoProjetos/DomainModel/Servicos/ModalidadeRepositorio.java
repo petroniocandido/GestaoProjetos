@@ -12,10 +12,6 @@ import javax.ejb.Local;
  * @author HOME
  */
 @Local
-public interface ModalidadeRepositorio 
-
-  extends Repositorio<Modalidade>
-
-    {
-    
+public interface ModalidadeRepositorio  extends Repositorio<Modalidade> {
+    public Modalidade Abrir(String sigla);
 }

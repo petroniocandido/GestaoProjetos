@@ -30,4 +30,9 @@ public class OrientadorDAO
                 .Buscar();
     }
 
+    @Override
+    public Orientador Abrir(String cpf) {
+        return IgualA("cpf", cpf).Abrir();
+    }
+
 }
