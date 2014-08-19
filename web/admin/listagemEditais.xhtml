@@ -18,6 +18,9 @@
                     <p:accordionPanel styleClass="teste">
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
+                                <h:outputLabel value="Sigla:"  />
+                                <p:inputText value="${editalController.filtro.sigla}"/>  
+                                
                                 <h:outputLabel value="Número:"  />
                                 <p:inputText value="${editalController.filtro.numero}"/>  
 
@@ -41,6 +44,9 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
                         <p:ajax event="rowSelect" listener="#{editalController.onRowSelect}" />
+                        <p:column sortBy="sigla" headerText="Sigla">
+                            ${item.sigla}
+                        </p:column>
                         <p:column sortBy="campus" headerText="Campus">
                             ${item.campus}
                         </p:column>

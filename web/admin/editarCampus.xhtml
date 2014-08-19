@@ -16,6 +16,8 @@
                     <p:tabView id="tabView">  
                         <p:tab id="tabDados" title="Dados Gerais">  
                             <h:panelGrid columns="2">
+                                <h:outputLabel value="Sigla*:" />
+                                <p:inputText value="${campusController.entidade.sigla}" required="true"/>                      
                                 <h:outputLabel value="Nome*:" />
                                 <p:inputText value="${campusController.entidade.nome}" required="true" style="width: 150%"/>                      
                             </h:panelGrid>

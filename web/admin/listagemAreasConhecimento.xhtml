@@ -33,6 +33,9 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
                         <p:ajax event="rowSelect" listener="#{areaConhecimentoController.onRowSelect}" />
+                        <p:column sortBy="Cód. CNPq" headerText="Nome">
+                            ${item.numeroCNPQ}
+                        </p:column>
                         <p:column sortBy="nome" headerText="Nome">
                             ${item.nome}
                         </p:column>            

@@ -33,6 +33,9 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
                         <p:ajax event="rowSelect" listener="#{campusController.onRowSelect}" />
+                        <p:column sortBy="sigla" headerText="Sigla">
+                            ${item.sigla}
+                        </p:column>
                         <p:column sortBy="nome" headerText="Nome">
                             ${item.nome}
                         </p:column>
