@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
@@ -18,14 +17,19 @@ import java.text.SimpleDateFormat;
 public class AreaConhecimentoCSVImporter extends CSVImporter<AreaConhecimento> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");
-    
+
     @Override
     protected AreaConhecimento gerarObjeto(String linha) {
         String colunas[] = linha.split(";");
-        AreaConhecimento obj = new AreaConhecimento();
-        obj.setNome(colunas[cabecalho.get("nome")]);
-        obj.setNumeroCNPQ(colunas[cabecalho.get("numeroCNPQ")]);        
-        return obj;
+        try {
+            AreaConhecimento obj = new AreaConhecimento();
+            obj.setNome(colunas[cabecalho.get("nome")]);
+            obj.setNumeroCNPQ(colunas[cabecalho.get("numeroCNPQ")]);
+            return obj;
+        } catch (Exception ex) {
+            
+            return null;
+        }
     }
-    
+
 }

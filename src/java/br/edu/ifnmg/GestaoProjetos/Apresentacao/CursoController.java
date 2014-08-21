@@ -27,8 +27,6 @@ public class CursoController
      * Creates a new instance of CursoController
      */
     public CursoController() {
-        filtro = new Curso();
-        entidade = new Curso();
     }
     
     @EJB

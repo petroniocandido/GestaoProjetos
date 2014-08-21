@@ -28,8 +28,6 @@ public class AgenciaFinanciadoraController
      */
     
     public AgenciaFinanciadoraController() {
-        filtro = new AgenciaFinanciadora();
-        entidade = new AgenciaFinanciadora();       
     }
 
     @EJB

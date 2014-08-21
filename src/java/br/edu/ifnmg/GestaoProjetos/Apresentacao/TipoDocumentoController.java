@@ -26,8 +26,6 @@ public class TipoDocumentoController
      * Creates a new instance of TipoDocumentoController
      */
     public TipoDocumentoController() {
-        filtro = new TipoDocumento();
-        entidade = new TipoDocumento();
     }
     
     @EJB
@@ -56,7 +54,7 @@ public class TipoDocumentoController
     public void init() {
         setRepositorio(dao);
         setPaginaEdicao("editarTipoDocumento.xhtml");
-        setPaginaListagem("listagemTipoDocumentos.xhtml");
+        setPaginaListagem("listagemTiposDocumentos.xhtml");
     }
     
     @Override

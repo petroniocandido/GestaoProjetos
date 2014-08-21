@@ -67,7 +67,7 @@
 
 
                                 <h:outputLabel value="Número*:" />
-                                <p:inputText id="txtNum" value="${alunoController.endereco.numero}" required="false"/>   
+                                <p:inputText id="txtNum" value="${alunoController.endereco.numero}"  required="false"/>   
 
                                 <h:outputLabel value="Complemento:" />
                                 <p:inputText id="txtComplemento" value="${alunoController.endereco.complemento}" required="false"/>                      
@@ -79,7 +79,7 @@
                                 <p:inputText id="txtCidade" value="${alunoController.endereco.cidade}" required="false"/>  
 
                                 <h:outputLabel value="Cep*:" />
-                                <p:inputText id="txtCep" value="${alunoController.endereco.cep}" required="false"/> 
+                                <p:inputMask id="txtCep" value="${alunoController.endereco.cep}" mask="99.999-99" required="false"/> 
 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${alunoController.addEndereco()}" style="margin:0"
@@ -120,10 +120,10 @@
                             <br/>
                             <h:panelGrid columns="5">
                                 <h:outputLabel value="DDD*:" />
-                                <p:inputText id="txtDDD" value="${alunoController.telefone.ddd}" required="false"/>   
+                                <p:inputMask id="txtDDD" value="${alunoController.telefone.ddd}" mask="99" required="false"/>   
 
                                 <h:outputLabel value="Número*:" />
-                                <p:inputText id="txtNumero" value="${alunoController.telefone.numero}" required="false"/>                      
+                                <p:inputMask id="txtNumero" value="${alunoController.telefone.numero}" mask="9999-9999" required="false"/>                      
 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${alunoController.addTelefone}" style="margin:0"

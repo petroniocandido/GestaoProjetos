@@ -34,8 +34,6 @@ public class EditalController
      * Creates a new instance of EditalController
      */
     public EditalController() {        
-        filtro = new Edital();
-        entidade = new Edital();        
     }    
     
     @EJB

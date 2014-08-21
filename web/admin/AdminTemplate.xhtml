@@ -44,6 +44,7 @@
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemPermissoes.xhtml')}" value="Permissões"  url="listagemPermissoes.xhtml" />
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemLogs.xhtml')}" value="Logs" url="listagemLogs.xhtml"  />
                         <p:submenu label="Importa CSV">
+                            <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/importaCSVAreasConhecimento.xhtml')}" value="Areas de Conhecimento" url="importaCSVAreasConhecimento.xhtml"  />
                             <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/importaCSVPessoas.xhtml')}" value="Pessoas" url="importaCSVPessoas.xhtml"  />
                         </p:submenu>
                     </p:submenu>

@@ -42,8 +42,6 @@ public class ProjetoController
      */
     
     public ProjetoController() {      
-        filtro = new Projeto();
-        entidade = new Projeto();  
         areaConhecimento = new AreaConhecimento();
         //orientandos = new Aluno();
         documento = new Documento();
