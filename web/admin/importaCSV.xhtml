@@ -15,6 +15,14 @@
                     <f:facet name="header">
                         Importa dados de Áreas de Conhecimento
                     </f:facet>
+                    <h:outputText value="Tipo de Importação: " />
+                    <h:selectOneMenu value="#{integracoesController.tipo}">
+                        <f:selectItem itemLabel="Areas de Conhecimento" value="area"/>
+                        <f:selectItem itemLabel="Orientadores" value="Orientadores"/>
+                        <f:selectItem itemLabel="Orientandos" value="Orientandos"/>
+                        <f:selectItem itemLabel="Pessoas" value="Pessoas"/>
+                        <f:selectItem itemLabel="Projetos" value="Projetos"/>
+                    </h:selectOneMenu>
                     <h:outputText value="Arquivo CSV: " />
                     <p:fileUpload value="#{integracoesController.arquivo}" mode="simple"             
                                               auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(csv)$/"

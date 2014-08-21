@@ -28,7 +28,7 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(unique = true)
-    private int matricula;
+    private String matricula;
 
     //Documentos   
     private String tituloEleitoral;
@@ -65,9 +65,9 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
     //Dados da Conta
     private String banco;
 
-    private int contaBancaria;
+    private String contaBancaria;
 
-    private int agencia;
+    private String agencia;
 
     @ManyToOne
     private Curso curso;
@@ -79,11 +79,11 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
         super();  
     }
 
-    public int getMatricula() {
+    public String getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(int matricula) {
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
@@ -207,19 +207,19 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
         this.banco = banco;
     }
 
-    public int getContaBancaria() {
+    public String getContaBancaria() {
         return contaBancaria;
     }
 
-    public void setContaBancaria(int contaBancaria) {
+    public void setContaBancaria(String contaBancaria) {
         this.contaBancaria = contaBancaria;
     }
 
-    public int getAgencia() {
+    public String getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(int agencia) {
+    public void setAgencia(String agencia) {
         this.agencia = agencia;
     }
 

@@ -8,8 +8,10 @@ import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBase;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.AreaConhecimentoCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.OrientadorCSVImporter;
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.OrientandoCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.PessoaCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.ProjetoCSVImporter;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
@@ -53,6 +55,18 @@ public class IntegracoesController
     ProjetoRepositorio daoProjeto;
 
     UploadedFile arquivo;
+    
+    String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    
 
     public UploadedFile getArquivo() {
         return arquivo;
@@ -60,6 +74,25 @@ public class IntegracoesController
 
     public void setArquivo(UploadedFile arquivo) {
         this.arquivo = arquivo;
+    }
+    public void importar() {
+        switch(tipo){
+            case "area":
+                importarAreasConhecimento();
+                break;
+            case "Orientadores":
+                importarOrientadores();
+                break;
+            case "Orientandos":
+                importarAreasConhecimento();
+                break;
+            case "Pessoas":
+                importarPessoas();
+                break;
+            case "Projetos":
+                importarProjetos();
+                break;                
+        }
     }
 
     public String abreArquivo() {
@@ -129,6 +162,18 @@ public class IntegracoesController
         CSVImporter imp = new OrientadorCSVImporter();
         List<Orientador> tmp = imp.importarCSV(abreArquivo());
         for (Orientador p : tmp) {
+            if (daoP.Salvar(p)) {
+                Mensagem(p.getNome() + "Salvo com sucesso", p.getNome() + "Salvo com sucesso");
+            } else {
+                Mensagem(p.getNome() + " - Falhou", p.getNome() + " - Falhou");
+            }
+        }
+    }
+    
+    public void importarOrientando() {
+        CSVImporter imp = new OrientandoCSVImporter();
+        List<Aluno> tmp = imp.importarCSV(abreArquivo());
+        for (Aluno p : tmp) {
             if (daoP.Salvar(p)) {
                 Mensagem(p.getNome() + "Salvo com sucesso", p.getNome() + "Salvo com sucesso");
             } else {
