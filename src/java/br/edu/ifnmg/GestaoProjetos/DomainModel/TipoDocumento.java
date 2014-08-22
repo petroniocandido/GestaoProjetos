@@ -36,6 +36,8 @@ public class TipoDocumento implements Serializable, Entidade {
     
     @Column(nullable=false, unique = true)
     private String sigla;
+    
+    public boolean obrigatorio;
 
     @Override
     public Long getId() {
@@ -62,8 +64,15 @@ public class TipoDocumento implements Serializable, Entidade {
     public void setSigla(String sigla) {
         this.sigla = sigla;
     }
-    
 
+    public boolean isObrigatorio() {
+        return obrigatorio;
+    }
+
+    public void setObrigatorio(boolean obrigatorio) {
+        this.obrigatorio = obrigatorio;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

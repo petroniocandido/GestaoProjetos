@@ -27,6 +27,7 @@ public class ModalidadeDAO
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
                 .IgualA("sigla", filtro.getSigla())
+                .Ordenar("nome", "ASC")
                 .Buscar();
     }
 

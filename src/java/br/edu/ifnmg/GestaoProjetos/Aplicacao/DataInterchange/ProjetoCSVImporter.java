@@ -7,12 +7,16 @@ package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AreaConhecimentoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
@@ -47,6 +51,12 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
 
     @EJB
     ModalidadeRepositorio daoModalidade;
+    
+    @EJB
+    AlunoRepositorio daoAluno;
+    
+    @EJB
+    AreaConhecimentoRepositorio daoAreaConhecimento;
 
     @Override
     protected Projeto gerarObjeto(String linha) {
@@ -65,7 +75,7 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
         }
 
         if (cabecalho.containsKey("Coordenador")) {
-            Orientador tmp = daoCoordenador.Abrir(colunas[cabecalho.get("Coordenador")]);
+            Orientador tmp = daoCoordenador.AbrirPorCPF(colunas[cabecalho.get("Coordenador")]);
             obj.setCoordenador(tmp);
         }
 
@@ -100,6 +110,22 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
         if (cabecalho.containsKey("ValorFinanciamento")) {
             BigInteger tmp = new BigInteger(colunas[cabecalho.get("AgenciaFinanciadora")]);
             obj.setValorFinanciamento(tmp);
+        }
+        
+        if (cabecalho.containsKey("Orientando")) {
+            String cpfs[] = colunas[cabecalho.get("Orientando")].split(",");
+            for(String cpf : cpfs){
+                Aluno a = daoAluno.AbrirPorCPF(cpf);
+                obj.addAluno(a);
+            }
+        }
+        
+        if (cabecalho.containsKey("AreaConhecimento")) {
+            String cods[] = colunas[cabecalho.get("AreaConhecimento")].split(",");
+            for(String cod : cods){
+                AreaConhecimento a = daoAreaConhecimento.Abrir(cod);
+                obj.addAreaConhecimento(a);
+            }
         }
 
         return obj;

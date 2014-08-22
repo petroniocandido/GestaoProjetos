@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
@@ -22,32 +21,45 @@ import java.util.logging.Logger;
  */
 public class OrientadorCSVImporter extends CSVImporter<Orientador> {
 
-    DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");
-    
+    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
     @Override
     protected Orientador gerarObjeto(String linha) {
         String colunas[] = linha.split(";");
         Orientador obj = new Orientador();
-        obj.setNome(colunas[cabecalho.get("nome")]);
-        if(cabecalho.containsKey("cpf"))
-            obj.setCpf(colunas[cabecalho.get("cpf")]);
-        if(cabecalho.containsKey("email"))
-            obj.setEmail(colunas[cabecalho.get("email")]);
-        if(cabecalho.containsKey("telefone"))
-            obj.setTelefone(colunas[cabecalho.get("telefone")]);
-        
         try {
-            obj.setDataNascimento(df.parse(colunas[cabecalho.get("dataNascimento")]));
-        } catch (ParseException ex) {
-            Logger.getLogger(OrientadorCSVImporter.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            obj.setTipo(PessoaTipo.valueOf(colunas[cabecalho.get("tipo")]));
+            obj.setNome(colunas[cabecalho.get("Nome")]);
+            if (cabecalho.containsKey("Cpf")) {
+                obj.setCpf(colunas[cabecalho.get("Cpf")]);
+            }
+            if (cabecalho.containsKey("Email")) {
+                obj.setEmail(colunas[cabecalho.get("Email")]);
+            }
+            if (cabecalho.containsKey("Telefone")) {
+                obj.setTelefone(colunas[cabecalho.get("Telefone")]);
+            }
+            if (cabecalho.containsKey("Lattes")) {
+                obj.setLattes(colunas[cabecalho.get("Lattes")]);
+            }
+
+            if (cabecalho.containsKey("DataNascimento")) {
+                try {
+                    obj.setDataNascimento(df.parse(colunas[cabecalho.get("DataNascimento")]));
+                } catch (ParseException ex) {
+                    Logger.getLogger(OrientadorCSVImporter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                obj.setTipo(PessoaTipo.valueOf(colunas[cabecalho.get("Tipo")]));
+            } catch (Exception ex) {
+                Logger.getLogger(OrientadorCSVImporter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } catch (Exception ex) {
-            Logger.getLogger(OrientadorCSVImporter.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         return obj;
     }
-    
+
 }

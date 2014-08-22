@@ -27,6 +27,7 @@ public class ProjetoDAO
         return IgualA("id", filtro.getId())
                 .Like("titulo", filtro.getTitulo())
                 .IgualA("numeroCadastro", filtro.getNumeroCadastro())
+                .Ordenar("titulo", "ASC")
                 .Buscar();
     }
 

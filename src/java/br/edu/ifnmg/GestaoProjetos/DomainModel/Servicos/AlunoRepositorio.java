@@ -12,11 +12,7 @@ import javax.ejb.Local;
  * @author Isla Guedes
  */
 @Local
-public interface AlunoRepositorio     
-    
-    extends Repositorio<Aluno> 
-
-    {        
-     
+public interface AlunoRepositorio extends Repositorio<Aluno> {        
+     public Aluno AbrirPorCPF(String cpf);
 }
 

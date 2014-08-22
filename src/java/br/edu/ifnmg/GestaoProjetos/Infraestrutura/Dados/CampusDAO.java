@@ -28,6 +28,7 @@ public class CampusDAO
     public List<Campus> Buscar(Campus filtro) {
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
+                .Ordenar("nome", "ASC")
                 .Buscar();
     }
 

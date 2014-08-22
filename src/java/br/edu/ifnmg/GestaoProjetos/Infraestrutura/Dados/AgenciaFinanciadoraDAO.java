@@ -27,6 +27,7 @@ public class AgenciaFinanciadoraDAO
         return IgualA("id", obj.getId())
                 .Like("nome", obj.getNome())
                 .IgualA("sigla", obj.getSigla())
+                .Ordenar("nome", "ASC")
                 .Buscar();
     }
 

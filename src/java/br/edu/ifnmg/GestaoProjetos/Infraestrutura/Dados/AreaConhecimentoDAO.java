@@ -27,7 +27,13 @@ public class AreaConhecimentoDAO
     public List<AreaConhecimento> Buscar(AreaConhecimento filtro) {
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
+                .Ordenar("numeroCNPQ", "ASC")
                 .Buscar();
+    }
+
+    @Override
+    public AreaConhecimento Abrir(String numeroCNPQ) {
+        return IgualA("numeroCNPQ", numeroCNPQ).Abrir();
     }
 
 }

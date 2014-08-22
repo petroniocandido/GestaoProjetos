@@ -80,6 +80,8 @@ public class Pessoa implements Entidade, Serializable {
     @Column(length=2)
     private String naturalidadeUF;
     
+    private String rg;
+    
     private String titulacao;
     
     private String observacao;//VER SER É NECESSARIO
@@ -158,6 +160,16 @@ public class Pessoa implements Entidade, Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+    
+    
 
     public String getOrgaoExpeditor() {
         return orgaoExpeditor;

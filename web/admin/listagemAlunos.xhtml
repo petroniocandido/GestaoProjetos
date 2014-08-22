@@ -18,8 +18,8 @@
                     <p:accordionPanel styleClass="teste">
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
-                                <h:outputLabel value="Matrícula:" />
-                                <p:inputText value="${alunoController.filtro.matricula}"/>  
+                                <h:outputLabel value="CPF:" />
+                                <p:inputText value="${alunoController.filtro.cpf}"/>  
 
                                 <h:outputLabel value="Nome:" />
                                 <p:inputText value="${alunoController.filtro.nome}"/>
@@ -44,16 +44,16 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
                         <p:ajax event="rowSelect" listener="#{alunoController.onRowSelect}" />
-                        <p:column sortBy="matricula" headerText="Matricula">
-                            ${item.matricula}
+                        <p:column sortBy="matricula" headerText="CPF">
+                            ${item.cpf}
                         </p:column>
 
                         <p:column sortBy="nome" headerText="Nome">
                             ${item.nome}
                         </p:column>
 
-                        <p:column sortBy="curso" headerText="Curso">
-                            ${item.curso}
+                        <p:column sortBy="email" headerText="E-mail">
+                            ${item.email}
                         </p:column>
                     </p:dataTable>
                 </p:panel>

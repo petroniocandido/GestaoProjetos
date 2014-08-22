@@ -13,5 +13,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface OrientadorRepositorio extends Repositorio<Orientador> {
-    public Orientador Abrir(String cpf);
+    public Orientador AbrirPorCPF(String cpf);
 }

@@ -29,8 +29,16 @@ public class AlunoDAO
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
                 .IgualA("matricula", filtro.getMatricula())
+                .IgualA("cpf", filtro.getCpf())
+                .IgualA("campus", filtro.getCampus())
                 .IgualA("curso", filtro.getCurso())
+                .Ordenar("nome", "ASC")
                 .Buscar();
+    }
+
+    @Override
+    public Aluno AbrirPorCPF(String cpf) {
+        return IgualA("cpf", cpf).Abrir();
     }
     
 }

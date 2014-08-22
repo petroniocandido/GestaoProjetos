@@ -26,12 +26,15 @@ public class OrientadorDAO
     public List<Orientador> Buscar(Orientador filtro) {
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
+                .IgualA("cpf", filtro.getCpf())
+                .IgualA("campus", filtro.getCampus())
                 .IgualA("matriculaSiape", filtro.getMatriculaSiape())
+                .Ordenar("nome", "ASC")
                 .Buscar();
     }
 
     @Override
-    public Orientador Abrir(String cpf) {
+    public Orientador AbrirPorCPF(String cpf) {
         return IgualA("cpf", cpf).Abrir();
     }
 

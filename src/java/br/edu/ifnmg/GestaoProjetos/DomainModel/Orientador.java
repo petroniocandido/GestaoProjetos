@@ -27,7 +27,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name="orientadores")
-@Cacheable(false)
+@Cacheable(true)
 public class Orientador extends Pessoa implements Entidade, Serializable{
     private static final long serialVersionUID = 1L;
    
@@ -45,6 +45,7 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
         
     private String tituloAcademico;    
     
+    private String lattes;
     
    //Dados de Solicitação
     @OneToMany(mappedBy = "coordenador", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
@@ -121,6 +122,15 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
         this.projetos = projetos;
     }
 
+    public String getLattes() {
+        return lattes;
+    }
+
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
+    }
+
+    
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa criador;

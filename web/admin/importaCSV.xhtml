@@ -17,11 +17,11 @@
                     </f:facet>
                     <h:outputText value="Tipo de Importação: " />
                     <h:selectOneMenu value="#{integracoesController.tipo}">
-                        <f:selectItem itemLabel="Areas de Conhecimento" value="area"/>
-                        <f:selectItem itemLabel="Orientadores" value="Orientadores"/>
-                        <f:selectItem itemLabel="Orientandos" value="Orientandos"/>
-                        <f:selectItem itemLabel="Pessoas" value="Pessoas"/>
-                        <f:selectItem itemLabel="Projetos" value="Projetos"/>
+                        <f:selectItem itemLabel="Areas de Conhecimento" itemValue="area" />
+                        <f:selectItem itemLabel="Orientadores" itemValue="Orientadores"/>
+                        <f:selectItem itemLabel="Orientandos" itemValue="Orientandos"/>
+                        <f:selectItem itemLabel="Pessoas" itemValue="Pessoas"/>
+                        <f:selectItem itemLabel="Projetos" itemValue="Projetos"/>
                     </h:selectOneMenu>
                     <h:outputText value="Arquivo CSV: " />
                     <p:fileUpload value="#{integracoesController.arquivo}" mode="simple"             
@@ -32,7 +32,7 @@
                                               label="Escolher arquivo!"
                                               multiple="false"/> 
                     
-                    <p:commandButton value="Importar" ajax="false" action="#{integracoesController.importarAreasConhecimento()}" />
+                    <p:commandButton value="Importar" ajax="false" action="#{integracoesController.importar()}" />
 
                 </p:panel>
             </ui:define>
