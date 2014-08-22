@@ -38,7 +38,7 @@ public class AlunoDAO
 
     @Override
     public Aluno AbrirPorCPF(String cpf) {
-        return IgualA("cpf", cpf).Abrir();
+        return IgualA("cpf", cpf.replace(".", "").replace("-", "")).Abrir();
     }
     
 }

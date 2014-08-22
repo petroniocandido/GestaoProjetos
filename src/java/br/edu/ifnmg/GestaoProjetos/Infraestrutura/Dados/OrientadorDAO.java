@@ -35,7 +35,7 @@ public class OrientadorDAO
 
     @Override
     public Orientador AbrirPorCPF(String cpf) {
-        return IgualA("cpf", cpf).Abrir();
+        return IgualA("cpf", cpf.replace(".", "").replace("-", "")).Abrir();
     }
 
 }

@@ -6,22 +6,29 @@
 package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaTipo;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author petronio
  */
+@Stateless
 public class OrientadorCSVImporter extends CSVImporter<Orientador> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    
+    @EJB
+    CampusRepositorio daoCampus;
 
     @Override
     protected Orientador gerarObjeto(String linha) {
@@ -31,6 +38,10 @@ public class OrientadorCSVImporter extends CSVImporter<Orientador> {
             obj.setNome(colunas[cabecalho.get("Nome")]);
             if (cabecalho.containsKey("Cpf")) {
                 obj.setCpf(colunas[cabecalho.get("Cpf")]);
+            }
+            if (cabecalho.containsKey("Campus")) {
+                Campus c = daoCampus.Abrir(colunas[cabecalho.get("Campus")]);
+                obj.setCampus(c);
             }
             if (cabecalho.containsKey("Email")) {
                 obj.setEmail(colunas[cabecalho.get("Email")]);
@@ -57,7 +68,7 @@ public class OrientadorCSVImporter extends CSVImporter<Orientador> {
             }
 
         } catch (Exception ex) {
-            return null;
+            
         }
         return obj;
     }

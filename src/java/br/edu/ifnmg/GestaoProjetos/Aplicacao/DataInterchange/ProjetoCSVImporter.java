@@ -28,11 +28,13 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author petronio
  */
+@Stateless
 public class ProjetoCSVImporter extends CSVImporter<Projeto> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");
@@ -62,11 +64,15 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
     protected Projeto gerarObjeto(String linha) {
         String colunas[] = linha.split(";");
         Projeto obj = new Projeto();
-        obj.setTitulo(colunas[cabecalho.get("titulo")]);
+        obj.setTitulo(colunas[cabecalho.get("Titulo")]);
 
         if (cabecalho.containsKey("AgenciaFinanciadora")) {
             AgenciaFinanciadora tmp = daoAgencia.Abrir(colunas[cabecalho.get("AgenciaFinanciadora")]);
             obj.setAgenciaFinanciadora(tmp);
+        }
+        
+        if (cabecalho.containsKey("PalavrasChave")) {
+            obj.setPalavrasChave(colunas[cabecalho.get("PalavrasChave")]);
         }
 
         if (cabecalho.containsKey("Campus")) {
@@ -104,11 +110,11 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
             obj.setModalidade(tmp);
         }
         if (cabecalho.containsKey("NumeroCadastro")) {
-            int num = Integer.parseInt(colunas[cabecalho.get("AgenciaFinanciadora")]);
+            int num = Integer.parseInt(colunas[cabecalho.get("NumeroCadastro")]);
             obj.setNumeroCadastro(num);
         }
         if (cabecalho.containsKey("ValorFinanciamento")) {
-            BigInteger tmp = new BigInteger(colunas[cabecalho.get("AgenciaFinanciadora")]);
+            BigInteger tmp = new BigInteger(colunas[cabecalho.get("ValorFinanciamento")]);
             obj.setValorFinanciamento(tmp);
         }
         

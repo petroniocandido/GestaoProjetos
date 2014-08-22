@@ -12,10 +12,12 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -60,6 +62,9 @@ public class ProjetoController
     @EJB
     EditalRepositorio daoEdital;
     
+    @EJB
+    ModalidadeRepositorio daoModalidade;
+    
      @Override
     public Projeto getFiltro() {
         if (filtro == null) {
@@ -68,6 +73,7 @@ public class ProjetoController
             filtro.setAgenciaFinanciadora((AgenciaFinanciadora)getSessao("prctrl_agencia",daoAgencia));
             filtro.setCampus((Campus)getSessao("prctrl_campus",daoCampus));
             filtro.setEdital((Edital)getSessao("prctrl_edital",daoEdital));
+            filtro.setModalidade((Modalidade)getSessao("prctrl_modalidade",daoModalidade));
         }
         return filtro;
     }
@@ -80,6 +86,7 @@ public class ProjetoController
             setSessao("prctrl_agencia",filtro.getAgenciaFinanciadora());
             setSessao("prctrl_campus",filtro.getCampus());
             setSessao("prctrl_edital",filtro.getEdital());
+            setSessao("prctrl_modalidade",filtro.getModalidade());
         }
     }
 

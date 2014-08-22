@@ -14,11 +14,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author petronio
  */
+@Stateless
 public class PessoaCSVImporter extends CSVImporter<Pessoa> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");

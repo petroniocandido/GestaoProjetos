@@ -6,10 +6,14 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,8 +30,11 @@ import javax.persistence.Version;
 public class Aluno extends Pessoa implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(unique = true)
     private String matricula;
 
     //Documentos   
@@ -79,6 +86,16 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
         super();  
     }
 
+    @Override
+    public void setId(Long id) {
+        this.id = id; 
+    }
+
+    @Override
+    public Long getId() {
+        return this.id; 
+    }
+    
     public String getMatricula() {
         return matricula;
     }
@@ -239,6 +256,34 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
         this.localTrabalho = localTrabalho;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.matricula);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Aluno other = (Aluno) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.matricula, other.matricula)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa criador;
 
@@ -299,6 +344,7 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
         return versao;
     }
 
+    @Override
     public void setVersao(Long versao) {
         this.versao = versao;
     }

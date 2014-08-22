@@ -51,18 +51,33 @@ public class IntegracoesController
     }
     @EJB
     PessoaRepositorio daoP;
+    
+    @EJB
+    PessoaCSVImporter impPessoa;
 
     @EJB
     AreaConhecimentoRepositorio daoArea;
+    
+    @EJB
+    AreaConhecimentoCSVImporter impArea;
 
     @EJB
     ProjetoRepositorio daoProjeto;
+    
+    @EJB
+    ProjetoCSVImporter impProjeto;
 
     @EJB
     OrientadorRepositorio daoOrientador;
+    
+    @EJB
+    OrientadorCSVImporter impOrientador;
 
     @EJB
     AlunoRepositorio daoOrientando;
+    
+    @EJB
+    OrientandoCSVImporter impOrientando;
     
     @Inject
     HashService hash;
@@ -135,8 +150,7 @@ public class IntegracoesController
     }
 
     public void importarPessoas() {
-        CSVImporter imp = new PessoaCSVImporter();
-        List<Pessoa> tmp = imp.importarCSV(abreArquivo());
+        List<Pessoa> tmp = impPessoa.importarCSV(abreArquivo());
         for (Pessoa p : tmp) {
             if (daoP.AbrirPorCPF(p.getCpf()) == null) {
                 p.setSenha(hash.getMD5("123456"));
@@ -153,8 +167,7 @@ public class IntegracoesController
     }
 
     public void importarAreasConhecimento() {
-        CSVImporter imp = new AreaConhecimentoCSVImporter();
-        List<AreaConhecimento> tmp = imp.importarCSV(abreArquivo());
+        List<AreaConhecimento> tmp = impArea.importarCSV(abreArquivo());
         for (AreaConhecimento p : tmp) {
             if (daoArea.Abrir(p.getNumeroCNPQ()) == null) {
                 if (daoArea.Salvar(p)) {
@@ -171,21 +184,19 @@ public class IntegracoesController
     }
 
     public void importarProjetos() {
-        CSVImporter imp = new ProjetoCSVImporter();
-        List<Projeto> tmp = imp.importarCSV(abreArquivo());
+        List<Projeto> tmp = impProjeto.importarCSV(abreArquivo());
         for (Projeto p : tmp) {
             Rastrear(p);
             if (daoProjeto.Salvar(p)) {
                 Mensagem(p.getTitulo() + "Salvo com sucesso", p.getTitulo() + "Salvo com sucesso");
             } else {
-                Mensagem(p.getTitulo() + " - Falhou", p.getTitulo() + " - Falhou");
+                Mensagem(p.getTitulo()+ " - Falhou", daoProjeto.getErro().getMessage());
             }
         }
     }
 
     public void importarOrientadores() {
-        CSVImporter imp = new OrientadorCSVImporter();
-        List<Orientador> tmp = imp.importarCSV(abreArquivo());
+        List<Orientador> tmp = impOrientador.importarCSV(abreArquivo());
         for (Orientador p : tmp) {
             if (daoOrientador.AbrirPorCPF(p.getCpf()) == null) {
                 p.setSenha(hash.getMD5("123456"));
@@ -193,7 +204,7 @@ public class IntegracoesController
                 if (daoOrientador.Salvar(p)) {
                     Mensagem(p.getNome() + "Salvo com sucesso", p.getNome() + "Salvo com sucesso");
                 } else {
-                    Mensagem(p.getNome() + " - Falhou", p.getNome() + " - Falhou");
+                    Mensagem(p.getNome() + " - Falhou", daoOrientador.getErro().getMessage());
                 }
             } else {
                 Mensagem(p.getNome() + "Já importado", p.getNome() + "Já importado");
@@ -202,8 +213,7 @@ public class IntegracoesController
     }
 
     public void importarOrientando() {
-        CSVImporter imp = new OrientandoCSVImporter();
-        List<Aluno> tmp = imp.importarCSV(abreArquivo());
+        List<Aluno> tmp = impOrientando.importarCSV(abreArquivo());
         for (Aluno p : tmp) {
             if (daoOrientando.AbrirPorCPF(p.getCpf()) == null) {
                 p.setSenha(hash.getMD5("123456"));

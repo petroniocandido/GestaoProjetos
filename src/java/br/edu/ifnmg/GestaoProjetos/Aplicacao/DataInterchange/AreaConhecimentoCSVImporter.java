@@ -9,11 +9,13 @@ import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author petronio
  */
+@Stateless
 public class AreaConhecimentoCSVImporter extends CSVImporter<AreaConhecimento> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");

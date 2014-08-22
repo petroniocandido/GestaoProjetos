@@ -43,7 +43,7 @@ public class PessoaDAO
 
     @Override
     public Pessoa AbrirPorCPF(String cpf) {
-        return IgualA("cpf", cpf).Abrir();
+        return IgualA("cpf", cpf.replace(".", "").replace("-", "")).Abrir();
     }
 
 }

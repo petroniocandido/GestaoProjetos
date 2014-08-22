@@ -9,10 +9,13 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,27 +43,26 @@ public class Projeto implements Entidade, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //identificação do projeto
+    @Column(length = 1500)
     private String titulo;
 
-    @Column(unique = true) //vai ser unique??
     private int numeroCadastro;
 
     
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
     private List<AreaConhecimento> areaConhecimento;
 
     private boolean grupoPesquisa;
 
     private String nomegrupoPesquisa;
 
-    @ManyToOne  //VERIFICAR
+    @ManyToOne
     private Campus campus;
 
     @ManyToOne
     private Edital edital;
 
-    @ManyToOne  //VERIFICAR
+    @ManyToOne
     private Modalidade modalidade;
 
     @ManyToOne
@@ -73,13 +75,13 @@ public class Projeto implements Entidade, Serializable {
     @Column(length = 500)
     private String palavrasChave;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dataTermino;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Orientador coordenador;
 
     private String setorCoordenador;
@@ -119,7 +121,7 @@ public class Projeto implements Entidade, Serializable {
 
     private BigInteger valorFinanciamento;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dataFinanciamento;
 
     private boolean bolsaIniciacaoCientifica;
@@ -136,7 +138,7 @@ public class Projeto implements Entidade, Serializable {
 
     private boolean projetoMulticampi;
     
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER,targetEntity = Aluno.class)
     private List<Aluno> orientandos;
 
     public Projeto() {
@@ -144,53 +146,67 @@ public class Projeto implements Entidade, Serializable {
         this.orientandos = new ArrayList<>();
         this.documentos = new ArrayList<>();
         this.cronogramaAtividade = new ArrayList<>();
+        this.situacao = SituacaoProjeto.Cadastrado;
+        this.status = Status.Pendente;
     }
+    
+    @Enumerated(EnumType.STRING)
+    private SituacaoProjeto situacao;
+    
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     public void addAreaConhecimento(AreaConhecimento a) {
+        if(a == null) return;
         if (!areaConhecimento.contains(a)) {
             areaConhecimento.add(a);
         }
-
     }
 
     public void removeAreaConhecimento(AreaConhecimento a) {
+        if(a == null) return;
         if (areaConhecimento.contains(a)) {
             areaConhecimento.remove(a);
         }
     }
 
     public void addAluno(Aluno a) {
+        if(a == null) return;
         if (!orientandos.contains(a)) {
             orientandos.add(a);
         }
-
     }
 
     public void removeAluno(Aluno a) {
+        if(a == null) return;
         if (orientandos.contains(a)) {
             orientandos.remove(a);
         }
     }
 
     public void addDocumento(Documento d) {
+        if(d == null) return;
         if (!documentos.contains(d)) {
             documentos.add(d);
         }
     }
 
     public void removeDocumento(Documento d) {
+        if(d == null) return;
         if (documentos.contains(d)) {
             documentos.remove(d);
         }
     }
 
     public void addAtividade(Atividade a) {
+        if(a == null) return;
         if (!cronogramaAtividade.contains(a)) {
             cronogramaAtividade.add(a);
         }
     }
 
     public void removeAtividade(Atividade a) {
+        if(a == null) return;
         if (cronogramaAtividade.contains(a)) {
             cronogramaAtividade.remove(a);
         }
@@ -206,6 +222,14 @@ public class Projeto implements Entidade, Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public SituacaoProjeto getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(SituacaoProjeto situacao) {
+        this.situacao = situacao;
+    }    
 
     public String getTitulo() {
         return titulo;
@@ -495,11 +519,24 @@ public class Projeto implements Entidade, Serializable {
         this.cronogramaAtividade = cronogramaAtividade;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+    
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 67 * hash + this.numeroCadastro;
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.titulo);
+        hash = 23 * hash + this.numeroCadastro;
+        hash = 23 * hash + Objects.hashCode(this.campus);
+        hash = 23 * hash + Objects.hashCode(this.edital);
+        hash = 23 * hash + Objects.hashCode(this.modalidade);
+        hash = 23 * hash + Objects.hashCode(this.agenciaFinanciadora);
         return hash;
     }
 
@@ -512,10 +549,25 @@ public class Projeto implements Entidade, Serializable {
             return false;
         }
         final Projeto other = (Projeto) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
             return false;
         }
         if (this.numeroCadastro != other.numeroCadastro) {
+            return false;
+        }
+        if (!Objects.equals(this.campus, other.campus)) {
+            return false;
+        }
+        if (!Objects.equals(this.edital, other.edital)) {
+            return false;
+        }
+        if (!Objects.equals(this.modalidade, other.modalidade)) {
+            return false;
+        }
+        if (!Objects.equals(this.agenciaFinanciadora, other.agenciaFinanciadora)) {
             return false;
         }
         return true;

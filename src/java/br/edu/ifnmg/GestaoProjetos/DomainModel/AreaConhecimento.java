@@ -92,7 +92,7 @@ public class AreaConhecimento implements Entidade, Serializable {
 
     @Override
     public String toString() {
-        return nome;
+        return numeroCNPQ + " - " + nome;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
