@@ -49,7 +49,7 @@ public class Projeto implements Entidade, Serializable {
     private int numeroCadastro;
 
     
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
     private List<AreaConhecimento> areaConhecimento;
 
     private boolean grupoPesquisa;
