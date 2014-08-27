@@ -38,7 +38,13 @@
                         </p:column>
                         <p:column sortBy="nome" headerText="Nome">
                             ${item.nome}
-                        </p:column>            
+                        </p:column>
+                        <p:column sortBy="obrigatorio" headerText="Obrigatório?">
+                            ${item.obrigatorio ? "Sim" : "Não"}
+                        </p:column>
+                        <p:column sortBy="periodicidade" headerText="Periodicidade">
+                            ${item.periodicidade}
+                        </p:column>
                     </p:dataTable>
                 </p:panel>
             </ui:define>

@@ -37,7 +37,11 @@ public class TipoDocumento implements Serializable, Entidade {
     @Column(nullable=false, unique = true)
     private String sigla;
     
-    public boolean obrigatorio;
+    private boolean obrigatorio;
+    
+    private Periodicidade periodicidade;
+    
+    private boolean preRequisito;
 
     @Override
     public Long getId() {
@@ -72,7 +76,23 @@ public class TipoDocumento implements Serializable, Entidade {
     public void setObrigatorio(boolean obrigatorio) {
         this.obrigatorio = obrigatorio;
     }
-    
+
+    public Periodicidade getPeriodicidade() {
+        return periodicidade;
+    }
+
+    public void setPeriodicidade(Periodicidade periodicidade) {
+        this.periodicidade = periodicidade;
+    }
+
+    public boolean isPreRequisito() {
+        return preRequisito;
+    }
+
+    public void setPreRequisito(boolean preRequisito) {
+        this.preRequisito = preRequisito;
+    }
+   
     @Override
     public int hashCode() {
         int hash = 0;

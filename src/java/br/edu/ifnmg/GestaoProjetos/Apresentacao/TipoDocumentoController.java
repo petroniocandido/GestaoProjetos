@@ -5,6 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Periodicidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import javax.inject.Named;
@@ -30,6 +31,8 @@ public class TipoDocumentoController
     
     @EJB
     TipoDocumentoRepositorio dao;
+    
+    Periodicidade[] periodicidades;
     
     @Override
     public TipoDocumento getFiltro() {
@@ -61,4 +64,13 @@ public class TipoDocumentoController
     public void limpar() {
         setEntidade(new TipoDocumento());
     }
+
+    public Periodicidade[] getPeriodicidades() {
+        if(periodicidades == null){
+            periodicidades = Periodicidade.values();
+        }
+        return periodicidades;
+    }
+    
+    
 }

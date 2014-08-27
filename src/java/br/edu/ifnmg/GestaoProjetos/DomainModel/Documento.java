@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,7 +50,17 @@ public class Documento implements Serializable, Entidade {
     
     @ManyToOne
     private Arquivo arquivo;
-
+    
+    public Status getStatus() {
+        Date hoje = new Date();
+        
+        if(hoje.after(dataPrevista) && dataEfetiva == null && funcionarioRecebedor == null)
+            return Status.Pendente;
+        
+        return Status.Regular;
+    }
+    
+    
     @Override
     public Long getId() {
         return id;

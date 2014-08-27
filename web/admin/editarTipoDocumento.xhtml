@@ -20,8 +20,16 @@
                                 <p:inputText size="35" value="${tipoDocumentoController.entidade.sigla}" required="true"/>
 
                                 <h:outputLabel value="Nome*:" />
-                                <p:inputText size="35" value="${tipoDocumentoController.entidade.nome}" required="true" style="width: 150%"/>                      
-
+                                <p:inputText size="35" value="${tipoDocumentoController.entidade.nome}" required="true" style="width: 150%"/>
+                                
+                                <h:outputLabel value="É obrigatório:" />
+                                <p:selectBooleanCheckbox  value="${tipoDocumentoController.entidade.obrigatorio}" />
+                                
+                                <h:outputLabel value="Periodicidade:" />
+                                <p:selectOneMenu value="#{tipoDocumentoController.entidade.periodicidade}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${tipoDocumentoController.periodicidades}"/>
+                                </p:selectOneMenu>
 
                             </h:panelGrid>
                         </p:tab>

@@ -15,6 +15,12 @@
                     <p:tabView id="tabView">  
                         <p:tab id="tabDados" title="Dados Gerais">  
                             <h:panelGrid columns="2">
+                                
+                                <h:outputLabel value="Situação:" />
+                                <p:selectOneMenu value="#{projetoController.entidade.situacao}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${projetoController.situacoesProjeto}"/>
+                                </p:selectOneMenu>
 
                                 <h:outputLabel value="Número de Cadastro*:" />
                                 <p:inputText value="${projetoController.entidade.numeroCadastro}" required="true"/>                      
@@ -27,7 +33,6 @@
                                                  converter="${campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${campusController.listagem}"/>
-
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="Modalidade*:" />                   
@@ -205,7 +210,13 @@
 
                         <p:tab rendered="#{projetoController.entidade.id > 0}" title="Cronograma Atividades">
                             <br/>
-                            <h:panelGrid columns="2">                    
+                            <h:panelGrid columns="2"> 
+                                
+                                <h:outputLabel value="Situação:" />
+                                <p:selectOneMenu value="#{projetoController.atividade.situacao}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${projetoController.situacoesAtividade}"/>
+                                </p:selectOneMenu>
 
                                 <h:outputLabel value="Descrição:" />
                                 <p:inputTextarea id="txtDescricao" value="${projetoController.atividade.descricao}" cols="100" rows="4" required="true" />
@@ -276,12 +287,6 @@
                             <br/>
                             <h:panelGrid columns="4">                    
 
-                                <h:outputLabel value="Funcionário Recebedor*:" />
-                                <p:autoComplete id="txtFuncRecebdor" converter="#{usuarioConverter}" value="#{projetoController.documento.funcionarioRecebedor}"
-                                                completeMethod="#{usuarioConverter.autoCompleteUsuario}"
-                                                var="item" itemLabel="#{item.nome}" itemValue="#{item}">
-                                    #{item.nome}
-                                </p:autoComplete>
 
                                 <h:outputLabel value="Tipo de Documento*:" />
                                 <p:selectOneMenu id="txtTipoDocumento" value="${projetoController.documento.tipoDocumento}" label="Tipo de Documento"
@@ -346,9 +351,12 @@
 
 
                             </p:dataTable>
-
-
                         </p:tab>
+                        
+                        <p:tab rendered="#{projetoController.entidade.id > 0}" title="Orçamento">
+                            
+                        </p:tab>
+                        
                         <ui:include src="./comum/tabSeguranca.xhtml">
                             <ui:param name="controller" value="#{projetoController}"  />
                         </ui:include>

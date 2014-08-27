@@ -89,6 +89,9 @@ public class Projeto implements Entidade, Serializable {
     //Documentos
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Documento> documentos;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
+    private List<Orcamento> orcamento;
 
     // Plano de Trabalho 
     private String localRealizacaoProjeto; //laboratorio, sala, etc
@@ -181,6 +184,20 @@ public class Projeto implements Entidade, Serializable {
         if(a == null) return;
         if (orientandos.contains(a)) {
             orientandos.remove(a);
+        }
+    }
+    
+    public void addOrcamento(Orcamento d) {
+        if(d == null) return;
+        if (!orcamento.contains(d)) {
+            orcamento.add(d);
+        }
+    }
+
+    public void removeOrcamento(Orcamento d) {
+        if(d == null) return;
+        if (orcamento.contains(d)) {
+            orcamento.remove(d);
         }
     }
 
@@ -526,6 +543,15 @@ public class Projeto implements Entidade, Serializable {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public List<Orcamento> getOrcamento() {
+        return orcamento;
+    }
+
+    public void setOrcamento(List<Orcamento> orcamento) {
+        this.orcamento = orcamento;
+    }
+        
     
     @Override
     public int hashCode() {

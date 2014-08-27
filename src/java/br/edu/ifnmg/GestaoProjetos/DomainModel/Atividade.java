@@ -54,6 +54,18 @@ public class Atividade implements Entidade, Serializable {
     
     @Enumerated(EnumType.STRING)
     private SituacaoAtividade situacao;
+    
+    public Status getStatus() {
+        Date hoje = new Date();
+        
+        if(hoje.after(dataInicio) && hoje.before(dataFim) && situacao == SituacaoAtividade.Pendente)
+            return Status.Pendente;
+        
+        if(hoje.after(dataFim) && situacao != SituacaoAtividade.Concluido)
+            return Status.Pendente;
+        
+        return Status.Regular;
+    }
 
     //GETTER E SETTER
     @Override
