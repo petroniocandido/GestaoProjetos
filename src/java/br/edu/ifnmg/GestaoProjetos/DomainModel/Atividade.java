@@ -6,6 +6,7 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -126,13 +127,15 @@ public class Atividade implements Entidade, Serializable {
     public void setSituacao(AtividadeSituacao situacao) {
         this.situacao = situacao;
     }
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.projeto);
+        hash = 79 * hash + Objects.hashCode(this.descricao);
+        hash = 79 * hash + Objects.hashCode(this.dataInicio);
+        hash = 79 * hash + Objects.hashCode(this.dataFim);
         return hash;
     }
 
@@ -145,23 +148,25 @@ public class Atividade implements Entidade, Serializable {
             return false;
         }
         final Atividade other = (Atividade) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
+        if (!Objects.equals(this.projeto, other.projeto)) {
             return false;
         }
-        if (this.dataInicio != other.dataInicio && (this.dataInicio == null || !this.dataInicio.equals(other.dataInicio))) {
+        if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
-        if (this.dataFim != other.dataFim && (this.dataFim == null || !this.dataFim.equals(other.dataFim))) {
+        if (!Objects.equals(this.dataInicio, other.dataInicio)) {
             return false;
         }
-        if (this.ordem != other.ordem) {
+        if (!Objects.equals(this.dataFim, other.dataFim)) {
             return false;
         }
         return true;
     }
+    
+    
 
     @Override
     public String toString() {
