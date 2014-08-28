@@ -6,7 +6,8 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Periodicidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoUnidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -21,10 +22,10 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "tipoDocumentoController")
 @RequestScoped
 public class TipoDocumentoController 
-    extends ControllerBaseEntidade<TipoDocumento> implements Serializable {
+    extends ControllerBaseEntidade<DocumentoTipo> implements Serializable {
 
     /**
-     * Creates a new instance of TipoDocumentoController
+     * Creates a new instance of DocumentoTipoController
      */
     public TipoDocumentoController() {
     }
@@ -34,10 +35,12 @@ public class TipoDocumentoController
     
     Periodicidade[] periodicidades;
     
+    DocumentoUnidade[] unidades;
+    
     @Override
-    public TipoDocumento getFiltro() {
+    public DocumentoTipo getFiltro() {
         if (filtro == null) {
-            filtro = new TipoDocumento();
+            filtro = new DocumentoTipo();
             filtro.setNome(getSessao("tdctrl_nome"));
             filtro.setSigla(getSessao("tdctrl_sigla"));
         }
@@ -45,7 +48,7 @@ public class TipoDocumentoController
     }
 
     @Override
-    public void setFiltro(TipoDocumento filtro) {
+    public void setFiltro(DocumentoTipo filtro) {
         this.filtro = filtro;
         if (filtro != null) {
             setSessao("tdctrl_nome", filtro.getNome());
@@ -62,7 +65,7 @@ public class TipoDocumentoController
     
     @Override
     public void limpar() {
-        setEntidade(new TipoDocumento());
+        setEntidade(new DocumentoTipo());
     }
 
     public Periodicidade[] getPeriodicidades() {
@@ -70,6 +73,13 @@ public class TipoDocumentoController
             periodicidades = Periodicidade.values();
         }
         return periodicidades;
+    }
+    
+    public DocumentoUnidade[] getUnidades() {
+        if(unidades == null){
+            unidades = DocumentoUnidade.values();
+        }
+        return unidades;
     }
     
     

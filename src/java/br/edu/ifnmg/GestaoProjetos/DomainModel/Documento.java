@@ -40,7 +40,7 @@ public class Documento implements Serializable, Entidade {
     private Pessoa funcionarioRecebedor;
     
     @ManyToOne
-    private TipoDocumento tipoDocumento;
+    private DocumentoTipo tipoDocumento;
     
     @Temporal(javax.persistence.TemporalType.DATE) 
     private Date dataPrevista;
@@ -79,11 +79,11 @@ public class Documento implements Serializable, Entidade {
         this.funcionarioRecebedor = funcionarioRecebedor;
     }
 
-    public TipoDocumento getTipoDocumento() {
+    public DocumentoTipo getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+    public void setTipoDocumento(DocumentoTipo tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 

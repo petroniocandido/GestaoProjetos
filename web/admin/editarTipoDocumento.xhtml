@@ -30,6 +30,12 @@
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${tipoDocumentoController.periodicidades}"/>
                                 </p:selectOneMenu>
+                                
+                                <h:outputLabel value="Unidade:" />
+                                <p:selectOneMenu value="#{tipoDocumentoController.entidade.unidade}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${tipoDocumentoController.unidades}"/>
+                                </p:selectOneMenu>
 
                             </h:panelGrid>
                         </p:tab>

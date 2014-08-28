@@ -10,17 +10,14 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
  *
  * @author petronio
  */
-public enum SituacaoProjeto {
-    Cadastrado(0, "Cadastrado"),
-    Aprovado(1, "Aprovado"),
-    Reprovado(2, "Reprovado"),
-    EmExecucao(3, "Em Execução"),
-    Cancelado(4, "Cancelado"),
-    Concluido(5, "Concluído");    
+public enum AtividadeSituacao {
+    Pendente(0, "Pendente"),
+    EmExecucao(1, "Em Execução"),
+    Concluido(2, "Concluído");    
     private int id;
     private String descricao;
 
-    private SituacaoProjeto(int id, String descricao) {
+    private AtividadeSituacao(int id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
@@ -44,5 +41,5 @@ public enum SituacaoProjeto {
     @Override
     public String toString() {
         return descricao;
-    }    
+    }
 }

@@ -19,8 +19,8 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.SituacaoAtividade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.SituacaoProjeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeSituacao;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -40,8 +40,8 @@ public class ProjetoController
     Aluno orientando;
     Documento documento;
     Atividade atividade;
-    SituacaoProjeto[] situacoesProjeto;
-    SituacaoAtividade[] situacoesAtividade;
+    ProjetoSituacao[] situacoesProjeto;
+    AtividadeSituacao[] situacoesAtividade;
 
     /**
      * Creates a new instance of ProjetoController
@@ -191,16 +191,16 @@ public class ProjetoController
         atividade = new Atividade();
       } 
 
-    public SituacaoProjeto[] getSituacoesProjeto() {
+    public ProjetoSituacao[] getSituacoesProjeto() {
         if(situacoesProjeto == null){
-            situacoesProjeto = SituacaoProjeto.values();
+            situacoesProjeto = ProjetoSituacao.values();
         }
         return situacoesProjeto;
     }
 
-    public SituacaoAtividade[] getSituacoesAtividade() {
+    public AtividadeSituacao[] getSituacoesAtividade() {
         if(situacoesAtividade == null ){
-            situacoesAtividade = SituacaoAtividade.values();
+            situacoesAtividade = AtividadeSituacao.values();
         }
         return situacoesAtividade;
     }    

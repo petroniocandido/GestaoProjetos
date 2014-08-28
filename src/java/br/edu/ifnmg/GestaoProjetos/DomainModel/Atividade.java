@@ -53,15 +53,15 @@ public class Atividade implements Entidade, Serializable {
     private int ordem;
     
     @Enumerated(EnumType.STRING)
-    private SituacaoAtividade situacao;
+    private AtividadeSituacao situacao;
     
     public Status getStatus() {
         Date hoje = new Date();
         
-        if(hoje.after(dataInicio) && hoje.before(dataFim) && situacao == SituacaoAtividade.Pendente)
+        if(hoje.after(dataInicio) && hoje.before(dataFim) && situacao == AtividadeSituacao.Pendente)
             return Status.Pendente;
         
-        if(hoje.after(dataFim) && situacao != SituacaoAtividade.Concluido)
+        if(hoje.after(dataFim) && situacao != AtividadeSituacao.Concluido)
             return Status.Pendente;
         
         return Status.Regular;
@@ -119,11 +119,11 @@ public class Atividade implements Entidade, Serializable {
         this.ordem = ordem;
     }
 
-    public SituacaoAtividade getSituacao() {
+    public AtividadeSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(SituacaoAtividade situacao) {
+    public void setSituacao(AtividadeSituacao situacao) {
         this.situacao = situacao;
     }
     

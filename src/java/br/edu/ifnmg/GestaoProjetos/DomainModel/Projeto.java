@@ -149,12 +149,12 @@ public class Projeto implements Entidade, Serializable {
         this.orientandos = new ArrayList<>();
         this.documentos = new ArrayList<>();
         this.cronogramaAtividade = new ArrayList<>();
-        this.situacao = SituacaoProjeto.Cadastrado;
+        this.situacao = ProjetoSituacao.Cadastrado;
         this.status = Status.Pendente;
     }
     
     @Enumerated(EnumType.STRING)
-    private SituacaoProjeto situacao;
+    private ProjetoSituacao situacao;
     
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -240,11 +240,11 @@ public class Projeto implements Entidade, Serializable {
         this.id = id;
     }
 
-    public SituacaoProjeto getSituacao() {
+    public ProjetoSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(SituacaoProjeto situacao) {
+    public void setSituacao(ProjetoSituacao situacao) {
         this.situacao = situacao;
     }    
 
