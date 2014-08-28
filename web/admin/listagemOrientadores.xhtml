@@ -18,6 +18,12 @@
                     <p:accordionPanel styleClass="teste">
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
+                                <h:outputLabel value="Campus do IFNMG*:" />
+                                <p:selectOneMenu value="${orientadoController.filtro.campus}" label="Campus" 
+                                                 converter="${campusConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${campusController.listagem}"/>
+                                </p:selectOneMenu>
                                 <h:outputLabel value="CPF:" />
                                 <p:inputText value="${orientadorController.filtro.cpf}"/>  
 

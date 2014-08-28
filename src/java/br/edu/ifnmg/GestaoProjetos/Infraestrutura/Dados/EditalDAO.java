@@ -27,6 +27,7 @@ public class EditalDAO
     public List<Edital> Buscar(Edital filtro) {
         return IgualA("id", filtro.getId())
                 .IgualA("numero", filtro.getNumero())
+                .IgualA("campus", filtro.getCampus())
                 .IgualA("agenciafinanciadora", filtro.getAgenciaFinanciadora())
                 .Buscar();
     }
