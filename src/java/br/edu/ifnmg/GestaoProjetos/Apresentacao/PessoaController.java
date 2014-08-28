@@ -5,7 +5,9 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
 import javax.inject.Named;
@@ -37,6 +39,8 @@ public class PessoaController
     PessoaRepositorio dao;
     @Inject
     HashService hash;
+    @EJB
+    CampusRepositorio daoCampus;
 
     String senha1, senha2;
 
@@ -54,6 +58,10 @@ public class PessoaController
             filtro.setNome(getSessao("pctrl_nome"));
             filtro.setCpf(getSessao("pctrl_cpf"));
             filtro.setEmail(getSessao("pctrl_email"));
+            filtro.setCampus((Campus)getSessao("pctrl_campus",daoCampus));
+            if(filtro.getCampus() == null){
+                filtro.setCampus(getUsuarioCorrente().getCampus());
+            }
         }
         return filtro;
     }
@@ -65,6 +73,7 @@ public class PessoaController
             setSessao("pctrl_nome", filtro.getNome());
             setSessao("pctrl_cpf", filtro.getCpf());
             setSessao("pctrl_email", filtro.getEmail());
+            setSessao("pctrl_campus",filtro.getCampus());
         }
     }
 

@@ -6,9 +6,11 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Email;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone;
 import javax.inject.Named;
@@ -43,6 +45,9 @@ public class OrientadorController
 
     @EJB
     OrientadorRepositorio dao;
+    
+    @EJB
+    CampusRepositorio daoCampus;
 
     @Override
     public Orientador getFiltro() {
@@ -51,6 +56,10 @@ public class OrientadorController
             filtro.setNome(getSessao("orctrl_nome"));
             filtro.setCpf(getSessao("orctrl_cpf"));
             filtro.setEmail(getSessao("orctrl_email"));
+            filtro.setCampus((Campus)getSessao("orctrl_campus",daoCampus));
+            if(filtro.getCampus() == null){
+                filtro.setCampus(getUsuarioCorrente().getCampus());
+            }
         }
         return filtro;
     }
@@ -62,6 +71,7 @@ public class OrientadorController
             setSessao("orctrl_nome", filtro.getNome());
             setSessao("orctrl_cpf",filtro.getCpf());
             setSessao("orctrl_email",filtro.getEmail());
+            setSessao("orctrl_campus",filtro.getCampus());
         }
     }
 

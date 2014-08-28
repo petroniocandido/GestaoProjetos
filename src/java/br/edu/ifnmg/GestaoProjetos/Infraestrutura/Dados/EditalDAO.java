@@ -4,7 +4,6 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import java.util.List;

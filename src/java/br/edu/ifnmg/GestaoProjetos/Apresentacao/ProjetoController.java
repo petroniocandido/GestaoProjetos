@@ -78,6 +78,9 @@ public class ProjetoController
             filtro.setCampus((Campus)getSessao("prctrl_campus",daoCampus));
             filtro.setEdital((Edital)getSessao("prctrl_edital",daoEdital));
             filtro.setModalidade((Modalidade)getSessao("prctrl_modalidade",daoModalidade));
+            if(filtro.getCampus() == null){
+                filtro.setCampus(getUsuarioCorrente().getCampus());
+            }
         }
         return filtro;
     }

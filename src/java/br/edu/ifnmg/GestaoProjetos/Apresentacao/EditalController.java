@@ -53,6 +53,9 @@ public class EditalController
             filtro.setSigla(getSessao("edctrl_sigla"));
             filtro.setAgenciaFinanciadora((AgenciaFinanciadora)getSessao("edctrl_agencia", daoAgencia));
             filtro.setCampus((Campus)getSessao("edctrl_campus", daoAgencia));
+            if(filtro.getCampus() == null){
+                filtro.setCampus(getUsuarioCorrente().getCampus());
+            }
         }
         return filtro;
     }

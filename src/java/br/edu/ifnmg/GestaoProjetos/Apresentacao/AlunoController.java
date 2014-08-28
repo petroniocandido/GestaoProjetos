@@ -6,9 +6,11 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Email;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -42,11 +44,20 @@ public class AlunoController
     @EJB
     AlunoRepositorio dao;
     
+    @EJB
+    CampusRepositorio daoCampus;
+    
     @Override
     public Aluno getFiltro() {
         if (filtro == null) {
             filtro = new Aluno();
             filtro.setNome(getSessao("alctrl_nome"));
+            filtro.setCpf(getSessao("alctrl_cpf"));
+            filtro.setEmail(getSessao("alctrl_email"));
+            filtro.setCampus((Campus)getSessao("alctrl_campus",daoCampus));
+            if(filtro.getCampus() == null){
+                filtro.setCampus(getUsuarioCorrente().getCampus());
+            }
         }
         return filtro;
     }
@@ -56,6 +67,9 @@ public class AlunoController
         this.filtro = filtro;
         if (filtro != null) {
             setSessao("alctrl_nome", filtro.getNome());
+            setSessao("alctrl_cpf",filtro.getCpf());
+            setSessao("alctrl_email",filtro.getEmail());
+            setSessao("alctrl_campus",filtro.getCampus());
         }
     }
 
