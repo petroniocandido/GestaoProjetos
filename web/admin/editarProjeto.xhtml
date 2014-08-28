@@ -15,27 +15,24 @@
                     <p:tabView id="tabView">  
                         <p:tab id="tabDados" title="Dados Gerais">  
                             <h:panelGrid columns="2">
+                                
+                                <h:outputLabel value="Situação:" />
+                                <p:selectOneMenu value="#{projetoController.entidade.situacao}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${projetoController.situacoesProjeto}"/>
+                                </p:selectOneMenu>
 
                                 <h:outputLabel value="Número de Cadastro*:" />
                                 <p:inputText value="${projetoController.entidade.numeroCadastro}" required="true"/>                      
 
                                 <h:outputLabel value="Título*:" />
-                                <p:inputText value="${projetoController.entidade.titulo}" required="true" style="width: 200%"/>                                  
+                                <p:inputTextarea value="${projetoController.entidade.titulo}" cols="100" rows="4" required="true" />
 
-                            </h:panelGrid>
-                        </p:tab>
-
-
-                        <p:tab rendered="#{projetoController.entidade.id > 0}" title="Informações Adicionais" >
-                            <br/> 
-                            <h:panelGrid columns="2"> 
-
-                                <h:outputLabel value="Campus do IFNMG*:" />                   
+                                <h:outputLabel value="Campus do IFNMG*:" />
                                 <p:selectOneMenu value="${projetoController.entidade.campus}" label="Campus" 
                                                  converter="${campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${campusController.listagem}"/>
-
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="Modalidade*:" />                   
@@ -62,15 +59,24 @@
 
                                 </p:selectOneMenu>
 
+                                <h:outputLabel value="Data de Início*:" />
+                                <p:calendar value="${projetoController.entidade.dataInicio}" required="false"
+                                            label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"/>  
+
+                                <h:outputLabel value="Data de Término*:" />
+                                <p:calendar value="${projetoController.entidade.dataTermino}" required="false"
+                                            label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"/>  
+
+
                                 <h:outputLabel value="Grupo de Pesquisa (se houver):" /> 
                                 <p:inputText value="${projetoController.entidade.nomegrupoPesquisa}" required="false"/>
 
-
-
                             </h:panelGrid>
-                            <br/>
-                            <h:panelGrid columns="3">
+                        </p:tab>
 
+
+                        <p:tab rendered="#{projetoController.entidade.id > 0}" title="Áreas de Conhecimento" >
+                            <h:panelGrid columns="3">
                                 <h:outputLabel value="Area de Conhecimento*:" />           
                                 <p:selectOneMenu id="txtareaConhecimento" value="${projetoController.areaConhecimento}" label="Area de Conhecimento"
                                                  converter="${areaConhecimentoConverter}" required="false">
@@ -85,11 +91,9 @@
 
                             </h:panelGrid>                                     
 
-                            <br/>
-
                             <p:dataTable id="tblAreaConhecimento"  value="${projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
-                                    ${item.nome}
+                                    ${item}
                                 </p:column>                                                   
 
                                 <p:column sortBy="remover" headerText="Remover" >
@@ -99,12 +103,7 @@
                                 </p:column>
 
                             </p:dataTable>
-
-
                         </p:tab>   
-
-
-
                         <p:tab rendered="#{projetoController.entidade.id > 0}" title="Resumo do Projeto">
                             <br/>
 
@@ -118,21 +117,6 @@
 
                             </h:panelGrid>
                         </p:tab>
-
-                        <p:tab rendered="#{projetoController.entidade.id > 0}" title="Duração do Projeto">
-                            <br/>
-                            <h:panelGrid columns="2"> 
-                                <h:outputLabel value="Data de Início*:" />
-                                <p:calendar value="${projetoController.entidade.dataInicio}" required="false"
-                                            label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"/>  
-
-                                <h:outputLabel value="Data de Término*:" />
-                                <p:calendar value="${projetoController.entidade.dataTermino}" required="false"
-                                            label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"/>  
-                            </h:panelGrid> 
-
-                        </p:tab>
-
                         <p:tab rendered="#{projetoController.entidade.id > 0}" title="Coordenação">
                             <br/>
                             <h:panelGrid columns="2">
@@ -167,11 +151,7 @@
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${projetoController.addAluno()}" style="margin:0"
                                                  update="tblOrientandos txtNome"/>
-
-
                             </h:panelGrid>
-
-                            <br/>
 
                             <p:dataTable id="tblOrientandos"  value="${projetoController.entidade.orientandos}" var="item" 
                                          emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
@@ -181,7 +161,11 @@
 
                                 <p:column  headerText="CPF" >
                                     ${item.cpf}
-                                </p:column>     
+                                </p:column> 
+
+                                <p:column  headerText="E-mail" >
+                                    ${item.email}
+                                </p:column> 
 
                                 <p:column sortBy="remover" headerText="Remover" >
                                     <p:commandButton ajax="false" value="Remover"  action="#{projetoController.removeAluno()}">
@@ -226,12 +210,17 @@
 
                         <p:tab rendered="#{projetoController.entidade.id > 0}" title="Cronograma Atividades">
                             <br/>
-                            <h:panelGrid columns="2">                    
+                            <h:panelGrid columns="2"> 
+                                
+                                <h:outputLabel value="Situação:" />
+                                <p:selectOneMenu value="#{projetoController.atividade.situacao}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${projetoController.situacoesAtividade}"/>
+                                </p:selectOneMenu>
 
                                 <h:outputLabel value="Descrição:" />
-                                <p:inputText id="txtDescricao" value="${projetoController.atividade.descricao}" required="false"/>   
-
-
+                                <p:inputTextarea id="txtDescricao" value="${projetoController.atividade.descricao}" cols="100" rows="4" required="true" />
+                                
                                 <h:outputLabel value="Data Início*:" />
                                 <p:calendar id="txtDataInicio" value="${projetoController.atividade.dataInicio}" required="false"
                                             label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
@@ -298,12 +287,6 @@
                             <br/>
                             <h:panelGrid columns="4">                    
 
-                                <h:outputLabel value="Funcionário Recebedor*:" />
-                                <p:autoComplete id="txtFuncRecebdor" converter="#{usuarioConverter}" value="#{projetoController.documento.funcionarioRecebedor}"
-                                                completeMethod="#{usuarioConverter.autoCompleteUsuario}"
-                                                var="item" itemLabel="#{item.nome}" itemValue="#{item}">
-                                    #{item.nome}
-                                </p:autoComplete>
 
                                 <h:outputLabel value="Tipo de Documento*:" />
                                 <p:selectOneMenu id="txtTipoDocumento" value="${projetoController.documento.tipoDocumento}" label="Tipo de Documento"
@@ -368,9 +351,12 @@
 
 
                             </p:dataTable>
-
-
                         </p:tab>
+                        
+                        <p:tab rendered="#{projetoController.entidade.id > 0}" title="Orçamento">
+                            
+                        </p:tab>
+                        
                         <ui:include src="./comum/tabSeguranca.xhtml">
                             <ui:param name="controller" value="#{projetoController}"  />
                         </ui:include>

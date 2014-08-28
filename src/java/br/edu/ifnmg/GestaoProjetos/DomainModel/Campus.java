@@ -36,6 +36,9 @@ public class Campus implements Entidade, Serializable {
     @Column(nullable=false)
     private String nome;
     
+    @Column(nullable=false, unique = true)
+    private String sigla;
+    
     @ManyToOne(cascade= CascadeType.ALL)
     private Endereco endereco;    
 
@@ -66,6 +69,14 @@ public class Campus implements Entidade, Serializable {
         this.nome = nome;
     }
 
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+    
     public Endereco getEndereco() {
         return endereco;
     }

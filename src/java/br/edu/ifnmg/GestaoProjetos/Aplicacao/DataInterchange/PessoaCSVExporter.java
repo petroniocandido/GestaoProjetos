@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package br.edu.ifnmg.GestaoProjetos.Aplicacao;
+package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVExporter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

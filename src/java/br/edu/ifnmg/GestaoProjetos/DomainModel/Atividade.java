@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,6 +51,21 @@ public class Atividade implements Entidade, Serializable {
 
     @Column(nullable = false)
     private int ordem;
+    
+    @Enumerated(EnumType.STRING)
+    private SituacaoAtividade situacao;
+    
+    public Status getStatus() {
+        Date hoje = new Date();
+        
+        if(hoje.after(dataInicio) && hoje.before(dataFim) && situacao == SituacaoAtividade.Pendente)
+            return Status.Pendente;
+        
+        if(hoje.after(dataFim) && situacao != SituacaoAtividade.Concluido)
+            return Status.Pendente;
+        
+        return Status.Regular;
+    }
 
     //GETTER E SETTER
     @Override
@@ -101,6 +118,16 @@ public class Atividade implements Entidade, Serializable {
     public void setOrdem(int ordem) {
         this.ordem = ordem;
     }
+
+    public SituacaoAtividade getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(SituacaoAtividade situacao) {
+        this.situacao = situacao;
+    }
+    
+    
 
     @Override
     public int hashCode() {

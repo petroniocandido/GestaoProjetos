@@ -12,10 +12,6 @@ import javax.ejb.Local;
  * @author Isla Guedes
  */
 @Local
-public interface AreaConhecimentoRepositorio 
-
-    extends Repositorio<AreaConhecimento> 
-
-   {
-    
+public interface AreaConhecimentoRepositorio extends Repositorio<AreaConhecimento> {
+    public AreaConhecimento Abrir(String numeroCNPQ);
 }

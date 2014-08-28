@@ -20,18 +20,18 @@
 
                 <p:menubar>
                     <p:submenu label="Cadastros" icon="ui-icon-pencil" > 
-                        <p:menuitem value="Bolsistas" url="listagemAlunos.xhtml"  />                    
-                        <p:menuitem value="Orientadores" url="listagemOrientadores.xhtml"/> 
-                        <p:menuitem value="Áreas de Conhecimento" url="listagemAreasConhecimento.xhtml" />
-                        <p:menuitem value="Cursos" url="listagemCursos.xhtml"/>
-                        <p:menuitem value="Campus" url="listagemCampus.xhtml" />
-                        <p:menuitem value="Modalidades" url="listagemModalidades.xhtml" />
-                        <p:menuitem value="Agências Financiadoras" url="listagemAgenciasFinanciadoras.xhtml" /> 
-                        <p:menuitem value="Editais" url="listagemEditais.xhtml" />
-                        <p:menuitem value="Tipos de Documentos" url="listagemTiposDocumentos.xhtml" />                
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAlunos.xhtml')}" value="Bolsistas" url="listagemAlunos.xhtml"  />                    
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemOrientadores.xhtml')}" value="Orientadores" url="listagemOrientadores.xhtml"/> 
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAreasConhecimento.xhtml')}" value="Áreas de Conhecimento" url="listagemAreasConhecimento.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemCursos.xhtml')}" value="Cursos" url="listagemCursos.xhtml"/>
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemCampus.xhtml')}" value="Campus" url="listagemCampus.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemModalidades.xhtml')}" value="Modalidades" url="listagemModalidades.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAgenciasFinanciadoras.xhtml')}" value="Agências Financiadoras" url="listagemAgenciasFinanciadoras.xhtml" /> 
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemEditais.xhtml')}" value="Editais" url="listagemEditais.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemTiposDocumentos.xhtml')}" value="Tipos de Documentos" url="listagemTiposDocumentos.xhtml" />                
                     </p:submenu>
 
-                    <p:menuitem value="Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemProjetos.xhtml')}" value="Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
 
                     <p:submenu label="Relatórios" icon="ui-icon-pencil" >
                         <p:menuitem value="Relat 1"  />     
@@ -43,9 +43,8 @@
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemPerfis.xhtml')}" value="Perfis" url="listagemPerfis.xhtml" />
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemPermissoes.xhtml')}" value="Permissões"  url="listagemPermissoes.xhtml" />
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemLogs.xhtml')}" value="Logs" url="listagemLogs.xhtml"  />
-                        <p:submenu label="Importa CSV">
-                            <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/importaCSVPessoas.xhtml')}" value="Pessoas" url="importaCSVPessoas.xhtml"  />
-                        </p:submenu>
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/importaCSV.xhtml')}" value="Importar CSV" url="importaCSV.xhtml"  />
+                        
                     </p:submenu>
                     <p:menuitem ajax="false" immediate="true" value="Sair" action="#{autenticacaoController.logout()}"  />
                     

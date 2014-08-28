@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos;
 
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import javax.ejb.Local;
 
@@ -12,11 +13,6 @@ import javax.ejb.Local;
  * @author Isla Guedes
  */
 @Local
-public interface EditalRepositorio 
-    
-    extends Repositorio<Edital>
-    
-    {
-    
+public interface EditalRepositorio  extends Repositorio<Edital> {
+    public Edital Abrir(String sigla);
 }
-

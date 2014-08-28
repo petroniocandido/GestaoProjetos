@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 /**
@@ -45,7 +46,7 @@ public class Endereco implements Entidade, Serializable {
     @Column(nullable = false)
     private String cidade;
 
-    @Column(length = 9)
+    @Column(length = 9) 
     private String cep;
 
     private String complemento;
@@ -102,12 +103,21 @@ public class Endereco implements Entidade, Serializable {
         this.cidade = cidade;
     }
 
+    @Transient
+    private String cepFormatado;
+    
     public String getCep() {
-        return cep;
+        if (cepFormatado == null) {
+            if (cep != null && cep.length() == 8) {
+                cepFormatado = cep.substring(0, 2) + "." + cep.substring(2, 5) + "-" + cep.substring(5, 8);
+            }
+        }
+        return cepFormatado;
     }
 
+    
     public void setCep(String cep) {
-        this.cep = cep;
+        this.cep = cep.replace(".", "").replace("-", "");
     }
 
     public String getComplemento() {

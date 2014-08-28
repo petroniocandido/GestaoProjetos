@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import java.util.List;
@@ -28,6 +29,11 @@ public class EditalDAO
                 .IgualA("numero", filtro.getNumero())
                 .IgualA("agenciafinanciadora", filtro.getAgenciaFinanciadora())
                 .Buscar();
+    }
+
+    @Override
+    public Edital Abrir(String sigla) {
+        return IgualA("sigla", sigla).Abrir();
     }
 
 }

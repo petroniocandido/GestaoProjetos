@@ -34,12 +34,17 @@ public class AreaConhecimento implements Entidade, Serializable {
 
     private Long id;
     private String nome;
+    
+    @Column(nullable=false, unique = true)
+    private String numeroCNPQ;
 
     //GETTER E SETTER
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -51,6 +56,17 @@ public class AreaConhecimento implements Entidade, Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getNumeroCNPQ() {
+        return numeroCNPQ;
+    }
+
+    public void setNumeroCNPQ(String numeroCNPQ) {
+        this.numeroCNPQ = numeroCNPQ;
+    }
+
+    
+    
 
     @Override
     public int hashCode() {
@@ -76,7 +92,7 @@ public class AreaConhecimento implements Entidade, Serializable {
 
     @Override
     public String toString() {
-        return nome;
+        return numeroCNPQ + " - " + nome;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -27,8 +27,6 @@ public class ModalidadeController
      * Creates a new instance of ModalidadeController
      */
     public ModalidadeController() {
-        filtro = new Modalidade();
-        entidade = new Modalidade(); 
     }
     
     @EJB

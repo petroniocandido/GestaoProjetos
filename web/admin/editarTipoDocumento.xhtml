@@ -15,19 +15,30 @@
                     <p:tabView id="tabView">  
                         <p:tab id="tabDados" title="Dados Gerais">                      
                             <h:panelGrid columns="2">
+                                
+                                <h:outputLabel value="Sigla*:" />           
+                                <p:inputText size="35" value="${tipoDocumentoController.entidade.sigla}" required="true"/>
 
                                 <h:outputLabel value="Nome*:" />
-                                <p:inputText size="35" value="${tipoDocumentoController.entidade.nome}" required="true" style="width: 150%"/>                      
-
+                                <p:inputText size="35" value="${tipoDocumentoController.entidade.nome}" required="true" style="width: 150%"/>
+                                
+                                <h:outputLabel value="É obrigatório:" />
+                                <p:selectBooleanCheckbox  value="${tipoDocumentoController.entidade.obrigatorio}" />
+                                
+                                <h:outputLabel value="Periodicidade:" />
+                                <p:selectOneMenu value="#{tipoDocumentoController.entidade.periodicidade}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${tipoDocumentoController.periodicidades}"/>
+                                </p:selectOneMenu>
 
                             </h:panelGrid>
                         </p:tab>
                         <ui:include src="./comum/tabSeguranca.xhtml">
-                            <ui:param name="controller" value="#{cursoController}"  />
+                            <ui:param name="controller" value="#{tipoDocumentoController}"  />
                         </ui:include>
                     </p:tabView>
                     <ui:include src="./comum/botoesEntidade.xhtml">
-                        <ui:param name="controller" value="#{cursoController}"  />
+                        <ui:param name="controller" value="#{tipoDocumentoController}"  />
                     </ui:include>
                     (*) Campos de Preenchimento Obrigatório
                 </p:panel>

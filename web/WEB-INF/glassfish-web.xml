@@ -7,5 +7,5 @@
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
   </jsp-config>
-  <property name="alternatedocroot_1" value="from=/arquivos/* dir=/home/petronio/" />
+  <property name="alternatedocroot_1" value="from=/arquivos/* dir=/home/tads/" />
 </glassfish-web-app>

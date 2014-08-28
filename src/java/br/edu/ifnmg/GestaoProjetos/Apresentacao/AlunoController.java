@@ -33,9 +33,6 @@ public class AlunoController
      * Creates a new instance of AlunoController
      */
     public AlunoController() {
-        
-        filtro = new Aluno();
-        entidade = new Aluno();
         email= new Email();
         telefone = new Telefone();
         endereco = new Endereco();

@@ -32,10 +32,19 @@
                                  paginator="true" rows="30"  lazy="true" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-                        <p:ajax event="rowSelect" listener="#{perfilController.onRowSelect}" />
+                        <p:ajax event="rowSelect" listener="#{tipoDocumentoController.onRowSelect}" />
+                        <p:column sortBy="sigla" headerText="Sigla">
+                            ${item.sigla}
+                        </p:column>
                         <p:column sortBy="nome" headerText="Nome">
                             ${item.nome}
-                        </p:column>            
+                        </p:column>
+                        <p:column sortBy="obrigatorio" headerText="Obrigatório?">
+                            ${item.obrigatorio ? "Sim" : "Não"}
+                        </p:column>
+                        <p:column sortBy="periodicidade" headerText="Periodicidade">
+                            ${item.periodicidade}
+                        </p:column>
                     </p:dataTable>
                 </p:panel>
             </ui:define>

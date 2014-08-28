@@ -28,6 +28,7 @@ public class TipoDocumentoDAO
     public List<TipoDocumento> Buscar(TipoDocumento filtro) {
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
+                .Ordenar("nome", "ASC")
                 .Buscar();
 
     }

@@ -20,19 +20,19 @@
                                 <p:inputText value="${orientadorController.entidade.nome}" required="true" style="width: 200%"/>                      
 
                                 <h:outputLabel value="Matrícula SIAPE*:" />
-                                <p:inputText value="${orientadorController.entidade.matriculaSiape}" required="true"/>  
+                                <p:inputText value="${orientadorController.entidade.matriculaSiape}" required="false"/>  
 
 
                                 <h:outputLabel value="Campus onde trabalha*:" />           
                                 <p:selectOneMenu value="${orientadorController.entidade.campus}" label="Campus" 
-                                                 converter="${campusConverter}" required="true" >
+                                                 converter="${campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${campusController.listagem}"/>
 
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="Local de Permanência*:" />
-                                <p:inputText value="${orientadorController.entidade.localPermanencia}" required="true"/>   
+                                <p:inputText value="${orientadorController.entidade.localPermanencia}" required="false"/>   
 
 
 
@@ -41,14 +41,14 @@
                                             label="Data de Nascimento" pattern="dd/MM/yyyy" locale="pt_BR"/>                   
 
                                 <h:outputLabel value="Naturalidade-UF*:" />
-                                <p:inputText value="${orientadorController.entidade.naturalidadeUF}" required="true" maxlength="2"/> 
+                                <p:inputText value="${orientadorController.entidade.naturalidadeUF}" required="false" maxlength="2"/> 
 
                                 <h:outputLabel value="Nacionalidade*:" />           
-                                <p:inputText value="${orientadorController.entidade.nacionalidade}" required="true"/>
+                                <p:inputText value="${orientadorController.entidade.nacionalidade}" required="false"/>
 
 
                                 <h:outputLabel value="Estado*:" />           
-                                <p:inputText value="${orientadorController.entidade.estado}" required="true"/>
+                                <p:inputText value="${orientadorController.entidade.estado}" required="false"/>
 
 
                             </h:panelGrid>
@@ -58,7 +58,7 @@
                         <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Área Conhecimento" >
                             <br/>
                             <h:panelGrid columns="2">
-                                <h:outputLabel value="Area de Conhecimento*:" />           
+                                <h:outputLabel value="Area de Conhecimento:" />           
                                 <p:selectOneMenu id="txtAreaConhecimento" value="${orientadorController.areaConhecimento}" label="Area de Conhecimento"
                                                  converter="${areaConhecimentoConverter}" required="false"
                                                  >
@@ -92,7 +92,7 @@
                         </p:tab>       
 
 
-                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Endereço">
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Endereços">
                             <br/>
                             <h:panelGrid columns="4">                    
 
@@ -124,7 +124,7 @@
 
                             <br/>
 
-                            <p:dataTable id="tblEnderecos" value="${orientadorController.entidade.endereco}" 
+                            <p:dataTable id="tblEnderecos" value="${orientadorController.entidade.enderecos}" 
                                          var="item" emptyMessage="Registros não Encontrados!" 
                                          style="font: medium; color: blue">
 
@@ -150,13 +150,13 @@
 
                         </p:tab>  
 
-                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Telefone">
+                        <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Telefones">
                             <br/>
                             <h:panelGrid columns="5">
-                                <h:outputLabel value="DDD*:" />
+                                <h:outputLabel value="DDD:" />
                                 <p:inputText id="txtDDD" value="${orientadorController.telefone.ddd}" required="false"/>   
 
-                                <h:outputLabel value="Número*:" />
+                                <h:outputLabel value="Número:" />
                                 <p:inputText id="txtNumero" value="${orientadorController.telefone.numero}" required="false"/>                      
 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
@@ -168,7 +168,7 @@
                             </h:panelGrid> 
                             <br/>
 
-                            <p:dataTable id="tblTelefone" value="${orientadorController.entidade.telefone}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblTelefone" value="${orientadorController.entidade.telefones}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column sortBy="ddd" headerText="DDD">
                                     ${item.ddd}
                                 </p:column>
@@ -208,7 +208,7 @@
 
                             <br/>
 
-                            <p:dataTable id="tblEmail" value="${orientadorController.entidade.email}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblEmail" value="${orientadorController.entidade.emails}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column sortBy="endereco" headerText="Email">
                                     ${item.endereco}
                                 </p:column>                                                     
@@ -261,6 +261,9 @@
 
                                 <h:outputLabel value="Título Acadêmico(Maior)*:" />
                                 <p:inputText value="${orientadorController.entidade.tituloAcademico}" required="false"/> 
+                                
+                                <h:outputLabel value="Curriculum Lattes:" />
+                                <p:inputText value="${orientadorController.entidade.lattes}" required="false"/> 
 
                             </h:panelGrid> 
 

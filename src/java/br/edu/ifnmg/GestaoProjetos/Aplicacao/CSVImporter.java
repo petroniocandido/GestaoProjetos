@@ -23,7 +23,7 @@ public abstract class CSVImporter<T> {
         cabecalho = new HashMap<>();
         String colunas[] = csv.split(";");
         for(int index = 0; index < colunas.length; index++){
-            cabecalho.put(colunas[index], index);
+            cabecalho.put(colunas[index].trim(), index);
         }        
     }
     

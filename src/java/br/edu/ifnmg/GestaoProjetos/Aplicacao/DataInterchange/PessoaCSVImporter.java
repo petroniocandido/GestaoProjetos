@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package br.edu.ifnmg.GestaoProjetos.Aplicacao;
+package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaTipo;
 import java.text.DateFormat;
@@ -13,11 +14,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author petronio
  */
+@Stateless
 public class PessoaCSVImporter extends CSVImporter<Pessoa> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");

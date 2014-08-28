@@ -27,8 +27,6 @@ public class CampusController
      * Creates a new instance of CampusController
      */
     public CampusController() {        
-        filtro = new Campus();
-        entidade = new Campus();        
     }
     
     @EJB

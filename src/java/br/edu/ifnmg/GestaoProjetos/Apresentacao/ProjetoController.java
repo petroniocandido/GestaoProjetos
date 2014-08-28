@@ -12,11 +12,15 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.SituacaoAtividade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.SituacaoProjeto;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -36,14 +40,14 @@ public class ProjetoController
     Aluno orientando;
     Documento documento;
     Atividade atividade;
+    SituacaoProjeto[] situacoesProjeto;
+    SituacaoAtividade[] situacoesAtividade;
 
     /**
      * Creates a new instance of ProjetoController
      */
     
     public ProjetoController() {      
-        filtro = new Projeto();
-        entidade = new Projeto();  
         areaConhecimento = new AreaConhecimento();
         //orientandos = new Aluno();
         documento = new Documento();
@@ -62,6 +66,9 @@ public class ProjetoController
     @EJB
     EditalRepositorio daoEdital;
     
+    @EJB
+    ModalidadeRepositorio daoModalidade;
+    
      @Override
     public Projeto getFiltro() {
         if (filtro == null) {
@@ -70,6 +77,7 @@ public class ProjetoController
             filtro.setAgenciaFinanciadora((AgenciaFinanciadora)getSessao("prctrl_agencia",daoAgencia));
             filtro.setCampus((Campus)getSessao("prctrl_campus",daoCampus));
             filtro.setEdital((Edital)getSessao("prctrl_edital",daoEdital));
+            filtro.setModalidade((Modalidade)getSessao("prctrl_modalidade",daoModalidade));
         }
         return filtro;
     }
@@ -82,6 +90,7 @@ public class ProjetoController
             setSessao("prctrl_agencia",filtro.getAgenciaFinanciadora());
             setSessao("prctrl_campus",filtro.getCampus());
             setSessao("prctrl_edital",filtro.getEdital());
+            setSessao("prctrl_modalidade",filtro.getModalidade());
         }
     }
 
@@ -178,6 +187,20 @@ public class ProjetoController
         dao.Salvar(entidade);
         atividade = new Atividade();
       } 
+
+    public SituacaoProjeto[] getSituacoesProjeto() {
+        if(situacoesProjeto == null){
+            situacoesProjeto = SituacaoProjeto.values();
+        }
+        return situacoesProjeto;
+    }
+
+    public SituacaoAtividade[] getSituacoesAtividade() {
+        if(situacoesAtividade == null ){
+            situacoesAtividade = SituacaoAtividade.values();
+        }
+        return situacoesAtividade;
+    }    
     
 }
 

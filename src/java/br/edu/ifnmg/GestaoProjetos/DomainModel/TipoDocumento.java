@@ -7,6 +7,7 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,14 @@ public class TipoDocumento implements Serializable, Entidade {
     
     private String nome;
     
+    @Column(nullable=false, unique = true)
     private String sigla;
+    
+    private boolean obrigatorio;
+    
+    private Periodicidade periodicidade;
+    
+    private boolean preRequisito;
 
     @Override
     public Long getId() {
@@ -60,8 +68,31 @@ public class TipoDocumento implements Serializable, Entidade {
     public void setSigla(String sigla) {
         this.sigla = sigla;
     }
-    
 
+    public boolean isObrigatorio() {
+        return obrigatorio;
+    }
+
+    public void setObrigatorio(boolean obrigatorio) {
+        this.obrigatorio = obrigatorio;
+    }
+
+    public Periodicidade getPeriodicidade() {
+        return periodicidade;
+    }
+
+    public void setPeriodicidade(Periodicidade periodicidade) {
+        this.periodicidade = periodicidade;
+    }
+
+    public boolean isPreRequisito() {
+        return preRequisito;
+    }
+
+    public void setPreRequisito(boolean preRequisito) {
+        this.preRequisito = preRequisito;
+    }
+   
     @Override
     public int hashCode() {
         int hash = 0;

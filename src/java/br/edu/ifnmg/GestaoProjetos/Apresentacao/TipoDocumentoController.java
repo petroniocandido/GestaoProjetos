@@ -5,6 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Periodicidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import javax.inject.Named;
@@ -26,12 +27,12 @@ public class TipoDocumentoController
      * Creates a new instance of TipoDocumentoController
      */
     public TipoDocumentoController() {
-        filtro = new TipoDocumento();
-        entidade = new TipoDocumento();
     }
     
     @EJB
     TipoDocumentoRepositorio dao;
+    
+    Periodicidade[] periodicidades;
     
     @Override
     public TipoDocumento getFiltro() {
@@ -56,11 +57,20 @@ public class TipoDocumentoController
     public void init() {
         setRepositorio(dao);
         setPaginaEdicao("editarTipoDocumento.xhtml");
-        setPaginaListagem("listagemTipoDocumentos.xhtml");
+        setPaginaListagem("listagemTiposDocumentos.xhtml");
     }
     
     @Override
     public void limpar() {
         setEntidade(new TipoDocumento());
     }
+
+    public Periodicidade[] getPeriodicidades() {
+        if(periodicidades == null){
+            periodicidades = Periodicidade.values();
+        }
+        return periodicidades;
+    }
+    
+    
 }

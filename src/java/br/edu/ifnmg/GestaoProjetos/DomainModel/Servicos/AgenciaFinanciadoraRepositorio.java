@@ -12,10 +12,6 @@ import javax.ejb.Local;
  * @author Isla Guedes
  */
 @Local
-public interface AgenciaFinanciadoraRepositorio 
-    
-    extends Repositorio<AgenciaFinanciadora> 
-
-   {
-    
+public interface AgenciaFinanciadoraRepositorio extends Repositorio<AgenciaFinanciadora> {
+    public AgenciaFinanciadora Abrir(String sigla);
 }

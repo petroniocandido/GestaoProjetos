@@ -58,7 +58,7 @@
                             </h:panelGrid>
                         </p:tab>
 
-                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Endereço">
+                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Endereços">
                             <br/>
                             <h:panelGrid columns="4">                    
 
@@ -67,7 +67,7 @@
 
 
                                 <h:outputLabel value="Número*:" />
-                                <p:inputText id="txtNum" value="${alunoController.endereco.numero}" required="false"/>   
+                                <p:inputText id="txtNum" value="${alunoController.endereco.numero}"  required="false"/>   
 
                                 <h:outputLabel value="Complemento:" />
                                 <p:inputText id="txtComplemento" value="${alunoController.endereco.complemento}" required="false"/>                      
@@ -79,7 +79,7 @@
                                 <p:inputText id="txtCidade" value="${alunoController.endereco.cidade}" required="false"/>  
 
                                 <h:outputLabel value="Cep*:" />
-                                <p:inputText id="txtCep" value="${alunoController.endereco.cep}" required="false"/> 
+                                <p:inputMask id="txtCep" value="${alunoController.endereco.cep}" mask="99.999-99" required="false"/> 
 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${alunoController.addEndereco()}" style="margin:0"
@@ -90,11 +90,10 @@
 
                             <br/>
 
-                            <p:dataTable id="tblEnderecos" value="${alunoController.entidade.endereco}" 
-                                         var="item" emptyMessage="Registros não Encontrados!" 
-                                         style="font: medium; color: blue">
+                            <p:dataTable id="tblEnderecos" value="${alunoController.entidade.enderecos}" 
+                                         var="item" emptyMessage="Registros não Encontrados!" >
 
-                                <p:column sortBy="endereco" headerText="Endereço">
+                                <p:column sortBy="endereco" headerText="Endereços">
                                     ${item}
                                 </p:column>
 
@@ -116,14 +115,14 @@
 
                         </p:tab>
 
-                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Telefone">
+                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Telefones">
                             <br/>
                             <h:panelGrid columns="5">
                                 <h:outputLabel value="DDD*:" />
-                                <p:inputText id="txtDDD" value="${alunoController.telefone.ddd}" required="false"/>   
+                                <p:inputMask id="txtDDD" value="${alunoController.telefone.ddd}" mask="99" required="false"/>   
 
                                 <h:outputLabel value="Número*:" />
-                                <p:inputText id="txtNumero" value="${alunoController.telefone.numero}" required="false"/>                      
+                                <p:inputMask id="txtNumero" value="${alunoController.telefone.numero}" mask="9999-9999" required="false"/>                      
 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${alunoController.addTelefone}" style="margin:0"
@@ -133,7 +132,7 @@
                             </h:panelGrid> 
                             <br/>
 
-                            <p:dataTable id="tblTelefone" value="${alunoController.entidade.telefone}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblTelefone" value="${alunoController.entidade.telefones}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column sortBy="ddd" headerText="DDD">
                                     ${item.ddd}
                                 </p:column>
@@ -172,7 +171,7 @@
 
                             <br/>
 
-                            <p:dataTable id="tblEmail" value="${alunoController.entidade.email}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblEmail" value="${alunoController.entidade.emails}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column sortBy="endereco" headerText="Email">
                                     ${item.endereco}
                                 </p:column>                                                     

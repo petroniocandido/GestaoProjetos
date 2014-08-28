@@ -27,7 +27,13 @@ public class ModalidadeDAO
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
                 .IgualA("sigla", filtro.getSigla())
+                .Ordenar("nome", "ASC")
                 .Buscar();
+    }
+
+    @Override
+    public Modalidade Abrir(String sigla) {
+        return IgualA("sigla", sigla).Abrir();
     }
 
 }

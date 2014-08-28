@@ -36,10 +36,9 @@ public class AgenciaFinanciadora implements Entidade, Serializable {
     @Column(nullable=false)
     private String nome;
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique = true)
     private String sigla;
-    
-    
+        
     @Override
     public Long getId() {
         return id;

@@ -34,8 +34,6 @@ public class EditalController
      * Creates a new instance of EditalController
      */
     public EditalController() {        
-        filtro = new Edital();
-        entidade = new Edital();        
     }    
     
     @EJB
@@ -51,7 +49,7 @@ public class EditalController
     public Edital getFiltro() {
         if (filtro == null) {
             filtro = new Edital();
-            filtro.setNumero(Integer.parseInt(getSessao("edctrl_numero")));
+            filtro.setNumero(getSessao("edctrl_numero") != null ? Integer.parseInt(getSessao("edctrl_numero")) : 0);
             filtro.setSigla(getSessao("edctrl_sigla"));
             filtro.setAgenciaFinanciadora((AgenciaFinanciadora)getSessao("edctrl_agencia", daoAgencia));
             filtro.setCampus((Campus)getSessao("edctrl_campus", daoAgencia));

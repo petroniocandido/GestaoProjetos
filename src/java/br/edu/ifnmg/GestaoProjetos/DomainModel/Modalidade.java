@@ -34,6 +34,7 @@ public class Modalidade implements Serializable, Entidade {
     
     private String nome;
     
+    @Column(nullable=false, unique = true)
     private String sigla;
 
     @Override

@@ -35,8 +35,6 @@ public class OrientadorController
      * Creates a new instance of OrientadorController
      */
     public OrientadorController() {
-        filtro = new Orientador();
-        entidade = new Orientador();
         email = new Email();
         telefone = new Telefone();
         endereco = new Endereco();

@@ -8,11 +8,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,11 +31,15 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name="orientadores")
-@Cacheable(false)
+@Cacheable(true)
 public class Orientador extends Pessoa implements Entidade, Serializable{
     private static final long serialVersionUID = 1L;
    
-    @Column(unique=true)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column
     private int matriculaSiape;     
     
     private String localPermanencia;
@@ -45,6 +53,7 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
         
     private String tituloAcademico;    
     
+    private String lattes;
     
    //Dados de Solicitação
     @OneToMany(mappedBy = "coordenador", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
@@ -72,6 +81,16 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
     }
     
     //GETTER E SETTER
+    
+    @Override
+    public void setId(Long id) {
+        this.id = id; 
+    }
+
+    @Override
+    public Long getId() {
+        return this.id; 
+    }
 
     public int getMatriculaSiape() {
         return matriculaSiape;
@@ -121,7 +140,44 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
         this.projetos = projetos;
     }
 
-    
+    public String getLattes() {
+        return lattes;
+    }
+
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + Objects.hashCode(this.id);
+        hash = 43 * hash + this.matriculaSiape;
+        hash = 43 * hash + Objects.hashCode(this.lattes);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Orientador other = (Orientador) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (this.matriculaSiape != other.matriculaSiape) {
+            return false;
+        }
+        if (!Objects.equals(this.lattes, other.lattes)) {
+            return false;
+        }
+        return true;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa criador;
     

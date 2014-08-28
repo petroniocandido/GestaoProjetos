@@ -16,6 +16,8 @@
                     <p:tabView id="tabView">  
                         <p:tab id="tabDados" title="Dados Gerais">  
                             <h:panelGrid columns="2">
+                                <h:outputLabel value="Sigla*:" />
+                                <p:inputText value="${campusController.entidade.sigla}" required="true"/>                      
                                 <h:outputLabel value="Nome*:" />
                                 <p:inputText value="${campusController.entidade.nome}" required="true" style="width: 150%"/>                      
                             </h:panelGrid>
@@ -31,19 +33,19 @@
 
 
                                 <h:outputLabel value="Número*:" />
-                                <p:inputText value="${campusController.entidade.endereco.numero}" required="true"/>   
+                                <p:inputText value="${campusController.entidade.endereco.numero}" />   
 
                                 <h:outputLabel value="Complemento:" />
-                                <p:inputText value="${campusController.entidade.endereco.complemento}" required="false"/>                      
+                                <p:inputText value="${campusController.entidade.endereco.complemento}" />                      
 
                                 <h:outputLabel value="Bairro*:" />
-                                <p:inputText value="${campusController.entidade.endereco.bairro}" required="true"/> 
+                                <p:inputText value="${campusController.entidade.endereco.bairro}" /> 
 
                                 <h:outputLabel value="Cidade*:" />
                                 <p:inputText value="${campusController.entidade.endereco.cidade}" required="true"/>  
 
                                 <h:outputLabel value="Cep*:" />
-                                <p:inputText value="${campusController.entidade.endereco.cep}" required="true"/> 
+                                <p:inputMask value="${campusController.entidade.endereco.cep}" mask="99.999-999" /> 
 
 
                             </h:panelGrid>
@@ -51,11 +53,11 @@
 
                         </p:tab>   
                         <ui:include src="./comum/tabSeguranca.xhtml">
-                            <ui:param name="controller" value="#{agenciaFinanciadoraController}"  />
+                            <ui:param name="controller" value="#{campusController}"  />
                         </ui:include>
                     </p:tabView>
                     <ui:include src="./comum/botoesEntidade.xhtml">
-                        <ui:param name="controller" value="#{agenciaFinanciadoraController}"  />
+                        <ui:param name="controller" value="#{campusController}"  />
                     </ui:include>
                     (*) Campos de Preenchimento Obrigatório
                 </p:panel>

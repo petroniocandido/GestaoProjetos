@@ -16,6 +16,9 @@
                         <p:tab id="tabDados" title="Dados Gerais">  
                             <h:panelGrid columns="2">
 
+                                <h:outputLabel value="Sigla*:" />
+                                <p:inputText value="${editalController.entidade.sigla}" required="true"/>                      
+                                
                                 <h:outputLabel value="Número*:" />
                                 <p:inputText value="${editalController.entidade.numero}" required="true"/>                      
 
@@ -42,10 +45,6 @@
                                 <h:outputLabel value="Data Final*:" />
                                 <p:calendar value="${editalController.entidade.dataFinal}" required="true"
                                             label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-                                <h:outputLabel value="Sigla*:" />
-                                <p:inputText value="${editalController.entidade.sigla}" required="true"/>    
-
 
                             </h:panelGrid>
                         </p:tab>

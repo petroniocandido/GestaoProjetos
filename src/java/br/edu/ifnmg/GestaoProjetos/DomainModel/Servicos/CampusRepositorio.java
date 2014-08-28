@@ -12,10 +12,6 @@ import javax.ejb.Local;
  * @author Isla Guedes
  */
 @Local
-public interface CampusRepositorio 
-
-    extends Repositorio<Campus>
-
-    {
-    
+public interface CampusRepositorio  extends Repositorio<Campus> {
+    public Campus Abrir(String sigla);
 }
