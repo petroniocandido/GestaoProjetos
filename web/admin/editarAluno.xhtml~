@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./AdminTemplate.xhtml">
+
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Editar Bolsista 
+                    </f:facet>
+                    <p:tabView id="tabView">  
+                        <p:tab id="tabDados" title="Dados Gerais">  
+                            <h:panelGrid columns="2">
+
+                                <h:outputLabel value="Nome Completo*:" />
+                                <p:inputText value="${alunoController.entidade.nome}" required="true" style="width: 100%"/>                      
+
+                                <h:outputLabel value="Matrícula*:" />
+                                <p:inputText value="${alunoController.entidade.matricula}" required="true"/>  
+
+                                <h:outputLabel value="Curso*:" />           
+                                <p:selectOneMenu value="${alunoController.entidade.curso}" label="Curso"
+                                                 converter="${cursoConverter}" required="true" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue="" />
+                                    <f:selectItems value="${cursoController.listagem}"/>
+
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Campus*:" />           
+                                <p:selectOneMenu value="${alunoController.entidade.campus}" label="Campus"
+                                                 converter="${campusConverter}" required="true" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="${campusController.listagem}"/>
+
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Data de Nascimento*:" />
+                                <p:calendar value="${alunoController.entidade.dataNascimento}" required="true"
+                                            label="Data de Nascimento" pattern="dd/MM/yyyy" />                   
+
+                                <h:outputLabel value="Naturalidade-UF*:" />
+                                <p:inputText value="${alunoController.entidade.naturalidadeUF}" maxlength="2" required="true"/> 
+
+                                <h:outputLabel value="Nacionalidade*:" />           
+                                <p:inputText value="${alunoController.entidade.nacionalidade}" required="true"/>
+
+
+                                <h:outputLabel value="Estado*:" />           
+                                <p:inputText value="${alunoController.entidade.estado}" required="true"/>
+
+
+                            </h:panelGrid>
+                        </p:tab>
+
+                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Endereços">
+                            <br/>
+                            <h:panelGrid columns="4">                    
+
+                                <h:outputLabel value="Rua/Av/Estrada*:" />
+                                <p:inputText id="txtRua" value="${alunoController.endereco.rua}" required="false"/>   
+
+
+                                <h:outputLabel value="Número*:" />
+                                <p:inputText id="txtNum" value="${alunoController.endereco.numero}"  required="false"/>   
+
+                                <h:outputLabel value="Complemento:" />
+                                <p:inputText id="txtComplemento" value="${alunoController.endereco.complemento}" required="false"/>                      
+
+                                <h:outputLabel value="Bairro*:" />
+                                <p:inputText id="txtBairro" value="${alunoController.endereco.bairro}" required="false"/> 
+
+                                <h:outputLabel value="Cidade*:" />
+                                <p:inputText id="txtCidade" value="${alunoController.endereco.cidade}" required="false"/>  
+
+                                <h:outputLabel value="Cep*:" />
+                                <p:inputMask id="txtCep" value="${alunoController.endereco.cep}" mask="99.999-99" required="false"/> 
+
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 action="${alunoController.addEndereco()}" style="margin:0"
+                                                 update="tblEnderecos txtRua txtNum txtComplemento txtBairro 
+                                                 txtCidade txtCep" /> 
+
+                            </h:panelGrid>
+
+                            <br/>
+
+                            <p:dataTable id="tblEnderecos" value="${alunoController.entidade.enderecos}" 
+                                         var="item" emptyMessage="Registros não Encontrados!" >
+
+                                <p:column sortBy="endereco" headerText="Endereços">
+                                    ${item}
+                                </p:column>
+
+                                <p:column sortBy="editar" headerText="Editar">
+                                    <p:commandButton ajax="false" value="Editar" >
+                                        <f:setPropertyActionListener target="#{alunoController.endereco}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{alunoController.removeEndereco()}">
+                                        <f:setPropertyActionListener target="#{alunoController.endereco}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+
+                            </p:dataTable>
+
+
+                        </p:tab>
+
+                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Telefones">
+                            <br/>
+                            <h:panelGrid columns="5">
+                                <h:outputLabel value="DDD*:" />
+                                <p:inputMask id="txtDDD" value="${alunoController.telefone.ddd}" mask="99" required="false"/>   
+
+                                <h:outputLabel value="Número*:" />
+                                <p:inputMask id="txtNumero" value="${alunoController.telefone.numero}" mask="9999-9999" required="false"/>                      
+
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 action="${alunoController.addTelefone}" style="margin:0"
+                                                 update="tblTelefone txtDDD txtNumero"/>
+
+
+                            </h:panelGrid> 
+                            <br/>
+
+                            <p:dataTable id="tblTelefone" value="${alunoController.entidade.telefones}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column sortBy="ddd" headerText="DDD">
+                                    ${item.ddd}
+                                </p:column>
+
+                                <p:column sortBy="numero" headerText="Número">
+                                    ${item.numero}
+                                </p:column>                            
+
+                                <p:column sortBy="editar" headerText="Editar">
+                                    <p:commandButton ajax="false" value="Editar" >
+                                        <f:setPropertyActionListener target="#{alunoController.telefone}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{alunoController.removeTelefone()}">
+                                        <f:setPropertyActionListener target="#{alunoController.telefone}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:tab>
+
+
+                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="E-mail">
+                            <br/>
+                            <h:panelGrid columns="2">                            
+                                <h:outputLabel value="E-mail*:" />
+                                <p:inputText id="txtEndereco" value="${alunoController.email.endereco}" required="false" style="width: 150%"/>   
+
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 action="${alunoController.addEmail()}" update="tblEmail txtEndereco"/>
+
+                            </h:panelGrid> 
+
+                            <br/>
+
+                            <p:dataTable id="tblEmail" value="${alunoController.entidade.emails}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column sortBy="endereco" headerText="Email">
+                                    ${item.endereco}
+                                </p:column>                                                     
+
+                                <p:column sortBy="editar" headerText="Editar">
+                                    <p:commandButton ajax="false" value="Editar" >
+                                        <f:setPropertyActionListener target="#{alunoController.email}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{alunoController.removeEmail()}">
+                                        <f:setPropertyActionListener target="#{alunoController.email}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:tab> 
+
+
+                        <p:tab rendered="#{alunoController.entidade.id > 0}"  title="Documentos">
+                            <br/>
+                            <h:panelGrid columns="6">
+
+                                <h:outputLabel value="Carteira de identidade*:" />
+                                <p:inputText value="${alunoController.entidade.rg}" required="false"/>   
+
+                                <h:outputLabel value="Órgão Expeditor*:" />
+                                <p:inputText value="${alunoController.entidade.orgaoExpeditor}" required="false"/>                      
+
+                                <h:outputLabel value="Data de Expedição*:" />
+                                <p:calendar value="${alunoController.entidade.dataExpedicao}" required="false"
+                                            label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/> 
+
+                                <h:outputLabel value="Título Eleitoral*:" />
+                                <p:inputText value="${alunoController.entidade.tituloEleitoral}" required="false"/>  
+
+                                <h:outputLabel value="Sessão Eleitoral*:" />
+                                <p:inputText value="${alunoController.entidade.secaoEleitoral}" required="false"/>  
+
+                                <h:outputLabel value="Zona Eleitoral*:" />
+                                <p:inputText value="${alunoController.entidade.zonaEleitoral}" required="false"/> 
+
+                                <h:outputLabel value="CPF*:" />
+                                <p:inputMask value="${alunoController.entidade.cpf}" label="CPF" 
+                                             required="false" mask="999.999.999-99"/>
+
+                                <h:outputLabel value="Situação Militar*:" />
+                                <p:inputText value="${alunoController.entidade.situacaoMilitar}" required="false"/> 
+
+                                <h:outputLabel value="Certidão Militar*:" />
+                                <p:inputText value="${alunoController.entidade.certidaoMilitar}" required="false"/> 
+
+                            </h:panelGrid> 
+
+                        </p:tab>
+
+
+
+                        <p:tab rendered="#{alunoController.entidade.id > 0}"  title="Dados Conta Bancária">
+                            <br/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Banco*:" />
+                                <p:inputText value="${alunoController.entidade.banco}" required="false"/> 
+
+                                <h:outputLabel value="Número da Conta Bancária*:" />
+                                <p:inputText value="${alunoController.entidade.contaBancaria}" required="false"/> 
+
+                                <h:outputLabel value="Número da Agência*:" />
+                                <p:inputText value="${alunoController.entidade.agencia}" required="false"/> 
+
+                            </h:panelGrid>  
+
+                        </p:tab>
+
+
+                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Dados dos Pais">
+                            <br/>
+                            <h:panelGrid columns="4">
+                                <h:outputLabel value="Nome do pai ou responsável*:" /> 
+                                <p:inputText value="${alunoController.entidade.nomePai}" required="false"/> 
+
+                                <h:outputLabel value="Nome da mãe*:" /> 
+                                <p:inputText value="${alunoController.entidade.nomeMae}" required="false"/> 
+
+                                <h:outputLabel value="Carteira de identidade*:" />
+                                <p:inputText value="${alunoController.entidade.rgPai}" required="false"/> 
+
+                                <h:outputLabel value="Carteira de identidade*:" />
+                                <p:inputText value="${alunoController.entidade.rgMae}" required="false"/> 
+
+                                <h:outputLabel value="Órgão Expeditor*:" />
+                                <p:inputText value="${alunoController.entidade.orgaoExpedidorPai}" required="false"/>
+
+                                <h:outputLabel value="Órgão Expeditor*:" />
+                                <p:inputText value="${alunoController.entidade.orgaoExpedidorMae}" required="false"/>
+
+                                <h:outputLabel value="CPF*:" />
+                                <p:inputMask value="${alunoController.entidade.cpfPai}" label="CPF" 
+                                             required="false" mask="999.999.999-99"/>
+
+                                <h:outputLabel value="CPF*:" />
+                                <p:inputMask value="${alunoController.entidade.cpfMae}" label="CPF" 
+                                             required="false" mask="999.999.999-99"/>
+
+                            </h:panelGrid> 
+
+                        </p:tab>
+
+
+                        <p:tab rendered="#{alunoController.entidade.id > 0}" title="Outras informações">
+                            <br/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Trabalha?*:" />  
+                                <p:selectOneRadio value="${alunoController.entidade.trabalhoStatus}" required="false" label="trabalho">
+                                    <f:selectItem itemLabel="Sim" itemValue="S"/>
+                                    <f:selectItem itemLabel="Não" itemValue="N"/>
+                                </p:selectOneRadio>
+
+                                <h:outputLabel value="Local do Trabalho*:" />           
+                                <p:inputText value="${alunoController.entidade.localTrabalho}" required="false"/>
+
+                                <h:outputLabel value="Telefone*:" />           
+                                <p:selectOneMenu value="${alunoController.entidade.telefone}" label="Telefone" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>                
+
+                        </p:tab>  
+                        <ui:include src="./comum/tabSeguranca.xhtml">
+                            <ui:param name="controller" value="#{alunoController}"  />
+                        </ui:include>
+                    </p:tabView>
+                    <ui:include src="./comum/botoesEntidade.xhtml">
+                        <ui:param name="controller" value="#{alunoController}"  />
+                    </ui:include>
+                    (*) Campos de Preenchimento Obrigatório
+                </p:panel>
+            </ui:define>                     
+        </ui:composition>
+    </body>
+</html>

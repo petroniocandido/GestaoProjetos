@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+        <ui:composition template="./AdminTemplate.xhtml">
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Editar Agência Financiadora 
+                    </f:facet>
+                    <p:tabView id="tabView">  
+                        <p:tab id="tabDados" title="Dados Gerais">  
+                            <h:panelGrid columns="2">
+
+                                <h:outputLabel value="Nome*:" />
+                                <p:inputText size="35" value="${agenciaFinanciadoraController.entidade.nome}" required="true" style="width: 150%"/>                      
+
+                                <h:outputLabel value="Sigla*:" />           
+                                <p:inputText size="35" value="${agenciaFinanciadoraController.entidade.sigla}" required="true"/>
+                            </h:panelGrid>
+                        </p:tab>
+                        <ui:include src="./comum/tabSeguranca.xhtml">
+                            <ui:param name="controller" value="#{agenciaFinanciadoraController}"  />
+                        </ui:include>
+                    </p:tabView>
+                    <ui:include src="./comum/botoesEntidade.xhtml">
+                        <ui:param name="controller" value="#{agenciaFinanciadoraController}"  />
+                    </ui:include>
+                    (*) Campos de Preenchimento Obrigatório
+                </p:panel>
+            </ui:define>                     
+        </ui:composition>
+    </body>
+</html>

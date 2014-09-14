@@ -5,6 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Cacheable;
@@ -55,6 +56,41 @@ public class Edital implements Entidade, Serializable {
     
     @ManyToMany
     private List<Arquivo> arquivos;
+    
+    @ManyToMany
+    private List<DocumentoTipo> documentosObrigatorios;
+
+    public Edital() {
+        arquivos = new ArrayList<>();
+        documentosObrigatorios = new ArrayList<>();
+                
+    }   
+    
+     public void add(Arquivo t){
+        if(!arquivos.contains(t)){
+            arquivos.add(t);
+        }
+        
+    }
+    
+    public void remove(Arquivo t){
+        if(arquivos.contains(t)){
+            arquivos.remove(t);
+        }
+    }
+    
+     public void add(DocumentoTipo t){
+        if(!documentosObrigatorios.contains(t)){
+            documentosObrigatorios.add(t);
+        }
+        
+    }
+    
+    public void remove(DocumentoTipo t){
+        if(documentosObrigatorios.contains(t)){
+            documentosObrigatorios.remove(t);
+        }
+    }
     
     //GETTER E SETTER
     
@@ -124,6 +160,16 @@ public class Edital implements Entidade, Serializable {
     public void setArquivos(List<Arquivo> arquivos) {
         this.arquivos = arquivos;
     }
+
+    public List<DocumentoTipo> getDocumentosObrigatorios() {
+        return documentosObrigatorios;
+    }
+
+    public void setDocumentosObrigatorios(List<DocumentoTipo> documentosObrigatorios) {
+        this.documentosObrigatorios = documentosObrigatorios;
+    }
+    
+    
     
     
     @Override

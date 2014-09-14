@@ -48,6 +48,33 @@
 
                             </h:panelGrid>
                         </p:tab>
+                        <p:tab title="Arquivos">
+                            
+                        </p:tab>
+                        <p:tab title="Documentos Obrigatórios">
+                            <h:panelGrid columns="5">
+                                <h:outputLabel value="Documento:" />
+                                <p:selectOneMenu value="#{editalController.documento}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${tipoDocumentoController.listagemGeral}"/>
+                                </p:selectOneMenu>
+                                
+                                <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                                 action="${editalController.addDocumento()}" style="margin:0"
+                                                 update=""/>
+                            </h:panelGrid> 
+                            <p:dataTable id="tblTelefone" value="${editalController.entidade.documentosObrigatorios}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column headerText="Documento">
+                                    ${item}
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{editalController.removeDocumento()}">
+                                        <f:setPropertyActionListener target="#{editalController.documento}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
                         <ui:include src="./comum/tabSeguranca.xhtml">
                             <ui:param name="controller" value="#{editalController}"  />
                         </ui:include>

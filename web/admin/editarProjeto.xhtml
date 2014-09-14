@@ -285,7 +285,7 @@
 
                         <p:tab rendered="#{projetoController.entidade.id > 0}" title="Documentos">
                             <br/>
-                            <h:panelGrid columns="4">                    
+                            <h:panelGrid columns="2">                    
 
 
                                 <h:outputLabel value="Tipo de Documento*:" />
@@ -295,6 +295,13 @@
                                     <f:selectItems value="${tipoDocumentoController.listagem}"/>
 
                                 </p:selectOneMenu>
+                                
+                                <h:outputLabel value="Titular do Documento*:" />
+                                <p:autoComplete converter="#{usuarioConverter}" value="#{projetoController.documento.pessoa}"
+                                                completeMethod="#{usuarioConverter.autoCompletePessoa}" 
+                                                var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                                    #{item.nome}
+                                </p:autoComplete>
 
                                 <h:outputLabel value="Data Prevista*:" />
                                 <p:calendar id="txtDataPrevista" value="${projetoController.documento.dataPrevista}" required="false"
@@ -307,7 +314,7 @@
 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${projetoController.addDocumento()}" style="margin:0"
-                                                 update="tblTipoDocumento txtFuncRecebdor txtTipoDocumento txtDataPrevista txtDataEfetiva" /> 
+                                                 update="tblTipoDocumento txtTipoDocumento txtDataPrevista txtDataEfetiva" /> 
 
                             </h:panelGrid>
 

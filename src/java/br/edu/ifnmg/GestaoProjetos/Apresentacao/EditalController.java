@@ -7,6 +7,7 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
@@ -28,6 +29,8 @@ public class EditalController
     extends ControllerBaseEntidade<Edital> implements Serializable {
 
     List<AgenciaFinanciadora> listagemAgencia;
+    
+    DocumentoTipo documento;
         
     
     /**
@@ -83,6 +86,20 @@ public class EditalController
         setEntidade(new Edital());
     }
     
+    public void addDocumento(){
+        //entidade = dao.Refresh(entidade.getId());
+        entidade.add(documento);
+        SalvarAgregado(documento);
+        documento = new DocumentoTipo();
+    }
+    
+    public void removeDocumento(){
+        //entidade = dao.Refresh(entidade.getId());
+        entidade.remove(documento);
+        SalvarAgregado(documento);
+        documento = new DocumentoTipo();
+    }
+    
     public List<AgenciaFinanciadora> getListagemAgencia() {
         if (listagemAgencia == null) {
             Edital filtro = new Edital();
@@ -94,6 +111,14 @@ public class EditalController
 
     public void setListagemAgencia(List<AgenciaFinanciadora> listagemAgencia) {
         this.listagemAgencia = listagemAgencia;
+    }
+
+    public DocumentoTipo getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(DocumentoTipo documento) {
+        this.documento = documento;
     }
 
    
