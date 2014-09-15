@@ -18,7 +18,7 @@
 
                                 <h:outputLabel value="Sigla*:" />
                                 <p:inputText value="${editalController.entidade.sigla}" required="true"/>                      
-                                
+
                                 <h:outputLabel value="Número*:" />
                                 <p:inputText value="${editalController.entidade.numero}" required="true"/>                      
 
@@ -49,21 +49,38 @@
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Arquivos">
-                            
+                            <p:fileUpload  fileUploadListener="#{editalController.fileUploadListener}"  mode="advanced"
+                                           auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)$/"
+                                           fileLimit="1" fileLimitMessage="Só é possível escolher um arquivo!"
+                                           invalidFileMessage="Tipo de arquivo não permitido!"
+                                           invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
+                                           label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
+                                           dragDropSupport="flase" multiple="false" update="tblArquivos" />
+                            <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                    <p:column headerText="Arquivo">
+                                        ${item}
+                                    </p:column>
+
+                                    <p:column sortBy="remover" headerText="Remover" >
+                                        <p:commandButton ajax="false" value="Remover" action="#{editalController.removeArquivo()}">
+                                            <f:setPropertyActionListener target="#{editalController.arquivo}" value="#{item}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:dataTable>
                         </p:tab>
                         <p:tab title="Documentos Obrigatórios">
                             <h:panelGrid columns="5">
                                 <h:outputLabel value="Documento:" />
-                                <p:selectOneMenu value="#{editalController.documento}">
+                                <p:selectOneMenu value="#{editalController.documento}" converter="#{tipoDocumentoConverter}">
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${tipoDocumentoController.listagemGeral}"/>
                                 </p:selectOneMenu>
-                                
+
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${editalController.addDocumento()}" style="margin:0"
-                                                 update=""/>
+                                                 update="tblDocumentos"/>
                             </h:panelGrid> 
-                            <p:dataTable id="tblTelefone" value="${editalController.entidade.documentosObrigatorios}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblDocumentos" value="${editalController.entidade.documentosObrigatorios}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column headerText="Documento">
                                     ${item}
                                 </p:column>

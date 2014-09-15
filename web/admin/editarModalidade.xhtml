@@ -26,16 +26,16 @@
                         <p:tab title="Documentos Obrigatórios">
                             <h:panelGrid columns="5">
                                 <h:outputLabel value="Documento:" />
-                                <p:selectOneMenu value="#{modalidadeController.documento}">
+                                <p:selectOneMenu value="#{modalidadeController.documento}"  converter="#{tipoDocumentoConverter}">
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${tipoDocumentoController.listagemGeral}"/>
                                 </p:selectOneMenu>
                                 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
                                                  action="${modalidadeController.addDocumento()}" style="margin:0"
-                                                 update=""/>
+                                                 update="tblDocumentos"/>
                             </h:panelGrid> 
-                            <p:dataTable id="tblTelefone" value="${modalidadeController.entidade.documentosObrigatorios}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblDocumentos" value="${modalidadeController.entidade.documentosObrigatorios}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column headerText="Documento">
                                     ${item}
                                 </p:column>

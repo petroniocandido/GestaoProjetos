@@ -20,6 +20,7 @@
 
                 <p:menubar>
                     <p:submenu label="Cadastros" icon="ui-icon-pencil" > 
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemArquivos.xhtml')}" value="Arquivos" url="listagemArquivos.xhtml"  />                    
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAlunos.xhtml')}" value="Bolsistas" url="listagemAlunos.xhtml"  />                    
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemOrientadores.xhtml')}" value="Orientadores" url="listagemOrientadores.xhtml"/> 
                         <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAreasConhecimento.xhtml')}" value="Áreas de Conhecimento" url="listagemAreasConhecimento.xhtml" />
