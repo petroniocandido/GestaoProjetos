@@ -51,15 +51,15 @@
                                 <p:column headerText="Nome">#{item.nome}</p:column>
                             </p:autoComplete>
                         </p:tab>
-                        <ui:include src="./comum/tabEnviarMensagem.xhtml">
+                        <ui:include src="../comum/tabEnviarMensagem.xhtml">
                             <ui:param name="controller" value="#{usuarioController}"  />
                             <ui:param name="destinatarios" value="#{usuarioController.pessoas}"  />
                         </ui:include>
-                        <ui:include src="./comum/tabSeguranca.xhtml">
+                        <ui:include src="../comum/tabSeguranca.xhtml">
                             <ui:param name="controller" value="#{usuarioController}"  />
                         </ui:include>
                     </p:tabView>
-                    <ui:include src="./comum/botoesEntidade.xhtml">
+                    <ui:include src="../comum/botoesEntidade.xhtml">
                         <ui:param name="controller" value="#{usuarioController}"  />
                     </ui:include>
                 </p:panel>

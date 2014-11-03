@@ -23,7 +23,7 @@
                                 <h:outputText value="Padrão: " />
                                 <p:selectBooleanCheckbox id="cbxPadrao" value="#{perfilController.filtro.padrao}" />
                             </p:panelGrid>
-                            <ui:include src="./comum/botoesListagem.xhtml">
+                            <ui:include src="../comum/botoesListagem.xhtml">
                                 <ui:param name="controller" value="#{perfilController}"  />
                                 <ui:param name="campos" value="txtNome cbxPadrao"  />
                             </ui:include>

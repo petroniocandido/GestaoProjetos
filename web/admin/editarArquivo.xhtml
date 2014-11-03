@@ -36,11 +36,11 @@
                         <p:tab rendered="#{arquivoController.entidade.id gt 0}" title="Preview">
                             <h:graphicImage value="/arquivos/#{arquivoController.entidade.uri}" />
                         </p:tab>
-                        <ui:include src="./comum/tabSeguranca.xhtml">
+                        <ui:include src="../comum/tabSeguranca.xhtml">
                             <ui:param name="controller" value="#{arquivoController}"  />
                         </ui:include>
                     </p:tabView>
-                    <ui:include src="./comum/botoesEntidade.xhtml">
+                    <ui:include src="../comum/botoesEntidade.xhtml">
                         <ui:param name="controller" value="#{arquivoController}"  />
                     </ui:include>
                 </p:panel>

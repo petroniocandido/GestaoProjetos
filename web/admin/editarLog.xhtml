@@ -29,11 +29,11 @@
                                 <p:outputLabel value="#{logController.entidade.maquina}" />
                             </h:panelGrid> 
                         </p:tab>
-                        <ui:include src="./comum/tabSeguranca.xhtml">
+                        <ui:include src="../comum/tabSeguranca.xhtml">
                             <ui:param name="controller" value="#{logController}"  />
                         </ui:include>
                     </p:tabView>
-                    <ui:include src="./comum/botoesEntidade.xhtml">
+                    <ui:include src="../comum/botoesEntidade.xhtml">
                         <ui:param name="controller" value="#{logController}"  />
                     </ui:include>
                 </p:panel>
