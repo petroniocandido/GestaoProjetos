@@ -4,6 +4,44 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" >
-                    
+                xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <p:panel>
+        <f:facet name="header">
+            ${editalController.entidade.nome}
+        </f:facet>
+        <p:tabView id="tabView">  
+            <p:tab id="tabDados" title="Dados Gerais">  
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Sigla*:" />
+                    <p:outputLabel value="${editalController.entidade.sigla}" />                      
+
+                    <h:outputLabel value="Número*:" />
+                    <p:outputLabel value="${editalController.entidade.numero}" />                      
+
+                    <h:outputLabel value="Agência Financiadora*:" />           
+                    <p:outputLabel value="${editalController.entidade.agenciaFinanciadora}" />
+
+                    <h:outputLabel value="Campus do IFNMG*:" />                   
+                    <p:outputLabel value="${editalController.entidade.campus}"/>
+
+                    <h:outputLabel value="Data de Expedição*:" />
+                    <p:outputLabel value="${editalController.entidade.dataExpedicao}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"
+                </p:outputLabel> 
+                <h:outputLabel value="Data Final*:" />
+                <p:outputLabel value="${editalController.entidade.dataFinal}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"
+            </p:outputLabel> 
+        </h:panelGrid>
+    </p:tab>
+    <p:tab title="Arquivos">
+        <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+            <p:column headerText="Arquivo">
+                <a href="/arquivos/#{item.uri}">${item}</a>
+            </p:column>
+        </p:dataTable>
+    </p:tab>
+            <p:commandButton value="Criar novo projeto para esse Edital" />
+</p:panel>       
 </ui:composition>

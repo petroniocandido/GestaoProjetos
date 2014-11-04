@@ -4,6 +4,29 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" >
-                    
+                xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <p:dataTable value="#{projetoController.dataModel}" var="item" selectionMode="single"
+                 paginator="true" rows="30"  lazy="true" 
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
+
+        <p:ajax event="rowSelect" listener="#{projetoController.onRowSelect}" />
+        <p:column headerText="Cód.">
+            ${item.id}
+        </p:column>
+        <p:column headerText="Campus">
+            ${item.campus}
+        </p:column>
+        <p:column headerText="Modalidade">
+            ${item.modalidade}
+        </p:column>
+        <p:column headerText="Título">
+            ${item.titulo}
+        </p:column>
+        <p:column  headerText="Situação">
+            ${item.situacao}
+        </p:column>
+        <p:column  headerText="Status">
+            ${item.status}
+        </p:column>
+    </p:dataTable>  
 </ui:composition>

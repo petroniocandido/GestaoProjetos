@@ -21,6 +21,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -114,7 +115,7 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
             obj.setNumeroCadastro(num);
         }
         if (cabecalho.containsKey("ValorFinanciamento")) {
-            BigInteger tmp = new BigInteger(colunas[cabecalho.get("ValorFinanciamento")]);
+            BigDecimal tmp = new BigDecimal(colunas[cabecalho.get("ValorFinanciamento")]);
             obj.setValorFinanciamento(tmp);
         }
         

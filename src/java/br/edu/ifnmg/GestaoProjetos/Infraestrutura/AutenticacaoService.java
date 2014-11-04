@@ -29,6 +29,7 @@ public class AutenticacaoService implements br.edu.ifnmg.GestaoProjetos.DomainMo
 
     @EJB
     PessoaRepositorio dao;
+    
     @EJB
     HashService hash;
     @EJB

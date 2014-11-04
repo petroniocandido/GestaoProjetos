@@ -5,6 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -122,7 +123,8 @@ public class Projeto implements Entidade, Serializable {
 
     private boolean projetoFinanciamento;
 
-    private BigInteger valorFinanciamento;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal valorFinanciamento;
 
     @Temporal(TemporalType.DATE)
     private Date dataFinanciamento;
@@ -151,6 +153,7 @@ public class Projeto implements Entidade, Serializable {
         this.cronogramaAtividade = new ArrayList<>();
         this.situacao = ProjetoSituacao.Cadastrado;
         this.status = Status.Pendente;
+        this.valorFinanciamento = new BigDecimal("0.00");
     }
     
     @Enumerated(EnumType.STRING)
@@ -191,6 +194,7 @@ public class Projeto implements Entidade, Serializable {
         if(d == null) return;
         if (!orcamento.contains(d)) {
             orcamento.add(d);
+            valorFinanciamento = valorFinanciamento.add(d.getValorOrcado());
         }
     }
 
@@ -198,6 +202,7 @@ public class Projeto implements Entidade, Serializable {
         if(d == null) return;
         if (orcamento.contains(d)) {
             orcamento.remove(d);
+            valorFinanciamento = valorFinanciamento.subtract(d.getValorOrcado());
         }
     }
 
@@ -227,6 +232,33 @@ public class Projeto implements Entidade, Serializable {
         if (cronogramaAtividade.contains(a)) {
             cronogramaAtividade.remove(a);
         }
+    }
+    
+    
+    private boolean verificarDocumentos(){
+        Date hoje = new Date();
+        for(Documento d : getDocumentos())
+            if(d.getStatus() == Status.Pendente && d.getTipoDocumento().isObrigatorio())
+                return false;
+        return true;
+    }
+    
+    private boolean verificarCronograma(){
+        Date hoje = new Date();
+        for(Atividade a : getCronogramaAtividade())
+            if(a.getStatus() == Status.Pendente){                
+                return false;
+            }
+        return true;
+    }
+    
+    private boolean verificarOrcamento(){
+        Date hoje = new Date();
+        for(Orcamento o : getOrcamento())
+            if(o.getStatus() == Status.Pendente){                
+                return false;
+            }
+        return true;
     }
 
      //GETTER E SETTER
@@ -352,11 +384,11 @@ public class Projeto implements Entidade, Serializable {
         this.projetoFinanciamento = projetoFinanciamento;
     }
 
-    public BigInteger getValorFinanciamento() {
+    public BigDecimal getValorFinanciamento() {
         return valorFinanciamento;
     }
 
-    public void setValorFinanciamento(BigInteger valorFinanciamento) {
+    public void setValorFinanciamento(BigDecimal valorFinanciamento) {
         this.valorFinanciamento = valorFinanciamento;
     }
 
@@ -537,7 +569,10 @@ public class Projeto implements Entidade, Serializable {
     }
 
     public Status getStatus() {
-        return status;
+        // Analisar Documentos
+        if(!verificarDocumentos() || !verificarCronograma() || !verificarOrcamento() )
+            return Status.Pendente;
+        return Status.Regular;
     }
 
     public void setStatus(Status status) {

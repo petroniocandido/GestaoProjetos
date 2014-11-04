@@ -15,9 +15,11 @@
 
                     <h:outputLabel value="Situação:" />
                     <p:selectOneMenu value="#{projetoController.entidade.situacao}">
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                         <f:selectItems value="${projetoController.situacoesProjeto}"/>
                     </p:selectOneMenu>
+                    
+                    <h:outputLabel value="Status:" />
+                    <h:outputLabel value="#{projetoController.entidade.status}" />
 
                     <h:outputLabel value="Número de Cadastro*:" />
                     <p:inputText value="${projetoController.entidade.numeroCadastro}" required="true"/>                      
@@ -281,10 +283,7 @@
 
 
             <p:tab rendered="#{projetoController.entidade.id > 0}" title="Documentos">
-                <br/>
-                <h:panelGrid columns="4">                    
-
-
+                <h:panelGrid columns="4">
                     <h:outputLabel value="Tipo de Documento*:" />
                     <p:selectOneMenu id="txtTipoDocumento" value="${projetoController.documento.tipoDocumento}" label="Tipo de Documento"
                                      converter="${tipoDocumentoConverter}" required="false">
@@ -307,12 +306,8 @@
                                      update="tblTipoDocumento txtFuncRecebdor txtTipoDocumento txtDataPrevista txtDataEfetiva" /> 
 
                 </h:panelGrid>
-
-                <br/>
-
                 <p:dataTable id="tblTipoDocumento" value="${projetoController.entidade.documentos}" 
-                             var="item" emptyMessage="Registros não Encontrados!" 
-                             style="font: medium; color: blue">
+                             var="item" emptyMessage="Registros não Encontrados!" >
 
                     <p:column sortBy="funcionarioRecebedor" headerText="Funcionário Recebedor">
                         ${item.funcionarioRecebedor}
@@ -345,13 +340,74 @@
                             <f:setPropertyActionListener target="#{projetoController.documento}" value="#{item}" />
                         </p:commandButton>
                     </p:column>
-
-
                 </p:dataTable>
             </p:tab>
 
             <p:tab rendered="#{projetoController.entidade.id > 0}" title="Orçamento">
+                <h:panelGrid columns="4">
+                    <h:outputLabel value="Data Prevista*:" />
+                    <p:calendar value="${projetoController.orcamento.dataPrevista}" required="false"
+                                label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    <h:outputLabel value="Descrição*:" />
+                    <p:inputText value="${projetoController.orcamento.descricao}"/>   
+                    <h:outputLabel value="Valor Unitário*:" />
+                    <p:inputText value="${projetoController.orcamento.valorUnitarioOrcado}"/>
+                    <h:outputLabel value="Quantidade*:" />
+                    <p:inputText value="${projetoController.orcamento.quantidadeOrcada}"/>
+                    <h:outputLabel value="Valor Total*:" />
+                    <p:inputText value="${projetoController.orcamento.valorOrcado}"/>
+                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                     action="${projetoController.addOrcamento()}" 
+                                     update="" /> 
+                </h:panelGrid>
+                <p:dataTable id="tblOrcamento" value="${projetoController.entidade.orcamento}" 
+                             var="item" emptyMessage="Registros não Encontrados!" >
+                    <p:column headerText="Data Prevista">
+                        <h:outputLabel value="${item.dataPrevista}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputLabel>
+                    </p:column>
+                    <p:column headerText="Descrição">
+                        <h:outputLabel value="${item.descricao}" />
+                    </p:column>
+                    <p:column headerText="Valor Un.">
+                        <h:outputLabel value="${item.valorUnitarioOrcado}" />
+                    </p:column>
+                    <p:column headerText="Qtd">
+                        <h:outputLabel value="${item.quantidadeOrcada}" />
+                    </p:column>
+                    <p:column headerText="Valor Tot.">
+                        <h:outputLabel value="${item.valorOrcado}" />
+                    </p:column>
+                    <p:column headerText="Executado">
+                        <h:outputLabel value="${item.valorExecutado}" />
+                    </p:column>
+                    <p:column headerText="Qtd. Exec.">
+                        <h:outputLabel value="${item.quantidadeExecutada}" />
+                    </p:column>
+                    <p:column headerText="Saldo">
+                        <h:outputLabel value="${item.saldo}" />
+                    </p:column>
+                    <p:column headerText="Remover" >
+                        <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeOrcamento()}">
+                            <f:setPropertyActionListener target="#{projetoController.orcamento}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:tab>
 
+            <p:tab rendered="#{projetoController.entidade.id > 0}" title="Execução Orçamentária">
+                <h:panelGrid columns="4">
+                    <h:outputLabel value="Item do Orçamento:" />
+                    <p:selectOneMenu  value="${projetoController.orcamento}" 
+                                      converter="${orcamentoConverter}" required="false">
+                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
+                        <f:selectItems value="${projetoController.entidade.orcamento}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:dataTable id="tblGastos" value="${projetoController.entidade.orcamento}" 
+                             var="item" emptyMessage="Registros não Encontrados!" >
+                </p:dataTable>
             </p:tab>
 
             <ui:include src="tabSeguranca.xhtml">

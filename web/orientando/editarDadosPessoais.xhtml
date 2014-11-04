@@ -9,24 +9,7 @@
 
         <ui:composition template="./OrientandoTemplate.xhtml">
             <ui:define name="content">
-                <p:panel>
-                    <f:facet name="header">
-                        Editar dados pessoais do usuário
-                    </f:facet>
-                    <ui:include src="../comum/camposPessoa.xhtml">
-                        <ui:param name="pessoa" value="#{autenticacaoController.usuario}"  />
-                        <ui:param name="senha" value="#{autenticacaoController.senha}"  />
-                        <ui:param name="senhaconferencia" value="#{autenticacaoController.senhaconferencia}"  />
-                    </ui:include>
-                    <f:facet name="footer">
-                        <p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-pencil" onclick="msgSalvar.show();" />
-                        <p:confirmDialog message="Deseja realmente salvar as alterações?"  
-                                         header="Confirmação" severity="alert" widgetVar="msgSalvar">  
-                            <p:commandButton ajax="false" value="SIM" action="#{autenticacaoController.salvar}" />  
-                            <p:commandButton value="NÃO" onclick="msgSalvar.hide();" type="button" />   
-                        </p:confirmDialog>
-                    </f:facet>
-                </p:panel>    
+                <ui:include src="../comum/editarAluno.xhtml" />
             </ui:define>
         </ui:composition>
     </body>

@@ -11,77 +11,7 @@
         <ui:composition template="./AdminTemplate.xhtml">
 
             <ui:define name="content">
-                <p:panel>
-                    <f:facet name="header">
-                        Listagem de Projetos 
-                    </f:facet>
-                    <p:accordionPanel styleClass="teste">
-                        <p:tab title="Filtros">
-                            <p:panelGrid columns="2">
-                                <h:outputLabel value="Título:" />
-                                <p:inputText value="${projetoController.filtro.titulo}"/>
-                                <h:outputLabel value="Campus:" />
-                                <p:selectOneMenu value="${projetoController.filtro.campus}" label="Campus" 
-                                                 converter="${campusConverter}" required="false" >
-                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${campusController.listagem}"/>
-                                </p:selectOneMenu>
-                                <h:outputLabel value="Modalidade:" />                   
-                                <p:selectOneMenu value="${projetoController.filtro.modalidade}" 
-                                                 converter="${modalidadeConverter}" required="false" >
-                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${modalidadeController.listagem}"/>
-
-                                </p:selectOneMenu>
-
-                                <h:outputLabel value="Agência Financiadora*:" />                    
-                                <p:selectOneMenu value="${projetoController.filtro.agenciaFinanciadora}"  
-                                                 converter="${agenciaFinanciadoraConverter}" required="false" >
-                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
-
-                                </p:selectOneMenu>
-
-                                <h:outputLabel value="Edital:" />                    
-                                <p:selectOneMenu value="${projetoController.filtro.edital}"  
-                                                 converter="${editalConverter}" required="false" >
-                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${editalController.listagem}"/>
-                                </p:selectOneMenu>
-                            </p:panelGrid>
-                            <ui:include src="./comum/botoesListagem.xhtml">
-                                <ui:param name="controller" value="#{projetoController}"  />
-                                <ui:param name="campos" value=""  />
-                            </ui:include>
-                        </p:tab>
-                    </p:accordionPanel>
-
-                    <p:dataTable value="#{projetoController.dataModel}" var="item" selectionMode="single"
-                                 paginator="true" rows="30"  lazy="true" 
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
-
-                        <p:ajax event="rowSelect" listener="#{projetoController.onRowSelect}" />
-                        <p:column sortBy="numeroCadastro" headerText="Número de Cadastro">
-                            ${item.numeroCadastro}
-                        </p:column>
-
-                        <p:column sortBy="campus" headerText="Campus">
-                            ${item.campus}
-                        </p:column>
-
-                        <p:column sortBy="modalidade" headerText="Modalidade">
-                            ${item.modalidade}
-                        </p:column>
-
-                        <p:column sortBy="titulo" headerText="Título">
-                            ${item.titulo}
-                        </p:column>
-
-                        <p:column sortBy="Orientador" headerText="Orientador">
-                            ${item.coordenador}
-                        </p:column>
-                    </p:dataTable>
-                </p:panel>
+                <ui:include src="../comum/listagemProjetos.xhtml" />
             </ui:define>
         </ui:composition>
     </body>

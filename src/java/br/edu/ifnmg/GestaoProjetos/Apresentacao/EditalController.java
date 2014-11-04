@@ -13,6 +13,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepos
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -81,7 +82,10 @@ public class EditalController
     @PostConstruct
     public void init() {
         setRepositorio(dao);
-        setPaginaEdicao("editarEdital.xhtml");
+        if(getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Pessoa)
+            setPaginaEdicao("editarEdital.xhtml");
+        else
+            setPaginaEdicao("visualizarEdital.xhtml");
         setPaginaListagem("listagemEditais.xhtml");
     }
     

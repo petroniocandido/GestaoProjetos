@@ -74,6 +74,12 @@ public class Orcamento implements Entidade, Serializable {
         execucoes = new ArrayList<>();
     }
     
+    public Status getStatus() {
+        if(getSaldo().compareTo(BigDecimal.ZERO) != 0 )
+            return Status.Pendente;
+        return Status.Regular;
+    }
+    
     public BigDecimal getSaldo() {
         if(valorOrcado != null && valorExecutado != null)
             return valorOrcado.subtract(valorExecutado);
@@ -88,7 +94,7 @@ public class Orcamento implements Entidade, Serializable {
         e.setOrcamento(this);
         if(!execucoes.contains(e)){
             execucoes.add(e);
-            valorExecutado.add(e.getValorTotal());
+            valorExecutado = valorExecutado.add(e.getValorTotal());
             quantidadeExecutada =+ e.getQuantidade();
         }
     }
@@ -97,7 +103,7 @@ public class Orcamento implements Entidade, Serializable {
         if(execucoes.contains(e)){
             e.setOrcamento(null);
             execucoes.remove(e);
-            valorExecutado.subtract(e.getValorTotal());
+            valorExecutado = valorExecutado.subtract(e.getValorTotal());
             quantidadeExecutada =- e.getQuantidade();
         }
     }

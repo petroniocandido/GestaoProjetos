@@ -28,6 +28,7 @@ public class EditalDAO
                 .IgualA("numero", filtro.getNumero())
                 .IgualA("campus", filtro.getCampus())
                 .IgualA("agenciafinanciadora", filtro.getAgenciaFinanciadora())
+                .Ordenar("dataFinal", "DESC")
                 .Buscar();
     }
 

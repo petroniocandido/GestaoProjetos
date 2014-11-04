@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/Aplicacao/AnalisadorProjeto.java</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/DomainModel/Projeto.java</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/DomainModel/Atividade.java</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/coordenador/editarProjeto.xhtml</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/coordenador/editarDadosPessoais.xhtml</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/comum/visualizarEdital.xhtml</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/DomainModel/Orcamento.java</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/comum/editarProjeto.xhtml</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/coordenador/listagemEditais.xhtml</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/Apresentacao/ProjetoController.java</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/DomainModel/Documento.java</file>
+        </group>
     </open-files>
 </project-private>

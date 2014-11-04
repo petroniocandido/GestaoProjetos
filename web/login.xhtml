@@ -17,7 +17,10 @@
                     <f:facet name="header">
                         Autenticação
                     </f:facet>
-
+                    <h:outputText value="Categoria: " />
+                    <p:selectOneMenu value="#{autenticacaoController.tipo}">
+                        <f:selectItems value="${autenticacaoController.tipos}"/>
+                    </p:selectOneMenu>
                     <h:outputText value="E-mail: " />
                     <p:inputText id="txtEmail" value="#{autenticacaoController.login}" />
                     <h:outputText value="Senha: " />
@@ -25,8 +28,7 @@
 
                     <f:facet name="footer">
                         <p:commandButton style="float: left"  ajax="false" value="Entrar" action="#{autenticacaoController.validar()}" />
-                        <p:commandButton style="float: right" ajax="false" value="Esqueci a senha" action="novasenha.xhtml" />
-                        <p:commandButton style="float: right" ajax="false" value="Cadastrar" action="#{autenticacaoController.novo()}" />
+                        <p:commandButton style="float: right" ajax="false" value="Esqueci a senha" action="novasenha.xhtml" />                        
                     </f:facet>
 
                 </p:panelGrid>

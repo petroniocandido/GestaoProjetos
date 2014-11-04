@@ -6,11 +6,15 @@ package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
 
 
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Entidade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ConfiguracaoService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.LogService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MailService;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.Repositorio;
 import br.edu.ifnmg.GestaoProjetos.Infraestrutura.AutenticacaoService;
 import br.edu.ifnmg.GestaoProjetos.Infraestrutura.SessaoService;
@@ -50,10 +54,24 @@ public abstract class ControllerBase {
     
     String assunto, mensagem;
     
+    @EJB
+    AlunoRepositorio daoAluno;
+    
+    @EJB
+    OrientadorRepositorio daoOrientador;
+    
     List<Pessoa> destinatarios;
     
     public Pessoa getUsuarioCorrente() {
         return autenticacao.getUsuarioCorrente();
+    }
+    
+    public Aluno getAlunoCorrente() {
+        return daoAluno.Abrir(autenticacao.getUsuarioCorrente().getId());
+    }
+    
+    public Orientador getOrientadorCorrente() {
+        return daoOrientador.Abrir(autenticacao.getUsuarioCorrente().getId());
     }
 
     protected void Mensagem(Severity severity, String titulo, String msg) {

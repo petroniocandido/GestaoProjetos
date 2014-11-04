@@ -40,6 +40,7 @@ import javax.persistence.Version;
 @Table(name = "pessoas", indexes = {
     @Index(columnList = "cpf"),
     @Index(columnList = "email")})
+@DiscriminatorColumn(name = "DTYPE")
 @Inheritance(strategy= InheritanceType.JOINED)
 public class Pessoa implements Entidade, Serializable {
 
@@ -47,6 +48,10 @@ public class Pessoa implements Entidade, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "DTYPE")
+    protected UsuarioTipo usuarioTipo;
    
     @Column(nullable = false, length = 300)
     private String nome;
@@ -109,6 +114,7 @@ public class Pessoa implements Entidade, Serializable {
         this.enderecos = new ArrayList<>();
         this.telefones = new ArrayList<>();
         this.emails = new ArrayList<>();
+        usuarioTipo = UsuarioTipo.Pessoa;
     }
             
 
@@ -344,6 +350,16 @@ public class Pessoa implements Entidade, Serializable {
     public void setTipo(PessoaTipo tipo) {
         this.tipo = tipo;
     }
+
+    public UsuarioTipo getUsuarioTipo() {
+        return usuarioTipo;
+    }
+
+    public void setUsuarioTipo(UsuarioTipo usuarioTipo) {
+        this.usuarioTipo = usuarioTipo;
+    }
+    
+    
     
     @Override
     public int hashCode() {
