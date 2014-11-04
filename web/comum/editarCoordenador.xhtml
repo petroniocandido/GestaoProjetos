@@ -51,7 +51,6 @@
                 </h:panelGrid>
             </p:tab>
 
-
             <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Área Conhecimento" >
                 <br/>
                 <h:panelGrid columns="2">
@@ -88,143 +87,12 @@
 
             </p:tab>       
 
-
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Endereços">
-                <br/>
-                <h:panelGrid columns="4">                    
-
-                    <h:outputLabel value="Rua/Av/Estrada*:" />
-                    <p:inputText id="txtRua" value="${orientadorController.endereco.rua}" required="false"/>   
-
-
-                    <h:outputLabel value="Número*:" />
-                    <p:inputText id="txtNum" value="${orientadorController.endereco.numero}" required="false"/>   
-
-                    <h:outputLabel value="Complemento:" />
-                    <p:inputText id="txtComplemento" value="${orientadorController.endereco.complemento}" required="false"/>                      
-
-                    <h:outputLabel value="Bairro*:" />
-                    <p:inputText id="txtBairro" value="${orientadorController.endereco.bairro}" required="false"/> 
-
-                    <h:outputLabel value="Cidade*:" />
-                    <p:inputText id="txtCidade" value="${orientadorController.endereco.cidade}" required="false"/>  
-
-                    <h:outputLabel value="Cep*:" />
-                    <p:inputText id="txtCep" value="${orientadorController.endereco.cep}" required="false"/> 
-
-                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     action="${orientadorController.addEndereco()}" style="margin:0"
-                                     update="tblEnderecos txtRua txtNum txtComplemento txtBairro 
-                                     txtCidade txtCep" /> 
-
-                </h:panelGrid>
-
-                <br/>
-
-                <p:dataTable id="tblEnderecos" value="${orientadorController.entidade.enderecos}" 
-                             var="item" emptyMessage="Registros não Encontrados!" 
-                             style="font: medium; color: blue">
-
-                    <p:column sortBy="endereco" headerText="Endereço">
-                        ${item}
-                    </p:column>
-
-                    <p:column sortBy="editar" headerText="Editar">
-                        <p:commandButton ajax="false" value="Editar" >
-                            <f:setPropertyActionListener target="#{orientadorController.endereco}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                    <p:column sortBy="remover" headerText="Remover" >
-                        <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeEndereco()}">
-                            <f:setPropertyActionListener target="#{orientadorController.endereco}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-
-                </p:dataTable>
-
-
-            </p:tab>  
-
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Telefones">
-                <br/>
-                <h:panelGrid columns="5">
-                    <h:outputLabel value="DDD:" />
-                    <p:inputText id="txtDDD" value="${orientadorController.telefone.ddd}" required="false"/>   
-
-                    <h:outputLabel value="Número:" />
-                    <p:inputText id="txtNumero" value="${orientadorController.telefone.numero}" required="false"/>                      
-
-                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     action="${orientadorController.addTelefone}" style="margin:0"
-                                     update="tblTelefone txtDDD txtNumero"/>
-
-
-
-                </h:panelGrid> 
-                <br/>
-
-                <p:dataTable id="tblTelefone" value="${orientadorController.entidade.telefones}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                    <p:column sortBy="ddd" headerText="DDD">
-                        ${item.ddd}
-                    </p:column>
-
-                    <p:column sortBy="numero" headerText="Número">
-                        ${item.numero}
-                    </p:column>                            
-
-                    <p:column sortBy="editar" headerText="Editar">
-                        <p:commandButton ajax="false" value="Editar" >
-                            <f:setPropertyActionListener target="#{orientadorController.telefone}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                    <p:column sortBy="remover" headerText="Remover" >
-                        <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeTelefone()}">
-                            <f:setPropertyActionListener target="#{orientadorController.telefone}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                </p:dataTable>
-
-            </p:tab>
-
-
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="E-mail">
-                <br/>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="E-mail*:" />
-                    <p:inputText id="txtEndereco" value="${orientadorController.email.endereco}" required="false" style="width: 150%"/>   
-
-                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     action="${orientadorController.addEmail()}" style="margin:0"
-                                     update="tblEmail txtEndereco"/>
-
-                </h:panelGrid> 
-
-                <br/>
-
-                <p:dataTable id="tblEmail" value="${orientadorController.entidade.emails}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                    <p:column sortBy="endereco" headerText="Email">
-                        ${item.endereco}
-                    </p:column>                                                     
-
-                    <p:column sortBy="editar" headerText="Editar">
-                        <p:commandButton ajax="false" value="Editar" >
-                            <f:setPropertyActionListener target="#{orientadorController.email}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                    <p:column sortBy="remover" headerText="Remover" >
-                        <p:commandButton ajax="false" value="Remover" action="#{orientadorController.removeEmail()}">
-                            <f:setPropertyActionListener target="#{orientadorController.email}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                </p:dataTable>
-
-            </p:tab> 
+            <ui:include src="tabSenhaPerfil.xhtml">
+                <ui:param name="controller" value="#{orientadorController}"  />
+            </ui:include>
+            <ui:include src="tabEmailEnderecoTelefone.xhtml">
+                <ui:param name="controller" value="#{orientadorController}"  />
+            </ui:include>
 
 
             <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Documentos">

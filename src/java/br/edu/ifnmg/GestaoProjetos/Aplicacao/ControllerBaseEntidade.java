@@ -113,6 +113,11 @@ public abstract class ControllerBaseEntidade<T extends Entidade> extends Control
         postConstruct();
     }
 
+    public Repositorio<T> getRepositorio() {
+        return repositorio;
+    }
+
+    
     public T getFiltro() {
         return filtro;
     }

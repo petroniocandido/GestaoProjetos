@@ -4,11 +4,10 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
-import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBasePessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -17,7 +16,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 
 /**
  *
@@ -26,7 +24,7 @@ import javax.inject.Inject;
 @Named(value = "usuarioController")
 @RequestScoped
 public class PessoaController
-        extends ControllerBaseEntidade<Pessoa>
+        extends ControllerBasePessoa<Pessoa>
         implements Serializable {
 
     /**
@@ -37,12 +35,9 @@ public class PessoaController
 
     @EJB
     PessoaRepositorio dao;
-    @Inject
-    HashService hash;
+    
     @EJB
     CampusRepositorio daoCampus;
-
-    String senha1, senha2;
 
     @PostConstruct
     public void init() {
@@ -78,43 +73,8 @@ public class PessoaController
     }
 
     @Override
-    public void salvar() {
-
-        if (senha1 != null && senha1.length() != 0) {
-
-            if (senha1.equals(senha2)) {
-                entidade.setSenha(hash.getMD5(senha1));
-            } else {
-                Mensagem("Erro", "As senhas não conferem!");
-                return;
-            }
-        }
-
-        SalvarEntidade();
-
-        // atualiza a listagem
-        filtrar();
-    }
-
-    @Override
     public void limpar() {
         setEntidade(new Pessoa());
-    }
-
-    public String getSenha1() {
-        return senha1;
-    }
-
-    public void setSenha1(String senha1) {
-        this.senha1 = senha1;
-    }
-
-    public String getSenha2() {
-        return senha2;
-    }
-
-    public void setSenha2(String senha2) {
-        this.senha2 = senha2;
     }
 
     public List<Pessoa> getPessoas() {

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <p:tab rendered="#{autenticacaoController.autorizacao('admin/tabSenha')}" id="tabSenha" title="Senha">
+        <h:panelGrid columns="2" cellpadding="3">
+            <h:outputText value="Senha: " />
+            <p:password value="#{controller.senha1}" />
+            <h:outputText value="Repita a Senha: " />
+            <p:password value="#{controller.senha2}" />
+        </h:panelGrid>
+    </p:tab>
+    <p:tab rendered="#{autenticacaoController.autorizacao('admin/tabPerfil')}" id="tabPerfil" title="Perfil">  
+        <p:autoComplete converter="#{perfilConverter}" value="#{controller.entidade.perfil}"
+                        completeMethod="#{perfilConverter.autoCompletePerfil}" var="item"
+                        itemLabel="#{item.nome}" itemValue="#{item}">
+            <p:column headerText="Nome">#{item.nome}</p:column>
+        </p:autoComplete>
+    </p:tab>
+</ui:composition>
+

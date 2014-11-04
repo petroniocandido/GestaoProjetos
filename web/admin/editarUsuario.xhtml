@@ -36,21 +36,9 @@
 
                             </h:panelGrid> 
                         </p:tab>
-                        <p:tab rendered="#{autenticacaoController.autorizacao('admin/tabSenha')}" id="tabSenha" title="Senha">
-                            <h:panelGrid columns="2" cellpadding="3">
-                                <h:outputText value="Senha: " />
-                                <p:password value="#{usuarioController.senha1}" />
-                                <h:outputText value="Repita a Senha: " />
-                                <p:password value="#{usuarioController.senha2}" />
-                            </h:panelGrid>
-                        </p:tab>
-                        <p:tab rendered="#{autenticacaoController.autorizacao('admin/tabPerfil')}" id="tabPerfil" title="Perfil">  
-                            <p:autoComplete converter="#{perfilConverter}" value="#{usuarioController.entidade.perfil}"
-                                            completeMethod="#{perfilConverter.autoCompletePerfil}" var="item"
-                                            itemLabel="#{item.nome}" itemValue="#{item}">
-                                <p:column headerText="Nome">#{item.nome}</p:column>
-                            </p:autoComplete>
-                        </p:tab>
+                        <ui:include src="../comum/tabSenhaPerfil.xhtml">
+                            <ui:param name="controller" value="#{usuarioController}"  />
+                        </ui:include>
                         <ui:include src="../comum/tabEnviarMensagem.xhtml">
                             <ui:param name="controller" value="#{usuarioController}"  />
                             <ui:param name="destinatarios" value="#{usuarioController.pessoas}"  />
