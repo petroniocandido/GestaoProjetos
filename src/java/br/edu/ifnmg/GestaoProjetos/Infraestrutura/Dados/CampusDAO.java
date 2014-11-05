@@ -4,18 +4,16 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.Query;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author Isla Guedes
  */
-@Stateless(name = "CampusRepositorio")
+@Singleton
 public class CampusDAO
         extends DAOGenerico<Campus>
         implements CampusRepositorio {

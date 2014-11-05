@@ -10,13 +10,16 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -26,6 +29,8 @@ import javax.persistence.Version;
  * @author petronio
  */
 @Entity
+@Table(name="orcamentosexecucoes")
+@Cacheable(false)
 public class OrcamentoExecucao implements Entidade, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,8 +51,17 @@ public class OrcamentoExecucao implements Entidade, Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataExecucao;
     
-    @Column()
+    @Lob
     private String historico;
+
+    public OrcamentoExecucao() {
+        this.quantidade = 0;
+        this.valorUnitario = new BigDecimal("0.00");
+        this.valorTotal = new BigDecimal("0.00");
+        this.dataExecucao = new Date();
+        this.historico = "";
+    }
+    
 
     @Override
     public Long getId() {

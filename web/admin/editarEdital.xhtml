@@ -4,7 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
     <body>
         <ui:composition template="./AdminTemplate.xhtml">
             <ui:define name="content">
@@ -37,14 +38,39 @@
                                     <f:selectItems value="${campusController.listagem}"/>
 
                                 </p:selectOneMenu>
-
-                                <h:outputLabel value="Data de Expedição*:" />
-                                <p:calendar value="${editalController.entidade.dataExpedicao}" required="true"
-                                            label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-                                <h:outputLabel value="Data Final*:" />
-                                <p:calendar value="${editalController.entidade.dataFinal}" required="true"
-                                            label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                
+                                <h:outputLabel value="Número de bolsas:" />                   
+                                <pe:inputNumber value="#{editalController.entidade.numeroBolsas}"  
+                                                thousandSeparator="" decimalPlaces="0">
+                                    <f:convertNumber integerOnly="true" />
+                                </pe:inputNumber>
+                                
+                        </p:tab>
+                        <p:tab title="Datas">
+                                <h:outputLabel value="Lançamento do Edital*:" />
+                                <p:calendar value="${editalController.entidade.lancamentoEdital}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                <h:outputLabel value="Início Período de Inscrições*:" />
+                                <p:calendar value="${editalController.entidade.inicioInscricao}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                <h:outputLabel value="Término Período de Inscrições*:" />
+                                <p:calendar value="${editalController.entidade.terminoInscricao}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                <h:outputLabel value="Divulgação do Resultado Geral*:" />
+                                <p:calendar value="${editalController.entidade.divulgacaoResultados}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                <h:outputLabel value="Início do Período de Recursos*:" />
+                                <p:calendar value="${editalController.entidade.inicioRecursos}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                <h:outputLabel value="Término do Período de Recursos*:" />
+                                <p:calendar value="${editalController.entidade.terminoRecursos}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                <h:outputLabel value="Início do Período de Execução*:" />
+                                <p:calendar value="${editalController.entidade.inicioValidade}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                <h:outputLabel value="Término do Período de Execução*:" />
+                                <p:calendar value="${editalController.entidade.terminoValidade}" required="true"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
 
                             </h:panelGrid>
                         </p:tab>

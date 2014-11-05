@@ -6,7 +6,6 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +35,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name="projetos")
-@Cacheable(true)
+@Cacheable(false)
 public class Projeto implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,10 +47,6 @@ public class Projeto implements Entidade, Serializable {
     private String titulo;
 
     private int numeroCadastro;
-
-    
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
-    private List<AreaConhecimento> areaConhecimento;
 
     private boolean grupoPesquisa;
 
@@ -86,13 +81,21 @@ public class Projeto implements Entidade, Serializable {
     private Orientador coordenador;
 
     private String setorCoordenador;
+    
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
+    private List<AreaConhecimento> areaConhecimento;
 
-    //Documentos
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Documento.class)
     private List<Documento> documentos;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Orcamento.class)
     private List<Orcamento> orcamento;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Atividade.class)
+    private List<Atividade> cronogramaAtividade;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = AtividadeAcompanhamento.class)
+    private List<AtividadeAcompanhamento> acompanhamentoAtividades;
 
     // Plano de Trabalho 
     private String localRealizacaoProjeto; //laboratorio, sala, etc
@@ -117,9 +120,6 @@ public class Projeto implements Entidade, Serializable {
 
     @Lob
     private String referenciasBibliograficas;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
-    private List<Atividade> cronogramaAtividade;
 
     private boolean projetoFinanciamento;
 
@@ -192,6 +192,7 @@ public class Projeto implements Entidade, Serializable {
     
     public void addOrcamento(Orcamento d) {
         if(d == null) return;
+        d.setProjeto(this);
         if (!orcamento.contains(d)) {
             orcamento.add(d);
             valorFinanciamento = valorFinanciamento.add(d.getValorOrcado());
@@ -208,6 +209,7 @@ public class Projeto implements Entidade, Serializable {
 
     public void addDocumento(Documento d) {
         if(d == null) return;
+        d.setProjeto(this);
         if (!documentos.contains(d)) {
             documentos.add(d);
         }
@@ -222,6 +224,7 @@ public class Projeto implements Entidade, Serializable {
 
     public void addAtividade(Atividade a) {
         if(a == null) return;
+        a.setProjeto(this);
         if (!cronogramaAtividade.contains(a)) {
             cronogramaAtividade.add(a);
         }
@@ -234,6 +237,24 @@ public class Projeto implements Entidade, Serializable {
         }
     }
     
+    public void addAtividadeAcompanhamento(AtividadeAcompanhamento a) {
+        if(a == null) return;
+        a.setProjeto(this);
+        if (!acompanhamentoAtividades.contains(a)) {
+            acompanhamentoAtividades.add(a);
+        }
+    }
+
+    public void removeAtividadeAcompanhamento(AtividadeAcompanhamento a) {
+        if(a == null) return;
+        if (acompanhamentoAtividades.contains(a)) {
+            acompanhamentoAtividades.remove(a);
+        }
+    }
+    
+    public boolean isAlteravel() {
+        return situacao == ProjetoSituacao.Cadastrado || situacao == ProjetoSituacao.Reprovado;
+    }
     
     private boolean verificarDocumentos(){
         Date hoje = new Date();
@@ -586,7 +607,14 @@ public class Projeto implements Entidade, Serializable {
     public void setOrcamento(List<Orcamento> orcamento) {
         this.orcamento = orcamento;
     }
-        
+
+    public List<AtividadeAcompanhamento> getAcompanhamentoAtividades() {
+        return acompanhamentoAtividades;
+    }
+
+    public void setAcompanhamentoAtividades(List<AtividadeAcompanhamento> acompanhamentoAtividades) {
+        this.acompanhamentoAtividades = acompanhamentoAtividades;
+    }
     
     @Override
     public int hashCode() {

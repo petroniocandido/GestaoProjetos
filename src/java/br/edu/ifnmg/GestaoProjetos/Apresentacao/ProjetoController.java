@@ -9,6 +9,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeAcompanhamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
@@ -23,6 +24,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orcamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.OrcamentoExecucao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -43,6 +45,7 @@ public class ProjetoController
     Aluno orientando;
     Documento documento;
     Atividade atividade;
+    AtividadeAcompanhamento acompanhamento;
     Orcamento orcamento;
     OrcamentoExecucao execucao;
     ProjetoSituacao[] situacoesProjeto;
@@ -53,10 +56,32 @@ public class ProjetoController
      */
     public ProjetoController() {
         areaConhecimento = new AreaConhecimento();
-        //orientandos = new Aluno();
         documento = new Documento();
         atividade = new Atividade();
+        documento = new Documento();
+        acompanhamento = new AtividadeAcompanhamento();
+        orcamento = new Orcamento();
+        execucao = new OrcamentoExecucao();
     }
+    
+    Boolean admin;
+    public boolean isAdmin() {
+        if(admin == null){
+            admin = getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Pessoa;
+        }
+        return admin;
+    }
+    
+    Boolean alteraDadosGerais;
+    public boolean isAlteraDadosGerais() {
+        if(alteraDadosGerais == null){
+            alteraDadosGerais = isAdmin() || (getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Orientador 
+                    && getEntidade().isAlteravel());
+        }
+        return alteraDadosGerais;
+    }
+    
+    
 
     @EJB
     ProjetoRepositorio dao;
@@ -163,75 +188,88 @@ public class ProjetoController
 
     //Metodos
     public void addAreaConhecimento() {
-        entidade.addAreaConhecimento(areaConhecimento);
-        dao.Salvar(entidade);
+        getEntidade().addAreaConhecimento(areaConhecimento);
+        SalvarAgregado(areaConhecimento);
         areaConhecimento = new AreaConhecimento();
     }
 
     public void removeAreaConhecimento() {
-        entidade.removeAreaConhecimento(areaConhecimento);
-        dao.Salvar(entidade);
+        getEntidade().removeAreaConhecimento(areaConhecimento);
+        RemoverAgregado(areaConhecimento);
         areaConhecimento = new AreaConhecimento();
     }
 
     public void addAluno() {
-        entidade.addAluno(orientando);
-        dao.Salvar(entidade);
+        getEntidade().addAluno(orientando);
+        SalvarAgregado(orientando);
         //orientandos = new Aluno();
     }
 
     public void removeAluno() {
-        entidade.removeAluno(orientando);
-        dao.Salvar(entidade);
+        getEntidade().removeAluno(orientando);
+        RemoverAgregado(orientando);
         //orientandos = new Aluno();
     }
 
     public void addDocumento() {
-        entidade.addDocumento(documento);
-        dao.Salvar(entidade);
+        getEntidade().addDocumento(documento);
+        SalvarAgregado(documento);
         documento = new Documento();
     }
 
     public void removeDocumento() {
-        entidade.removeDocumento(documento);
-        dao.Salvar(entidade);
+        getEntidade().removeDocumento(documento);
+        RemoverAgregado(documento);
         documento = new Documento();
     }
 
     public void addAtividade() {
-        entidade.addAtividade(atividade);
-        dao.Salvar(entidade);
+        getEntidade().addAtividade(atividade);
+        SalvarAgregado(atividade);        
         atividade = new Atividade();
     }
 
     public void removeAtividade() {
-        entidade.removeAtividade(atividade);
-        dao.Salvar(entidade);
+        getEntidade().removeAtividade(atividade);
+        RemoverAgregado(atividade);
         atividade = new Atividade();
     }
 
     public void addOrcamento() {
-        entidade.addOrcamento(orcamento);
-        dao.Salvar(entidade);
+        getEntidade().addOrcamento(orcamento);
+        SalvarAgregado(orcamento);
         orcamento = new Orcamento();
     }
 
     public void removeOrcamento() {
-        entidade.removeOrcamento(orcamento);
-        dao.Salvar(entidade);
+        getEntidade().removeOrcamento(orcamento);
+        RemoverAgregado(orcamento);
         orcamento = new Orcamento();
     }
 
     public void addExecucao() {
         orcamento.add(execucao);
-        dao.Salvar(entidade);
+        SalvarAgregado(execucao);
         execucao = new OrcamentoExecucao();
     }
 
     public void removeExecucao() {
         orcamento.remove(execucao);
-        dao.Salvar(entidade);
+        RemoverAgregado(execucao);
         execucao = new OrcamentoExecucao();
+    }
+    
+    public void addAcompanhamento() {
+        acompanhamento.setPessoa(getUsuarioCorrente());
+        getEntidade().addAtividadeAcompanhamento(acompanhamento);
+        SalvarAgregado(acompanhamento);
+        acompanhamento = new AtividadeAcompanhamento();
+    }
+
+    public void removeAcompanhamento() {
+        getEntidade().removeAtividadeAcompanhamento(acompanhamento);
+        RemoverAgregado(acompanhamento);
+        acompanhamento = new AtividadeAcompanhamento();
     }
 
     public ProjetoSituacao[] getSituacoesProjeto() {
@@ -264,4 +302,11 @@ public class ProjetoController
         this.execucao = execucao;
     }
 
+    public AtividadeAcompanhamento getAcompanhamento() {
+        return acompanhamento;
+    }
+
+    public void setAcompanhamento(AtividadeAcompanhamento acompanhamento) {
+        this.acompanhamento = acompanhamento;
+    }
 }

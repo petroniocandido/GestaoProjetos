@@ -4,8 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Orcamento;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrcamentoRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AtividadeRepositorio;
 import java.util.List;
 import javax.ejb.Singleton;
 
@@ -14,19 +14,20 @@ import javax.ejb.Singleton;
  * @author Isla Guedes
  */
 @Singleton
-public class OrcamentoDAO
-        extends DAOGenerico<Orcamento>
-        implements OrcamentoRepositorio {
+public class AtividadeDAO
+        extends DAOGenerico<Atividade>
+        implements AtividadeRepositorio {
 
-    public OrcamentoDAO() {
-        super(Orcamento.class);
+    public AtividadeDAO() {
+        super(Atividade.class);
     }
 
     @Override
-    public List<Orcamento> Buscar(Orcamento filtro) {
+    public List<Atividade> Buscar(Atividade filtro) {
         return IgualA("id", filtro.getId())
                 .IgualA("projeto", filtro.getProjeto())
                 .Like("descricao", filtro.getDescricao())
+                .Ordenar("ordem", "ASC")
                 .Buscar();
     }
 

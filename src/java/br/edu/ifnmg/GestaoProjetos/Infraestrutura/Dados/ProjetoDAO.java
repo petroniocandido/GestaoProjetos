@@ -9,13 +9,13 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author Isla Guedes
  */
-@Stateless(name = "ProjetoRepositorio")
+@Singleton
 public class ProjetoDAO
         extends DAOGenerico<Projeto>
         implements ProjetoRepositorio {

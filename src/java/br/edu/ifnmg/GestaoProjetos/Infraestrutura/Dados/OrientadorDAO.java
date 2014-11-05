@@ -7,13 +7,13 @@ package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author Isla Guedes
  */
-@Stateless(name = "OrientadorRepositorio")
+@Singleton
 public class OrientadorDAO
         extends DAOGenerico<Orientador>
         implements OrientadorRepositorio {

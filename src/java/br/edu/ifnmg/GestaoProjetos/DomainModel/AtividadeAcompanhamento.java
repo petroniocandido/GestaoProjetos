@@ -10,8 +10,6 @@ import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,9 +26,9 @@ import javax.persistence.Version;
  * @author Isla Guedes
  */
 @Entity
-@Table(name="atividades")
+@Table(name="atividadesaacompanhamentos")
 @Cacheable(false)
-public class Atividade implements Entidade, Serializable {
+public class AtividadeAcompanhamento implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,6 +37,12 @@ public class Atividade implements Entidade, Serializable {
     
     @ManyToOne
     private Projeto projeto;
+    
+    @ManyToOne
+    private Atividade atividade;
+    
+    @ManyToOne
+    private Pessoa pessoa;
 
     @Lob
     @Column(nullable = false)
@@ -50,32 +54,13 @@ public class Atividade implements Entidade, Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataFim;
 
-    @Column(nullable = false)
-    private int ordem;
-        
-    @Enumerated(EnumType.STRING)
-    private AtividadeSituacao situacao;
-
-    public Atividade() {
-        this.descricao = "";
-        this.dataInicio = new Date();
-        this.dataFim = new Date();
-        this.ordem = 0;
-        this.situacao = AtividadeSituacao.Pendente;
+    public AtividadeAcompanhamento() {
+        dataInicio = new Date();
+        dataFim = new Date();
+        descricao = "";
     }
-       
-    public Status getStatus() {
-        Date hoje = new Date();
-        
-        if(hoje.after(dataInicio) && hoje.before(dataFim) && situacao == AtividadeSituacao.Pendente)
-            return Status.Pendente;
-        
-        if(hoje.after(dataFim) && situacao != AtividadeSituacao.Concluido)
-            return Status.Pendente;
-        
-        return Status.Regular;
-    }
-
+    
+    
     //GETTER E SETTER
     @Override
     public Long getId() {
@@ -94,7 +79,22 @@ public class Atividade implements Entidade, Serializable {
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
     }
-       
+    
+    public Atividade getAtividade() {
+        return atividade;
+    }
+
+    public void setAtividade(Atividade atividade) {
+        this.atividade = atividade;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -120,29 +120,15 @@ public class Atividade implements Entidade, Serializable {
         this.dataFim = dataFim;
     }
 
-    public int getOrdem() {
-        return ordem;
-    }
-
-    public void setOrdem(int ordem) {
-        this.ordem = ordem;
-    }
-
-    public AtividadeSituacao getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(AtividadeSituacao situacao) {
-        this.situacao = situacao;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.projeto);
-        hash = 41 * hash + Objects.hashCode(this.descricao);
-        hash = 41 * hash + Objects.hashCode(this.dataInicio);
-        hash = 41 * hash + Objects.hashCode(this.dataFim);
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.projeto);
+        hash = 89 * hash + Objects.hashCode(this.atividade);
+        hash = 89 * hash + Objects.hashCode(this.pessoa);
+        hash = 89 * hash + Objects.hashCode(this.descricao);
+        hash = 89 * hash + Objects.hashCode(this.dataInicio);
+        hash = 89 * hash + Objects.hashCode(this.dataFim);
         return hash;
     }
 
@@ -154,8 +140,14 @@ public class Atividade implements Entidade, Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Atividade other = (Atividade) obj;
+        final AtividadeAcompanhamento other = (AtividadeAcompanhamento) obj;
         if (!Objects.equals(this.projeto, other.projeto)) {
+            return false;
+        }
+        if (!Objects.equals(this.atividade, other.atividade)) {
+            return false;
+        }
+        if (!Objects.equals(this.pessoa, other.pessoa)) {
             return false;
         }
         if (!Objects.equals(this.descricao, other.descricao)) {
@@ -169,9 +161,9 @@ public class Atividade implements Entidade, Serializable {
         }
         return true;
     }
-
     
-
+    
+    
     @Override
     public String toString() {
         return descricao;

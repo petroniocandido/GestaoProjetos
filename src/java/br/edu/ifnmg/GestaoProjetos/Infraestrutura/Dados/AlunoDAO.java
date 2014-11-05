@@ -7,13 +7,13 @@ package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author Isla Guedes
  */
-@Stateless(name= "AlunoRepositorio")
+@Singleton
 public class AlunoDAO 
 
     extends DAOGenerico<Aluno>

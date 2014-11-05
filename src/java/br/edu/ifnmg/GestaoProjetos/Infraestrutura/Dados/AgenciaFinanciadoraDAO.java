@@ -7,13 +7,13 @@ package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author Isla Guedes
  */
-@Stateless(name= "AgenciaFinanciadoraRepositorio")
+@Singleton
 public class AgenciaFinanciadoraDAO
     extends DAOGenerico<AgenciaFinanciadora>
     implements AgenciaFinanciadoraRepositorio {
