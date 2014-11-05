@@ -20,6 +20,7 @@
             <p:growl id="growl" showDetail="true" sticky="true" />
 
             <p:menubar>
+                <p:menuitem value="Meus Dados" url="editarDadosPessoais.xhtml" />
                 <p:menuitem value="Editais" url="listagemEditais.xhtml" />
                 <p:menuitem value="Meus Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
 
@@ -28,11 +29,7 @@
                 </p:submenu>
 
                 <p:menuitem ajax="false" immediate="true" value="Sair" action="#{autenticacaoController.logout()}"  />
-                
-                <p:menuitem style="position: absolute; left: 75%; font-weight: bold; " value="#{autenticacaoController.usuarioCorrente.nome}" url="editarDadosPessoais.xhtml">
-                    <f:setPropertyActionListener target="#{alunoController.id}" value="#{autenticacaoController.usuarioCorrente.id}"
-                </p:menuitem>
-
+            
             </p:menubar>
             <p:growl showDetail="true" id="messages" sticky="true"  life="60" />
             <p:idleMonitor timeout="300000">

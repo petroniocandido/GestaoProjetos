@@ -9,6 +9,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -62,6 +63,9 @@ public class AlunoController
         setRepositorio(dao);
         setPaginaEdicao("editarAluno.xhtml");
         setPaginaListagem("listagemAlunos.xhtml");
+        if(getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Aluno){
+            setEntidade(dao.Abrir(getUsuarioCorrente().getId()));
+        }
     }
     
     @Override

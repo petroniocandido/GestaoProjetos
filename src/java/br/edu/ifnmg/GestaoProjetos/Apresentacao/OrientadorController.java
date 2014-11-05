@@ -10,6 +10,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -49,7 +50,7 @@ public class OrientadorController
             filtro.setEmail(getSessao("orctrl_email"));
             filtro.setCampus((Campus)getSessao("orctrl_campus",daoCampus));
             if(filtro.getCampus() == null){
-                filtro.setCampus(getUsuarioCorrente().getCampus());
+                setEntidade(dao.Abrir(getUsuarioCorrente().getId()));
             }
         }
         return filtro;
@@ -71,6 +72,9 @@ public class OrientadorController
         setRepositorio(dao);
         setPaginaEdicao("editarOrientador.xhtml");
         setPaginaListagem("listagemOrientadores.xhtml");
+        if(getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Orientador){
+            setId(getUsuarioCorrente().getId());
+        }
     }
 
     @Override

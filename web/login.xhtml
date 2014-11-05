@@ -17,10 +17,6 @@
                     <f:facet name="header">
                         Autenticação
                     </f:facet>
-                    <h:outputText value="Categoria: " />
-                    <p:selectOneMenu value="#{autenticacaoController.tipo}">
-                        <f:selectItems value="${autenticacaoController.tipos}"/>
-                    </p:selectOneMenu>
                     <h:outputText value="E-mail: " />
                     <p:inputText id="txtEmail" value="#{autenticacaoController.login}" />
                     <h:outputText value="Senha: " />

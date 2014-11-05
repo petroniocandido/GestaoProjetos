@@ -7,14 +7,18 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" >
     <p:panel>
         <f:facet name="header">
-            Editar Bolsista 
+            Editar Aluno
         </f:facet>
         <p:tabView id="tabView">  
             <p:tab id="tabDados" title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
                     <h:outputLabel value="Nome Completo*:" />
-                    <p:inputText value="${alunoController.entidade.nome}" required="true" style="width: 100%"/>                      
+                    <p:inputText value="${alunoController.entidade.nome}" required="true" style="width: 100%"/>   
+
+                    <h:outputText value="E-Mail (Login): " />
+                    <p:inputText value="#{alunoController.entidade.email}" 
+                                 required="true" requiredMessage="O campo e-mail é obrigatório" />
 
                     <h:outputLabel value="Matrícula*:" />
                     <p:inputText value="${alunoController.entidade.matricula}" required="true"/>  

@@ -39,6 +39,9 @@
                         <ui:include src="../comum/tabSenhaPerfil.xhtml">
                             <ui:param name="controller" value="#{usuarioController}"  />
                         </ui:include>
+                        <ui:include src="../comum/tabEmailEnderecoTelefone.xhtml">
+                            <ui:param name="controller" value="#{usuarioController}"  />
+                        </ui:include>
                         <ui:include src="../comum/tabEnviarMensagem.xhtml">
                             <ui:param name="controller" value="#{usuarioController}"  />
                             <ui:param name="destinatarios" value="#{usuarioController.pessoas}"  />

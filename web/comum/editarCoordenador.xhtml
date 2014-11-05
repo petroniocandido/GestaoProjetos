@@ -14,7 +14,11 @@
                 <h:panelGrid columns="2">
 
                     <h:outputLabel value="Nome Completo*:" />
-                    <p:inputText value="${orientadorController.entidade.nome}" required="true" style="width: 200%"/>                      
+                    <p:inputText value="${orientadorController.entidade.nome}" required="true" style="width: 200%"/> 
+                    
+                    <h:outputText value="E-Mail (Login): " />
+                    <p:inputText value="#{orientadorController.entidade.email}" 
+                                 required="true" requiredMessage="O campo e-mail é obrigatório" />
 
                     <h:outputLabel value="Matrícula SIAPE*:" />
                     <p:inputText value="${orientadorController.entidade.matriculaSiape}" required="false"/>  
@@ -51,6 +55,13 @@
                 </h:panelGrid>
             </p:tab>
 
+            <ui:include src="tabSenhaPerfil.xhtml">
+                <ui:param name="controller" value="#{orientadorController}"  />
+            </ui:include>
+            <ui:include src="tabEmailEnderecoTelefone.xhtml">
+                <ui:param name="controller" value="#{orientadorController}"  />
+            </ui:include>
+            
             <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Área Conhecimento" >
                 <br/>
                 <h:panelGrid columns="2">
@@ -86,14 +97,6 @@
 
 
             </p:tab>       
-
-            <ui:include src="tabSenhaPerfil.xhtml">
-                <ui:param name="controller" value="#{orientadorController}"  />
-            </ui:include>
-            <ui:include src="tabEmailEnderecoTelefone.xhtml">
-                <ui:param name="controller" value="#{orientadorController}"  />
-            </ui:include>
-
 
             <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Documentos">
                 <br/>

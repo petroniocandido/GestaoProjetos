@@ -51,7 +51,6 @@ public class PerfilDAO
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
                 .Like("descricao", filtro.getDescricao())
-                .IgualA("padrao", filtro.isPadrao())
                 .Buscar();
 
     }
