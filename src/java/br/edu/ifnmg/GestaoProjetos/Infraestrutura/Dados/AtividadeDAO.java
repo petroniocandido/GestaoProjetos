@@ -25,7 +25,7 @@ public class AtividadeDAO
     @Override
     public List<Atividade> Buscar(Atividade filtro) {
         return IgualA("id", filtro.getId())
-                .IgualA("projeto", filtro.getProjeto())
+                .IgualA("bolsa", filtro.getBolsa())
                 .Like("descricao", filtro.getDescricao())
                 .Ordenar("ordem", "ASC")
                 .Buscar();

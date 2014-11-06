@@ -6,6 +6,7 @@
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -58,13 +59,13 @@ public class Bolsa implements Entidade, Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataTermino;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "projeto", targetEntity = Documento.class)
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Documento.class)
     private List<Documento> documentos;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto", targetEntity = Atividade.class)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bolsa", targetEntity = Atividade.class)
     private List<Atividade> cronogramaAtividade;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto", targetEntity = AtividadeAcompanhamento.class)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bolsa", targetEntity = AtividadeAcompanhamento.class)
     private List<AtividadeAcompanhamento> acompanhamentoAtividades;
 
     @ManyToOne
@@ -79,6 +80,9 @@ public class Bolsa implements Entidade, Serializable {
     public Bolsa() {
         this.situacao = ProjetoSituacao.Cadastrado;
         this.status = Status.Pendente;
+        this.documentos = new ArrayList<>();
+        this.cronogramaAtividade = new ArrayList<>();
+        this.acompanhamentoAtividades = new ArrayList<>();
     }
     
     public void addAtividade(Atividade a) {

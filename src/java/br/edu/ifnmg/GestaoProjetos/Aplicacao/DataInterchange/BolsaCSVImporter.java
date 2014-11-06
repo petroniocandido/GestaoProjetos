@@ -8,17 +8,15 @@ package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
-import java.math.BigDecimal;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,12 +45,20 @@ public class BolsaCSVImporter extends CSVImporter<Bolsa> {
 
     @EJB
     AlunoRepositorio daoAluno;
+    
+    @EJB
+    ProjetoRepositorio daoProjeto;
 
     @Override
     protected Bolsa gerarObjeto(String linha) {
         String colunas[] = linha.split(";");
         Bolsa obj = new Bolsa();
 
+        if (cabecalho.containsKey("Projeto")) {
+            Projeto tmp = daoProjeto.Abrir(Long.parseLong(colunas[cabecalho.get("Projeto")]));
+            obj.setProjeto(tmp);
+        }
+        
         if (cabecalho.containsKey("AgenciaFinanciadora")) {
             AgenciaFinanciadora tmp = daoAgencia.Abrir(colunas[cabecalho.get("AgenciaFinanciadora")]);
             obj.setAgenciaFinanciadora(tmp);

@@ -6,25 +6,17 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeAcompanhamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
-import static br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa_.orientando;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Orcamento;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.OrcamentoExecucao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
-import static br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto_.areaConhecimento;
-import static br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto_.orcamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.BolsaRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
@@ -114,8 +106,8 @@ public class BolsaController
     @PostConstruct
     public void init() {
         setRepositorio(dao);
-        setPaginaEdicao("editarProjeto.xhtml");
-        setPaginaListagem("listagemProjetos.xhtml");
+        setPaginaEdicao("editarBolsa.xhtml");
+        setPaginaListagem("listagemBolsas.xhtml");
     }
 
     @Override

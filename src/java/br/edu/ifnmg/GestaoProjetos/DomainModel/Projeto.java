@@ -75,7 +75,7 @@ public class Projeto implements Entidade, Serializable {
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
     private List<AreaConhecimento> areaConhecimento;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Documento.class)
+    @ManyToMany(cascade = CascadeType.ALL,targetEntity = Documento.class)
     private List<Documento> documentos;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Orcamento.class)
@@ -142,6 +142,7 @@ public class Projeto implements Entidade, Serializable {
         this.situacao = ProjetoSituacao.Cadastrado;
         this.status = Status.Pendente;
         this.valorFinanciamento = new BigDecimal("0.00");
+        this.orcamento = new ArrayList<>();
     }   
 
     public void addAreaConhecimento(AreaConhecimento a) {

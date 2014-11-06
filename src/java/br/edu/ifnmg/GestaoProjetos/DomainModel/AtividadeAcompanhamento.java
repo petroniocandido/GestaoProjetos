@@ -36,7 +36,7 @@ public class AtividadeAcompanhamento implements Entidade, Serializable {
     private Long id;
     
     @ManyToOne
-    private Projeto projeto;
+    private Bolsa bolsa;
     
     @ManyToOne
     private Atividade atividade;
@@ -72,12 +72,12 @@ public class AtividadeAcompanhamento implements Entidade, Serializable {
         this.id = id;
     }
 
-    public Projeto getProjeto() {
-        return projeto;
+    public Bolsa getBolsa() {
+        return bolsa;
     }
 
-    public void setProjeto(Projeto projeto) {
-        this.projeto = projeto;
+    public void setBolsa(Bolsa bolsa) {
+        this.bolsa = bolsa;
     }
     
     public Atividade getAtividade() {
@@ -123,7 +123,7 @@ public class AtividadeAcompanhamento implements Entidade, Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.projeto);
+        hash = 89 * hash + Objects.hashCode(this.bolsa);
         hash = 89 * hash + Objects.hashCode(this.atividade);
         hash = 89 * hash + Objects.hashCode(this.pessoa);
         hash = 89 * hash + Objects.hashCode(this.descricao);
@@ -141,7 +141,7 @@ public class AtividadeAcompanhamento implements Entidade, Serializable {
             return false;
         }
         final AtividadeAcompanhamento other = (AtividadeAcompanhamento) obj;
-        if (!Objects.equals(this.projeto, other.projeto)) {
+        if (!Objects.equals(this.bolsa, other.bolsa)) {
             return false;
         }
         if (!Objects.equals(this.atividade, other.atividade)) {
