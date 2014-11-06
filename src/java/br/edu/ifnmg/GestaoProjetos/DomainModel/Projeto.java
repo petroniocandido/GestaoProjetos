@@ -48,21 +48,11 @@ public class Projeto implements Entidade, Serializable {
 
     private int numeroCadastro;
 
-    private boolean grupoPesquisa;
-
-    private String nomegrupoPesquisa;
+    @ManyToOne
+    private GrupoPesquisa grupoPesquisa;
 
     @ManyToOne
     private Campus campus;
-
-    @ManyToOne
-    private Edital edital;
-
-    @ManyToOne
-    private Modalidade modalidade;
-
-    @ManyToOne
-    private AgenciaFinanciadora agenciaFinanciadora;
 
     //Resumo do projeto
     @Lob
@@ -85,18 +75,12 @@ public class Projeto implements Entidade, Serializable {
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
     private List<AreaConhecimento> areaConhecimento;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Documento.class)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Documento.class)
     private List<Documento> documentos;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Orcamento.class)
     private List<Orcamento> orcamento;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Atividade.class)
-    private List<Atividade> cronogramaAtividade;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = AtividadeAcompanhamento.class)
-    private List<AtividadeAcompanhamento> acompanhamentoAtividades;
-
     // Plano de Trabalho 
     private String localRealizacaoProjeto; //laboratorio, sala, etc
 
@@ -143,24 +127,22 @@ public class Projeto implements Entidade, Serializable {
 
     private boolean projetoMulticampi;
     
-    @ManyToMany(fetch = FetchType.EAGER,targetEntity = Aluno.class)
-    private List<Aluno> orientandos;
-
-    public Projeto() {
-        this.areaConhecimento = new ArrayList<>();
-        this.orientandos = new ArrayList<>();
-        this.documentos = new ArrayList<>();
-        this.cronogramaAtividade = new ArrayList<>();
-        this.situacao = ProjetoSituacao.Cadastrado;
-        this.status = Status.Pendente;
-        this.valorFinanciamento = new BigDecimal("0.00");
-    }
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "projeto", targetEntity = Bolsa.class)
+    private List<Bolsa> bolsas;
     
     @Enumerated(EnumType.STRING)
     private ProjetoSituacao situacao;
     
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    public Projeto() {
+        this.areaConhecimento = new ArrayList<>();
+        this.documentos = new ArrayList<>();
+        this.situacao = ProjetoSituacao.Cadastrado;
+        this.status = Status.Pendente;
+        this.valorFinanciamento = new BigDecimal("0.00");
+    }   
 
     public void addAreaConhecimento(AreaConhecimento a) {
         if(a == null) return;
@@ -176,17 +158,17 @@ public class Projeto implements Entidade, Serializable {
         }
     }
 
-    public void addAluno(Aluno a) {
+    public void addBolsa(Bolsa a) {
         if(a == null) return;
-        if (!orientandos.contains(a)) {
-            orientandos.add(a);
+        if (!bolsas.contains(a)) {
+            bolsas.add(a);
         }
     }
 
-    public void removeAluno(Aluno a) {
+    public void removeBolsa(Bolsa a) {
         if(a == null) return;
-        if (orientandos.contains(a)) {
-            orientandos.remove(a);
+        if (bolsas.contains(a)) {
+            bolsas.remove(a);
         }
     }
     
@@ -209,7 +191,6 @@ public class Projeto implements Entidade, Serializable {
 
     public void addDocumento(Documento d) {
         if(d == null) return;
-        d.setProjeto(this);
         if (!documentos.contains(d)) {
             documentos.add(d);
         }
@@ -219,36 +200,6 @@ public class Projeto implements Entidade, Serializable {
         if(d == null) return;
         if (documentos.contains(d)) {
             documentos.remove(d);
-        }
-    }
-
-    public void addAtividade(Atividade a) {
-        if(a == null) return;
-        a.setProjeto(this);
-        if (!cronogramaAtividade.contains(a)) {
-            cronogramaAtividade.add(a);
-        }
-    }
-
-    public void removeAtividade(Atividade a) {
-        if(a == null) return;
-        if (cronogramaAtividade.contains(a)) {
-            cronogramaAtividade.remove(a);
-        }
-    }
-    
-    public void addAtividadeAcompanhamento(AtividadeAcompanhamento a) {
-        if(a == null) return;
-        a.setProjeto(this);
-        if (!acompanhamentoAtividades.contains(a)) {
-            acompanhamentoAtividades.add(a);
-        }
-    }
-
-    public void removeAtividadeAcompanhamento(AtividadeAcompanhamento a) {
-        if(a == null) return;
-        if (acompanhamentoAtividades.contains(a)) {
-            acompanhamentoAtividades.remove(a);
         }
     }
     
@@ -264,14 +215,7 @@ public class Projeto implements Entidade, Serializable {
         return true;
     }
     
-    private boolean verificarCronograma(){
-        Date hoje = new Date();
-        for(Atividade a : getCronogramaAtividade())
-            if(a.getStatus() == Status.Pendente){                
-                return false;
-            }
-        return true;
-    }
+    
     
     private boolean verificarOrcamento(){
         Date hoje = new Date();
@@ -325,20 +269,20 @@ public class Projeto implements Entidade, Serializable {
         this.areaConhecimento = areaConhecimento;
     }
 
-    public boolean isGrupoPesquisa() {
+    public GrupoPesquisa getGrupoPesquisa() {
         return grupoPesquisa;
     }
 
-    public void setGrupoPesquisa(boolean grupoPesquisa) {
+    public void setGrupoPesquisa(GrupoPesquisa grupoPesquisa) {
         this.grupoPesquisa = grupoPesquisa;
     }
 
-    public String getNomegrupoPesquisa() {
-        return nomegrupoPesquisa;
+    public List<Bolsa> getBolsas() {
+        return bolsas;
     }
 
-    public void setNomegrupoPesquisa(String nomegrupoPesquisa) {
-        this.nomegrupoPesquisa = nomegrupoPesquisa;
+    public void setBolsas(List<Bolsa> bolsas) {
+        this.bolsas = bolsas;
     }
 
     public Campus getCampus() {
@@ -437,14 +381,6 @@ public class Projeto implements Entidade, Serializable {
         this.numeroBolsas = numeroBolsas;
     }
 
-    public AgenciaFinanciadora getAgenciaFinanciadora() {
-        return agenciaFinanciadora;
-    }
-
-    public void setAgenciaFinanciadora(AgenciaFinanciadora agenciaFinanciadora) {
-        this.agenciaFinanciadora = agenciaFinanciadora;
-    }
-
     public boolean isProjetoConvenio() {
         return projetoConvenio;
     }
@@ -483,30 +419,6 @@ public class Projeto implements Entidade, Serializable {
 
     public void setProjetoMulticampi(boolean projetoMulticampi) {
         this.projetoMulticampi = projetoMulticampi;
-    }
-
-    public List<Aluno> getOrientandos() {
-        return orientandos;
-    }
-
-    public void setOrientandos(List<Aluno> orientandos) {
-        this.orientandos = orientandos;
-    }
-
-    public Edital getEdital() {
-        return edital;
-    }
-
-    public void setEdital(Edital edital) {
-        this.edital = edital;
-    }
-
-    public Modalidade getModalidade() {
-        return modalidade;
-    }
-
-    public void setModalidade(Modalidade modalidade) {
-        this.modalidade = modalidade;
     }
 
     public List<Documento> getDocumentos() {
@@ -581,17 +493,9 @@ public class Projeto implements Entidade, Serializable {
         this.referenciasBibliograficas = referenciasBibliograficas;
     }
 
-    public List<Atividade> getCronogramaAtividade() {
-        return cronogramaAtividade;
-    }
-
-    public void setCronogramaAtividade(List<Atividade> cronogramaAtividade) {
-        this.cronogramaAtividade = cronogramaAtividade;
-    }
-
     public Status getStatus() {
         // Analisar Documentos
-        if(!verificarDocumentos() || !verificarCronograma() || !verificarOrcamento() )
+        if(!verificarDocumentos() || !verificarOrcamento() )
             return Status.Pendente;
         return Status.Regular;
     }
@@ -608,14 +512,6 @@ public class Projeto implements Entidade, Serializable {
         this.orcamento = orcamento;
     }
 
-    public List<AtividadeAcompanhamento> getAcompanhamentoAtividades() {
-        return acompanhamentoAtividades;
-    }
-
-    public void setAcompanhamentoAtividades(List<AtividadeAcompanhamento> acompanhamentoAtividades) {
-        this.acompanhamentoAtividades = acompanhamentoAtividades;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -623,9 +519,6 @@ public class Projeto implements Entidade, Serializable {
         hash = 23 * hash + Objects.hashCode(this.titulo);
         hash = 23 * hash + this.numeroCadastro;
         hash = 23 * hash + Objects.hashCode(this.campus);
-        hash = 23 * hash + Objects.hashCode(this.edital);
-        hash = 23 * hash + Objects.hashCode(this.modalidade);
-        hash = 23 * hash + Objects.hashCode(this.agenciaFinanciadora);
         return hash;
     }
 
@@ -648,15 +541,6 @@ public class Projeto implements Entidade, Serializable {
             return false;
         }
         if (!Objects.equals(this.campus, other.campus)) {
-            return false;
-        }
-        if (!Objects.equals(this.edital, other.edital)) {
-            return false;
-        }
-        if (!Objects.equals(this.modalidade, other.modalidade)) {
-            return false;
-        }
-        if (!Objects.equals(this.agenciaFinanciadora, other.agenciaFinanciadora)) {
             return false;
         }
         return true;

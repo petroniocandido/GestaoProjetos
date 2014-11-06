@@ -30,7 +30,6 @@
                                       disabled="#{not projetoController.alteraDadosGerais}"/>
 
                     <h:outputLabel value="Nome do Coordenador*:" />                             
-
                     <p:autoComplete  converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
                                      completeMethod="#{orientadorConverter.autoCompleteOrientador}"
                                      var="item" itemLabel="#{item.nome}" itemValue="#{item}"
@@ -41,37 +40,6 @@
                     <h:outputLabel value="Setor do Coordenador/Campus do IFNMG*:" />
                     <p:inputText value="${projetoController.entidade.setorCoordenador}" required="false"/> 
 
-                    <h:outputLabel value="Campus do IFNMG*:" />
-                    <p:selectOneMenu value="${projetoController.entidade.campus}" label="Campus" 
-                                     converter="${campusConverter}" required="false"  disabled="#{not projetoController.admin}" >
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${campusController.listagem}"/>
-                    </p:selectOneMenu>
-
-                    <h:outputLabel value="Modalidade*:" />                   
-                    <p:selectOneMenu value="${projetoController.entidade.modalidade}" label="Modalidade"  disabled="#{not projetoController.admin}"
-                                     converter="${modalidadeConverter}" required="false" >
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${modalidadeController.listagem}"/>
-
-                    </p:selectOneMenu>
-
-                    <h:outputLabel value="Agência Financiadora*:" />                    
-                    <p:selectOneMenu value="${projetoController.entidade.agenciaFinanciadora}" label="agenciaFinanciadora" 
-                                     converter="${agenciaFinanciadoraConverter}" required="false"  disabled="#{not projetoController.admin}" >
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
-
-                    </p:selectOneMenu>
-
-                    <h:outputLabel value="Edital*:" />                    
-                    <p:selectOneMenu value="${projetoController.entidade.edital}" label="edital"  disabled="#{not projetoController.admin}"
-                                     converter="${editalConverter}" required="false" >
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${editalController.listagem}"/>
-
-                    </p:selectOneMenu>
-
                     <h:outputLabel value="Data de Início*:" />
                     <p:calendar value="${projetoController.entidade.dataInicio}" required="false"
                                 label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
@@ -80,9 +48,13 @@
                     <p:calendar value="${projetoController.entidade.dataTermino}" required="false"
                                 label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
 
-
-                    <h:outputLabel value="Grupo de Pesquisa (se houver):" /> 
-                    <p:inputText value="${projetoController.entidade.nomegrupoPesquisa}" required="false"  disabled="#{not projetoController.alteraDadosGerais}"/>
+                    <h:outputLabel value="Grupo de Pesquisa:" />                             
+                    <p:autoComplete  converter="#{grupoPesquisaConverter}" value="#{projetoController.entidade.grupoPesquisa}"
+                                     completeMethod="#{grupoPesquisaConverter.autoCompleteGrupoPesquisa}"
+                                     var="item" itemLabel="#{item.nome}" itemValue="#{item}"
+                                      disabled="#{not projetoController.alteraDadosGerais}">
+                        #{item.nome}
+                    </p:autoComplete>
 
                 </h:panelGrid>
             </p:tab>
@@ -126,47 +98,6 @@
                 </p:dataTable>
             </p:tab>   
 
-            <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoOrientandos')}" 
-                   title="Orientandos">
-                <br/>
-                <h:panelGrid columns="3">
-
-                    <h:outputLabel value="Nome do Orientando*:" />                 
-
-                    <p:autoComplete id="txtNome" converter="#{alunoConverter}" value="#{projetoController.orientando}"
-                                    completeMethod="#{alunoConverter.autoCompleteAluno}" 
-                                    var="item" itemLabel="#{item.nome}" itemValue="#{item}">
-                        #{item.nome}
-                    </p:autoComplete>
-                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     action="${projetoController.addAluno()}" style="margin:0"
-                                     update="tblOrientandos txtNome"/>
-                </h:panelGrid>
-
-                <p:dataTable id="tblOrientandos"  value="${projetoController.entidade.orientandos}" var="item" 
-                             emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                    <p:column  headerText="Orientando" >
-                        ${item.nome}
-                    </p:column>     
-
-                    <p:column  headerText="CPF" >
-                        ${item.cpf}
-                    </p:column> 
-
-                    <p:column  headerText="E-mail" >
-                        ${item.email}
-                    </p:column> 
-
-                    <p:column rendered="#{projetoController.admin}" sortBy="remover" headerText="Remover" >
-                        <p:commandButton ajax="false" value="Remover"  action="#{projetoController.removeAluno()}">
-                            <f:setPropertyActionListener target="#{projetoController.orientando}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                </p:dataTable>
-
-            </p:tab>
-
             <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoPlanoTrabalho')}" 
                    title="Plano de Trabalho">
                 <br/>
@@ -197,129 +128,6 @@
 
 
                 </h:panelGrid>
-            </p:tab>
-
-            <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoCronograma')}" 
-                   title="Cronograma">
-
-                <p:panelGrid rendered="#{projetoController.alteraDadosGerais}" columns="2"> 
-                    <h:outputLabel value="Situação:" />
-                    <p:selectOneMenu  id="somCronogramaSituacao" value="#{projetoController.atividade.situacao}">
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${projetoController.situacoesAtividade}"/>
-                    </p:selectOneMenu>
-
-                    <h:outputLabel value="Descrição:" />
-                    <p:inputTextarea  id="txtCronogramaDescricao" value="${projetoController.atividade.descricao}" cols="100" rows="4" />
-
-                    <h:outputLabel value="Data Início*:" />
-                    <p:calendar  id="txtCronogramaDataInicio" value="${projetoController.atividade.dataInicio}" required="false"
-                                label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-                    <h:outputLabel value="Data Fim*:" />
-                    <p:calendar  id="txtCronogramaDataFim" value="${projetoController.atividade.dataFim}" required="false"
-                                label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-                    <h:outputLabel value="Ordem*:" />
-                    <pe:inputNumber  id="txtCronogramaOrdem" value="${projetoController.atividade.ordem}"
-                                    decimalPlaces="0" decimalSeparator="">
-                        <f:convertNumber integerOnly="true"/>
-                    </pe:inputNumber> 
-
-                    <p:commandButton  value="Adicionar" icon="ui-icon-check" 
-                                     action="${projetoController.addAtividade()}"
-                                     update="tblAtividades somCronogramaSituacao txtCronogramaDescricao txtCronogramaDataInicio txtCronogramaDataFim 
-                                     txtCronogramaOrdem" /> 
-
-                </p:panelGrid>
-                <p:dataTable id="tblAtividades" value="${projetoController.entidade.cronogramaAtividade}" 
-                             var="item" emptyMessage="Registros não Encontrados!" 
-                             style="font: medium; color: blue">
-
-                    <p:column sortBy="ordem" headerText="Ordem">
-                        ${item.ordem}
-                    </p:column>
-
-                    <p:column sortBy="descrcao" headerText="Descrição">
-                        ${item.descricao}
-                    </p:column>
-
-                    <p:column sortBy="dataInicio" headerText="Data Início">
-                        <h:outputLabel value="${item.dataInicio}">
-                            <f:convertDateTime pattern="MM/yyyy" />
-                        </h:outputLabel>
-                    </p:column>
-
-                    <p:column sortBy="dataFim" headerText="Data Fim">
-                        <h:outputLabel value="${item.dataFim}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputLabel>
-                    </p:column>
-
-                    <p:column rendered="#{projetoController.alteraDadosGerais}" sortBy="editar" headerText="Editar">
-                        <p:commandButton ajax="false" value="Editar" >
-                            <f:setPropertyActionListener target="#{projetoController.atividade}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                    <p:column  rendered="#{projetoController.alteraDadosGerais}" sortBy="remover" headerText="Remover" >
-                        <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeAtividade()}">
-                            <f:setPropertyActionListener target="#{projetoController.atividade}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>                           
-
-                </p:dataTable>
-
-            </p:tab>
-
-            <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoAcompanhamento')}" 
-                   title="Acompanhamento Atividades">
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Atividade:" />
-                    <p:selectOneMenu id="txtAtividadeAcompanhamento" value="${projetoController.acompanhamento.atividade}" 
-                                     converter="${atividadeConverter}" required="false">
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                        <f:selectItems value="${projetoController.entidade.cronogramaAtividade}"/>
-                    </p:selectOneMenu>
-                    <h:outputLabel value="Descrição do trabalho:" />
-                    <p:inputTextarea id="txtDescricaoAcompanhamento" value="${projetoController.acompanhamento.descricao}" 
-                                     rows="3" cols="120"/>
-                </h:panelGrid>
-                <h:panelGrid columns="4">
-                    <h:outputLabel value="Início:" />
-                    <p:calendar id="txtDataInicioAcompanhamento" value="${projetoController.acompanhamento.dataInicio}" required="false"
-                                label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-                    <h:outputLabel value="Termino:" />
-                    <p:calendar id="txtDataTerminoAcompanhamento" value="${projetoController.acompanhamento.dataFim}" required="false"
-                                label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-                    <p:commandButton value="Adicionar" action="#{projetoController.addAcompanhamento()}" 
-                                     update="txtAtividadeAcompanhamento txtDescricaoAcompanhamento txtDataInicioAcompanhamento 
-                                     txtDataTerminoAcompanhamento tblAcompanhamento" />
-                </h:panelGrid>
-                <p:dataTable id="tblAcompanhamento" value="${projetoController.entidade.acompanhamentoAtividades}" 
-                             var="item" emptyMessage="Registros não Encontrados!" >
-                    <p:column headerText="Início">
-                        <h:outputLabel value="${item.dataInicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputLabel>
-                    </p:column>
-                    <p:column headerText="Atividade">
-                        ${item.atividade}
-                    </p:column>
-                    <p:column headerText="Descrição">
-                        ${item.descricao}
-                    </p:column>
-                    <p:column headerText="Participante">
-                        ${item.pessoa}
-                    </p:column>
-                    <p:column sortBy="editar" headerText="Editar">
-                        <p:commandButton ajax="false" value="Editar" >
-                            <f:setPropertyActionListener target="#{projetoController.acompanhamento}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
             </p:tab>
 
             <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoDocumentos')}" 

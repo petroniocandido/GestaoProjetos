@@ -41,23 +41,11 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");
 
     @EJB
-    AgenciaFinanciadoraRepositorio daoAgencia;
-
-    @EJB
     CampusRepositorio daoCampus;
 
     @EJB
     OrientadorRepositorio daoCoordenador;
 
-    @EJB
-    EditalRepositorio daoEdital;
-
-    @EJB
-    ModalidadeRepositorio daoModalidade;
-    
-    @EJB
-    AlunoRepositorio daoAluno;
-    
     @EJB
     AreaConhecimentoRepositorio daoAreaConhecimento;
 
@@ -67,10 +55,6 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
         Projeto obj = new Projeto();
         obj.setTitulo(colunas[cabecalho.get("Titulo")]);
 
-        if (cabecalho.containsKey("AgenciaFinanciadora")) {
-            AgenciaFinanciadora tmp = daoAgencia.Abrir(colunas[cabecalho.get("AgenciaFinanciadora")]);
-            obj.setAgenciaFinanciadora(tmp);
-        }
         
         if (cabecalho.containsKey("PalavrasChave")) {
             obj.setPalavrasChave(colunas[cabecalho.get("PalavrasChave")]);
@@ -101,15 +85,6 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
                 Logger.getLogger(ProjetoCSVImporter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (cabecalho.containsKey("Edital")) {
-            Edital tmp = daoEdital.Abrir(colunas[cabecalho.get("Edital")]);
-            obj.setEdital(tmp);
-        }
-
-        if (cabecalho.containsKey("Modalidade")) {
-            Modalidade tmp = daoModalidade.Abrir(colunas[cabecalho.get("Modalidade")]);
-            obj.setModalidade(tmp);
-        }
         if (cabecalho.containsKey("NumeroCadastro")) {
             int num = Integer.parseInt(colunas[cabecalho.get("NumeroCadastro")]);
             obj.setNumeroCadastro(num);
@@ -117,14 +92,6 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
         if (cabecalho.containsKey("ValorFinanciamento")) {
             BigDecimal tmp = new BigDecimal(colunas[cabecalho.get("ValorFinanciamento")]);
             obj.setValorFinanciamento(tmp);
-        }
-        
-        if (cabecalho.containsKey("Orientando")) {
-            String cpfs[] = colunas[cabecalho.get("Orientando")].split(",");
-            for(String cpf : cpfs){
-                Aluno a = daoAluno.AbrirPorCPF(cpf);
-                obj.addAluno(a);
-            }
         }
         
         if (cabecalho.containsKey("AreaConhecimento")) {

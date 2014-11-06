@@ -31,10 +31,7 @@ public class Documento implements Serializable, Entidade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @ManyToOne
-    private Projeto projeto;
-    
+   
     @ManyToOne
     private Pessoa pessoa;
     
@@ -113,14 +110,6 @@ public class Documento implements Serializable, Entidade {
         this.arquivo = arquivo;
     }
 
-    public Projeto getProjeto() {
-        return projeto;
-    }
-
-    public void setProjeto(Projeto projeto) {
-        this.projeto = projeto;
-    }
-
     public Pessoa getPessoa() {
         return pessoa;
     }
@@ -133,7 +122,6 @@ public class Documento implements Serializable, Entidade {
     public int hashCode() {
         int hash = 5;
         hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.projeto);
         hash = 97 * hash + Objects.hashCode(this.pessoa);
         hash = 97 * hash + Objects.hashCode(this.tipoDocumento);
         hash = 97 * hash + Objects.hashCode(this.dataPrevista);
@@ -152,10 +140,7 @@ public class Documento implements Serializable, Entidade {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.projeto, other.projeto)) {
-            return false;
-        }
-        if (!Objects.equals(this.pessoa, other.pessoa)) {
+       if (!Objects.equals(this.pessoa, other.pessoa)) {
             return false;
         }
         if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {

@@ -30,9 +30,14 @@
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAgenciasFinanciadoras.xhtml')}" value="Agências Financiadoras" url="listagemAgenciasFinanciadoras.xhtml" /> 
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemEditais.xhtml')}" value="Editais" url="listagemEditais.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemTiposDocumentos.xhtml')}" value="Tipos de Documentos" url="listagemTiposDocumentos.xhtml" />                
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemGuposPesquisa.xhtml')}" value="Gupos de Pesquisa" url="listagemGuposPesquisa.xhtml" />                
                 </p:submenu>
 
-                <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemProjetos.xhtml')}" value="Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
+                <p:submenu label="Projetos" icon="ui-icon-pencil" >
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemProjetos.xhtml')}" value="Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemBolsas.xhtml')}" value="Bolsas" icon="ui-icon-pencil" url="listagemBolsas.xhtml" />
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemFinanciamentos.xhtml')}" value="Financiamentos" icon="ui-icon-pencil" url="listagemFinanciamentos.xhtml" />
+                </p:submenu>
 
                 <p:submenu label="Relatórios" icon="ui-icon-pencil" >
                     <p:menuitem value="Relat 1"  />     
