@@ -64,7 +64,8 @@ public class AlunoController
         setPaginaEdicao("editarAluno.xhtml");
         setPaginaListagem("listagemAlunos.xhtml");
         if(getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Aluno){
-            setEntidade(dao.Abrir(getUsuarioCorrente().getId()));
+            setEntidade(getAlunoCorrente());
+            setPaginaListagem("index.xhtml");
         }
     }
     

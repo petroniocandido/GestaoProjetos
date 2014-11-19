@@ -7,14 +7,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" >
     <p:panel>
         <f:facet name="header">
-            ${editalController.entidade.nome}
+            Edital ${editalController.entidade.sigla}
         </f:facet>
-        <p:tabView id="tabView">  
+        <p:tabView id="tabView">
             <p:tab id="tabDados" title="Dados Gerais">  
-                <h:panelGrid columns="4">
-
-                    <h:outputLabel value="Sigla:" />
-                    <p:outputLabel value="${editalController.entidade.sigla}" />                      
+                <h:panelGrid columns="2">
 
                     <h:outputLabel value="Número:" />
                     <p:outputLabel value="${editalController.entidade.numero}" />                      
@@ -60,6 +57,7 @@
                     </p:column>
                 </p:dataTable>
             </p:tab>
-            <p:commandButton value="Criar novo projeto para esse Edital" />
+        </p:tabView>  
+        <p:commandButton value="Criar novo projeto para esse Edital" />
     </p:panel>       
 </ui:composition>

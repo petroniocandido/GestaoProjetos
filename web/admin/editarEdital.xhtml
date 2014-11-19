@@ -38,15 +38,16 @@
                                     <f:selectItems value="${campusController.listagem}"/>
 
                                 </p:selectOneMenu>
-                                
+
                                 <h:outputLabel value="Número de bolsas:" />                   
                                 <pe:inputNumber value="#{editalController.entidade.numeroBolsas}"  
                                                 thousandSeparator="" decimalPlaces="0">
                                     <f:convertNumber integerOnly="true" />
                                 </pe:inputNumber>
-                                
+                            </h:panelGrid>
                         </p:tab>
                         <p:tab title="Datas">
+                            <h:panelGrid columns="2">
                                 <h:outputLabel value="Lançamento do Edital*:" />
                                 <p:calendar value="${editalController.entidade.lancamentoEdital}" required="true"
                                             pattern="dd/MM/yyyy" locale="pt_BR"/>
@@ -83,16 +84,16 @@
                                            label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
                                            dragDropSupport="flase" multiple="false" update="tblArquivos" />
                             <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
-                                    <p:column headerText="Arquivo">
-                                        ${item}
-                                    </p:column>
+                                <p:column headerText="Arquivo">
+                                    ${item}
+                                </p:column>
 
-                                    <p:column sortBy="remover" headerText="Remover" >
-                                        <p:commandButton ajax="false" value="Remover" action="#{editalController.removeArquivo()}">
-                                            <f:setPropertyActionListener target="#{editalController.arquivo}" value="#{item}" />
-                                        </p:commandButton>
-                                    </p:column>
-                                </p:dataTable>
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{editalController.removeArquivo()}">
+                                        <f:setPropertyActionListener target="#{editalController.arquivo}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
                         </p:tab>
                         <p:tab title="Documentos Obrigatórios">
                             <h:panelGrid columns="5">

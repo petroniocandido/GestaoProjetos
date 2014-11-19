@@ -73,7 +73,8 @@ public class OrientadorController
         setPaginaEdicao("editarOrientador.xhtml");
         setPaginaListagem("listagemOrientadores.xhtml");
         if(getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Orientador){
-            setId(getUsuarioCorrente().getId());
+            setEntidade(getOrientadorCorrente());
+            setPaginaListagem("index.xhtml");
         }
     }
 

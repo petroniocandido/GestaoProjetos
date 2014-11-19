@@ -27,13 +27,13 @@
 
                     <h:outputLabel value="Título*:" />
                     <p:inputTextarea value="${projetoController.entidade.titulo}" cols="100" rows="4" required="true" 
-                                      disabled="#{not projetoController.alteraDadosGerais}"/>
+                                     disabled="#{not projetoController.alteraDadosGerais}"/>
 
                     <h:outputLabel value="Nome do Coordenador*:" />                             
                     <p:autoComplete  converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
                                      completeMethod="#{orientadorConverter.autoCompleteOrientador}"
                                      var="item" itemLabel="#{item.nome}" itemValue="#{item}"
-                                      disabled="#{not projetoController.alteraDadosGerais}">
+                                     disabled="#{not projetoController.alteraDadosGerais}">
                         #{item.nome}
                     </p:autoComplete>
 
@@ -52,7 +52,7 @@
                     <p:autoComplete  converter="#{grupoPesquisaConverter}" value="#{projetoController.entidade.grupoPesquisa}"
                                      completeMethod="#{grupoPesquisaConverter.autoCompleteGrupoPesquisa}"
                                      var="item" itemLabel="#{item.nome}" itemValue="#{item}"
-                                      disabled="#{not projetoController.alteraDadosGerais}">
+                                     disabled="#{not projetoController.alteraDadosGerais}">
                         #{item.nome}
                     </p:autoComplete>
 
@@ -71,7 +71,7 @@
                 <h:panelGrid columns="3">
                     <h:outputLabel value="Area de Conhecimento*:" />           
                     <p:selectOneMenu  disabled="#{not projetoController.alteraDadosGerais}" id="txtareaConhecimento" value="${projetoController.areaConhecimento}" label="Area de Conhecimento"
-                                     converter="${areaConhecimentoConverter}" required="false">
+                                      converter="${areaConhecimentoConverter}" required="false">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
                         <f:selectItems value="${areaConhecimentoController.listagem}"/>
 
@@ -79,8 +79,8 @@
 
                     <p:commandButton  disabled="#{not projetoController.alteraDadosGerais}"
                                       value="Adicionar" icon="ui-icon-check" 
-                                     action="${projetoController.addAreaConhecimento()}" style="margin:0"
-                                     update="tblAreaConhecimento txtareaConhecimento"/>
+                                      action="${projetoController.addAreaConhecimento()}" style="margin:0"
+                                      update="tblAreaConhecimento txtareaConhecimento"/>
 
                 </h:panelGrid>
 
@@ -198,7 +198,7 @@
                     <h:outputLabel value="Data Prevista*:" />
                     <p:calendar  disabled="#{not projetoController.alteraDadosGerais}" 
                                  id="txtOrcamentoDataPrevista" value="${projetoController.orcamento.dataPrevista}" required="false"
-                                label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                 label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
                     <h:outputLabel value="Descrição*:" />
                     <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" 
                                   id="txtOrcamentoDescricao" value="${projetoController.orcamento.descricao}" size="100"/>   
@@ -206,17 +206,17 @@
                 <h:panelGrid  rendered="#{projetoController.alteraDadosGerais}" columns="6">
                     <h:outputLabel value="Valor Unitário*:" />
                     <pe:inputNumber  id="txtOrcamentoVlrUn" symbol="R$ " value="#{projetoController.orcamento.valorUnitarioOrcado}" converter="#{bigDecimalConverter}" 
-                                    thousandSeparator="" />
+                                     thousandSeparator="" />
                     <h:outputLabel value="Quantidade*:" />
                     <pe:inputNumber  id="txtOrcamentoQtd" value="#{projetoController.orcamento.quantidadeOrcada}"  
-                                    thousandSeparator="" decimalPlaces="0" converter="#{integerConverter}" />
+                                     thousandSeparator="" decimalPlaces="0" converter="#{integerConverter}" />
                     <h:outputLabel value="Valor Total*:" />
                     <pe:inputNumber  id="txtOrcamentoVlrTot" symbol="R$ " value="#{projetoController.orcamento.valorOrcado}" converter="#{bigDecimalConverter}" 
-                                    thousandSeparator="" />
+                                     thousandSeparator="" />
                     <p:commandButton  value="Adicionar" icon="ui-icon-check" 
-                                     action="${projetoController.addOrcamento()}" 
-                                     update="txtOrcamentoDataPrevista txtOrcamentoDescricao txtOrcamentoVlrUn 
-                                     txtOrcamentoQtd txtOrcamentoVlrTot tblOrcamento" /> 
+                                      action="${projetoController.addOrcamento()}" 
+                                      update="txtOrcamentoDataPrevista txtOrcamentoDescricao txtOrcamentoVlrUn 
+                                      txtOrcamentoQtd txtOrcamentoVlrTot tblOrcamento" /> 
                 </h:panelGrid>
                 <p:dataTable id="tblOrcamento" value="${projetoController.entidade.orcamento}" 
                              var="item" emptyMessage="Registros não Encontrados!" >
@@ -274,6 +274,34 @@
                 </p:dataTable>
             </p:tab>
 
+            <p:tab title="Bolsas">
+                <p:dataTable value="#{projetoController.entidade.bolsas}" var="item" >  
+                    <p:column headerText="Cód.">
+                        ${item.id}
+                    </p:column>
+                    <p:column headerText="Modalidade">
+                        ${item.modalidade}
+                    </p:column>
+                    <p:column headerText="Ag. Financiadora">
+                        ${item.agenciaFinanciadora}
+                    </p:column>
+                    <p:column  headerText="Projeto">
+                        ${item.projeto}
+                    </p:column>
+                    <p:column  headerText="Bolsista">
+                        ${item.orientando}
+                    </p:column>
+                    <p:column  headerText="Status">
+                        ${item.status}
+                    </p:column>
+                    <p:column  headerText="Editar">
+                        <p:commandButton value="Editar" action="editarBolsa.xhtml">
+                            <f:setPropertyActionListener target="#{bolsaController.entidade}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>  
+            </p:tab>
+            
             <ui:include src="tabSeguranca.xhtml">
                 <ui:param name="controller" value="#{projetoController}"  />
             </ui:include>
