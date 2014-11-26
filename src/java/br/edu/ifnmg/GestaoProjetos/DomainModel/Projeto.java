@@ -78,8 +78,8 @@ public class Projeto implements Entidade, Serializable {
     @ManyToMany(cascade = CascadeType.ALL,targetEntity = Documento.class)
     private List<Documento> documentos;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Orcamento.class)
-    private List<Orcamento> orcamento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Financiamento.class)
+    private List<Financiamento> financiamentos;
     
     // Plano de Trabalho 
     private String localRealizacaoProjeto; //laboratorio, sala, etc
@@ -135,6 +135,9 @@ public class Projeto implements Entidade, Serializable {
     
     @Enumerated(EnumType.STRING)
     private Status status;
+        
+    @Enumerated(EnumType.STRING)
+    private ProjetoTipo tipo;
 
     public Projeto() {
         this.areaConhecimento = new ArrayList<>();
@@ -142,7 +145,7 @@ public class Projeto implements Entidade, Serializable {
         this.situacao = ProjetoSituacao.Cadastrado;
         this.status = Status.Pendente;
         this.valorFinanciamento = new BigDecimal("0.00");
-        this.orcamento = new ArrayList<>();
+        this.financiamentos = new ArrayList<>();
     }   
 
     public void addAreaConhecimento(AreaConhecimento a) {
@@ -173,19 +176,19 @@ public class Projeto implements Entidade, Serializable {
         }
     }
     
-    public void addOrcamento(Orcamento d) {
+    public void addFinanciamento(Financiamento d) {
         if(d == null) return;
         d.setProjeto(this);
-        if (!orcamento.contains(d)) {
-            orcamento.add(d);
+        if (!financiamentos.contains(d)) {
+            financiamentos.add(d);
             valorFinanciamento = valorFinanciamento.add(d.getValorOrcado());
         }
     }
 
-    public void removeOrcamento(Orcamento d) {
+    public void removeFinanciamento(Financiamento d) {
         if(d == null) return;
-        if (orcamento.contains(d)) {
-            orcamento.remove(d);
+        if (financiamentos.contains(d)) {
+            financiamentos.remove(d);
             valorFinanciamento = valorFinanciamento.subtract(d.getValorOrcado());
         }
     }
@@ -218,9 +221,9 @@ public class Projeto implements Entidade, Serializable {
     
     
     
-    private boolean verificarOrcamento(){
+    private boolean verificarFinanciamentos(){
         Date hoje = new Date();
-        for(Orcamento o : getOrcamento())
+        for(Financiamento o : getFinanciamentos())
             if(o.getStatus() == Status.Pendente){                
                 return false;
             }
@@ -496,7 +499,7 @@ public class Projeto implements Entidade, Serializable {
 
     public Status getStatus() {
         // Analisar Documentos
-        if(!verificarDocumentos() || !verificarOrcamento() )
+        if(!verificarDocumentos() || !verificarFinanciamentos())
             return Status.Pendente;
         return Status.Regular;
     }
@@ -505,14 +508,22 @@ public class Projeto implements Entidade, Serializable {
         this.status = status;
     }
 
-    public List<Orcamento> getOrcamento() {
-        return orcamento;
+    public List<Financiamento> getFinanciamentos() {
+        return financiamentos;
     }
 
-    public void setOrcamento(List<Orcamento> orcamento) {
-        this.orcamento = orcamento;
+    public void setFinanciamentos(List<Financiamento> financiamentos) {
+        this.financiamentos = financiamentos;
     }
 
+    public ProjetoTipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(ProjetoTipo tipo) {
+        this.tipo = tipo;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

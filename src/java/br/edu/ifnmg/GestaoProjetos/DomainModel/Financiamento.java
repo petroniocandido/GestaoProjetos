@@ -13,11 +13,11 @@ import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,39 +29,34 @@ import javax.persistence.Version;
  * @author petronio
  */
 @Entity
-@Table(name="orcamentosexecucoes")
+@Table(name = "financiamentos")
 @Cacheable(false)
-public class OrcamentoExecucao implements Entidade, Serializable {
+public class Financiamento implements Entidade, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     @ManyToOne
-    private Orcamento orcamento;
+    private Projeto projeto;
     
-    private int quantidade;
-    
-    @Column(precision = 10, scale = 2)
-    private BigDecimal valorUnitario;
-    
-    @Column(precision = 10, scale = 2)
-    private BigDecimal valorTotal;
+    @ManyToOne
+    private AgenciaFinanciadora agenciaFinanciadora;
     
     @Temporal(TemporalType.DATE)
-    private Date dataExecucao;
-    
-    @Lob
-    private String historico;
+    private Date dataInicio;
 
-    public OrcamentoExecucao() {
-        this.quantidade = 0;
-        this.valorUnitario = new BigDecimal("0.00");
-        this.valorTotal = new BigDecimal("0.00");
-        this.dataExecucao = new Date();
-        this.historico = "";
-    }
+    @Temporal(TemporalType.DATE)
+    private Date dataTermino;
     
+    @Column(precision = 10, scale = 2)
+    private BigDecimal valorOrcado;
+    
+    @Column(precision = 10, scale = 2)
+    private BigDecimal valorExecutado;
+    
+    @Enumerated
+    private Status status;
 
     @Override
     public Long getId() {
@@ -73,62 +68,71 @@ public class OrcamentoExecucao implements Entidade, Serializable {
         this.id = id;
     }
 
-    public Orcamento getOrcamento() {
-        return orcamento;
+    public Projeto getProjeto() {
+        return projeto;
     }
 
-    public void setOrcamento(Orcamento orcamento) {
-        this.orcamento = orcamento;
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public AgenciaFinanciadora getAgenciaFinanciadora() {
+        return agenciaFinanciadora;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setAgenciaFinanciadora(AgenciaFinanciadora agenciaFinanciadora) {
+        this.agenciaFinanciadora = agenciaFinanciadora;
     }
 
-    public BigDecimal getValorUnitario() {
-        return valorUnitario;
+    public Date getDataInicio() {
+        return dataInicio;
     }
 
-    public void setValorUnitario(BigDecimal valorUnitario) {
-        this.valorUnitario = valorUnitario;
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
+    public Date getDataTermino() {
+        return dataTermino;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setDataTermino(Date dataTermino) {
+        this.dataTermino = dataTermino;
     }
 
-    public Date getDataExecucao() {
-        return dataExecucao;
+    public BigDecimal getValorOrcado() {
+        return valorOrcado;
     }
 
-    public void setDataExecucao(Date dataExecucao) {
-        this.dataExecucao = dataExecucao;
+    public void setValorOrcado(BigDecimal valorOrcado) {
+        this.valorOrcado = valorOrcado;
     }
 
-    public String getHistorico() {
-        return historico;
+    public BigDecimal getValorExecutado() {
+        return valorExecutado;
     }
 
-    public void setHistorico(String historico) {
-        this.historico = historico;
+    public void setValorExecutado(BigDecimal valorExecutado) {
+        this.valorExecutado = valorExecutado;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+    
+    
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.orcamento);
-        hash = 59 * hash + this.quantidade;
-        hash = 59 * hash + Objects.hashCode(this.dataExecucao);
-        hash = 59 * hash + Objects.hashCode(this.historico);
+        hash = 53 * hash + Objects.hashCode(this.projeto);
+        hash = 53 * hash + Objects.hashCode(this.agenciaFinanciadora);
+        hash = 53 * hash + Objects.hashCode(this.dataInicio);
+        hash = 53 * hash + Objects.hashCode(this.dataTermino);
         return hash;
     }
 
@@ -140,20 +144,17 @@ public class OrcamentoExecucao implements Entidade, Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OrcamentoExecucao other = (OrcamentoExecucao) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        final Financiamento other = (Financiamento) obj;
+        if (!Objects.equals(this.projeto, other.projeto)) {
             return false;
         }
-        if (!Objects.equals(this.orcamento, other.orcamento)) {
+        if (!Objects.equals(this.agenciaFinanciadora, other.agenciaFinanciadora)) {
             return false;
         }
-        if (this.quantidade != other.quantidade) {
+        if (!Objects.equals(this.dataInicio, other.dataInicio)) {
             return false;
         }
-        if (!Objects.equals(this.dataExecucao, other.dataExecucao)) {
-            return false;
-        }
-        if (!Objects.equals(this.historico, other.historico)) {
+        if (!Objects.equals(this.dataTermino, other.dataTermino)) {
             return false;
         }
         return true;
@@ -161,9 +162,10 @@ public class OrcamentoExecucao implements Entidade, Serializable {
     
     @Override
     public String toString() {
-        return historico;
+        return "br.edu.ifnmg.GestaoProjetos.DomainModel.Financiamento[ id=" + id + " ]";
     }
-        
+    
+    
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa criador;
 
@@ -227,6 +229,6 @@ public class OrcamentoExecucao implements Entidade, Serializable {
     public void setVersao(Long versao) {
         this.versao = versao;
     }
-    
+
     
 }

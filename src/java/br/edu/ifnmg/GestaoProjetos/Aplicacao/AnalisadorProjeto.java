@@ -6,13 +6,9 @@
 
 package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Orcamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Status;
-import java.util.Date;
 
 /**
  *

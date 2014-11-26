@@ -21,6 +21,11 @@
 
                     <h:outputLabel value="Status:" />
                     <h:outputLabel value="#{projetoController.entidade.status}" />
+                    
+                    <h:outputLabel value="Tipo*:" />                    
+                    <p:selectOneMenu value="${projetoController.entidade.tipo}" required="true" disabled="#{not projetoController.alteraDadosGerais}" >
+                        <f:selectItems value="${projetoController.tiposProjeto}"/>
+                    </p:selectOneMenu>
 
                     <h:outputLabel value="Número de Cadastro*:" />
                     <p:inputText value="${projetoController.entidade.numeroCadastro}" disabled="#{not projetoController.alteraDadosGerais}"/>                      
@@ -193,46 +198,47 @@
             </p:tab>
 
             <p:tab rendered="#{projetoController.entidade.id > 0 and autenticacaoController.autorizacao('tabProjetoOrcamento')}" 
-                   title="Orçamento">
+                   title="Financiamentos">
                 <h:panelGrid  rendered="#{projetoController.alteraDadosGerais}" columns="4">
-                    <h:outputLabel value="Data Prevista*:" />
+                    <h:outputLabel value="Data Inicio:" />
                     <p:calendar  disabled="#{not projetoController.alteraDadosGerais}" 
-                                 id="txtOrcamentoDataPrevista" value="${projetoController.orcamento.dataPrevista}" required="false"
-                                 label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
-                    <h:outputLabel value="Descrição*:" />
-                    <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" 
-                                  id="txtOrcamentoDescricao" value="${projetoController.orcamento.descricao}" size="100"/>   
-                </h:panelGrid>
-                <h:panelGrid  rendered="#{projetoController.alteraDadosGerais}" columns="6">
-                    <h:outputLabel value="Valor Unitário*:" />
-                    <pe:inputNumber  id="txtOrcamentoVlrUn" symbol="R$ " value="#{projetoController.orcamento.valorUnitarioOrcado}" converter="#{bigDecimalConverter}" 
+                                 id="txtOrcamentoDataInicio" value="${projetoController.financiamento.dataInicio}" required="false"
+                                 pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    <h:outputLabel value="Data Termino:" />
+                    <p:calendar  disabled="#{not projetoController.alteraDadosGerais}" 
+                                 id="txtOrcamentoDataTermino" value="${projetoController.financiamento.dataTermino}" required="false"
+                                 pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    <h:outputLabel value="Valor Orçado:" />
+                    <pe:inputNumber  id="txtOrcamentoVlrUn" symbol="R$ " value="#{projetoController.financiamento.valorOrcado}" converter="#{bigDecimalConverter}" 
                                      thousandSeparator="" />
-                    <h:outputLabel value="Quantidade*:" />
-                    <pe:inputNumber  id="txtOrcamentoQtd" value="#{projetoController.orcamento.quantidadeOrcada}"  
-                                     thousandSeparator="" decimalPlaces="0" converter="#{integerConverter}" />
-                    <h:outputLabel value="Valor Total*:" />
-                    <pe:inputNumber  id="txtOrcamentoVlrTot" symbol="R$ " value="#{projetoController.orcamento.valorOrcado}" converter="#{bigDecimalConverter}" 
+                    <h:outputLabel value="Valor Executado:" />
+                    <pe:inputNumber  id="txtOrcamentoVlrTot" symbol="R$ " value="#{projetoController.financiamento.valorExecutado}" converter="#{bigDecimalConverter}" 
                                      thousandSeparator="" />
+                    <h:outputLabel value="Agência Financiadora:" />                    
+                    <p:selectOneMenu value="${projetoController.financiamento.agenciaFinanciadora}" 
+                                     converter="${agenciaFinanciadoraConverter}" required="false" >
+                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                        <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
+                    </p:selectOneMenu>
                     <p:commandButton  value="Adicionar" icon="ui-icon-check" 
                                       action="${projetoController.addOrcamento()}" 
-                                      update="txtOrcamentoDataPrevista txtOrcamentoDescricao txtOrcamentoVlrUn 
-                                      txtOrcamentoQtd txtOrcamentoVlrTot tblOrcamento" /> 
+                                      update="txtOrcamentoDataInicio txtOrcamentoDataTermino txtOrcamentoDescricao 
+                                      txtOrcamentoVlrUn txtOrcamentoVlrTot tblOrcamento" /> 
                 </h:panelGrid>
-                <p:dataTable id="tblOrcamento" value="${projetoController.entidade.orcamento}" 
+                <p:dataTable id="tblOrcamento" value="${projetoController.entidade.financiamentos}" 
                              var="item" emptyMessage="Registros não Encontrados!" >
-                    <p:column headerText="Data Prevista">
-                        <h:outputLabel value="${item.dataPrevista}">
+                    <p:column headerText="Inicio">
+                        <h:outputLabel value="${item.dataInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
-                    <p:column headerText="Descrição">
-                        <h:outputLabel value="${item.descricao}" />
+                    <p:column headerText="Término">
+                        <h:outputLabel value="${item.dataTermino}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputLabel>
                     </p:column>
-                    <p:column headerText="Valor Un.">
-                        <h:outputLabel value="${item.valorUnitarioOrcado}" />
-                    </p:column>
-                    <p:column headerText="Qtd">
-                        <h:outputLabel value="${item.quantidadeOrcada}" />
+                    <p:column headerText="Ag. Financiadora">
+                        <h:outputLabel value="${item.agenciaFinanciadora}" />
                     </p:column>
                     <p:column headerText="Valor Tot.">
                         <h:outputLabel value="${item.valorOrcado}" />
@@ -240,37 +246,11 @@
                     <p:column headerText="Executado">
                         <h:outputLabel value="${item.valorExecutado}" />
                     </p:column>
-                    <p:column headerText="Qtd. Exec.">
-                        <h:outputLabel value="${item.quantidadeExecutada}" />
-                    </p:column>
-                    <p:column headerText="Saldo">
-                        <h:outputLabel value="${item.saldo}" />
-                    </p:column>
                     <p:column  rendered="#{projetoController.alteraDadosGerais}" headerText="Remover" >
-                        <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeOrcamento()}">
-                            <f:setPropertyActionListener target="#{projetoController.orcamento}" value="#{item}" />
+                        <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeFinanciamento()}">
+                            <f:setPropertyActionListener target="#{projetoController.financiamento}" value="#{item}" />
                         </p:commandButton>
                     </p:column>
-                </p:dataTable>
-            </p:tab>
-
-            <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoExecucaoOrcamentaria')}" 
-                   title="Gastos">
-                <h:panelGrid columns="4">
-                    <h:outputLabel value="Item do Orçamento:" />
-                    <p:selectOneMenu id="txtExecucaoOrcamento"  value="${projetoController.execucao.orcamento}" 
-                                     converter="${orcamentoConverter}" required="false">
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                        <f:selectItems value="${projetoController.entidade.orcamento}"/>
-                    </p:selectOneMenu>
-                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     action="${projetoController.addOrcamento()}" 
-                                     update="txtExecucaoOrcamento tblGastos" /> 
-
-                </h:panelGrid>
-                <p:dataTable id="tblGastos" value="${projetoController.entidade.orcamento}" 
-                             var="item" emptyMessage="Registros não Encontrados!" >
-
                 </p:dataTable>
             </p:tab>
 

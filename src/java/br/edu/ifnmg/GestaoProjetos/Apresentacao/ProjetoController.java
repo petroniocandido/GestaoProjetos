@@ -18,9 +18,9 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Orcamento;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.OrcamentoExecucao;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Financiamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -43,8 +43,7 @@ public class ProjetoController
     Documento documento;
     Atividade atividade;
     AtividadeAcompanhamento acompanhamento;
-    Orcamento orcamento;
-    OrcamentoExecucao execucao;
+    Financiamento financiamento;
     ProjetoSituacao[] situacoesProjeto;
     AtividadeSituacao[] situacoesAtividade;
 
@@ -57,8 +56,7 @@ public class ProjetoController
         atividade = new Atividade();
         documento = new Documento();
         acompanhamento = new AtividadeAcompanhamento();
-        orcamento = new Orcamento();
-        execucao = new OrcamentoExecucao();
+        financiamento = new Financiamento();
     }
     
     Boolean admin;
@@ -215,28 +213,25 @@ public class ProjetoController
     }
 
 
-    public void addOrcamento() {
-        getEntidade().addOrcamento(orcamento);
-        SalvarAgregado(orcamento);
-        orcamento = new Orcamento();
+    public void addFinanciamento() {
+        getEntidade().addFinanciamento(financiamento);
+        SalvarAgregado(financiamento);
+        financiamento = new Financiamento();
     }
 
-    public void removeOrcamento() {
-        getEntidade().removeOrcamento(orcamento);
-        RemoverAgregado(orcamento);
-        orcamento = new Orcamento();
+    public void removeFinanciamento() {
+        getEntidade().removeFinanciamento(financiamento);
+        RemoverAgregado(financiamento);
+        financiamento = new Financiamento();
     }
-
-    public void addExecucao() {
-        orcamento.add(execucao);
-        SalvarAgregado(execucao);
-        execucao = new OrcamentoExecucao();
-    }
-
-    public void removeExecucao() {
-        orcamento.remove(execucao);
-        RemoverAgregado(execucao);
-        execucao = new OrcamentoExecucao();
+    
+    
+    ProjetoTipo[] tipos;
+    public ProjetoTipo[] getTiposProjeto() {
+        if (tipos == null) {
+            tipos = ProjetoTipo.values();
+        }
+        return tipos;
     }
     
     public ProjetoSituacao[] getSituacoesProjeto() {
@@ -253,21 +248,14 @@ public class ProjetoController
         return situacoesAtividade;
     }
 
-    public Orcamento getOrcamento() {
-        return orcamento;
+    public Financiamento getFinanciamento() {
+        return financiamento;
     }
 
-    public void setOrcamento(Orcamento orcamento) {
-        this.orcamento = orcamento;
+    public void setFinanciamento(Financiamento orcamento) {
+        this.financiamento = orcamento;
     }
 
-    public OrcamentoExecucao getExecucao() {
-        return execucao;
-    }
-
-    public void setExecucao(OrcamentoExecucao execucao) {
-        this.execucao = execucao;
-    }
 
     public AtividadeAcompanhamento getAcompanhamento() {
         return acompanhamento;
