@@ -9,6 +9,7 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,10 +40,19 @@ public class GrupoPesquisa implements Entidade, Serializable {
     
     private String sigla;
     
+    @Column(length = 500)
     private String nome;
+    
+    @Column(length = 500)
+    private String linkCNPQ;
     
     @Lob
     private String descricao;
+    
+    private Boolean multicampi;
+    
+    @OneToOne
+    private Campus campus;
 
     @Override
     public Long getId() {
@@ -83,6 +94,30 @@ public class GrupoPesquisa implements Entidade, Serializable {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
+    }
+
+    public String getLinkCNPQ() {
+        return linkCNPQ;
+    }
+
+    public void setLinkCNPQ(String linkCNPQ) {
+        this.linkCNPQ = linkCNPQ;
+    }
+
+    public Boolean isMulticampi() {
+        return multicampi;
+    }
+
+    public void setMulticampi(Boolean multicampi) {
+        this.multicampi = multicampi;
+    }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
     }
     
     

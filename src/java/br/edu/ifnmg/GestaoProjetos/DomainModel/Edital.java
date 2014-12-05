@@ -48,6 +48,9 @@ public class Edital implements Entidade, Serializable {
     @OneToOne
     private Campus campus;
     
+    @OneToOne
+    private Modalidade modalidade;
+    
     @Temporal(javax.persistence.TemporalType.DATE) 
     private Date lancamentoEdital;
     
@@ -245,6 +248,14 @@ public class Edital implements Entidade, Serializable {
 
     public void setDocumentosObrigatorios(List<DocumentoTipo> documentosObrigatorios) {
         this.documentosObrigatorios = documentosObrigatorios;
+    }
+
+    public Modalidade getModalidade() {
+        return modalidade;
+    }
+
+    public void setModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
     }
     
     

@@ -44,6 +44,8 @@ public class DocumentoTipo implements Serializable, Entidade {
     private boolean preRequisito;
     
     private DocumentoUnidade unidade;
+    
+    private int dataEntrega;
 
     @Override
     public Long getId() {
@@ -102,6 +104,16 @@ public class DocumentoTipo implements Serializable, Entidade {
     public void setUnidade(DocumentoUnidade unidade) {
         this.unidade = unidade;
     }
+
+    public int getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(int dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+    
+    
        
    
     @Override

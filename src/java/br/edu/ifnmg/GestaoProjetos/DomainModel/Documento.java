@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,6 +50,9 @@ public class Documento implements Serializable, Entidade {
     
     @ManyToOne
     private Arquivo arquivo;
+    
+    @Enumerated
+    private DocumentoSituacao situacao;
     
     public Status getStatus() {
         Date hoje = new Date();
@@ -117,6 +121,15 @@ public class Documento implements Serializable, Entidade {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
+
+    public DocumentoSituacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(DocumentoSituacao situacao) {
+        this.situacao = situacao;
+    }
+        
 
     @Override
     public int hashCode() {
