@@ -4,14 +4,15 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import javax.ejb.Local;
 
 /**
  *
- * @author HOME
+ * @author Isla Guedes
  */
 @Local
-public interface TipoDocumentoRepositorio extends Repositorio<DocumentoTipo>   {
+public interface DocumentoRepositorio extends Repositorio<Documento> {
     
 }
+

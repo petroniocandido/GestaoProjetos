@@ -16,14 +16,17 @@
     <h:body>
 
         <h:form acceptcharset="ISO-8859-1" lang="pt_BR"  enctype="multipart/form-data"  >            
-            <img  src="../resources/img/cabecalho.png" style="width: 100%; height: 180px"/>
+            <img  src="../resources/img/cabecalho-aluno.gif" style="width: 100%; height: 180px"/>
             <p:growl id="growl" showDetail="true" sticky="true" />
 
             <p:menubar>
                 <p:menuitem value="Início" url="index.xhtml" />
                 <p:menuitem value="Meus Dados" url="editarDadosPessoais.xhtml" />
                 <p:menuitem value="Editais" url="listagemEditais.xhtml" />
-                <p:menuitem value="Meus Projetos" icon="ui-icon-pencil" url="listagemBolsas.xhtml" />
+                <p:submenu label="Meus Projetos" icon="ui-icon-pencil" >
+                    <p:menuitem value="Projetos" icon="ui-icon-pencil" url="listagemBolsas.xhtml" />
+                    <p:menuitem value="Documentos" icon="ui-icon-pencil" url="listagemDocumentos.xhtml" />
+                </p:submenu>
 
                 <p:submenu label="Relatórios" icon="ui-icon-pencil" >
                     <p:menuitem value="Relat 1"  />     

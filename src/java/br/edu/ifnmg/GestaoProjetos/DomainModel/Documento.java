@@ -37,6 +37,9 @@ public class Documento implements Serializable, Entidade {
     private Pessoa pessoa;
     
     @ManyToOne
+    private Projeto projeto;
+    
+    @ManyToOne
     private Pessoa funcionarioRecebedor;
     
     @ManyToOne
@@ -57,12 +60,14 @@ public class Documento implements Serializable, Entidade {
     public Status getStatus() {
         Date hoje = new Date();
         
-        if(hoje.after(dataPrevista) && dataEfetiva == null && funcionarioRecebedor == null)
-            return Status.Pendente;
+        if(situacao == DocumentoSituacao.Pendente && hoje.before(dataPrevista))
+            return Status.Regular;
         
-        return Status.Regular;
+        if(situacao == DocumentoSituacao.Aprovado)
+            return Status.Regular;
+        
+        return Status.Pendente;
     }
-    
     
     @Override
     public Long getId() {
@@ -129,6 +134,14 @@ public class Documento implements Serializable, Entidade {
     public void setSituacao(DocumentoSituacao situacao) {
         this.situacao = situacao;
     }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
         
 
     @Override
@@ -165,9 +178,6 @@ public class Documento implements Serializable, Entidade {
         return true;
     }
     
-    
-    
-
     @Override
     public String toString() {
         return tipoDocumento.getSigla();

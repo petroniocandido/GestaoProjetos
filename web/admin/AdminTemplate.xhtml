@@ -15,7 +15,7 @@
     <h:body>
 
         <h:form acceptcharset="ISO-8859-1" lang="pt_BR"  enctype="multipart/form-data"  >            
-            <img  src="../resources/img/cabecalho.png" style="width: 100%; height: 180px"/>
+            <img  src="../resources/img/cabecalho-administrador.gif" style="width: 100%; height: 180px"/>
             <p:growl id="growl" showDetail="true" sticky="true" />
 
             <p:menubar>
@@ -37,6 +37,7 @@
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemProjetos.xhtml')}" value="Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemBolsas.xhtml')}" value="Bolsas" icon="ui-icon-pencil" url="listagemBolsas.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemFinanciamentos.xhtml')}" value="Financiamentos" icon="ui-icon-pencil" url="listagemFinanciamentos.xhtml" />
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemDocumentos.xhtml')}" value="Documentos" icon="ui-icon-pencil" url="listagemDocumentos.xhtml" />
                 </p:submenu>
 
                 <p:submenu label="Relatórios" icon="ui-icon-pencil" >

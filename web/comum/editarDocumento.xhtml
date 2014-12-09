@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <p:panel>
+        <f:facet name="header">
+            Editar Documento 
+        </f:facet>
+        <p:tabView id="tabView">  
+            <p:tab title="Dados Gerais">  
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Situação:" />
+                    <p:selectOneMenu value="#{documentoController.entidade.situacao}">
+                        <f:selectItems value="${documentoController.situacoes}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Status:" />
+                    <h:outputLabel value="#{documentoController.entidade.status}" />
+                    
+                    <h:outputLabel value="Tipo de Documento*:" />                   
+                    <p:selectOneMenu value="${documentoController.entidade.tipoDocumento}" 
+                                     converter="${tipoDocumentoConverter}" required="true" >
+                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                        <f:selectItems value="${documentoController.tipos}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Projeto*:" />                             
+                    <p:autoComplete  converter="#{projetoConverter}" value="#{documentoController.entidade.projeto}"
+                                     completeMethod="#{projetoConverter.autoCompleteProjeto}"
+                                     var="item" itemLabel="#{item.titulo}" itemValue="#{item}">
+                        #{item.titulo}
+                    </p:autoComplete>
+                    
+                    <h:outputLabel value="Responsável:" />                 
+                    <p:autoComplete converter="#{usuarioConverter}" value="#{documentoController.entidade.pessoa}"
+                                    completeMethod="#{usuarioConverter.autoCompletePessoa}" 
+                                    var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                        #{item.nome}
+                    </p:autoComplete>
+
+                    <h:outputLabel value="Previsão de Entrega*:" />
+                    <p:calendar value="${documentoController.entidade.dataPrevista}" required="true"
+                                pattern="dd/MM/yyyy" locale="pt_BR" />  
+
+                    <h:outputLabel value="Entrega Efetiva*:" />
+                    <p:calendar value="${documentoController.entidade.dataEfetiva}" required="false"
+                                pattern="dd/MM/yyyy" locale="pt_BR" />  
+
+                </h:panelGrid>
+            </p:tab>
+            
+            <p:tab title="Arquivo">  
+            </p:tab>
+  
+            <ui:include src="tabSeguranca.xhtml">
+                <ui:param name="controller" value="#{documentoController}"  />
+            </ui:include>
+        </p:tabView>
+        <ui:include src="botoesEntidade.xhtml">
+            <ui:param name="controller" value="#{documentoController}"  />
+        </ui:include>
+        (*) Campos de Preenchimento Obrigatório
+    </p:panel>
+</ui:composition>

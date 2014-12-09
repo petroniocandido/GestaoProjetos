@@ -75,7 +75,7 @@ public class Projeto implements Entidade, Serializable {
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
     private List<AreaConhecimento> areaConhecimento;
 
-    @ManyToMany(cascade = CascadeType.ALL,targetEntity = Documento.class)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto", targetEntity = Documento.class)
     private List<Documento> documentos;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Financiamento.class)

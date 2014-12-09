@@ -98,9 +98,7 @@ public class Bolsa implements Entidade, Serializable {
             cronogramaAtividade.remove(a);
         }
     }
-    
-    
-    
+       
     public void addAtividadeAcompanhamento(AtividadeAcompanhamento a) {
         if(a == null) return;
         if (!acompanhamentoAtividades.contains(a)) {
@@ -118,6 +116,7 @@ public class Bolsa implements Entidade, Serializable {
     public void addDocumento(Documento d) {
         if(d == null) return;
         if (!documentos.contains(d)) {
+            d.setProjeto(this.projeto);
             documentos.add(d);
         }
     }
@@ -146,10 +145,12 @@ public class Bolsa implements Entidade, Serializable {
         return true;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -162,7 +163,7 @@ public class Bolsa implements Entidade, Serializable {
         this.agenciaFinanciadora = agenciaFinanciadora;
     }
     
-        public Edital getEdital() {
+    public Edital getEdital() {
         return edital;
     }
 
