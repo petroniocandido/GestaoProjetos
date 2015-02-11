@@ -46,7 +46,7 @@ public class Projeto implements Entidade, Serializable {
     @Column(length = 1500)
     private String titulo;
 
-    private int numeroCadastro;
+    private String numeroCadastro;
 
     @ManyToOne
     private GrupoPesquisa grupoPesquisa;
@@ -257,11 +257,11 @@ public class Projeto implements Entidade, Serializable {
         this.titulo = titulo;
     }
 
-    public int getNumeroCadastro() {
+    public String getNumeroCadastro() {
         return numeroCadastro;
     }
 
-    public void setNumeroCadastro(int numeroCadastro) {
+    public void setNumeroCadastro(String numeroCadastro) {
         this.numeroCadastro = numeroCadastro;
     }
 
@@ -529,7 +529,7 @@ public class Projeto implements Entidade, Serializable {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.id);
         hash = 23 * hash + Objects.hashCode(this.titulo);
-        hash = 23 * hash + this.numeroCadastro;
+        hash = 23 * hash + Objects.hashCode(this.numeroCadastro);
         hash = 23 * hash + Objects.hashCode(this.campus);
         return hash;
     }

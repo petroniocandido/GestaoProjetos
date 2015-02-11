@@ -16,8 +16,12 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.BolsaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -51,15 +55,6 @@ public class BolsaController
         acompanhamento = new AtividadeAcompanhamento();
     }
 
-    Boolean admin;
-
-    public boolean isAdmin() {
-        if (admin == null) {
-            admin = getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Pessoa;
-        }
-        return admin;
-    }
-
     Boolean alteraDadosGerais;
 
     public boolean isAlteraDadosGerais() {
@@ -81,6 +76,14 @@ public class BolsaController
     @EJB
     ModalidadeRepositorio daoModalidade;
 
+    @EJB
+    ProjetoRepositorio daoProjeto;
+
+    @EJB
+    CampusRepositorio daoCampus;
+
+    Campus campus;
+
     @Override
     public Bolsa getFiltro() {
         if (filtro == null) {
@@ -88,6 +91,17 @@ public class BolsaController
             filtro.setAgenciaFinanciadora((AgenciaFinanciadora) getSessao("prctrl_agencia", daoAgencia));
             filtro.setEdital((Edital) getSessao("prctrl_edital", daoEdital));
             filtro.setModalidade((Modalidade) getSessao("prctrl_modalidade", daoModalidade));
+
+            filtro.setProjeto((Projeto) getSessao("prctrl_proj", daoProjeto));
+            if (filtro.getProjeto() == null) {
+                filtro.setProjeto(new Projeto());
+                if (isSuperAdmin()) {
+                    setCampus((Campus) getSessao("prctrl_campus", daoCampus));
+                } else {
+                    setCampus(getUsuarioCorrente().getCampus());
+                }
+                filtro.getProjeto().setCampus(getCampus());
+            }
 
         }
         return filtro;
@@ -100,6 +114,9 @@ public class BolsaController
             setSessao("prctrl_agencia", filtro.getAgenciaFinanciadora());
             setSessao("prctrl_edital", filtro.getEdital());
             setSessao("prctrl_modalidade", filtro.getModalidade());
+            setSessao("prctrl_proj", filtro.getProjeto());
+            setSessao("prctrl_campus", getCampus());
+            
         }
     }
 
@@ -206,4 +223,14 @@ public class BolsaController
     public void setAcompanhamento(AtividadeAcompanhamento acompanhamento) {
         this.acompanhamento = acompanhamento;
     }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
+    
+    
 }

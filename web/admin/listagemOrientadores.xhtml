@@ -19,7 +19,7 @@
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
                                 <h:outputLabel value="Campus do IFNMG*:" />
-                                <p:selectOneMenu value="${orientadoController.filtro.campus}" label="Campus" 
+                                <p:selectOneMenu value="${orientadoController.filtro.campus}" disabled="#{not projetoController.superAdmin}" 
                                                  converter="${campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${campusController.listagem}"/>

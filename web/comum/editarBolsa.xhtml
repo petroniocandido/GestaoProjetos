@@ -15,7 +15,8 @@
                 <h:panelGrid columns="2">
 
                     <h:outputLabel value="Situação:" />
-                    <p:selectOneMenu value="#{bolsaController.entidade.situacao}" disabled="#{not bolsaController.admin}">
+                    <p:selectOneMenu value="#{bolsaController.entidade.situacao}" required="true" disabled="#{not bolsaController.admin}"
+                                     requiredMessage="O campo situação é obrigatório!">
                         <f:selectItems value="${bolsaController.situacoesProjeto}"/>
                     </p:selectOneMenu>
 
@@ -26,7 +27,8 @@
                     <p:autoComplete  converter="#{projetoConverter}" value="#{bolsaController.entidade.projeto}"
                                      completeMethod="#{projetoConverter.autoCompleteProjeto}"
                                      var="item" itemLabel="#{item.titulo}" itemValue="#{item}"
-                                      disabled="#{not bolsaController.alteraDadosGerais}">
+                                      disabled="#{not bolsaController.alteraDadosGerais}"
+                                      required="true" requiredMessage="O campo projeto é obrigatório!">
                         #{item.titulo}
                     </p:autoComplete>
                     
@@ -34,13 +36,15 @@
 
                     <p:autoComplete converter="#{alunoConverter}" value="#{bolsaController.entidade.orientando}"
                                     completeMethod="#{alunoConverter.autoCompleteAluno}" 
-                                    var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                                    var="item" itemLabel="#{item.nome}" itemValue="#{item}"
+                                    required="true" requiredMessage="O campo orientando é obrigatório!">
                         #{item.nome}
                     </p:autoComplete>
 
                     <h:outputLabel value="Modalidade*:" />                   
                     <p:selectOneMenu value="${bolsaController.entidade.modalidade}" label="Modalidade"  disabled="#{not bolsaController.admin}"
-                                     converter="${modalidadeConverter}" required="false" >
+                                     converter="${modalidadeConverter}"  
+                                     required="true" requiredMessage="O campo modalidade é obrigatório!">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                         <f:selectItems value="${modalidadeController.listagem}"/>
 
@@ -48,7 +52,8 @@
 
                     <h:outputLabel value="Agência Financiadora*:" />                    
                     <p:selectOneMenu value="${bolsaController.entidade.agenciaFinanciadora}" label="agenciaFinanciadora" 
-                                     converter="${agenciaFinanciadoraConverter}" required="false"  disabled="#{not bolsaController.admin}" >
+                                     converter="${agenciaFinanciadoraConverter}"  disabled="#{not bolsaController.admin}" 
+                                     required="true" requiredMessage="O campo agência financiadora é obrigatório!">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                         <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
                     </p:selectOneMenu>
@@ -62,12 +67,14 @@
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Data de Início*:" />
-                    <p:calendar value="${bolsaController.entidade.dataInicio}" required="false"
-                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not bolsaController.alteraDadosGerais}"/>  
+                    <p:calendar value="${bolsaController.entidade.dataInicio}" 
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not bolsaController.alteraDadosGerais}"
+                                required="true" requiredMessage="O campo data de início é obrigatório!"/>  
 
                     <h:outputLabel value="Data de Término*:" />
-                    <p:calendar value="${bolsaController.entidade.dataTermino}" required="false"
-                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not bolsaController.alteraDadosGerais}"/>  
+                    <p:calendar value="${bolsaController.entidade.dataTermino}"
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not bolsaController.alteraDadosGerais}"
+                                required="true" requiredMessage="O campo data término é obrigatório!"/>  
 
                 </h:panelGrid>
             </p:tab>

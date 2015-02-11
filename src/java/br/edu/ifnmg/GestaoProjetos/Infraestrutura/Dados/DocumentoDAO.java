@@ -24,11 +24,16 @@ public class DocumentoDAO
 
     @Override
     public List<Documento> Buscar(Documento filtro) {
-        return IgualA("id", filtro.getId())
+        IgualA("id", filtro.getId())
                 .IgualA("tipoDocumento", filtro.getTipoDocumento())
-                .IgualA("pessoa", filtro.getPessoa())
-                .IgualA("projeto", filtro.getProjeto())
-                .IgualA("situacao", filtro.getSituacao())
+                .IgualA("pessoa", filtro.getPessoa());
+
+        if (filtro.getProjeto() != null && filtro.getProjeto().getId() != null && filtro.getProjeto().getId() > 0) {
+            IgualA("projeto", filtro.getProjeto());
+        } else if (filtro.getProjeto() != null) {
+            Join("projeto", "p").IgualA("p.campus", filtro.getProjeto().getCampus());
+        }
+        return IgualA("situacao", filtro.getSituacao())
                 .Buscar();
     }
 

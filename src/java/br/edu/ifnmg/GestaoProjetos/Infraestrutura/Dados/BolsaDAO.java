@@ -26,8 +26,13 @@ public class BolsaDAO
 
     @Override
     public List<Bolsa> Buscar(Bolsa filtro) {
+        if (filtro.getProjeto() != null && filtro.getProjeto().getId() != null && filtro.getProjeto().getId() > 0) {
+            IgualA("projeto", filtro.getProjeto());
+        } else if (filtro.getProjeto() != null) {
+            Join("projeto", "p").IgualA("p.campus", filtro.getProjeto().getCampus());
+        }
+        
         return IgualA("id", filtro.getId())
-                .IgualA("projeto", filtro.getProjeto())
                 .IgualA("modalidade", filtro.getModalidade())
                 .IgualA("edital", filtro.getEdital())
                 .IgualA("orientando", filtro.getOrientando())

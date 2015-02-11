@@ -5,15 +5,14 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
-import static br.edu.ifnmg.GestaoProjetos.DomainModel.Documento_.arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.DocumentoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
@@ -50,20 +49,36 @@ public class DocumentoController
     @EJB
     ProjetoRepositorio daoProjeto;
     
+    @EJB
+    CampusRepositorio daoCampus;
+    
     List<DocumentoTipo> tipos;
     
     DocumentoSituacao[] situacoes;
+    
+    Campus campus;
     
     @Override
     public Documento getFiltro() {
         if (filtro == null) {
             filtro = new Documento();
             filtro.setPessoa((Pessoa)getSessao("docctrl_pessoa", daoPessoa));
-            filtro.setProjeto((Projeto)getSessao("docctrl_proj", daoProjeto));
             filtro.setTipoDocumento((DocumentoTipo)getSessao("docctrl_tipo", daoTipo));
             filtro.setDataPrevista(getSessaoData("docctrl_dtprevista"));            
             filtro.setDataEfetiva(getSessaoData("docctrl_dtprevista"));
-            filtro.setSituacao(DocumentoSituacao.valueOf(getSessao("docctrl_sit")));
+            String tmp = getSessao("docctrl_sit");
+            filtro.setSituacao(tmp == null ? null : DocumentoSituacao.valueOf(tmp));
+            
+            filtro.setProjeto((Projeto) getSessao("docctrl_proj", daoProjeto));
+            if (filtro.getProjeto() == null) {
+                filtro.setProjeto(new Projeto());
+                if (isSuperAdmin()) {
+                    setCampus((Campus) getSessao("docctrl_campus", daoCampus));
+                } else {
+                    setCampus(getUsuarioCorrente().getCampus());
+                }
+                filtro.getProjeto().setCampus(getCampus());
+            }
         }
         return filtro;
     }
@@ -73,11 +88,13 @@ public class DocumentoController
         this.filtro = filtro;
         if (filtro != null) {
             setSessao("docctrl_pessoa", filtro.getPessoa());
-            setSessao("docctrl_proj", filtro.getProjeto());
             setSessao("docctrl_tipo", filtro.getTipoDocumento());
             setSessao("docctrl_dtprevista",filtro.getDataPrevista());            
             setSessao("docctrl_dtprevista",filtro.getDataEfetiva());
-            setSessao("docctrl_sit",filtro.getSituacao().name());
+            if(filtro.getSituacao() != null)
+                setSessao("docctrl_sit",filtro.getSituacao().toString());
+            setSessao("docctrl_proj", filtro.getProjeto());
+            setSessao("docctrl_campus", getCampus());
         }
     }
 
@@ -89,6 +106,7 @@ public class DocumentoController
         else
             setPaginaEdicao("visualizarDocumento.xhtml");
         setPaginaListagem("listagemEditais.xhtml");
+        setCampus(new Campus());
     }
     
     @Override
@@ -124,7 +142,12 @@ public class DocumentoController
             situacoes = DocumentoSituacao.values();
         return situacoes;
     }
-    
-    
 
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
 }

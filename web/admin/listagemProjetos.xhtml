@@ -21,7 +21,7 @@
                                 <h:outputLabel value="Título:" />
                                 <p:inputText value="${projetoController.filtro.titulo}"/>
                                 <h:outputLabel value="Campus:" />
-                                <p:selectOneMenu value="${projetoController.filtro.campus}" label="Campus" 
+                                <p:selectOneMenu value="${projetoController.filtro.campus}" label="Campus" disabled="#{not projetoController.superAdmin}" 
                                                  converter="${campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${campusController.listagem}"/>

@@ -14,8 +14,8 @@
             <p:tab title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="Situação:" />
-                    <p:selectOneMenu value="#{documentoController.entidade.situacao}">
+                    <h:outputLabel value="Situação*:" />
+                    <p:selectOneMenu value="#{documentoController.entidade.situacao}" required="true">
                         <f:selectItems value="${documentoController.situacoes}"/>
                     </p:selectOneMenu>
 
@@ -31,14 +31,14 @@
 
                     <h:outputLabel value="Projeto*:" />                             
                     <p:autoComplete  converter="#{projetoConverter}" value="#{documentoController.entidade.projeto}"
-                                     completeMethod="#{projetoConverter.autoCompleteProjeto}"
+                                     completeMethod="#{projetoConverter.autoCompleteProjeto}"  required="true"
                                      var="item" itemLabel="#{item.titulo}" itemValue="#{item}">
                         #{item.titulo}
                     </p:autoComplete>
                     
-                    <h:outputLabel value="Responsável:" />                 
+                    <h:outputLabel value="Responsável*:" />                 
                     <p:autoComplete converter="#{usuarioConverter}" value="#{documentoController.entidade.pessoa}"
-                                    completeMethod="#{usuarioConverter.autoCompletePessoa}" 
+                                    completeMethod="#{usuarioConverter.autoCompletePessoa}"  required="true"
                                     var="item" itemLabel="#{item.nome}" itemValue="#{item}">
                         #{item.nome}
                     </p:autoComplete>
@@ -47,7 +47,7 @@
                     <p:calendar value="${documentoController.entidade.dataPrevista}" required="true"
                                 pattern="dd/MM/yyyy" locale="pt_BR" />  
 
-                    <h:outputLabel value="Entrega Efetiva*:" />
+                    <h:outputLabel value="Entrega Efetiva:" />
                     <p:calendar value="${documentoController.entidade.dataEfetiva}" required="false"
                                 pattern="dd/MM/yyyy" locale="pt_BR" />  
 

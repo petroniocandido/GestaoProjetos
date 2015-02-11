@@ -59,13 +59,6 @@ public class ProjetoController
         financiamento = new Financiamento();
     }
     
-    Boolean admin;
-    public boolean isAdmin() {
-        if(admin == null){
-            admin = getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Pessoa;
-        }
-        return admin;
-    }
     
     Boolean alteraDadosGerais;
     public boolean isAlteraDadosGerais() {
@@ -75,7 +68,6 @@ public class ProjetoController
         }
         return alteraDadosGerais;
     }
-    
     
 
     @EJB

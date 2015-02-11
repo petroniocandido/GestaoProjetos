@@ -22,16 +22,15 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "alunoController")
 @RequestScoped
-public class AlunoController 
-    extends ControllerBasePessoa<Aluno> implements Serializable {
-    
-    
+public class AlunoController
+        extends ControllerBasePessoa<Aluno> implements Serializable {
+
     @EJB
     AlunoRepositorio dao;
-    
+
     @EJB
     CampusRepositorio daoCampus;
-    
+
     @Override
     public Aluno getFiltro() {
         if (filtro == null) {
@@ -39,9 +38,12 @@ public class AlunoController
             filtro.setNome(getSessao("alctrl_nome"));
             filtro.setCpf(getSessao("alctrl_cpf"));
             filtro.setEmail(getSessao("alctrl_email"));
-            filtro.setCampus((Campus)getSessao("alctrl_campus",daoCampus));
-            if(filtro.getCampus() == null){
-                filtro.setCampus(getUsuarioCorrente().getCampus());
+            if (isSuperAdmin()) {
+                filtro.setCampus((Campus) getSessao("alctrl_campus", daoCampus));
+            } else {
+                if (filtro.getCampus() == null) {
+                    filtro.setCampus(getUsuarioCorrente().getCampus());
+                }
             }
         }
         return filtro;
@@ -52,9 +54,9 @@ public class AlunoController
         this.filtro = filtro;
         if (filtro != null) {
             setSessao("alctrl_nome", filtro.getNome());
-            setSessao("alctrl_cpf",filtro.getCpf());
-            setSessao("alctrl_email",filtro.getEmail());
-            setSessao("alctrl_campus",filtro.getCampus());
+            setSessao("alctrl_cpf", filtro.getCpf());
+            setSessao("alctrl_email", filtro.getEmail());
+            setSessao("alctrl_campus", filtro.getCampus());
         }
     }
 
@@ -63,15 +65,15 @@ public class AlunoController
         setRepositorio(dao);
         setPaginaEdicao("editarAluno.xhtml");
         setPaginaListagem("listagemAlunos.xhtml");
-        if(getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Aluno){
+        if (getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Aluno) {
             setEntidade(getAlunoCorrente());
             setPaginaListagem("index.xhtml");
         }
     }
-    
+
     @Override
     public void limpar() {
         setEntidade(new Aluno());
     }
-    
+
 }

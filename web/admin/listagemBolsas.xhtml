@@ -18,6 +18,12 @@
                     <p:accordionPanel styleClass="teste">
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
+                                 <h:outputLabel value="Campus:" />
+                                <p:selectOneMenu value="${bolsaController.campus}" disabled="#{not bolsaController.superAdmin}"
+                                                 converter="${campusConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${campusController.listagem}"/>
+                                </p:selectOneMenu>
                                 <h:outputLabel value="Projeto*:" />                             
                                 <p:autoComplete  converter="#{projetoConverter}" value="#{bolsaController.filtro.projeto}"
                                                  completeMethod="#{projetoConverter.autoCompleteProjeto}"

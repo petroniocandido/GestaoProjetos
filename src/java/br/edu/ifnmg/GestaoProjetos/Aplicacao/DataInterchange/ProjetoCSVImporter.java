@@ -86,7 +86,7 @@ public class ProjetoCSVImporter extends CSVImporter<Projeto> {
             }
         }
         if (cabecalho.containsKey("NumeroCadastro")) {
-            int num = Integer.parseInt(colunas[cabecalho.get("NumeroCadastro")]);
+            String num = colunas[cabecalho.get("NumeroCadastro")];
             obj.setNumeroCadastro(num);
         }
         if (cabecalho.containsKey("ValorFinanciamento")) {

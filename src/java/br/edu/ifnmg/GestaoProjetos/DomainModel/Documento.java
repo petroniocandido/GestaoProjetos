@@ -56,11 +56,15 @@ public class Documento implements Serializable, Entidade {
     
     @Enumerated
     private DocumentoSituacao situacao;
-    
+
+    public Documento() {
+        this.situacao = DocumentoSituacao.Pendente;
+    }
+       
     public Status getStatus() {
         Date hoje = new Date();
         
-        if(situacao == DocumentoSituacao.Pendente && hoje.before(dataPrevista))
+        if(situacao == DocumentoSituacao.Pendente && dataPrevista != null && hoje.before(dataPrevista))
             return Status.Regular;
         
         if(situacao == DocumentoSituacao.Aprovado)

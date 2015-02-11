@@ -27,8 +27,8 @@
                         <f:selectItems value="${projetoController.tiposProjeto}"/>
                     </p:selectOneMenu>
 
-                    <h:outputLabel value="Número de Cadastro*:" />
-                    <p:inputText value="${projetoController.entidade.numeroCadastro}" disabled="#{not projetoController.alteraDadosGerais}"/>                      
+                    <h:outputLabel value="Número de Cadastro:" />
+                    <p:inputText value="${projetoController.entidade.numeroCadastro}" disabled="#{not projetoController.alteraDadosGerais}"/>
 
                     <h:outputLabel value="Título*:" />
                     <p:inputTextarea value="${projetoController.entidade.titulo}" cols="100" rows="4" required="true" 
@@ -222,8 +222,7 @@
                     </p:selectOneMenu>
                     <p:commandButton  value="Adicionar" icon="ui-icon-check" 
                                       action="${projetoController.addOrcamento()}" 
-                                      update="txtOrcamentoDataInicio txtOrcamentoDataTermino txtOrcamentoDescricao 
-                                      txtOrcamentoVlrUn txtOrcamentoVlrTot tblOrcamento" /> 
+                                      update="txtOrcamentoDataInicio txtOrcamentoDataTermino txtOrcamentoVlrUn txtOrcamentoVlrTot tblOrcamento" /> 
                 </h:panelGrid>
                 <p:dataTable id="tblOrcamento" value="${projetoController.entidade.financiamentos}" 
                              var="item" emptyMessage="Registros não Encontrados!" >
@@ -264,9 +263,6 @@
                     </p:column>
                     <p:column headerText="Ag. Financiadora">
                         ${item.agenciaFinanciadora}
-                    </p:column>
-                    <p:column  headerText="Projeto">
-                        ${item.projeto}
                     </p:column>
                     <p:column  headerText="Bolsista">
                         ${item.orientando}
