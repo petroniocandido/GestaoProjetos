@@ -14,39 +14,41 @@
  *   You should have received a copy of the GNU General Public License
  *   along with SGEA.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.edu.ifnmg.GestaoProjetos.Infraestrutura;
+
+package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Mensagem;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.MensagemPerfil;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MailService;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MensagemPerfilRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MensagemRepositorio;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import java.util.List;
+import javax.ejb.Singleton;
 
+/**
+ *
+ * @author petronio
+ */
+@Singleton
+public class MensagemDAO 
+    extends DAOGenerico<Mensagem> 
+    implements MensagemRepositorio {
 
-@Stateless
-public class MailServiceImpl implements MailService {
-
-    @EJB
-    MensagemRepositorio dao;
+    public MensagemDAO(){
+        super(Mensagem.class);
+    }
     
-    @EJB
-    MensagemPerfilRepositorio daoPerfil;
+    @Override
+    public List<Mensagem> Buscar(Mensagem filtro) {
+       return IgualA("destinatario", filtro.getDestinatario())
+                .IgualA("assunto", filtro.getAssunto())
+                .Buscar();
+               
+    } 
     
     @Override
-    public boolean enviar(String destinatario, String assunto, String corpo) {
-        return dao.Salvar(new Mensagem(destinatario, assunto, corpo, daoPerfil.getPadrao()));
+    public List<Mensagem> porPerfil(MensagemPerfil perfil) {
+         return IgualA("perfil", perfil)
+                .Buscar();
     }
-
-    @Override
-    public boolean enviar(Mensagem m) {
-        return dao.Salvar(m);
-    }
-
-    @Override
-    public boolean enviar(String destinatario, String assunto, String corpo, MensagemPerfil perfil) {
-        return dao.Salvar(new Mensagem(destinatario, assunto, corpo, perfil));
-    }
-
+    
+    
 }
