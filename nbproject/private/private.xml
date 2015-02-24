@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/comum/editarAluno.xhtml</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/coordenador/editarDadosPessoais.xhtml</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/Apresentacao/BolsaController.java</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/comum/editarBolsa.xhtml</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/coordenador/listagemEditais.xhtml</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/Infraestrutura/Dados/BolsaDAO.java</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/admin/editarAluno.xhtml</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/comum/editarCoordenador.xhtml</file>
-            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/DomainModel/Documento.java</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/web/admin/listagemOrientadores.xhtml</file>
+            <file>file:/home/petronio/dados/NetBeansProjects/GestaoProjetos/src/java/br/edu/ifnmg/GestaoProjetos/Apresentacao/MensagemController.java</file>
         </group>
     </open-files>
 </project-private>

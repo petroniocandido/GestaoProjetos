@@ -24,7 +24,7 @@
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${campusController.listagem}"/>
                                 </p:selectOneMenu>
-                                
+
                                 <h:outputLabel value="CPF:" />
                                 <p:inputText value="${alunoController.filtro.cpf}"/>  
 
@@ -45,24 +45,31 @@
                             </ui:include>
                         </p:tab>
                     </p:accordionPanel>
+                    <p:tabView id="tabView">
+                        <p:tab title="Listagem">
+                            <p:dataTable value="#{alunoController.dataModel}" var="item" selectionMode="single"
+                                         paginator="true" rows="30"  lazy="true" 
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
-                    <p:dataTable value="#{alunoController.dataModel}" var="item" selectionMode="single"
-                                 paginator="true" rows="30"  lazy="true" 
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
+                                <p:ajax event="rowSelect" listener="#{alunoController.onRowSelect}" />
+                                <p:column sortBy="matricula" headerText="CPF">
+                                    ${item.cpf}
+                                </p:column>
 
-                        <p:ajax event="rowSelect" listener="#{alunoController.onRowSelect}" />
-                        <p:column sortBy="matricula" headerText="CPF">
-                            ${item.cpf}
-                        </p:column>
+                                <p:column sortBy="nome" headerText="Nome">
+                                    ${item.nome}
+                                </p:column>
 
-                        <p:column sortBy="nome" headerText="Nome">
-                            ${item.nome}
-                        </p:column>
-
-                        <p:column sortBy="email" headerText="E-mail">
-                            ${item.email}
-                        </p:column>
-                    </p:dataTable>
+                                <p:column sortBy="email" headerText="E-mail">
+                                    ${item.email}
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <ui:include src="../comum/tabEnviarMensagem.xhtml">
+                            <ui:param name="controller" value="#{usuarioController}"  />
+                            <ui:param name="destinatarios" value="#{usuarioController.pessoas}"  />
+                        </ui:include>
+                    </p:tabView>
                 </p:panel>
             </ui:define>
         </ui:composition>

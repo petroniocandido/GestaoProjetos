@@ -35,7 +35,7 @@ public class PessoaController
 
     @EJB
     PessoaRepositorio dao;
-    
+
     @EJB
     CampusRepositorio daoCampus;
 
@@ -53,8 +53,8 @@ public class PessoaController
             filtro.setNome(getSessao("pctrl_nome"));
             filtro.setCpf(getSessao("pctrl_cpf"));
             filtro.setEmail(getSessao("pctrl_email"));
-            filtro.setCampus((Campus)getSessao("pctrl_campus",daoCampus));
-            if(filtro.getCampus() == null){
+            filtro.setCampus((Campus) getSessao("pctrl_campus", daoCampus));
+            if (filtro.getCampus() == null) {
                 filtro.setCampus(getUsuarioCorrente().getCampus());
             }
         }
@@ -68,7 +68,7 @@ public class PessoaController
             setSessao("pctrl_nome", filtro.getNome());
             setSessao("pctrl_cpf", filtro.getCpf());
             setSessao("pctrl_email", filtro.getEmail());
-            setSessao("pctrl_campus",filtro.getCampus());
+            setSessao("pctrl_campus", filtro.getCampus());
         }
     }
 
@@ -78,9 +78,13 @@ public class PessoaController
     }
 
     public List<Pessoa> getPessoas() {
-        List<Pessoa> tmp = new ArrayList<>();
-        tmp.add(entidade);
-        return tmp;
+        if (getEntidade() != null) {
+            List<Pessoa> tmp = new ArrayList<>();
+            tmp.add(entidade);
+            return tmp;
+        } else {
+            return getListagem();
+        }
     }
 
 }

@@ -41,7 +41,8 @@
                 </p:submenu>
 
                 <p:submenu label="Relatórios" icon="ui-icon-pencil" >
-                    <p:menuitem value="Relat 1"  />     
+                    <p:menuitem value="Declaração Coordenador"  />     
+                    <p:menuitem value="Declaração Bolsista"  />     
                 </p:submenu>
 
                 <p:submenu rendered="#{autenticacaoController.autorizacao('admin/Seguranca')}" label="Segurança">
@@ -49,6 +50,10 @@
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemConfiguracoes.xhtml')}" value="Configurações" url="listagemConfiguracoes.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemPerfis.xhtml')}" value="Perfis" url="listagemPerfis.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemPermissoes.xhtml')}" value="Permissões"  url="listagemPermissoes.xhtml" />
+                    <p:submenu label="E-mails">
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemMensagens.xhtml')}" value="Mensagens pendentes"  url="listagemMensagens.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemMensagensPerfis.xhtml')}" value="Perfis de Mensagens"  url="listagemMensagensPerfis.xhtml" />
+                    </p:submenu>
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemLogs.xhtml')}" value="Logs" url="listagemLogs.xhtml"  />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/importaCSV.xhtml')}" value="Importar CSV" url="importaCSV.xhtml"  />
 

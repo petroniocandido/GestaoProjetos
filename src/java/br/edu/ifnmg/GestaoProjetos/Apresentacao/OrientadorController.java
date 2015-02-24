@@ -8,11 +8,14 @@ import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBasePessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -96,5 +99,13 @@ public class OrientadorController
         entidade.removeAreaConhecimento(areaConhecimento);
         dao.Salvar(entidade);
         areaConhecimento = new AreaConhecimento();
+    }
+    
+     public List<Pessoa> getPessoas() {
+        List<Pessoa> pessoas = new ArrayList<>();
+        for(Pessoa i : getListagem())
+            pessoas.add(i);
+        
+        return pessoas;
     }
 }
