@@ -34,7 +34,7 @@
                     <p:inputTextarea value="${projetoController.entidade.titulo}" cols="100" rows="4" required="true" 
                                      disabled="#{not projetoController.alteraDadosGerais}"/>
 
-                    <h:outputLabel value="Nome do Coordenador*:" />                             
+                    <h:outputLabel value="Coordenador:" />                             
                     <p:autoComplete  converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
                                      completeMethod="#{orientadorConverter.autoCompleteOrientador}"
                                      var="item" itemLabel="#{item.nome}" itemValue="#{item}"

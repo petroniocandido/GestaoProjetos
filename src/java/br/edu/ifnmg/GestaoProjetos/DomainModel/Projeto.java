@@ -127,7 +127,7 @@ public class Projeto implements Entidade, Serializable {
 
     private boolean projetoMulticampi;
     
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "projeto", targetEntity = Bolsa.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "projeto", targetEntity = Bolsa.class)
     private List<Bolsa> bolsas;
     
     @Enumerated(EnumType.STRING)

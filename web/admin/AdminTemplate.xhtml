@@ -34,6 +34,7 @@
                 </p:submenu>
 
                 <p:submenu label="Projetos" icon="ui-icon-pencil" >
+                    <p:menuitem value="Cadastro Rápido" icon="ui-icon-pencil" url="cadastroRapidoProjeto.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemProjetos.xhtml')}" value="Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemBolsas.xhtml')}" value="Bolsas" icon="ui-icon-pencil" url="listagemBolsas.xhtml" />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemFinanciamentos.xhtml')}" value="Financiamentos" icon="ui-icon-pencil" url="listagemFinanciamentos.xhtml" />
