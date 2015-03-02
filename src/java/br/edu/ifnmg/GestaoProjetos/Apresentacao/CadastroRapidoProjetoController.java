@@ -5,26 +5,38 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBase;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoSituacao;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoTipo;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.BolsaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.DocumentoRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 /**
@@ -32,7 +44,7 @@ import javax.inject.Inject;
  * @author Isla Guedes
  */
 @Named(value = "cadastroRapidoProjetoController")
-@RequestScoped
+@SessionScoped
 public class CadastroRapidoProjetoController
         extends ControllerBase implements Serializable {
 
@@ -66,6 +78,21 @@ public class CadastroRapidoProjetoController
 
     @EJB
     DocumentoRepositorio daoDocumento;
+    
+    @EJB
+    CampusRepositorio daoCampus;
+    
+    @EJB
+    ModalidadeRepositorio daoModalidade;
+    
+    @EJB
+    AgenciaFinanciadoraRepositorio daoAgenciaFinanciadora;
+    
+    @EJB
+    EditalRepositorio daoEdital;
+    
+    @EJB
+    TipoDocumentoRepositorio daoTipoDocumento;
 
     @Inject
     HashService hash;
@@ -250,6 +277,59 @@ public class CadastroRapidoProjetoController
 
     public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
         this.areaConhecimento = areaConhecimento;
+    }
+    
+    private List<Campus> campus;
+    
+    public List<Campus> getCampus() {
+        if(campus == null){
+            campus = daoCampus.Ordenar("nome", "ASC").Buscar();
+        }
+        return campus;
+    }
+    
+    ProjetoTipo[] tipos;
+    public ProjetoTipo[] getTiposProjeto() {
+        if (tipos == null) {
+            tipos = ProjetoTipo.values();
+        }
+        return tipos;
+    }
+    
+    private List<Modalidade> modalidades;
+    
+    public List<Modalidade> getModalidades() {
+        if(modalidades == null){
+            modalidades = daoModalidade.Ordenar("nome", "ASC").Buscar();
+        }
+        return modalidades;
+    }
+    
+    private List<AgenciaFinanciadora> agenciasFinanciadoras;
+    
+    public List<AgenciaFinanciadora> getAgenciaFinanciadoras() {
+        if(agenciasFinanciadoras == null){
+            agenciasFinanciadoras = daoAgenciaFinanciadora.Ordenar("nome", "ASC").Buscar();
+        }
+        return agenciasFinanciadoras;
+    }
+    
+    private List<Edital> editais;
+    
+    public List<Edital> getEditais() {
+        if(editais == null){
+            editais = daoEdital.Ordenar("sigla", "ASC").Buscar();
+        }
+        return editais;
+    }
+    
+    private List<DocumentoTipo> tiposDocumento;
+    
+    public List<DocumentoTipo> getTiposDocumentos() {
+        if(tiposDocumento == null){
+            tiposDocumento = daoTipoDocumento.Ordenar("nome", "ASC").Buscar();
+        }
+        return tiposDocumento;
     }
 
 }

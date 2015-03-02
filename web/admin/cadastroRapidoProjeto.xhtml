@@ -22,25 +22,18 @@
                                 <p:selectOneMenu value="#{cadastroRapidoProjetoController.projeto.campus}"
                                                  converter="${campusConverter}" >
                                     <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                                    <f:selectItems value="${campusController.listagem}"/>
+                                    <f:selectItems value="${cadastroRapidoProjetoController.campus}"/>
 
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="Tipo:" />                    
                                 <p:selectOneMenu value="#{cadastroRapidoProjetoController.projeto.tipo}" required="true" >
-                                    <f:selectItems value="${projetoController.tiposProjeto}"/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.tiposProjeto}"/>
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="Título:" />
                                 <p:inputTextarea value="#{cadastroRapidoProjetoController.projeto.titulo}" cols="100" rows="4" required="true" />
-
-                                <h:outputLabel value="Data de Início:" />
-                                <p:calendar value="#{cadastroRapidoProjetoController.projeto.dataInicio}" required="false"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
-
-                                <h:outputLabel value="Data de Término:" />
-                                <p:calendar value="#{cadastroRapidoProjetoController.projeto.dataTermino}" required="false"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+                                
                             </h:panelGrid>
                         </p:tab>  
                         <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}" title="Áreas de Conhecimento" >
@@ -134,41 +127,49 @@
                                 <h:outputLabel value="Modalidade:" />                   
                                 <p:selectOneMenu value="#{cadastroRapidoProjetoController.bolsa.modalidade}" converter="${modalidadeConverter}">
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${modalidadeController.listagem}"/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.modalidades}"/>
 
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="Agência Financiadora:" />                    
                                 <p:selectOneMenu value="#{cadastroRapidoProjetoController.bolsa.agenciaFinanciadora}" converter="${agenciaFinanciadoraConverter}" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
+                                    <f:selectItems value="${cadastroRapidoProjetoController.agenciaFinanciadoras}"/>
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="Edital:" />                    
-                                <p:selectOneMenu value="${bolsaController.entidade.edital}" converter="${editalConverter}">
+                                <p:selectOneMenu value="${cadastroRapidoProjetoController.entidade.edital}" converter="${editalConverter}">
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${editalController.listagem}"/>
-
+                                    <f:selectItems value="${cadastroRapidoProjetoController.editais}"/>
                                 </p:selectOneMenu>
+                                
+                                <h:outputLabel value="Data de Início:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.bolsa.dataInicio}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+
+                                <h:outputLabel value="Data de Término:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.bolsa.dataTermino}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+                                
                                 <p:commandButton  ajax="false" value="Salvar Novo" action="${cadastroRapidoProjetoController.salvarBolsa()}" style="margin:0" />
                             </h:panelGrid>
                         </p:tab>
                         <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}"  title="Documentos">
                             <h:panelGrid columns="3">
                                 <h:outputLabel value="Tipo de Documento:" />                   
-                                <p:selectOneMenu value="${cadastroRapidoProjetoController.documento.tipoDocumento}" 
-                                                 converter="${tipoDocumentoConverter}" >
+                                <p:selectOneMenu value="#{cadastroRapidoProjetoController.documento.tipoDocumento}" 
+                                                 converter="#{tipoDocumentoConverter}" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${documentoController.tipos}"/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.tiposDocumentos}"/>
                                 </p:selectOneMenu>
 
                                 <p:commandButton  value="Adicionar" icon="ui-icon-check" 
-                                                  action="${cadastroRapidoProjetoController.addDocumento()}" style="margin:0"
+                                                  action="#{cadastroRapidoProjetoController.addDocumento()}" style="margin:0"
                                                   update="tblDocumento "/>
 
                             </h:panelGrid>
 
-                            <p:dataTable id="tblDocumento"  value="${cadastroRapidoProjetoController.projeto.documentos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblDocumento"  value="#{cadastroRapidoProjetoController.projeto.documentos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column  headerText="Documentos" >
                                     ${item}
                                 </p:column>                                                   

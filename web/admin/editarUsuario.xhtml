@@ -19,6 +19,13 @@
                     <p:tabView id="tabView">  
                         <p:tab id="tabDados" title="Dados Gerais">  
                             <h:panelGrid columns="2" cellpadding="3">
+                                <h:outputLabel value="Campus:" />           
+                                <p:selectOneMenu value="${usuarioController.entidade.campus}" label="Campus"
+                                                 converter="${campusConverter}" required="true" 
+                                                 requiredMessage="O campo campus é obrigatório!" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="${campusController.listagem}"/>
+                                </p:selectOneMenu>
                                 <h:outputText value="Nome: " />
                                 <p:inputText value="#{usuarioController.entidade.nome}" 
                                              required="true" requiredMessage="O campo nome é obrigatório" />
@@ -32,7 +39,8 @@
                                 <p:inputMask value="#{usuarioController.entidade.telefone}" 
                                              mask="(99) 9999-9999" />
                                 <h:outputText value="Data de Nascimento: " />
-                                <p:calendar value="#{usuarioController.entidade.dataNascimento}" />
+                                <p:calendar value="#{usuarioController.entidade.dataNascimento}" 
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
 
                             </h:panelGrid> 
                         </p:tab>

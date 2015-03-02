@@ -38,13 +38,12 @@
                                      requiredMessage="O campo campus é obrigatório!" >
                         <f:selectItem itemLabel="Selecione..." itemValue=""/>
                         <f:selectItems value="${campusController.listagem}"/>
-
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Data de Nascimento*:" />
                     <p:calendar value="${alunoController.entidade.dataNascimento}" required="true"
                                 requiredMessage="O campo data de nascimento é obrigatório!"
-                                label="Data de Nascimento" pattern="dd/MM/yyyy" />                   
+                                pattern="dd/MM/yyyy" locale="pt_BR" />                   
 
                     <h:outputLabel value="Naturalidade-UF*:" />
                     <p:inputText value="${alunoController.entidade.naturalidadeUF}" maxlength="2" /> 

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemBolsas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55034d4c-5486-459b-966c-f9020a03f7fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="41"/>
+	<field name="edital" class="java.lang.Object"/>
+	<field name="modalidade" class="java.lang.Object"/>
+	<field name="agenciaFinanciadora" class="java.lang.Object"/>
+	<field name="orientando.nome" class="java.lang.String"/>
+	<field name="orientando.cpf" class="java.lang.String"/>
+	<field name="orientando.email" class="java.lang.String"/>
+	<field name="orientando.dataNascimento" class="java.util.Date"/>
+	<field name="projeto.titulo" class="java.lang.String"/>
+	<field name="projeto.palavrasChave" class="java.lang.String"/>
+	<field name="projeto.areasConhecimento" class="java.util.Collection"/>
+	<field name="projeto.campus" class="java.lang.Object"/>
+	<field name="projeto.coordenador.nome" class="java.lang.String"/>
+	<field name="projeto.coordenador.cpf" class="java.lang.String"/>
+	<field name="projeto.coordenador.email" class="java.lang.String"/>
+	<field name="projeto.coordenador.lattes" class="java.lang.String"/>
+	<field name="projeto.coordenador.dataNascimento" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="30" uuid="7443f5a9-b4be-424b-84b9-82037473bcb2"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[INFORMAÇÕES NECESSÁRIAS PARA A IMPLEMENTAÇÃO DE BOLSAS IC –
+PIBIC-EM/ CNPq]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="271" height="20" uuid="d1706ea9-9028-4c8a-9f34-89b33c61b0d4"/>
+				<textFieldExpression><![CDATA[""+$F{projeto.campus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="16eed03c-20e8-4862-8f5b-203078a2869e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Campus:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="84d20cd3-7189-477e-ac4a-45c9656ea191"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modalidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="20" width="271" height="20" uuid="7acfaafa-c204-407f-925f-6ef2f7a246ac"/>
+				<textFieldExpression><![CDATA[""+$F{modalidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="373" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="30" width="555" height="29" uuid="8eacfb3a-7ea4-45c0-ad50-56603016da5c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROJETO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="59" width="385" height="20" uuid="52b8e409-686d-4582-830e-bc5f49d7ffca"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{projeto.titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="59" width="100" height="20" uuid="c2abd340-8ac2-4f4e-bf86-e345996c8c22"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="80" width="385" height="20" uuid="e3ea166b-69fb-42b6-867d-4e11e4eca813"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{projeto.palavrasChave}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="79" width="100" height="20" uuid="1c085a87-a885-420b-ac0d-6442a879dd38"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Palavras Chave]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="100" width="385" height="20" uuid="0aa4ba1d-74e1-4435-b9dd-6c4bb64eabc1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[""+$F{projeto.areasConhecimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="100" width="100" height="20" uuid="11ae845c-a48d-4a44-9cba-e496aa65a90b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Áreas Conhecimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="555" height="29" uuid="eaccbd5a-406a-4372-9b53-a30969958c36"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BOLSISTA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="150" width="385" height="20" uuid="876efe8d-1e53-47cf-b429-dfb44c45e561"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orientando.nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="150" width="100" height="20" uuid="0b4c14f9-1436-47b2-9abb-bbdb2e4e73ec"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="169" width="385" height="20" uuid="f439b61a-016c-4c37-8e5b-84a8aee331df"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orientando.cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="169" width="100" height="20" uuid="2b612ac5-5948-4f4f-af10-13a7984a25fd"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="190" width="385" height="20" uuid="5aa1947b-3544-41e1-a82c-e47c1e19c7fc"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orientando.email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="190" width="100" height="20" uuid="cbc7b22a-3b9e-4d20-9949-7992c93d42d3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="210" width="385" height="20" uuid="98113bde-61de-4726-8ebf-db7a2c05565e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orientando.dataNascimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="210" width="100" height="20" uuid="043ccbd7-9475-49b0-949e-3ad33f378117"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Data Nasc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="231" width="555" height="29" uuid="ef0a0459-d70a-4b6a-8922-8a356fc44b0a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORIENTADOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="260" width="385" height="20" uuid="af3988d7-f2a8-4766-826d-75f633740cd5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projeto.coordenador.nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="260" width="100" height="20" uuid="6c90c538-647b-4c45-9d01-b904eee93075"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="280" width="385" height="20" uuid="5744da5a-affa-4917-899f-0cef8c3e8c4e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projeto.coordenador.cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="280" width="100" height="20" uuid="911272d5-2787-43c1-ae45-c7c05f2caf50"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="300" width="385" height="20" uuid="c6360582-1fd2-4536-9f34-c6db49fc7b70"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projeto.coordenador.email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="300" width="100" height="20" uuid="ab812314-a960-46b3-a60d-22f318f7bc4d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="320" width="385" height="20" uuid="82249b0c-aeaa-4589-93c6-845c6b06d6aa"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projeto.coordenador.dataNascimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="320" width="100" height="20" uuid="8312d6b2-aaf8-4088-8908-5140ddbc5d0a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Data Nasc.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="340" width="385" height="20" uuid="0483e985-2c65-4d6e-abac-d8aa3db614ae"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projeto.coordenador.lattes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="340" width="100" height="20" uuid="eea632eb-8480-4c20-a1bd-4458335d0302"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Lattes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="29" backcolor="#A09999" uuid="66da5ff8-dc2f-4814-b494-b717bc0d5b92"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bolsa Nº]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
