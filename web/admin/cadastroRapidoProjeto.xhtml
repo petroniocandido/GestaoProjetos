@@ -49,17 +49,16 @@
                                 <p:inputText  value="${cadastroRapidoProjetoController.projeto.palavrasChave}" style="width: 100%"/>
                             </h:panelGrid>
                             <h:panelGrid columns="3">
-                                <h:outputLabel value="Area de Conhecimento*:" />           
-                                <p:selectOneMenu  id="txtareaConhecimento" value="${cadastroRapidoProjetoController.areaConhecimento}" 
-                                                  converter="${areaConhecimentoConverter}">
-                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                                    <f:selectItems value="${areaConhecimentoController.listagem}"/>
-
-                                </p:selectOneMenu>
+                                <h:outputLabel value="Area de Conhecimento:" />   
+                                <p:autoComplete id="txtAreaConhecimento" converter="#{areaConhecimentoConverter}" value="#{cadastroRapidoProjetoController.areaConhecimento}"
+                                                completeMethod="#{areaConhecimentoConverter.autoCompleteAreaConhecimento}"
+                                                var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                                    #{item}
+                                </p:autoComplete>
 
                                 <p:commandButton  value="Adicionar" icon="ui-icon-check" 
                                                   action="${cadastroRapidoProjetoController.addAreaConhecimento()}" style="margin:0"
-                                                  update="tblAreaConhecimento txtareaConhecimento"/>
+                                                  update="tblAreaConhecimento txtAreaConhecimento"/>
 
                             </h:panelGrid>
 
@@ -97,7 +96,11 @@
                                 <h:outputLabel value="Curriculum Lattes:" />
                                 <p:inputText value="${cadastroRapidoProjetoController.orientador.lattes}" required="false"/> 
 
-                                <p:commandButton  value="Salvar Novo" action="${cadastroRapidoProjetoController.salvarOrientador()}" style="margin:0" />
+                                <h:outputLabel value="Data de Nascimento:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.orientador.dataNascimento}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+
+                                <p:commandButton ajax="false"  value="Salvar Novo" action="${cadastroRapidoProjetoController.salvarOrientador()}" style="margin:0" />
                             </h:panelGrid>
 
                         </p:tab>  
@@ -110,16 +113,20 @@
                                     #{item.nome}
                                 </p:autoComplete>
 
-                                <h:outputLabel value="Nome Completo*:" />
+                                <h:outputLabel value="Nome Completo:" />
                                 <p:inputText value="${cadastroRapidoProjetoController.aluno.nome}"  style="width: 100%"/>   
 
                                 <h:outputText value="E-Mail (Login): " />
                                 <p:inputText value="#{cadastroRapidoProjetoController.aluno.email}" />
 
-                                <h:outputLabel value="CPF*:" />
+                                <h:outputLabel value="CPF:" />
                                 <p:inputMask value="${cadastroRapidoProjetoController.aluno.cpf}" mask="999.999.999-99"/>
 
-                                <p:commandButton  value="Salvar Novo" action="${cadastroRapidoProjetoController.salvarAluno()}" style="margin:0" />
+                                <h:outputLabel value="Data de Nascimento:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.aluno.dataNascimento}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+
+                                <p:commandButton ajax="false" value="Salvar Novo" action="${cadastroRapidoProjetoController.salvarAluno()}" style="margin:0" />
                             </h:panelGrid>
                         </p:tab>
                         <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}"  title="Bolsa">
@@ -143,11 +150,36 @@
                                     <f:selectItems value="${editalController.listagem}"/>
 
                                 </p:selectOneMenu>
-                                <p:commandButton  value="Salvar Novo" action="${cadastroRapidoProjetoController.salvarBolsa()}" style="margin:0" />
+                                <p:commandButton  ajax="false" value="Salvar Novo" action="${cadastroRapidoProjetoController.salvarBolsa()}" style="margin:0" />
                             </h:panelGrid>
                         </p:tab>
                         <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}"  title="Documentos">
+                            <h:panelGrid columns="3">
+                                <h:outputLabel value="Tipo de Documento:" />                   
+                                <p:selectOneMenu value="${cadastroRapidoProjetoController.documento.tipoDocumento}" 
+                                                 converter="${tipoDocumentoConverter}" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${documentoController.tipos}"/>
+                                </p:selectOneMenu>
 
+                                <p:commandButton  value="Adicionar" icon="ui-icon-check" 
+                                                  action="${cadastroRapidoProjetoController.addDocumento()}" style="margin:0"
+                                                  update="tblDocumento "/>
+
+                            </h:panelGrid>
+
+                            <p:dataTable id="tblDocumento"  value="${cadastroRapidoProjetoController.projeto.documentos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column  headerText="Documentos" >
+                                    ${item}
+                                </p:column>                                                   
+
+                                <p:column  headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover"  action="#{cadastroRapidoProjetoController.removeDocumento()}">
+                                        <f:setPropertyActionListener target="#{cadastroRapidoProjetoController.documento}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
                         </p:tab> 
                     </p:tabView>
                     <f:facet name="footer">

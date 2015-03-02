@@ -9,6 +9,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
@@ -214,6 +215,25 @@ public class CadastroRapidoProjetoController
     public void setBolsa(Bolsa bolsa) {
         this.bolsa = bolsa;
         setSessao("bolsa", bolsa);
+    }
+    
+    public void addDocumento() {
+        Rastrear(documento);
+        documento.setDataCriacao(new Date());
+        documento.setDataEfetiva(new Date());
+        documento.setDataPrevista(new Date());
+        documento.setProjeto(getProjeto());
+        documento.setFuncionarioRecebedor(getUsuarioCorrente());
+        documento.setSituacao(DocumentoSituacao.Entregue);
+        getProjeto().addDocumento(documento);
+        daoProjeto.Salvar(projeto);
+        documento = new Documento();
+    }
+
+    public void removeDocumento() {
+        getProjeto().removeDocumento(documento);
+        daoProjeto.Salvar(projeto);
+        documento = new Documento();
     }
 
     public Documento getDocumento() {
