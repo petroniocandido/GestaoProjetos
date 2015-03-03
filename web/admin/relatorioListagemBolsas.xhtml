@@ -30,12 +30,11 @@
                         Relatório de Listagem de Bolsas
                     </f:facet>
                     <p:panelGrid columns="2">
-                        <h:outputText value="Edital: " />
-                        <p:autoComplete converter="#{editalConverter}" value="#{listagemBolsasController.filtro.edital}"
-                                        completeMethod="#{editalConverter.autoCompleteEdital}" 
-                                        var="item" itemLabel="#{item.nome}" itemValue="#{item}">
-                            <p:column>#{item.nome}</p:column>
-                        </p:autoComplete>                        
+                        <h:outputLabel value="Edital:" />                    
+                        <p:selectOneMenu value="${listagemBolsasController.filtro.edital}" converter="${editalConverter}">
+                            <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                            <f:selectItems value="${editalController.listagem}"/>
+                        </p:selectOneMenu>                    
                     </p:panelGrid>
                     <p:commandButton value="Gerar Relatório" ajax="false"  action="#{listagemBolsasController.executaRelatorioPDF}" />
                 </p:panel>

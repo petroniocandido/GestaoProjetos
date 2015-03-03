@@ -68,6 +68,8 @@ public class ListagemBolsasController
     @Override
     public List<Bolsa> getDados() {
         return daoBolsa
+                .IgualA("edital", filtro.getEdital())
+                .Ordenar("modalidade", "ASC")
                 .Buscar();
     }
 

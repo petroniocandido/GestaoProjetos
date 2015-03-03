@@ -144,9 +144,9 @@ public class CadastroRapidoProjetoController
     }
 
     public Projeto getProjeto() {
-        if (projeto == null) {
+       /* if (projeto == null) {
             projeto = (Projeto) getSessao("projeto", daoProjeto);
-        }
+        }*/
         if (projeto == null) {
             projeto = new Projeto();
             projeto.setDataInicio(new Date());
@@ -157,13 +157,13 @@ public class CadastroRapidoProjetoController
 
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
-        setSessao("projeto", projeto);
+        //setSessao("projeto", projeto);
     }
 
     public Orientador getOrientador() {
-        if (orientador == null) {
+        /*if (orientador == null) {
             orientador = (Orientador) getSessao("orientador", daoOrientador);
-        }
+        }*/
         if (orientador == null) {
             orientador = new Orientador();
         }
@@ -183,13 +183,13 @@ public class CadastroRapidoProjetoController
 
     public void setOrientador(Orientador orientador) {
         this.orientador = orientador;
-        setSessao("orientador", orientador);
+        //setSessao("orientador", orientador);
     }
 
     public Aluno getAluno() {
-        if (aluno == null) {
+        /*if (aluno == null) {
             aluno = (Aluno) getSessao("aluno", daoAluno);
-        }
+        }*/
         if (aluno == null) {
             aluno = new Aluno();
         }
@@ -211,13 +211,13 @@ public class CadastroRapidoProjetoController
 
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
-        setSessao("aluno", aluno);
+        //setSessao("aluno", aluno);
     }
 
     public Bolsa getBolsa() {
-        if (bolsa == null) {
+        /*if (bolsa == null) {
             bolsa = (Bolsa) getSessao("bolsa", daoBolsa);
-        }
+        }*/
         if (bolsa == null) {
             bolsa = new Bolsa();
         }
@@ -241,7 +241,7 @@ public class CadastroRapidoProjetoController
 
     public void setBolsa(Bolsa bolsa) {
         this.bolsa = bolsa;
-        setSessao("bolsa", bolsa);
+        //setSessao("bolsa", bolsa);
     }
     
     public void addDocumento() {

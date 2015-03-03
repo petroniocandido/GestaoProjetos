@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemBolsas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55034d4c-5486-459b-966c-f9020a03f7fd">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemBolsas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55034d4c-5486-459b-966c-f9020a03f7fd">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="41"/>
+	<property name="ireport.y" value="163"/>
 	<field name="edital" class="java.lang.Object"/>
 	<field name="modalidade" class="java.lang.Object"/>
 	<field name="agenciaFinanciadora" class="java.lang.Object"/>
@@ -12,18 +12,24 @@
 	<field name="orientando.dataNascimento" class="java.util.Date"/>
 	<field name="projeto.titulo" class="java.lang.String"/>
 	<field name="projeto.palavrasChave" class="java.lang.String"/>
-	<field name="projeto.areasConhecimento" class="java.util.Collection"/>
+	<field name="projeto.areaConhecimento" class="java.util.Collection"/>
 	<field name="projeto.campus" class="java.lang.Object"/>
 	<field name="projeto.coordenador.nome" class="java.lang.String"/>
 	<field name="projeto.coordenador.cpf" class="java.lang.String"/>
 	<field name="projeto.coordenador.email" class="java.lang.String"/>
 	<field name="projeto.coordenador.lattes" class="java.lang.String"/>
 	<field name="projeto.coordenador.dataNascimento" class="java.util.Date"/>
+	<variable name="pagina" class="java.lang.Integer" incrementType="Page" calculation="Count">
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<variable name="registro" class="java.lang.Integer" incrementType="Column" calculation="Count">
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="20" width="555" height="30" uuid="7443f5a9-b4be-424b-84b9-82037473bcb2"/>
 				<textElement textAlignment="Center">
@@ -61,7 +67,7 @@ PIBIC-EM/ CNPq]]></text>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="19" splitType="Stretch"/>
+		<band height="12" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="373" splitType="Stretch">
@@ -137,7 +143,7 @@ PIBIC-EM/ CNPq]]></text>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[""+$F{projeto.areasConhecimento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[""+$F{projeto.areaConhecimento}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="70" y="100" width="100" height="20" uuid="11ae845c-a48d-4a44-9cba-e496aa65a90b"/>
@@ -445,13 +451,23 @@ PIBIC-EM/ CNPq]]></text>
 				</textElement>
 				<text><![CDATA[Bolsa Nº]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="314" y="0" width="100" height="30" uuid="5bec2a18-843b-4466-aaa0-3afe2e26d427"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{registro}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="18" width="100" height="20" uuid="ab92f2dd-d0de-4dbf-8708-fca369de286b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{pagina}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
