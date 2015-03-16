@@ -17,7 +17,7 @@
                     <h:outputLabel value="Situação:" />
                     <p:selectOneMenu value="#{bolsaController.entidade.situacao}" required="true" disabled="#{not bolsaController.admin}"
                                      requiredMessage="O campo situação é obrigatório!">
-                        <f:selectItems value="${bolsaController.situacoesProjeto}"/>
+                        <f:selectItems value="#{bolsaController.situacoesProjeto}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Status:" />
@@ -25,9 +25,9 @@
 
                     <h:outputLabel value="Projeto*:" />                             
                     <p:autoComplete  converter="#{projetoConverter}" value="#{bolsaController.entidade.projeto}"
-                                     completeMethod="#{projetoConverter.autoCompleteProjeto}"
+                                     completeMethod="#{projetoConverter.autoCompleteProjeto}" size="140"
                                      var="item" itemLabel="#{item.titulo}" itemValue="#{item}"
-                                      disabled="#{not bolsaController.alteraDadosGerais}"
+                                     disabled="#{not bolsaController.alteraDadosGerais}"
                                       required="true" requiredMessage="O campo projeto é obrigatório!">
                         #{item.titulo}
                     </p:autoComplete>
@@ -35,47 +35,49 @@
                     <h:outputLabel value="Orientando*:" />                 
 
                     <p:autoComplete converter="#{alunoConverter}" value="#{bolsaController.entidade.orientando}"
-                                    completeMethod="#{alunoConverter.autoCompleteAluno}" 
+                                    completeMethod="#{alunoConverter.autoCompleteAluno}"  size="140"
                                     var="item" itemLabel="#{item.nome}" itemValue="#{item}"
+                                    disabled="#{not projetoController.admin}"
                                     required="true" requiredMessage="O campo orientando é obrigatório!">
                         #{item.nome}
                     </p:autoComplete>
 
                     <h:outputLabel value="Modalidade*:" />                   
-                    <p:selectOneMenu value="${bolsaController.entidade.modalidade}" label="Modalidade"  disabled="#{not bolsaController.admin}"
-                                     converter="${modalidadeConverter}"  
+                    <p:selectOneMenu value="#{bolsaController.entidade.modalidade}" label="Modalidade"  
+                                     disabled="#{not bolsaController.admin}"
+                                     converter="#{modalidadeConverter}"  
                                      required="true" requiredMessage="O campo modalidade é obrigatório!">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${modalidadeController.listagem}"/>
-
+                        <f:selectItems value="#{modalidadeController.listagem}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Agência Financiadora*:" />                    
-                    <p:selectOneMenu value="${bolsaController.entidade.agenciaFinanciadora}" label="agenciaFinanciadora" 
-                                     converter="${agenciaFinanciadoraConverter}"  disabled="#{not bolsaController.admin}" 
+                    <p:selectOneMenu value="#{bolsaController.entidade.agenciaFinanciadora}" label="agenciaFinanciadora" 
+                                     converter="#{agenciaFinanciadoraConverter}"  disabled="#{not bolsaController.admin}" 
                                      required="true" requiredMessage="O campo agência financiadora é obrigatório!">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
+                        <f:selectItems value="#{agenciaFinanciadoraController.listagem}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Edital*:" />                    
-                    <p:selectOneMenu value="${bolsaController.entidade.edital}" label="edital"  disabled="#{not bolsaController.admin}"
-                                     converter="${editalConverter}" required="false" >
+                    <p:selectOneMenu value="#{bolsaController.entidade.edital}" label="edital"  
+                                     disabled="#{not bolsaController.admin}"
+                                     converter="#{editalConverter}" required="false" >
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${editalController.listagem}"/>
-
+                        <f:selectItems value="#{editalController.listagem}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Data de Início*:" />
-                    <p:calendar value="${bolsaController.entidade.dataInicio}" 
-                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not bolsaController.alteraDadosGerais}"
+                    <p:calendar value="#{bolsaController.entidade.dataInicio}" 
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  
+                                disabled="#{not bolsaController.alteraDadosGerais}"
                                 required="true" requiredMessage="O campo data de início é obrigatório!"/>  
 
                     <h:outputLabel value="Data de Término*:" />
-                    <p:calendar value="${bolsaController.entidade.dataTermino}"
-                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not bolsaController.alteraDadosGerais}"
+                    <p:calendar value="#{bolsaController.entidade.dataTermino}"
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  
+                                disabled="#{not bolsaController.alteraDadosGerais}"
                                 required="true" requiredMessage="O campo data término é obrigatório!"/>  
-
                 </h:panelGrid>
             </p:tab>
   
@@ -86,52 +88,40 @@
                     <h:outputLabel value="Situação:" />
                     <p:selectOneMenu  id="somCronogramaSituacao" value="#{bolsaController.atividade.situacao}">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${bolsaController.situacoesAtividade}"/>
+                        <f:selectItems value="#{bolsaController.situacoesAtividade}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Descrição:" />
-                    <p:inputTextarea  id="txtCronogramaDescricao" value="${bolsaController.atividade.descricao}" cols="100" rows="4" />
+                    <p:inputTextarea  id="txtCronogramaDescricao" value="#{bolsaController.atividade.descricao}" cols="100" rows="4" />
 
                     <h:outputLabel value="Data Início*:" />
-                    <p:calendar  id="txtCronogramaDataInicio" value="${bolsaController.atividade.dataInicio}" required="false"
+                    <p:calendar  id="txtCronogramaDataInicio" value="#{bolsaController.atividade.dataInicio}" required="false"
                                 label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
                     <h:outputLabel value="Data Fim*:" />
-                    <p:calendar  id="txtCronogramaDataFim" value="${bolsaController.atividade.dataFim}" required="false"
+                    <p:calendar  id="txtCronogramaDataFim" value="#{bolsaController.atividade.dataFim}" required="false"
                                 label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
-                    <h:outputLabel value="Ordem*:" />
-                    <pe:inputNumber  id="txtCronogramaOrdem" value="${bolsaController.atividade.ordem}"
-                                    decimalPlaces="0" decimalSeparator="">
-                        <f:convertNumber integerOnly="true"/>
-                    </pe:inputNumber> 
-
-                    <p:commandButton  value="Adicionar" icon="ui-icon-check" 
-                                     action="${bolsaController.addAtividade()}"
-                                     update="tblAtividades somCronogramaSituacao txtCronogramaDescricao txtCronogramaDataInicio txtCronogramaDataFim 
-                                     txtCronogramaOrdem" /> 
+                    <p:commandButton  value="Adicionar" icon="ui-icon-check" action="#{bolsaController.addAtividade()}" ajax="false"
+                      update="tblAtividades somCronogramaSituacao txtCronogramaDescricao txtCronogramaDataInicio txtCronogramaDataFim" /> 
 
                 </p:panelGrid>
-                <p:dataTable id="tblAtividades" value="${bolsaController.entidade.cronogramaAtividade}" 
+                <p:dataTable id="tblAtividades" value="#{bolsaController.entidade.cronogramaAtividade}" 
                              var="item" emptyMessage="Registros não Encontrados!" 
                              style="font: medium; color: blue">
 
-                    <p:column sortBy="ordem" headerText="Ordem">
-                        ${item.ordem}
+                    <p:column headerText="Descrição">
+                        #{item.descricao}
                     </p:column>
 
-                    <p:column sortBy="descrcao" headerText="Descrição">
-                        ${item.descricao}
-                    </p:column>
-
-                    <p:column sortBy="dataInicio" headerText="Data Início">
-                        <h:outputLabel value="${item.dataInicio}">
+                    <p:column headerText="Data Início">
+                        <h:outputLabel value="#{item.dataInicio}">
                             <f:convertDateTime pattern="MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
 
-                    <p:column sortBy="dataFim" headerText="Data Fim">
-                        <h:outputLabel value="${item.dataFim}">
+                    <p:column headerText="Data Fim">
+                        <h:outputLabel value="#{item.dataFim}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
@@ -142,7 +132,7 @@
                         </p:commandButton>
                     </p:column>
 
-                    <p:column  rendered="#{bolsaController.alteraDadosGerais}" sortBy="remover" headerText="Remover" >
+                    <p:column rendered="#{bolsaController.alteraDadosGerais}" headerText="Remover" >
                         <p:commandButton ajax="false" value="Remover" action="#{bolsaController.removeAtividade()}">
                             <f:setPropertyActionListener target="#{bolsaController.atividade}" value="#{item}" />
                         </p:commandButton>
@@ -156,46 +146,50 @@
                    title="Acompanhamento Atividades">
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Atividade:" />
-                    <p:selectOneMenu id="txtAtividadeAcompanhamento" value="${bolsaController.acompanhamento.atividade}" 
-                                     converter="${atividadeConverter}" required="false">
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                        <f:selectItems value="${bolsaController.entidade.cronogramaAtividade}"/>
+                    <p:selectOneMenu id="txtAtividadeAcompanhamento" 
+                                     value="#{bolsaController.acompanhamento.atividade}" converter="#{atividadeConverter}">
+                        <f:selectItems value="#{bolsaController.cronograma}" />
                     </p:selectOneMenu>
                     <h:outputLabel value="Descrição do trabalho:" />
-                    <p:inputTextarea id="txtDescricaoAcompanhamento" value="${bolsaController.acompanhamento.descricao}" 
+                    <p:inputTextarea id="txtDescricaoAcompanhamento" value="#{bolsaController.acompanhamento.descricao}" 
                                      rows="3" cols="120"/>
                 </h:panelGrid>
                 <h:panelGrid columns="4">
                     <h:outputLabel value="Início:" />
-                    <p:calendar id="txtDataInicioAcompanhamento" value="${bolsaController.acompanhamento.dataInicio}" required="false"
+                    <p:calendar id="txtDataInicioAcompanhamento" value="#{bolsaController.acompanhamento.dataInicio}" required="false"
                                 label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
                     <h:outputLabel value="Termino:" />
-                    <p:calendar id="txtDataTerminoAcompanhamento" value="${bolsaController.acompanhamento.dataFim}" required="false"
+                    <p:calendar id="txtDataTerminoAcompanhamento" value="#{bolsaController.acompanhamento.dataFim}" required="false"
                                 label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
-                    <p:commandButton value="Adicionar" action="#{bolsaController.addAcompanhamento()}" 
+                    <p:commandButton value="Adicionar" action="#{bolsaController.addAcompanhamento()}" ajax="false"
                                      update="txtAtividadeAcompanhamento txtDescricaoAcompanhamento txtDataInicioAcompanhamento 
                                      txtDataTerminoAcompanhamento tblAcompanhamento" />
                 </h:panelGrid>
-                <p:dataTable id="tblAcompanhamento" value="${bolsaController.entidade.acompanhamentoAtividades}" 
+                <p:dataTable id="tblAcompanhamento" value="#{bolsaController.entidade.acompanhamentoAtividades}" 
                              var="item" emptyMessage="Registros não Encontrados!" >
                     <p:column headerText="Início">
-                        <h:outputLabel value="${item.dataInicio}">
+                        <h:outputLabel value="#{item.dataInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
                     <p:column headerText="Atividade">
-                        ${item.atividade}
+                        #{item.atividade}
                     </p:column>
                     <p:column headerText="Descrição">
-                        ${item.descricao}
+                        #{item.descricao}
                     </p:column>
                     <p:column headerText="Participante">
-                        ${item.pessoa}
+                        #{item.pessoa}
                     </p:column>
-                    <p:column sortBy="editar" headerText="Editar">
+                    <p:column>
                         <p:commandButton ajax="false" value="Editar" >
+                            <f:setPropertyActionListener target="#{bolsaController.acompanhamento}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton ajax="false" value="Apagar" action="#{bolsaController.removeAcompanhamento()}" >
                             <f:setPropertyActionListener target="#{bolsaController.acompanhamento}" value="#{item}" />
                         </p:commandButton>
                     </p:column>
@@ -206,46 +200,46 @@
                    title="Documentos">
                 <h:panelGrid  rendered="#{bolsaController.alteraDadosGerais}" columns="4">
                     <h:outputLabel value="Tipo de Documento*:" />
-                    <p:selectOneMenu id="txtTipoDocumento" value="${bolsaController.documento.tipoDocumento}" label="Tipo de Documento"
-                                     converter="${tipoDocumentoConverter}" required="false">
+                    <p:selectOneMenu id="txtTipoDocumento" value="#{bolsaController.documento.tipoDocumento}" label="Tipo de Documento"
+                                     converter="#{tipoDocumentoConverter}" required="false">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                        <f:selectItems value="${tipoDocumentoController.listagem}"/>
+                        <f:selectItems value="#{tipoDocumentoController.listagem}"/>
 
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Data Prevista*:" />
-                    <p:calendar id="txtDataPrevista" value="${bolsaController.documento.dataPrevista}" required="false"
+                    <p:calendar id="txtDataPrevista" value="#{bolsaController.documento.dataPrevista}" required="false"
                                 label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
                     <h:outputLabel value="Data Efetiva*:" />
-                    <p:calendar id="txtDataEfetiva" value="${bolsaController.documento.dataEfetiva}" required="false"
+                    <p:calendar id="txtDataEfetiva" value="#{bolsaController.documento.dataEfetiva}" required="false"
                                 label="Data Efetiva" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
 
                     <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     action="${bolsaController.addDocumento()}" style="margin:0"
+                                     action="#{bolsaController.addDocumento()}" style="margin:0"
                                      update="tblTipoDocumento txtTipoDocumento txtDataPrevista txtDataEfetiva" /> 
 
                 </h:panelGrid>
-                <p:dataTable id="tblTipoDocumento" value="${bolsaController.entidade.documentos}" 
+                <p:dataTable id="tblTipoDocumento" value="#{bolsaController.entidade.documentos}" 
                              var="item" emptyMessage="Registros não Encontrados!" >
 
                     <p:column sortBy="funcionarioRecebedor" headerText="Funcionário Recebedor">
-                        ${item.funcionarioRecebedor}
+                        #{item.funcionarioRecebedor}
                     </p:column>
 
                     <p:column sortBy="tipoDocumento" headerText="Tipo de Documento">
-                        ${item.tipoDocumento}
+                        #{item.tipoDocumento}
                     </p:column>
 
                     <p:column sortBy="dataPrevista" headerText="Data Prevista">
-                        <h:outputLabel value="${item.dataPrevista}">
+                        <h:outputLabel value="#{item.dataPrevista}">
                             <f:convertDateTime pattern="MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
 
                     <p:column sortBy="dataEfetiva" headerText="Data Efetiva">
-                        <h:outputLabel value="${item.dataEfetiva}">
+                        <h:outputLabel value="#{item.dataEfetiva}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>

@@ -55,6 +55,12 @@
                         <p:column sortBy="Orientador" headerText="Orientador">
                             ${item.coordenador}
                         </p:column>
+                        
+                        <p:column >
+                            <h:commandButton value="Cad. Rapido" action="#{projetoController.cadastroRapido()}">
+                                <f:setPropertyActionListener target="#{projetoController.entidade}" value="#{item}" />
+                            </h:commandButton>
+                        </p:column>
                     </p:dataTable>
                 </p:panel>
             </ui:define>

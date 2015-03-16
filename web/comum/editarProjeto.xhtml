@@ -36,9 +36,9 @@
 
                     <h:outputLabel value="Coordenador:" />                             
                     <p:autoComplete  converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
-                                     completeMethod="#{orientadorConverter.autoCompleteOrientador}"
+                                     completeMethod="#{orientadorConverter.autoCompleteOrientador}" size="140"
                                      var="item" itemLabel="#{item.nome}" itemValue="#{item}"
-                                     disabled="#{not projetoController.alteraDadosGerais}">
+                                     disabled="#{not projetoController.admin}">
                         #{item.nome}
                     </p:autoComplete>
 

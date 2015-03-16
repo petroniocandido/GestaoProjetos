@@ -19,6 +19,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AtividadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.BolsaRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
@@ -39,6 +40,9 @@ import javax.enterprise.context.RequestScoped;
 public class BolsaController
         extends ControllerBaseEntidade<Bolsa> implements Serializable {
 
+    @EJB
+    AtividadeRepositorio atividadeDAO;
+    
     Documento documento;
     Atividade atividade;
     AtividadeAcompanhamento acompanhamento;
@@ -191,6 +195,7 @@ public class BolsaController
 
     public void addAcompanhamento() {
         acompanhamento.setPessoa(getUsuarioCorrente());
+        //acompanhamento.setAtividade(atividade);
         getEntidade().addAtividadeAcompanhamento(acompanhamento);
         SalvarAgregado(acompanhamento);
         acompanhamento = new AtividadeAcompanhamento();
@@ -232,5 +237,13 @@ public class BolsaController
         this.campus = campus;
     }
     
+    List<Atividade> cronograma;
+    
+    public List<Atividade> getCronograma() {
+        if(cronograma == null){
+            cronograma = atividadeDAO.IgualA("bolsa", getEntidade()).Buscar();
+        }
+        return cronograma;
+    }
     
 }

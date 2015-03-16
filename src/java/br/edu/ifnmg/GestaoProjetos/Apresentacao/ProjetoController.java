@@ -256,4 +256,14 @@ public class ProjetoController
     public void setAcompanhamento(AtividadeAcompanhamento acompanhamento) {
         this.acompanhamento = acompanhamento;
     }
+    
+    public String cadastroRapido() {
+        setSessao("projeto", this.entidade);
+        setSessao("orientador", this.entidade.getCoordenador());
+        if(this.entidade.getBolsas().size() > 0){
+            setSessao("bolsa", this.entidade.getBolsas().get(0));
+            setSessao("aluno", this.entidade.getBolsas().get(0).getOrientando());
+        }
+        return "cadastroRapidoProjeto.xhtml";
+    }
 }

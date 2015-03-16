@@ -529,7 +529,6 @@ public class Projeto implements Entidade, Serializable {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.id);
         hash = 23 * hash + Objects.hashCode(this.titulo);
-        hash = 23 * hash + Objects.hashCode(this.numeroCadastro);
         hash = 23 * hash + Objects.hashCode(this.campus);
         return hash;
     }
@@ -547,9 +546,6 @@ public class Projeto implements Entidade, Serializable {
             return false;
         }
         if (!Objects.equals(this.titulo, other.titulo)) {
-            return false;
-        }
-        if (this.numeroCadastro != other.numeroCadastro) {
             return false;
         }
         if (!Objects.equals(this.campus, other.campus)) {

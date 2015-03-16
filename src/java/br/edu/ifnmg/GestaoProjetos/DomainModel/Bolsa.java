@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -62,9 +63,11 @@ public class Bolsa implements Entidade, Serializable {
     @ManyToMany(cascade = CascadeType.ALL, targetEntity = Documento.class)
     private List<Documento> documentos;
 
+    @OrderBy("dataInicio asc, dataFim asc")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bolsa", targetEntity = Atividade.class)
-    private List<Atividade> cronogramaAtividade;
+    private List<Atividade> cronograma;
 
+    @OrderBy("dataInicio desc, dataFim desc")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bolsa", targetEntity = AtividadeAcompanhamento.class)
     private List<AtividadeAcompanhamento> acompanhamentoAtividades;
 
@@ -81,26 +84,28 @@ public class Bolsa implements Entidade, Serializable {
         this.situacao = ProjetoSituacao.Cadastrado;
         this.status = Status.Pendente;
         this.documentos = new ArrayList<>();
-        this.cronogramaAtividade = new ArrayList<>();
+        this.cronograma = new ArrayList<>();
         this.acompanhamentoAtividades = new ArrayList<>();
     }
     
     public void addAtividade(Atividade a) {
         if(a == null) return;
-        if (!cronogramaAtividade.contains(a)) {
-            cronogramaAtividade.add(a);
+        a.setBolsa(this);
+        if (!cronograma.contains(a)) {
+            cronograma.add(a);
         }
     }
 
     public void removeAtividade(Atividade a) {
         if(a == null) return;
-        if (cronogramaAtividade.contains(a)) {
-            cronogramaAtividade.remove(a);
+        if (cronograma.contains(a)) {
+            cronograma.remove(a);
         }
     }
        
     public void addAtividadeAcompanhamento(AtividadeAcompanhamento a) {
         if(a == null) return;
+        a.setBolsa(this);
         if (!acompanhamentoAtividades.contains(a)) {
             acompanhamentoAtividades.add(a);
         }
@@ -188,11 +193,11 @@ public class Bolsa implements Entidade, Serializable {
     }
     
     public List<Atividade> getCronogramaAtividade() {
-        return cronogramaAtividade;
+        return cronograma;
     }
 
     public void setCronogramaAtividade(List<Atividade> cronogramaAtividade) {
-        this.cronogramaAtividade = cronogramaAtividade;
+        this.cronograma = cronogramaAtividade;
     }
     
     public Status getStatus() {
@@ -249,17 +254,16 @@ public class Bolsa implements Entidade, Serializable {
     public void setSituacao(ProjetoSituacao situacao) {
         this.situacao = situacao;
     }
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.projeto);
-        hash = 89 * hash + Objects.hashCode(this.edital);
-        hash = 89 * hash + Objects.hashCode(this.modalidade);
-        hash = 89 * hash + Objects.hashCode(this.agenciaFinanciadora);
-        hash = 89 * hash + Objects.hashCode(this.orientando);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.projeto);
+        hash = 79 * hash + Objects.hashCode(this.modalidade);
+        hash = 79 * hash + Objects.hashCode(this.agenciaFinanciadora);
+        hash = 79 * hash + Objects.hashCode(this.dataInicio);
+        hash = 79 * hash + Objects.hashCode(this.dataTermino);
+        hash = 79 * hash + Objects.hashCode(this.orientando);
         return hash;
     }
 
@@ -275,13 +279,16 @@ public class Bolsa implements Entidade, Serializable {
         if (!Objects.equals(this.projeto, other.projeto)) {
             return false;
         }
-        if (!Objects.equals(this.edital, other.edital)) {
-            return false;
-        }
         if (!Objects.equals(this.modalidade, other.modalidade)) {
             return false;
         }
         if (!Objects.equals(this.agenciaFinanciadora, other.agenciaFinanciadora)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataInicio, other.dataInicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataTermino, other.dataTermino)) {
             return false;
         }
         if (!Objects.equals(this.orientando, other.orientando)) {
@@ -289,9 +296,7 @@ public class Bolsa implements Entidade, Serializable {
         }
         return true;
     }
-
-
-
+           
     @Override
     public String toString() {
         return "br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa[ id=" + id + " ]";

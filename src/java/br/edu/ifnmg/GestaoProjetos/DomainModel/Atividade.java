@@ -37,16 +37,18 @@ public class Atividade implements Entidade, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Bolsa bolsa;
 
     @Lob
     @Column(nullable = false)
     private String descricao;
 
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataInicio;
 
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataFim;
 
@@ -139,10 +141,11 @@ public class Atividade implements Entidade, Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.bolsa);
-        hash = 41 * hash + Objects.hashCode(this.descricao);
-        hash = 41 * hash + Objects.hashCode(this.dataInicio);
-        hash = 41 * hash + Objects.hashCode(this.dataFim);
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.bolsa);
+        hash = 79 * hash + Objects.hashCode(this.descricao);
+        hash = 79 * hash + Objects.hashCode(this.dataInicio);
+        hash = 79 * hash + Objects.hashCode(this.dataFim);
         return hash;
     }
 
@@ -155,6 +158,9 @@ public class Atividade implements Entidade, Serializable {
             return false;
         }
         final Atividade other = (Atividade) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         if (!Objects.equals(this.bolsa, other.bolsa)) {
             return false;
         }
@@ -169,9 +175,7 @@ public class Atividade implements Entidade, Serializable {
         }
         return true;
     }
-
     
-
     @Override
     public String toString() {
         return descricao;

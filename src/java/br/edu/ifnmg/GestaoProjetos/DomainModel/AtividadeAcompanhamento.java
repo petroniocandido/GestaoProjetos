@@ -35,22 +35,24 @@ public class AtividadeAcompanhamento implements Entidade, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Bolsa bolsa;
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Atividade atividade;
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Pessoa pessoa;
 
     @Lob
     @Column(nullable = false)
     private String descricao;
 
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataInicio;
 
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataFim;
 

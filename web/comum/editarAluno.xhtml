@@ -17,19 +17,23 @@
                     <p:inputText value="${alunoController.entidade.nome}" required="true" style="width: 100%"
                                  requiredMessage="O campo nome é obrigatório!" />   
 
-                    <h:outputText value="E-Mail (Login): " />
+                    <h:outputText value="E-Mail (Login)*: " />
                     <p:inputText value="#{alunoController.entidade.email}" 
                                  required="true" requiredMessage="O campo e-mail é obrigatório!" />
+                    
+                    <h:outputLabel value="CPF*:" />
+                    <p:inputMask value="${alunoController.entidade.cpf}" label="CPF" 
+                                 required="true" mask="999.999.999-99"
+                                 requiredMessage="O campo cpf é obrigatório!"/>
 
                     <h:outputLabel value="Matrícula*:" />
                     <p:inputText value="${alunoController.entidade.matricula}" />  
 
-                    <h:outputLabel value="Curso*:" />           
+                    <h:outputLabel value="Curso:" />           
                     <p:selectOneMenu value="${alunoController.entidade.curso}" label="Curso"
                                      converter="${cursoConverter}" >
                         <f:selectItem itemLabel="Selecione..." itemValue="" />
                         <f:selectItems value="${cursoController.listagem}"/>
-
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Campus*:" />           
@@ -45,14 +49,11 @@
                                 requiredMessage="O campo data de nascimento é obrigatório!"
                                 pattern="dd/MM/yyyy" locale="pt_BR" />                   
 
-                    <h:outputLabel value="Naturalidade-UF*:" />
-                    <p:inputText value="${alunoController.entidade.naturalidadeUF}" maxlength="2" /> 
-
-                    <h:outputLabel value="Nacionalidade*:" />           
+                    <h:outputLabel value="Nacionalidade:" />           
                     <p:inputText value="${alunoController.entidade.nacionalidade}" />
 
 
-                    <h:outputLabel value="Estado*:" />           
+                    <h:outputLabel value="Estado:" />           
                     <p:inputText value="${alunoController.entidade.estado}" />
 
 
@@ -68,34 +69,29 @@
                 <br/>
                 <h:panelGrid columns="6">
 
-                    <h:outputLabel value="Carteira de identidade*:" />
+                    <h:outputLabel value="Carteira de identidade:" />
                     <p:inputText value="${alunoController.entidade.rg}" />   
 
-                    <h:outputLabel value="Órgão Expeditor*:" />
+                    <h:outputLabel value="Órgão Expeditor:" />
                     <p:inputText value="${alunoController.entidade.orgaoExpeditor}" />                      
 
-                    <h:outputLabel value="Data de Expedição*:" />
+                    <h:outputLabel value="Data de Expedição:" />
                     <p:calendar value="${alunoController.entidade.dataExpedicao}" 
                                 label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/> 
 
-                    <h:outputLabel value="Título Eleitoral*:" />
+                    <h:outputLabel value="Título Eleitoral:" />
                     <p:inputText value="${alunoController.entidade.tituloEleitoral}" />  
 
-                    <h:outputLabel value="Sessão Eleitoral*:" />
+                    <h:outputLabel value="Sessão Eleitoral:" />
                     <p:inputText value="${alunoController.entidade.secaoEleitoral}" />  
 
-                    <h:outputLabel value="Zona Eleitoral*:" />
-                    <p:inputText value="${alunoController.entidade.zonaEleitoral}" /> 
+                    <h:outputLabel value="Zona Eleitoral:" />
+                    <p:inputText value="${alunoController.entidade.zonaEleitoral}" />                     
 
-                    <h:outputLabel value="CPF*:" />
-                    <p:inputMask value="${alunoController.entidade.cpf}" label="CPF" 
-                                 required="false" mask="999.999.999-99"
-                                 requiredMessage="O campo cpf é obrigatório!"/>
-
-                    <h:outputLabel value="Situação Militar*:" />
+                    <h:outputLabel value="Situação Militar:" />
                     <p:inputText value="${alunoController.entidade.situacaoMilitar}" /> 
 
-                    <h:outputLabel value="Certidão Militar*:" />
+                    <h:outputLabel value="Certidão Militar:" />
                     <p:inputText value="${alunoController.entidade.certidaoMilitar}" /> 
 
                 </h:panelGrid> 
@@ -107,13 +103,13 @@
             <p:tab rendered="#{alunoController.entidade.id > 0}"  title="Dados Conta Bancária">
                 <br/>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Banco*:" />
+                    <h:outputLabel value="Banco:" />
                     <p:inputText value="${alunoController.entidade.banco}" /> 
 
-                    <h:outputLabel value="Número da Conta Bancária*:" />
+                    <h:outputLabel value="Número da Conta Bancária:" />
                     <p:inputText value="${alunoController.entidade.contaBancaria}" /> 
 
-                    <h:outputLabel value="Número da Agência*:" />
+                    <h:outputLabel value="Número da Agência:" />
                     <p:inputText value="${alunoController.entidade.agencia}" /> 
 
                 </h:panelGrid>  
@@ -124,29 +120,29 @@
             <p:tab rendered="#{alunoController.entidade.id > 0}" title="Dados dos Pais">
                 <br/>
                 <h:panelGrid columns="4">
-                    <h:outputLabel value="Nome do pai ou responsável*:" /> 
+                    <h:outputLabel value="Nome do pai ou responsável:" /> 
                     <p:inputText value="${alunoController.entidade.nomePai}" /> 
 
-                    <h:outputLabel value="Nome da mãe*:" /> 
+                    <h:outputLabel value="Nome da mãe:" /> 
                     <p:inputText value="${alunoController.entidade.nomeMae}" /> 
 
-                    <h:outputLabel value="Carteira de identidade*:" />
+                    <h:outputLabel value="Carteira de identidade:" />
                     <p:inputText value="${alunoController.entidade.rgPai}" /> 
 
-                    <h:outputLabel value="Carteira de identidade*:" />
+                    <h:outputLabel value="Carteira de identidade:" />
                     <p:inputText value="${alunoController.entidade.rgMae}" /> 
 
-                    <h:outputLabel value="Órgão Expeditor*:" />
+                    <h:outputLabel value="Órgão Expeditor:" />
                     <p:inputText value="${alunoController.entidade.orgaoExpedidorPai}" />
 
-                    <h:outputLabel value="Órgão Expeditor*:" />
+                    <h:outputLabel value="Órgão Expeditor:" />
                     <p:inputText value="${alunoController.entidade.orgaoExpedidorMae}" />
 
-                    <h:outputLabel value="CPF*:" />
+                    <h:outputLabel value="CPF do Pai:" />
                     <p:inputMask value="${alunoController.entidade.cpfPai}" label="CPF" 
                                  required="false" mask="999.999.999-99"/>
 
-                    <h:outputLabel value="CPF*:" />
+                    <h:outputLabel value="CPF:" />
                     <p:inputMask value="${alunoController.entidade.cpfMae}" label="CPF" 
                                  required="false" mask="999.999.999-99"/>
 
@@ -158,16 +154,16 @@
             <p:tab rendered="#{alunoController.entidade.id > 0}" title="Outras informações">
                 <br/>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Trabalha?*:" />  
+                    <h:outputLabel value="Trabalha?:" />  
                     <p:selectOneRadio value="${alunoController.entidade.trabalhoStatus}" required="false" label="trabalho">
                         <f:selectItem itemLabel="Sim" itemValue="S"/>
                         <f:selectItem itemLabel="Não" itemValue="N"/>
                     </p:selectOneRadio>
 
-                    <h:outputLabel value="Local do Trabalho*:" />           
+                    <h:outputLabel value="Local do Trabalho:" />           
                     <p:inputText value="${alunoController.entidade.localTrabalho}" required="false"/>
 
-                    <h:outputLabel value="Telefone*:" />           
+                    <h:outputLabel value="Telefone:" />           
                     <p:selectOneMenu value="${alunoController.entidade.telefone}" label="Telefone" required="false" >
                         <f:selectItem itemLabel="Selecione..." itemValue=""/>
 
@@ -183,7 +179,7 @@
         <ui:include src="botoesEntidade.xhtml">
             <ui:param name="controller" value="#{alunoController}"  />
         </ui:include>
-        (*) Campos de Preenchimento Obrigatório
+        () Campos de Preenchimento Obrigatório
     </p:panel>
 </ui:composition>
 
