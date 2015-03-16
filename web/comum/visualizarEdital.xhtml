@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <p:panel>
+        <f:facet name="header">
+            Edital ${editalController.entidade.sigla}
+        </f:facet>
+        <p:tabView id="tabView">
+            <p:tab id="tabDados" title="Dados Gerais">  
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Número:" />
+                    <p:outputLabel value="${editalController.entidade.numero}" />                      
+
+                    <h:outputLabel value="Agência Financiadora:" />           
+                    <p:outputLabel value="${editalController.entidade.agenciaFinanciadora}" />
+
+                    <h:outputLabel value="Campus do IFNMG:" />                   
+                    <p:outputLabel value="${editalController.entidade.campus}"/>
+                    <h:outputLabel value="Lançamento do Edital:" />
+                    <p:outputLabel value="${editalController.entidade.lancamentoEdital}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:outputLabel> 
+                    <h:outputLabel value="Número de bolsas:" />
+                    <p:outputLabel value="${editalController.entidade.numeroBolsas}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2"> 
+                    <h:outputLabel value="Período de inscrições:" />
+                    <h:outputFormat value="De {0, date, dd/MM/yyyy} à {1, date, dd/MM/yyyy}">
+                        <f:param value="${editalController.entidade.inicioInscricao}" />
+                        <f:param value="${editalController.entidade.terminoInscricao}" />
+                    </h:outputFormat> 
+                    <h:outputLabel value="Divulgação do resultado final:" />
+                    <p:outputLabel value="${editalController.entidade.divulgacaoResultados}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </p:outputLabel> 
+                    <h:outputLabel value="Período para entrada de recursos:" />
+                    <h:outputFormat value="De {0, date, dd/MM/yyyy} à {1, date, dd/MM/yyyy}">
+                        <f:param value="${editalController.entidade.inicioRecursos}" />
+                        <f:param value="${editalController.entidade.terminoRecursos}" />
+                    </h:outputFormat>
+                    <h:outputLabel value="Período de vigência das bolsas:" />
+                    <h:outputFormat value="De {0, date, dd/MM/yyyy} à {1, date, dd/MM/yyyy}">
+                        <f:param value="${editalController.entidade.inicioValidade}" />
+                        <f:param value="${editalController.entidade.terminoValidade}" />
+                    </h:outputFormat>
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Arquivos">
+                <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                    <p:column headerText="Arquivo">
+                        <a href="/arquivos/#{item.uri}">${item}</a>
+                    </p:column>
+                </p:dataTable>
+            </p:tab>
+        </p:tabView>  
+        <p:commandButton value="Criar novo projeto para esse Edital" />
+    </p:panel>       
+</ui:composition>

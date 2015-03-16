@@ -4,15 +4,18 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
-import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBasePessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Email;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -24,25 +27,22 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "orientadorController")
 @RequestScoped
 public class OrientadorController
-        extends ControllerBaseEntidade<Orientador> implements Serializable {
+        extends ControllerBasePessoa<Orientador> implements Serializable {
 
-    Email email;
-    Telefone telefone;
-    Endereco endereco;
     AreaConhecimento areaConhecimento;
 
     /**
      * Creates a new instance of OrientadorController
      */
     public OrientadorController() {
-        email = new Email();
-        telefone = new Telefone();
-        endereco = new Endereco();
         areaConhecimento = new AreaConhecimento();
     }
 
     @EJB
     OrientadorRepositorio dao;
+    
+    @EJB
+    CampusRepositorio daoCampus;
 
     @Override
     public Orientador getFiltro() {
@@ -51,6 +51,10 @@ public class OrientadorController
             filtro.setNome(getSessao("orctrl_nome"));
             filtro.setCpf(getSessao("orctrl_cpf"));
             filtro.setEmail(getSessao("orctrl_email"));
+            filtro.setCampus((Campus)getSessao("orctrl_campus",daoCampus));
+            if(filtro.getCampus() == null){
+                setEntidade(dao.Abrir(getUsuarioCorrente().getId()));
+            }
         }
         return filtro;
     }
@@ -62,6 +66,7 @@ public class OrientadorController
             setSessao("orctrl_nome", filtro.getNome());
             setSessao("orctrl_cpf",filtro.getCpf());
             setSessao("orctrl_email",filtro.getEmail());
+            setSessao("orctrl_campus",filtro.getCampus());
         }
     }
 
@@ -70,6 +75,10 @@ public class OrientadorController
         setRepositorio(dao);
         setPaginaEdicao("editarOrientador.xhtml");
         setPaginaListagem("listagemOrientadores.xhtml");
+        if(getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Orientador){
+            setEntidade(getOrientadorCorrente());
+            setPaginaListagem("index.xhtml");
+        }
     }
 
     @Override
@@ -77,29 +86,6 @@ public class OrientadorController
         setEntidade(new Orientador());
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
-    public Telefone getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(Telefone telefone) {
-        this.telefone = telefone;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 
     public AreaConhecimento getAreaConhecimento() {
         return areaConhecimento;
@@ -109,53 +95,17 @@ public class OrientadorController
         this.areaConhecimento = areaConhecimento;
     }
 
-    //METODOS
-    public void addTelefone() {
-        //entidade = dao.Refresh(entidade.getId());
-        entidade.addTelefone(telefone);
-        dao.Salvar(entidade);
-        telefone = new Telefone();
-    }
-
-    public void addAreaConhecimento() {
-        entidade.addAreaConhecimento(areaConhecimento);
-        dao.Salvar(entidade);
-        areaConhecimento = new AreaConhecimento();
-    }
-
-    public void addEndereco() {
-        entidade.addEndereco(endereco);
-        dao.Salvar(entidade);
-        endereco = new Endereco();
-    }
-
-    public void addEmail() {
-        entidade.addEmail(email);
-        dao.Salvar(entidade);
-        email = new Email();
-    }
-
-    public void removeEndereco() {
-        entidade.removeEndereco(endereco);
-        dao.Salvar(entidade);
-        endereco = new Endereco();
-    }
-
-    public void removeTelefone() {
-        entidade.removeTelefone(telefone);
-        dao.Salvar(entidade);
-        telefone = new Telefone();
-    }
-
-    public void removeEmail() {
-        entidade.removeEmail(email);
-        dao.Salvar(entidade);
-        email = new Email();
-    }
-
     public void removeAreaConhecimento() {
         entidade.removeAreaConhecimento(areaConhecimento);
         dao.Salvar(entidade);
         areaConhecimento = new AreaConhecimento();
+    }
+    
+     public List<Pessoa> getPessoas() {
+        List<Pessoa> pessoas = new ArrayList<>();
+        for(Pessoa i : getListagem())
+            pessoas.add(i);
+        
+        return pessoas;
     }
 }

@@ -5,6 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import javax.inject.Named;
@@ -31,6 +32,8 @@ public class ModalidadeController
     
     @EJB
     ModalidadeRepositorio dao;
+    
+    DocumentoTipo documento;
     
     @Override
     public Modalidade getFiltro() {
@@ -62,4 +65,28 @@ public class ModalidadeController
     public void limpar() {
         setEntidade(new Modalidade());
     }
+    
+    public void addDocumento(){
+        //entidade = dao.Refresh(entidade.getId());
+        entidade.add(documento);
+        SalvarAgregado(documento);
+        documento = new DocumentoTipo();
+    }
+    
+    public void removeDocumento(){
+        //entidade = dao.Refresh(entidade.getId());
+        entidade.remove(documento);
+        SalvarAgregado(documento);
+        documento = new DocumentoTipo();
+    }
+
+    public DocumentoTipo getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(DocumentoTipo documento) {
+        this.documento = documento;
+    }
+    
+    
 }

@@ -4,9 +4,10 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
-import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBasePessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -15,7 +16,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 
 /**
  *
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 @Named(value = "usuarioController")
 @RequestScoped
 public class PessoaController
-        extends ControllerBaseEntidade<Pessoa>
+        extends ControllerBasePessoa<Pessoa>
         implements Serializable {
 
     /**
@@ -35,10 +35,9 @@ public class PessoaController
 
     @EJB
     PessoaRepositorio dao;
-    @Inject
-    HashService hash;
 
-    String senha1, senha2;
+    @EJB
+    CampusRepositorio daoCampus;
 
     @PostConstruct
     public void init() {
@@ -54,6 +53,10 @@ public class PessoaController
             filtro.setNome(getSessao("pctrl_nome"));
             filtro.setCpf(getSessao("pctrl_cpf"));
             filtro.setEmail(getSessao("pctrl_email"));
+            filtro.setCampus((Campus) getSessao("pctrl_campus", daoCampus));
+            if (filtro.getCampus() == null) {
+                filtro.setCampus(getUsuarioCorrente().getCampus());
+            }
         }
         return filtro;
     }
@@ -65,26 +68,8 @@ public class PessoaController
             setSessao("pctrl_nome", filtro.getNome());
             setSessao("pctrl_cpf", filtro.getCpf());
             setSessao("pctrl_email", filtro.getEmail());
+            setSessao("pctrl_campus", filtro.getCampus());
         }
-    }
-
-    @Override
-    public void salvar() {
-
-        if (senha1 != null && senha1.length() != 0) {
-
-            if (senha1.equals(senha2)) {
-                entidade.setSenha(hash.getMD5(senha1));
-            } else {
-                Mensagem("Erro", "As senhas não conferem!");
-                return;
-            }
-        }
-
-        SalvarEntidade();
-
-        // atualiza a listagem
-        filtrar();
     }
 
     @Override
@@ -92,26 +77,14 @@ public class PessoaController
         setEntidade(new Pessoa());
     }
 
-    public String getSenha1() {
-        return senha1;
-    }
-
-    public void setSenha1(String senha1) {
-        this.senha1 = senha1;
-    }
-
-    public String getSenha2() {
-        return senha2;
-    }
-
-    public void setSenha2(String senha2) {
-        this.senha2 = senha2;
-    }
-
     public List<Pessoa> getPessoas() {
-        List<Pessoa> tmp = new ArrayList<>();
-        tmp.add(entidade);
-        return tmp;
+        if (getEntidade() != null) {
+            List<Pessoa> tmp = new ArrayList<>();
+            tmp.add(entidade);
+            return tmp;
+        } else {
+            return getListagem();
+        }
     }
 
 }

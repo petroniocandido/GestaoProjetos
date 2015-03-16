@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <p:panel>
+        <f:facet name="header">
+            Editar Projeto 
+        </f:facet>
+        <p:tabView id="tabView">  
+            <p:tab rendered="#{autenticacaoController.autorizacao('tabProjetoDadosGerais')}"  title="Dados Gerais">  
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Situação:" />
+                    <p:selectOneMenu value="#{projetoController.entidade.situacao}" disabled="#{not projetoController.admin}">
+                        <f:selectItems value="${projetoController.situacoesProjeto}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Status:" />
+                    <h:outputLabel value="#{projetoController.entidade.status}" />
+                    
+                    <h:outputLabel value="Tipo*:" />                    
+                    <p:selectOneMenu value="${projetoController.entidade.tipo}" required="true" disabled="#{not projetoController.alteraDadosGerais}" >
+                        <f:selectItems value="${projetoController.tiposProjeto}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Número de Cadastro:" />
+                    <p:inputText value="${projetoController.entidade.numeroCadastro}" disabled="#{not projetoController.alteraDadosGerais}"/>
+
+                    <h:outputLabel value="Título*:" />
+                    <p:inputTextarea value="${projetoController.entidade.titulo}" cols="100" rows="4" required="true" 
+                                     disabled="#{not projetoController.alteraDadosGerais}"/>
+
+                    <h:outputLabel value="Coordenador:" />                             
+                    <p:autoComplete  converter="#{orientadorConverter}" value="#{projetoController.entidade.coordenador}"
+                                     completeMethod="#{orientadorConverter.autoCompleteOrientador}" size="140"
+                                     var="item" itemLabel="#{item.nome}" itemValue="#{item}"
+                                     disabled="#{not projetoController.admin}">
+                        #{item.nome}
+                    </p:autoComplete>
+
+                    <h:outputLabel value="Setor do Coordenador/Campus do IFNMG*:" />
+                    <p:inputText value="${projetoController.entidade.setorCoordenador}" required="false"/> 
+
+                    <h:outputLabel value="Data de Início*:" />
+                    <p:calendar value="${projetoController.entidade.dataInicio}" required="false"
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
+
+                    <h:outputLabel value="Data de Término*:" />
+                    <p:calendar value="${projetoController.entidade.dataTermino}" required="false"
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
+
+                    <h:outputLabel value="Grupo de Pesquisa:" />                             
+                    <p:autoComplete  converter="#{grupoPesquisaConverter}" value="#{projetoController.entidade.grupoPesquisa}"
+                                     completeMethod="#{grupoPesquisaConverter.autoCompleteGrupoPesquisa}"
+                                     var="item" itemLabel="#{item.nome}" itemValue="#{item}"
+                                     disabled="#{not projetoController.alteraDadosGerais}">
+                        #{item.nome}
+                    </p:autoComplete>
+
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab rendered="#{projetoController.entidade.id > 0 and autenticacaoController.autorizacao('tabProjetoAreasConhecimento')}" 
+                   title="Resumo e Áreas" >
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Resumo*:" /> 
+                    <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="${projetoController.entidade.resumo}" width="600" height="200" />
+
+                    <h:outputLabel value="Palavras-Chave*:" />
+                    <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" value="${projetoController.entidade.palavrasChave}" required="false" style="width: 100%"/>
+                </h:panelGrid>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Area de Conhecimento*:" />           
+                    <p:selectOneMenu  disabled="#{not projetoController.alteraDadosGerais}" id="txtareaConhecimento" value="${projetoController.areaConhecimento}" label="Area de Conhecimento"
+                                      converter="${areaConhecimentoConverter}" required="false">
+                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
+                        <f:selectItems value="${areaConhecimentoController.listagem}"/>
+
+                    </p:selectOneMenu>
+
+                    <p:commandButton  disabled="#{not projetoController.alteraDadosGerais}"
+                                      value="Adicionar" icon="ui-icon-check" 
+                                      action="${projetoController.addAreaConhecimento()}" style="margin:0"
+                                      update="tblAreaConhecimento txtareaConhecimento"/>
+
+                </h:panelGrid>
+
+                <p:dataTable id="tblAreaConhecimento"  value="${projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                    <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
+                        ${item}
+                    </p:column>                                                   
+
+                    <p:column  headerText="Remover" >
+                        <p:commandButton rendered="#{projetoController.alteraDadosGerais}" ajax="false" value="Remover"  action="#{projetoController.removeAreaConhecimento()}">
+                            <f:setPropertyActionListener target="#{projetoController.areaConhecimento}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </p:tab>   
+
+            <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoPlanoTrabalho')}" 
+                   title="Plano de Trabalho">
+                <br/>
+                <h:panelGrid columns="2">                   
+                    <h:outputLabel value="Local de realização do Projeto(Laboratório, sala, etc):" />
+                    <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" value="${projetoController.entidade.localRealizacaoProjeto}" required="false"/> 
+
+                    <h:outputLabel value="Programa a que o plano está envolvido:" />
+                    <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" value="${projetoController.entidade.programaPlano}" required="false"/> 
+
+                    <h:outputLabel value="Introdução / Programa a ser estudado*:" />
+                    <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="${projetoController.entidade.introducao}" width="600" height="200" />
+
+                    <h:outputLabel value="Justificativa*:" />
+                    <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false"  value="${projetoController.entidade.justificativa}" width="600" height="200" />
+
+                    <h:outputLabel value="Objetivos*:" />
+                    <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="${projetoController.entidade.objetivos}" width="600" height="200" />
+
+                    <h:outputLabel value="Metodologia:" />
+                    <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="${projetoController.entidade.metodologia}" width="600" height="200" />
+
+                    <h:outputLabel value="Resultados Esperados*:" />
+                    <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="${projetoController.entidade.resutadosEsperados}" width="600" height="200" />
+
+                    <h:outputLabel value="Referências Bibliográficas*:" />
+                    <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="${projetoController.entidade.referenciasBibliograficas}" width="600" height="200" />
+
+
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoDocumentos')}" 
+                   title="Documentos">
+                <h:panelGrid  rendered="#{projetoController.alteraDadosGerais}" columns="4">
+                    <h:outputLabel value="Tipo de Documento*:" />
+                    <p:selectOneMenu id="txtTipoDocumento" value="${projetoController.documento.tipoDocumento}" label="Tipo de Documento"
+                                     converter="${tipoDocumentoConverter}" required="false">
+                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
+                        <f:selectItems value="${tipoDocumentoController.listagem}"/>
+
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Data Prevista*:" />
+                    <p:calendar id="txtDataPrevista" value="${projetoController.documento.dataPrevista}" required="false"
+                                label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
+
+                    <h:outputLabel value="Data Efetiva*:" />
+                    <p:calendar id="txtDataEfetiva" value="${projetoController.documento.dataEfetiva}" required="false"
+                                label="Data Efetiva" pattern="dd/MM/yyyy" locale="pt_BR"/>
+
+
+                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                                     action="${projetoController.addDocumento()}" style="margin:0"
+                                     update="tblTipoDocumento txtTipoDocumento txtDataPrevista txtDataEfetiva" /> 
+
+                </h:panelGrid>
+                <p:dataTable id="tblTipoDocumento" value="${projetoController.entidade.documentos}" 
+                             var="item" emptyMessage="Registros não Encontrados!" >
+
+                    <p:column sortBy="funcionarioRecebedor" headerText="Funcionário Recebedor">
+                        ${item.funcionarioRecebedor}
+                    </p:column>
+
+                    <p:column sortBy="tipoDocumento" headerText="Tipo de Documento">
+                        ${item.tipoDocumento}
+                    </p:column>
+
+                    <p:column sortBy="dataPrevista" headerText="Data Prevista">
+                        <h:outputLabel value="${item.dataPrevista}">
+                            <f:convertDateTime pattern="MM/yyyy" />
+                        </h:outputLabel>
+                    </p:column>
+
+                    <p:column sortBy="dataEfetiva" headerText="Data Efetiva">
+                        <h:outputLabel value="${item.dataEfetiva}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputLabel>
+                    </p:column>
+
+                    <p:column  rendered="#{projetoController.admin}" sortBy="editar" headerText="Editar">
+                        <p:commandButton ajax="false" value="Editar" >
+                            <f:setPropertyActionListener target="#{projetoController.documento}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+
+                    <p:column rendered="#{projetoController.admin}" sortBy="remover" headerText="Remover" >
+                        <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeDocumento()}">
+                            <f:setPropertyActionListener target="#{projetoController.documento}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:tab>
+
+            <p:tab rendered="#{projetoController.entidade.id > 0 and autenticacaoController.autorizacao('tabProjetoOrcamento')}" 
+                   title="Financiamentos">
+                <h:panelGrid  rendered="#{projetoController.alteraDadosGerais}" columns="4">
+                    <h:outputLabel value="Data Inicio:" />
+                    <p:calendar  disabled="#{not projetoController.alteraDadosGerais}" 
+                                 id="txtOrcamentoDataInicio" value="${projetoController.financiamento.dataInicio}" required="false"
+                                 pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    <h:outputLabel value="Data Termino:" />
+                    <p:calendar  disabled="#{not projetoController.alteraDadosGerais}" 
+                                 id="txtOrcamentoDataTermino" value="${projetoController.financiamento.dataTermino}" required="false"
+                                 pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    <h:outputLabel value="Valor Orçado:" />
+                    <pe:inputNumber  id="txtOrcamentoVlrUn" symbol="R$ " value="#{projetoController.financiamento.valorOrcado}" converter="#{bigDecimalConverter}" 
+                                     thousandSeparator="" />
+                    <h:outputLabel value="Valor Executado:" />
+                    <pe:inputNumber  id="txtOrcamentoVlrTot" symbol="R$ " value="#{projetoController.financiamento.valorExecutado}" converter="#{bigDecimalConverter}" 
+                                     thousandSeparator="" />
+                    <h:outputLabel value="Agência Financiadora:" />                    
+                    <p:selectOneMenu value="${projetoController.financiamento.agenciaFinanciadora}" 
+                                     converter="${agenciaFinanciadoraConverter}" required="false" >
+                        <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                        <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton  value="Adicionar" icon="ui-icon-check" 
+                                      action="${projetoController.addOrcamento()}" 
+                                      update="txtOrcamentoDataInicio txtOrcamentoDataTermino txtOrcamentoVlrUn txtOrcamentoVlrTot tblOrcamento" /> 
+                </h:panelGrid>
+                <p:dataTable id="tblOrcamento" value="${projetoController.entidade.financiamentos}" 
+                             var="item" emptyMessage="Registros não Encontrados!" >
+                    <p:column headerText="Inicio">
+                        <h:outputLabel value="${item.dataInicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputLabel>
+                    </p:column>
+                    <p:column headerText="Término">
+                        <h:outputLabel value="${item.dataTermino}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputLabel>
+                    </p:column>
+                    <p:column headerText="Ag. Financiadora">
+                        <h:outputLabel value="${item.agenciaFinanciadora}" />
+                    </p:column>
+                    <p:column headerText="Valor Tot.">
+                        <h:outputLabel value="${item.valorOrcado}" />
+                    </p:column>
+                    <p:column headerText="Executado">
+                        <h:outputLabel value="${item.valorExecutado}" />
+                    </p:column>
+                    <p:column  rendered="#{projetoController.alteraDadosGerais}" headerText="Remover" >
+                        <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeFinanciamento()}">
+                            <f:setPropertyActionListener target="#{projetoController.financiamento}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:tab>
+
+            <p:tab title="Bolsas">
+                <p:dataTable value="#{projetoController.entidade.bolsas}" var="item" >  
+                    <p:column headerText="Cód.">
+                        ${item.id}
+                    </p:column>
+                    <p:column headerText="Modalidade">
+                        ${item.modalidade}
+                    </p:column>
+                    <p:column headerText="Ag. Financiadora">
+                        ${item.agenciaFinanciadora}
+                    </p:column>
+                    <p:column  headerText="Bolsista">
+                        ${item.orientando}
+                    </p:column>
+                    <p:column  headerText="Status">
+                        ${item.status}
+                    </p:column>
+                    <p:column  headerText="Editar">
+                        <p:commandButton value="Editar" action="editarBolsa.xhtml">
+                            <f:setPropertyActionListener target="#{bolsaController.entidade}" value="#{item}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>  
+            </p:tab>
+            
+            <ui:include src="tabSeguranca.xhtml">
+                <ui:param name="controller" value="#{projetoController}"  />
+            </ui:include>
+        </p:tabView>
+        <ui:include src="botoesEntidade.xhtml">
+            <ui:param name="controller" value="#{projetoController}"  />
+        </ui:include>
+        (*) Campos de Preenchimento Obrigatório
+    </p:panel>
+</ui:composition>

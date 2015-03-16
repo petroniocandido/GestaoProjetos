@@ -5,7 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +35,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name="projetos")
-@Cacheable(true)
+@Cacheable(false)
 public class Projeto implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,27 +46,13 @@ public class Projeto implements Entidade, Serializable {
     @Column(length = 1500)
     private String titulo;
 
-    private int numeroCadastro;
+    private String numeroCadastro;
 
-    
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
-    private List<AreaConhecimento> areaConhecimento;
-
-    private boolean grupoPesquisa;
-
-    private String nomegrupoPesquisa;
+    @ManyToOne
+    private GrupoPesquisa grupoPesquisa;
 
     @ManyToOne
     private Campus campus;
-
-    @ManyToOne
-    private Edital edital;
-
-    @ManyToOne
-    private Modalidade modalidade;
-
-    @ManyToOne
-    private AgenciaFinanciadora agenciaFinanciadora;
 
     //Resumo do projeto
     @Lob
@@ -85,14 +71,16 @@ public class Projeto implements Entidade, Serializable {
     private Orientador coordenador;
 
     private String setorCoordenador;
+    
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = AreaConhecimento.class)
+    private List<AreaConhecimento> areaConhecimento;
 
-    //Documentos
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto", targetEntity = Documento.class)
     private List<Documento> documentos;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
-    private List<Orcamento> orcamento;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto",targetEntity = Financiamento.class)
+    private List<Financiamento> financiamentos;
+    
     // Plano de Trabalho 
     private String localRealizacaoProjeto; //laboratorio, sala, etc
 
@@ -117,12 +105,10 @@ public class Projeto implements Entidade, Serializable {
     @Lob
     private String referenciasBibliograficas;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
-    private List<Atividade> cronogramaAtividade;
-
     private boolean projetoFinanciamento;
 
-    private BigInteger valorFinanciamento;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal valorFinanciamento;
 
     @Temporal(TemporalType.DATE)
     private Date dataFinanciamento;
@@ -141,23 +127,26 @@ public class Projeto implements Entidade, Serializable {
 
     private boolean projetoMulticampi;
     
-    @ManyToMany(fetch = FetchType.EAGER,targetEntity = Aluno.class)
-    private List<Aluno> orientandos;
-
-    public Projeto() {
-        this.areaConhecimento = new ArrayList<>();
-        this.orientandos = new ArrayList<>();
-        this.documentos = new ArrayList<>();
-        this.cronogramaAtividade = new ArrayList<>();
-        this.situacao = SituacaoProjeto.Cadastrado;
-        this.status = Status.Pendente;
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "projeto", targetEntity = Bolsa.class)
+    private List<Bolsa> bolsas;
     
     @Enumerated(EnumType.STRING)
-    private SituacaoProjeto situacao;
+    private ProjetoSituacao situacao;
     
     @Enumerated(EnumType.STRING)
     private Status status;
+        
+    @Enumerated(EnumType.STRING)
+    private ProjetoTipo tipo;
+
+    public Projeto() {
+        this.areaConhecimento = new ArrayList<>();
+        this.documentos = new ArrayList<>();
+        this.situacao = ProjetoSituacao.Cadastrado;
+        this.status = Status.Pendente;
+        this.valorFinanciamento = new BigDecimal("0.00");
+        this.financiamentos = new ArrayList<>();
+    }   
 
     public void addAreaConhecimento(AreaConhecimento a) {
         if(a == null) return;
@@ -173,31 +162,34 @@ public class Projeto implements Entidade, Serializable {
         }
     }
 
-    public void addAluno(Aluno a) {
+    public void addBolsa(Bolsa a) {
         if(a == null) return;
-        if (!orientandos.contains(a)) {
-            orientandos.add(a);
+        if (!bolsas.contains(a)) {
+            bolsas.add(a);
         }
     }
 
-    public void removeAluno(Aluno a) {
+    public void removeBolsa(Bolsa a) {
         if(a == null) return;
-        if (orientandos.contains(a)) {
-            orientandos.remove(a);
+        if (bolsas.contains(a)) {
+            bolsas.remove(a);
         }
     }
     
-    public void addOrcamento(Orcamento d) {
+    public void addFinanciamento(Financiamento d) {
         if(d == null) return;
-        if (!orcamento.contains(d)) {
-            orcamento.add(d);
+        d.setProjeto(this);
+        if (!financiamentos.contains(d)) {
+            financiamentos.add(d);
+            valorFinanciamento = valorFinanciamento.add(d.getValorOrcado());
         }
     }
 
-    public void removeOrcamento(Orcamento d) {
+    public void removeFinanciamento(Financiamento d) {
         if(d == null) return;
-        if (orcamento.contains(d)) {
-            orcamento.remove(d);
+        if (financiamentos.contains(d)) {
+            financiamentos.remove(d);
+            valorFinanciamento = valorFinanciamento.subtract(d.getValorOrcado());
         }
     }
 
@@ -214,19 +206,28 @@ public class Projeto implements Entidade, Serializable {
             documentos.remove(d);
         }
     }
-
-    public void addAtividade(Atividade a) {
-        if(a == null) return;
-        if (!cronogramaAtividade.contains(a)) {
-            cronogramaAtividade.add(a);
-        }
+    
+    public boolean isAlteravel() {
+        return situacao == ProjetoSituacao.Cadastrado || situacao == ProjetoSituacao.Reprovado;
     }
-
-    public void removeAtividade(Atividade a) {
-        if(a == null) return;
-        if (cronogramaAtividade.contains(a)) {
-            cronogramaAtividade.remove(a);
-        }
+    
+    private boolean verificarDocumentos(){
+        Date hoje = new Date();
+        for(Documento d : getDocumentos())
+            if(d.getStatus() == Status.Pendente && d.getTipoDocumento().isObrigatorio())
+                return false;
+        return true;
+    }
+    
+    
+    
+    private boolean verificarFinanciamentos(){
+        Date hoje = new Date();
+        for(Financiamento o : getFinanciamentos())
+            if(o.getStatus() == Status.Pendente){                
+                return false;
+            }
+        return true;
     }
 
      //GETTER E SETTER
@@ -240,11 +241,11 @@ public class Projeto implements Entidade, Serializable {
         this.id = id;
     }
 
-    public SituacaoProjeto getSituacao() {
+    public ProjetoSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(SituacaoProjeto situacao) {
+    public void setSituacao(ProjetoSituacao situacao) {
         this.situacao = situacao;
     }    
 
@@ -256,11 +257,11 @@ public class Projeto implements Entidade, Serializable {
         this.titulo = titulo;
     }
 
-    public int getNumeroCadastro() {
+    public String getNumeroCadastro() {
         return numeroCadastro;
     }
 
-    public void setNumeroCadastro(int numeroCadastro) {
+    public void setNumeroCadastro(String numeroCadastro) {
         this.numeroCadastro = numeroCadastro;
     }
 
@@ -272,20 +273,20 @@ public class Projeto implements Entidade, Serializable {
         this.areaConhecimento = areaConhecimento;
     }
 
-    public boolean isGrupoPesquisa() {
+    public GrupoPesquisa getGrupoPesquisa() {
         return grupoPesquisa;
     }
 
-    public void setGrupoPesquisa(boolean grupoPesquisa) {
+    public void setGrupoPesquisa(GrupoPesquisa grupoPesquisa) {
         this.grupoPesquisa = grupoPesquisa;
     }
 
-    public String getNomegrupoPesquisa() {
-        return nomegrupoPesquisa;
+    public List<Bolsa> getBolsas() {
+        return bolsas;
     }
 
-    public void setNomegrupoPesquisa(String nomegrupoPesquisa) {
-        this.nomegrupoPesquisa = nomegrupoPesquisa;
+    public void setBolsas(List<Bolsa> bolsas) {
+        this.bolsas = bolsas;
     }
 
     public Campus getCampus() {
@@ -352,11 +353,11 @@ public class Projeto implements Entidade, Serializable {
         this.projetoFinanciamento = projetoFinanciamento;
     }
 
-    public BigInteger getValorFinanciamento() {
+    public BigDecimal getValorFinanciamento() {
         return valorFinanciamento;
     }
 
-    public void setValorFinanciamento(BigInteger valorFinanciamento) {
+    public void setValorFinanciamento(BigDecimal valorFinanciamento) {
         this.valorFinanciamento = valorFinanciamento;
     }
 
@@ -382,14 +383,6 @@ public class Projeto implements Entidade, Serializable {
 
     public void setNumeroBolsas(int numeroBolsas) {
         this.numeroBolsas = numeroBolsas;
-    }
-
-    public AgenciaFinanciadora getAgenciaFinanciadora() {
-        return agenciaFinanciadora;
-    }
-
-    public void setAgenciaFinanciadora(AgenciaFinanciadora agenciaFinanciadora) {
-        this.agenciaFinanciadora = agenciaFinanciadora;
     }
 
     public boolean isProjetoConvenio() {
@@ -430,30 +423,6 @@ public class Projeto implements Entidade, Serializable {
 
     public void setProjetoMulticampi(boolean projetoMulticampi) {
         this.projetoMulticampi = projetoMulticampi;
-    }
-
-    public List<Aluno> getOrientandos() {
-        return orientandos;
-    }
-
-    public void setOrientandos(List<Aluno> orientandos) {
-        this.orientandos = orientandos;
-    }
-
-    public Edital getEdital() {
-        return edital;
-    }
-
-    public void setEdital(Edital edital) {
-        this.edital = edital;
-    }
-
-    public Modalidade getModalidade() {
-        return modalidade;
-    }
-
-    public void setModalidade(Modalidade modalidade) {
-        this.modalidade = modalidade;
     }
 
     public List<Documento> getDocumentos() {
@@ -528,41 +497,39 @@ public class Projeto implements Entidade, Serializable {
         this.referenciasBibliograficas = referenciasBibliograficas;
     }
 
-    public List<Atividade> getCronogramaAtividade() {
-        return cronogramaAtividade;
-    }
-
-    public void setCronogramaAtividade(List<Atividade> cronogramaAtividade) {
-        this.cronogramaAtividade = cronogramaAtividade;
-    }
-
     public Status getStatus() {
-        return status;
+        // Analisar Documentos
+        if(!verificarDocumentos() || !verificarFinanciamentos())
+            return Status.Pendente;
+        return Status.Regular;
     }
 
     public void setStatus(Status status) {
         this.status = status;
     }
 
-    public List<Orcamento> getOrcamento() {
-        return orcamento;
+    public List<Financiamento> getFinanciamentos() {
+        return financiamentos;
     }
 
-    public void setOrcamento(List<Orcamento> orcamento) {
-        this.orcamento = orcamento;
+    public void setFinanciamentos(List<Financiamento> financiamentos) {
+        this.financiamentos = financiamentos;
     }
-        
+
+    public ProjetoTipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(ProjetoTipo tipo) {
+        this.tipo = tipo;
+    }
     
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.id);
         hash = 23 * hash + Objects.hashCode(this.titulo);
-        hash = 23 * hash + this.numeroCadastro;
         hash = 23 * hash + Objects.hashCode(this.campus);
-        hash = 23 * hash + Objects.hashCode(this.edital);
-        hash = 23 * hash + Objects.hashCode(this.modalidade);
-        hash = 23 * hash + Objects.hashCode(this.agenciaFinanciadora);
         return hash;
     }
 
@@ -581,19 +548,7 @@ public class Projeto implements Entidade, Serializable {
         if (!Objects.equals(this.titulo, other.titulo)) {
             return false;
         }
-        if (this.numeroCadastro != other.numeroCadastro) {
-            return false;
-        }
         if (!Objects.equals(this.campus, other.campus)) {
-            return false;
-        }
-        if (!Objects.equals(this.edital, other.edital)) {
-            return false;
-        }
-        if (!Objects.equals(this.modalidade, other.modalidade)) {
-            return false;
-        }
-        if (!Objects.equals(this.agenciaFinanciadora, other.agenciaFinanciadora)) {
             return false;
         }
         return true;

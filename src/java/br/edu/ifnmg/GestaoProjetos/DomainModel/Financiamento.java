@@ -9,14 +9,15 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,9 +29,9 @@ import javax.persistence.Version;
  * @author petronio
  */
 @Entity
-@Table(name="orcamentos")
+@Table(name = "financiamentos")
 @Cacheable(false)
-public class Orcamento implements Entidade, Serializable {
+public class Financiamento implements Entidade, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,19 +39,24 @@ public class Orcamento implements Entidade, Serializable {
     
     @ManyToOne
     private Projeto projeto;
+    
+    @ManyToOne
+    private AgenciaFinanciadora agenciaFinanciadora;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dataInicio;
 
-    @Lob
-    @Column(nullable = false)
-    private String descricao;
-
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataPrevista;
+    @Temporal(TemporalType.DATE)
+    private Date dataTermino;
     
     @Column(precision = 10, scale = 2)
     private BigDecimal valorOrcado;
     
     @Column(precision = 10, scale = 2)
     private BigDecimal valorExecutado;
+    
+    @Enumerated
+    private Status status;
 
     @Override
     public Long getId() {
@@ -70,20 +76,28 @@ public class Orcamento implements Entidade, Serializable {
         this.projeto = projeto;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public AgenciaFinanciadora getAgenciaFinanciadora() {
+        return agenciaFinanciadora;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setAgenciaFinanciadora(AgenciaFinanciadora agenciaFinanciadora) {
+        this.agenciaFinanciadora = agenciaFinanciadora;
     }
 
-    public Date getDataPrevista() {
-        return dataPrevista;
+    public Date getDataInicio() {
+        return dataInicio;
     }
 
-    public void setDataPrevista(Date dataPrevista) {
-        this.dataPrevista = dataPrevista;
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(Date dataTermino) {
+        this.dataTermino = dataTermino;
     }
 
     public BigDecimal getValorOrcado() {
@@ -101,32 +115,54 @@ public class Orcamento implements Entidade, Serializable {
     public void setValorExecutado(BigDecimal valorExecutado) {
         this.valorExecutado = valorExecutado;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
     
     
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.projeto);
+        hash = 53 * hash + Objects.hashCode(this.agenciaFinanciadora);
+        hash = 53 * hash + Objects.hashCode(this.dataInicio);
+        hash = 53 * hash + Objects.hashCode(this.dataTermino);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Orcamento)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Orcamento other = (Orcamento) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Financiamento other = (Financiamento) obj;
+        if (!Objects.equals(this.projeto, other.projeto)) {
+            return false;
+        }
+        if (!Objects.equals(this.agenciaFinanciadora, other.agenciaFinanciadora)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataInicio, other.dataInicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataTermino, other.dataTermino)) {
             return false;
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        return descricao;
+        return "br.edu.ifnmg.GestaoProjetos.DomainModel.Financiamento[ id=" + id + " ]";
     }
     
     
@@ -193,5 +229,6 @@ public class Orcamento implements Entidade, Serializable {
     public void setVersao(Long versao) {
         this.versao = versao;
     }
+
     
 }

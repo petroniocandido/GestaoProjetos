@@ -4,28 +4,26 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.Query;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author HOME
  */
-@Stateless(name = "TipoDocumentoRepositorio")
+@Singleton
 public class TipoDocumentoDAO
-        extends DAOGenerico<TipoDocumento>
+        extends DAOGenerico<DocumentoTipo>
         implements TipoDocumentoRepositorio {
 
     public TipoDocumentoDAO() {
-        super(TipoDocumento.class);
+        super(DocumentoTipo.class);
     }
 
     @Override
-    public List<TipoDocumento> Buscar(TipoDocumento filtro) {
+    public List<DocumentoTipo> Buscar(DocumentoTipo filtro) {
         return IgualA("id", filtro.getId())
                 .Like("nome", filtro.getNome())
                 .Ordenar("nome", "ASC")

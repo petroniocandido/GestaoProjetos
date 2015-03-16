@@ -5,7 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao.Converters;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.GenericConverter;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -17,7 +17,7 @@ import javax.inject.Singleton;
 @Named(value = "tipoDocumentoConverter")
 @Singleton
 public class TipoDocumentoConverter
-        extends GenericConverter<TipoDocumento, TipoDocumentoRepositorio>
+        extends GenericConverter<DocumentoTipo, TipoDocumentoRepositorio>
         implements Serializable {
 
     @EJB
@@ -28,8 +28,8 @@ public class TipoDocumentoConverter
         setRepositorio(dao);
     }
     
-    public List<TipoDocumento> autoCompleteTipoDocumento(String query) {
-        TipoDocumento i = new TipoDocumento();
+    public List<DocumentoTipo> autoCompleteTipoDocumento(String query) {
+        DocumentoTipo i = new DocumentoTipo();
         i.setNome(query);
         return dao.Buscar(i);
     }

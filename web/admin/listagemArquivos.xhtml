@@ -22,7 +22,7 @@
                                 <p:inputText id="txtNome" size="50" value="#{arquivoController.filtro.nome}"/> 
                                 
                             </p:panelGrid>
-                            <ui:include src="./comum/botoesListagem.xhtml">
+                            <ui:include src="../comum/botoesListagem.xhtml">
                                 <ui:param name="controller" value="#{arquivoController}"  />
                                 <ui:param name="campos" value="txtNome"  />
                             </ui:include>

@@ -5,6 +5,7 @@
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Cacheable;
@@ -35,8 +36,11 @@ public class Edital implements Entidade, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(unique=true)
+    @Column
     private int numero;
+    
+    @Column
+    private int numeroBolsas;
     
     @ManyToOne
     private AgenciaFinanciadora agenciaFinanciadora;
@@ -44,17 +48,73 @@ public class Edital implements Entidade, Serializable {
     @OneToOne
     private Campus campus;
     
+    @OneToOne
+    private Modalidade modalidade;
+    
     @Temporal(javax.persistence.TemporalType.DATE) 
-    private Date dataExpedicao;
+    private Date lancamentoEdital;
+    
+    @Temporal(javax.persistence.TemporalType.DATE) 
+    private Date inicioInscricao;
+    
+    @Temporal(javax.persistence.TemporalType.DATE) 
+    private Date terminoInscricao;
+    
+    @Temporal(javax.persistence.TemporalType.DATE) 
+    private Date divulgacaoResultados;
+    
+    @Temporal(javax.persistence.TemporalType.DATE) 
+    private Date inicioRecursos;
+    
+    @Temporal(javax.persistence.TemporalType.DATE) 
+    private Date terminoRecursos;
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataFinal;
+    private Date inicioValidade;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date terminoValidade;
     
     @Column(nullable=false, unique = true)
     private String sigla;
     
     @ManyToMany
     private List<Arquivo> arquivos;
+    
+    @ManyToMany
+    private List<DocumentoTipo> documentosObrigatorios;
+
+    public Edital() {
+        arquivos = new ArrayList<>();
+        documentosObrigatorios = new ArrayList<>();
+                
+    }   
+    
+     public void add(Arquivo t){
+        if(!arquivos.contains(t)){
+            arquivos.add(t);
+        }
+        
+    }
+    
+    public void remove(Arquivo t){
+        if(arquivos.contains(t)){
+            arquivos.remove(t);
+        }
+    }
+    
+     public void add(DocumentoTipo t){
+        if(!documentosObrigatorios.contains(t)){
+            documentosObrigatorios.add(t);
+        }
+        
+    }
+    
+    public void remove(DocumentoTipo t){
+        if(documentosObrigatorios.contains(t)){
+            documentosObrigatorios.remove(t);
+        }
+    }
     
     //GETTER E SETTER
     
@@ -68,22 +128,79 @@ public class Edital implements Entidade, Serializable {
         this.id = id;
     }
 
-    public Date getDataExpedicao() {
-        return dataExpedicao;
+    public int getNumeroBolsas() {
+        return numeroBolsas;
     }
 
-    public void setDataExpedicao(Date dataExpedicao) {
-        this.dataExpedicao = dataExpedicao;
+    public void setNumeroBolsas(int numeroBolsas) {
+        this.numeroBolsas = numeroBolsas;
+    }
+    
+    public Date getLancamentoEdital() {
+        return lancamentoEdital;
     }
 
-    public Date getDataFinal() {
-        return dataFinal;
+    public void setLancamentoEdital(Date lancamentoEdital) {
+        this.lancamentoEdital = lancamentoEdital;
     }
 
-    public void setDataFinal(Date dataFinal) {
-        this.dataFinal = dataFinal;
+    public Date getInicioInscricao() {
+        return inicioInscricao;
     }
 
+    public void setInicioInscricao(Date inicioInscricao) {
+        this.inicioInscricao = inicioInscricao;
+    }
+
+    public Date getTerminoInscricao() {
+        return terminoInscricao;
+    }
+
+    public void setTerminoInscricao(Date terminoInscricao) {
+        this.terminoInscricao = terminoInscricao;
+    }
+
+    public Date getDivulgacaoResultados() {
+        return divulgacaoResultados;
+    }
+
+    public void setDivulgacaoResultados(Date divulgacaoResultados) {
+        this.divulgacaoResultados = divulgacaoResultados;
+    }
+
+    public Date getInicioRecursos() {
+        return inicioRecursos;
+    }
+
+    public void setInicioRecursos(Date inicioRecursos) {
+        this.inicioRecursos = inicioRecursos;
+    }
+
+    public Date getTerminoRecursos() {
+        return terminoRecursos;
+    }
+
+    public void setTerminoRecursos(Date terminoRecursos) {
+        this.terminoRecursos = terminoRecursos;
+    }
+
+    public Date getInicioValidade() {
+        return inicioValidade;
+    }
+
+    public void setInicioValidade(Date inicioValidade) {
+        this.inicioValidade = inicioValidade;
+    }
+
+    public Date getTerminoValidade() {
+        return terminoValidade;
+    }
+
+    public void setTerminoValidade(Date terminoValidade) {
+        this.terminoValidade = terminoValidade;
+    }
+
+   
 
     public AgenciaFinanciadora getAgenciaFinanciadora() {
         return agenciaFinanciadora;
@@ -124,6 +241,24 @@ public class Edital implements Entidade, Serializable {
     public void setArquivos(List<Arquivo> arquivos) {
         this.arquivos = arquivos;
     }
+
+    public List<DocumentoTipo> getDocumentosObrigatorios() {
+        return documentosObrigatorios;
+    }
+
+    public void setDocumentosObrigatorios(List<DocumentoTipo> documentosObrigatorios) {
+        this.documentosObrigatorios = documentosObrigatorios;
+    }
+
+    public Modalidade getModalidade() {
+        return modalidade;
+    }
+
+    public void setModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
+    }
+    
+    
     
     
     @Override

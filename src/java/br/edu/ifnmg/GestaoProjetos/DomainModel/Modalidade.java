@@ -5,7 +5,9 @@
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,6 +39,26 @@ public class Modalidade implements Serializable, Entidade {
     
     @Column(nullable=false, unique = true)
     private String sigla;
+    
+    @ManyToMany
+    private List<DocumentoTipo> documentosObrigatorios;
+    
+    public Modalidade() {
+        documentosObrigatorios = new ArrayList<>();
+    }
+    
+    public void add(DocumentoTipo t){
+        if(!documentosObrigatorios.contains(t)){
+            documentosObrigatorios.add(t);
+        }
+        
+    }
+    
+    public void remove(DocumentoTipo t){
+        if(documentosObrigatorios.contains(t)){
+            documentosObrigatorios.remove(t);
+        }
+    }
 
     @Override
     public Long getId() {
@@ -62,6 +85,16 @@ public class Modalidade implements Serializable, Entidade {
     public void setSigla(String sigla) {
         this.sigla = sigla;
     }
+
+    public List<DocumentoTipo> getDocumentosObrigatorios() {
+        return documentosObrigatorios;
+    }
+
+    public void setDocumentosObrigatorios(List<DocumentoTipo> documentosObrigatorios) {
+        this.documentosObrigatorios = documentosObrigatorios;
+    }
+    
+    
     
     @Override
     public int hashCode() {

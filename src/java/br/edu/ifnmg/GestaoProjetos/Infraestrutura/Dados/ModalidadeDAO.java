@@ -7,13 +7,13 @@ package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author HOME
  */
-@Stateless(name = "ModalidadeRepositorio")
+@Singleton
 public class ModalidadeDAO
         extends DAOGenerico<Modalidade>
         implements ModalidadeRepositorio {

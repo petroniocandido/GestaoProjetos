@@ -4,17 +4,16 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author Isla Guedes
  */
-@Stateless(name = "EditalRepositorio")
+@Singleton
 public class EditalDAO
         extends DAOGenerico<Edital>
         implements EditalRepositorio {
@@ -27,7 +26,9 @@ public class EditalDAO
     public List<Edital> Buscar(Edital filtro) {
         return IgualA("id", filtro.getId())
                 .IgualA("numero", filtro.getNumero())
+                .IgualA("campus", filtro.getCampus())
                 .IgualA("agenciafinanciadora", filtro.getAgenciaFinanciadora())
+                .Ordenar("lancamentoEdital", "DESC")
                 .Buscar();
     }
 

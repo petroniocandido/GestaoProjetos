@@ -26,7 +26,7 @@ import javax.persistence.Version;
 @Entity
 @Table(name="tiposdocumentos")
 @Cacheable(true)
-public class TipoDocumento implements Serializable, Entidade {
+public class DocumentoTipo implements Serializable, Entidade {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,6 +42,10 @@ public class TipoDocumento implements Serializable, Entidade {
     private Periodicidade periodicidade;
     
     private boolean preRequisito;
+    
+    private DocumentoUnidade unidade;
+    
+    private int dataEntrega;
 
     @Override
     public Long getId() {
@@ -92,6 +96,25 @@ public class TipoDocumento implements Serializable, Entidade {
     public void setPreRequisito(boolean preRequisito) {
         this.preRequisito = preRequisito;
     }
+
+    public DocumentoUnidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(DocumentoUnidade unidade) {
+        this.unidade = unidade;
+    }
+
+    public int getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(int dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+    
+    
+       
    
     @Override
     public int hashCode() {
@@ -103,10 +126,10 @@ public class TipoDocumento implements Serializable, Entidade {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoDocumento)) {
+        if (!(object instanceof DocumentoTipo)) {
             return false;
         }
-        TipoDocumento other = (TipoDocumento) object;
+        DocumentoTipo other = (DocumentoTipo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

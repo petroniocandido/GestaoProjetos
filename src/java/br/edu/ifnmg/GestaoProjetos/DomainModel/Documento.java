@@ -6,9 +6,9 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,6 +32,9 @@ public class Documento implements Serializable, Entidade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+   
+    @ManyToOne
+    private Pessoa pessoa;
     
     @ManyToOne
     private Projeto projeto;
@@ -40,7 +43,7 @@ public class Documento implements Serializable, Entidade {
     private Pessoa funcionarioRecebedor;
     
     @ManyToOne
-    private TipoDocumento tipoDocumento;
+    private DocumentoTipo tipoDocumento;
     
     @Temporal(javax.persistence.TemporalType.DATE) 
     private Date dataPrevista;
@@ -51,15 +54,24 @@ public class Documento implements Serializable, Entidade {
     @ManyToOne
     private Arquivo arquivo;
     
+    @Enumerated
+    private DocumentoSituacao situacao;
+
+    public Documento() {
+        this.situacao = DocumentoSituacao.Pendente;
+    }
+       
     public Status getStatus() {
         Date hoje = new Date();
         
-        if(hoje.after(dataPrevista) && dataEfetiva == null && funcionarioRecebedor == null)
-            return Status.Pendente;
+        if(situacao == DocumentoSituacao.Pendente && dataPrevista != null && hoje.before(dataPrevista))
+            return Status.Regular;
         
-        return Status.Regular;
+        if(situacao == DocumentoSituacao.Aprovado)
+            return Status.Regular;
+        
+        return Status.Pendente;
     }
-    
     
     @Override
     public Long getId() {
@@ -79,11 +91,11 @@ public class Documento implements Serializable, Entidade {
         this.funcionarioRecebedor = funcionarioRecebedor;
     }
 
-    public TipoDocumento getTipoDocumento() {
+    public DocumentoTipo getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+    public void setTipoDocumento(DocumentoTipo tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -110,33 +122,69 @@ public class Documento implements Serializable, Entidade {
     public void setArquivo(Arquivo arquivo) {
         this.arquivo = arquivo;
     }
-    
-    
-    
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public DocumentoSituacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(DocumentoSituacao situacao) {
+        this.situacao = situacao;
+    }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
+        
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.pessoa);
+        hash = 97 * hash + Objects.hashCode(this.tipoDocumento);
+        hash = 97 * hash + Objects.hashCode(this.dataPrevista);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Documento)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Documento other = (Documento) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Documento other = (Documento) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+       if (!Objects.equals(this.pessoa, other.pessoa)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataPrevista, other.dataPrevista)) {
             return false;
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        return "br.edu.ifnmg.gestaoprojetos.DomainModel.Documento[ id=" + id + " ]";
+        return tipoDocumento.getSigla();
     }
     
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <h:outputStylesheet name="/css/default.css"/>
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <title>Gerenciador de Projetos de Pesquisa e Extensão - IFNMG</title>
+    </h:head>
+
+    <h:body>
+
+        <h:form acceptcharset="ISO-8859-1" lang="pt_BR"  enctype="multipart/form-data"  >            
+            <img  src="../resources/img/cabecalho.png" style="width: 100%; height: 180px"/>
+                <p:growl id="growl" showDetail="true" sticky="true" />
+
+                <p:menubar>
+                    <p:submenu label="Cadastros" icon="ui-icon-pencil" > 
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAlunos.xhtml')}" value="Bolsistas" url="listagemAlunos.xhtml"  />                    
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemOrientadores.xhtml')}" value="Orientadores" url="listagemOrientadores.xhtml"/> 
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAreasConhecimento.xhtml')}" value="Áreas de Conhecimento" url="listagemAreasConhecimento.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemCursos.xhtml')}" value="Cursos" url="listagemCursos.xhtml"/>
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemCampus.xhtml')}" value="Campus" url="listagemCampus.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemModalidades.xhtml')}" value="Modalidades" url="listagemModalidades.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemAgenciasFinanciadoras.xhtml')}" value="Agências Financiadoras" url="listagemAgenciasFinanciadoras.xhtml" /> 
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemEditais.xhtml')}" value="Editais" url="listagemEditais.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemTiposDocumentos.xhtml')}" value="Tipos de Documentos" url="listagemTiposDocumentos.xhtml" />                
+                    </p:submenu>
+
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemProjetos.xhtml')}" value="Projetos" icon="ui-icon-pencil" url="listagemProjetos.xhtml" />
+
+                    <p:submenu label="Relatórios" icon="ui-icon-pencil" >
+                        <p:menuitem value="Relat 1"  />     
+                    </p:submenu>
+
+                    <p:submenu rendered="#{autenticacaoController.autorizacao('admin/Seguranca')}" label="Segurança">
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemUsuarios.xhtml')}" value="Usuários" url="listagemUsuarios.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemConfiguracoes.xhtml')}" value="Configurações" url="listagemConfiguracoes.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemPerfis.xhtml')}" value="Perfis" url="listagemPerfis.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemPermissoes.xhtml')}" value="Permissões"  url="listagemPermissoes.xhtml" />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemLogs.xhtml')}" value="Logs" url="listagemLogs.xhtml"  />
+                        <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/importaCSV.xhtml')}" value="Importar CSV" url="importaCSV.xhtml"  />
+                        
+                    </p:submenu>
+                    <p:menuitem ajax="false" immediate="true" value="Sair" action="#{autenticacaoController.logout()}"  />
+                    
+                    <p:menuitem style="position: absolute; left: 75%; font-weight: bold; " value="#{autenticacaoController.usuarioCorrente.nome}" url="editarDadosPessoais.xhtml" />
+
+                </p:menubar>
+                <p:growl showDetail="true" id="messages" sticky="true"  life="60" />
+                <p:idleMonitor timeout="300000">
+                    <p:ajax event="idle" listener="#{autenticacaoController.idleListener()}" oncomplete="msgIdle.show();" update="messages" />
+                </p:idleMonitor>
+                <ui:insert name="content">Content</ui:insert>
+                <p:confirmDialog message="Sua sessão ficou ociosa por mais de 5 minutos e você foi desconectado automaticamente. Por favor efetue login novamente."  
+                                 header="Aviso" severity="alert" widgetVar="msgIdle">  
+                    <p:commandButton ajax="false" value="Login" action="#{autenticacaoController.logout()}"  />  
+                </p:confirmDialog>
+        </h:form>
+
+        <div id="bottom" style="float: bottom">
+            Copyright 2014 - TADS IFNMG Januária
+        </div>
+    </h:body>
+
+</html>

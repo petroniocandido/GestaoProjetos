@@ -61,7 +61,9 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
     
   
     public Orientador() {
+        super();
         this.areaConhecimento = new ArrayList<>();
+        setUsuarioTipo(UsuarioTipo.Orientador);
     }
 
     public void addAreaConhecimento(AreaConhecimento a){

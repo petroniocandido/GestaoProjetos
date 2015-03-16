@@ -8,6 +8,7 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Entidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ArquivoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.Repositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -113,6 +114,11 @@ public abstract class ControllerBaseEntidade<T extends Entidade> extends Control
         postConstruct();
     }
 
+    public Repositorio<T> getRepositorio() {
+        return repositorio;
+    }
+
+    
     public T getFiltro() {
         return filtro;
     }
@@ -283,6 +289,38 @@ public abstract class ControllerBaseEntidade<T extends Entidade> extends Control
 
     public void setPaginaListagem(String paginaListagem) {
         this.paginaListagem = paginaListagem;
+    }
+    
+    Boolean superadmin;
+    public boolean isSuperAdmin() {
+        if(superadmin == null){
+            superadmin = getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Pessoa;
+        }
+        return superadmin;
+    }
+    
+    Boolean admin;
+    public boolean isAdmin() {
+        if(admin == null){
+            admin = getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Pessoa;
+        }
+        return admin;
+    }
+    
+    Boolean orientador;
+    public boolean isOrientador() {
+        if(orientador == null){
+            orientador = getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Orientador;
+        }
+        return orientador;
+    }
+    
+    Boolean aluno;
+    public boolean isAluno() {
+        if(aluno == null){
+            aluno = getUsuarioCorrente().getUsuarioTipo() == UsuarioTipo.Aluno;
+        }
+        return aluno;
     }
 
 }

@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./AdminTemplate.xhtml">
+
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Cadastro Rápido de Projeto 
+                    </f:facet>
+                    <p:tabView id="tabView">  
+                        <p:tab title="Projeto">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Campus:" />           
+                                <p:selectOneMenu value="#{cadastroRapidoProjetoController.projeto.campus}"
+                                                 converter="#{campusConverter}" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.campus}"/>
+
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Tipo:" />                    
+                                <p:selectOneMenu value="#{cadastroRapidoProjetoController.projeto.tipo}" required="true" >
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.tiposProjeto}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Título:" />
+                                <p:inputTextarea value="#{cadastroRapidoProjetoController.projeto.titulo}" cols="100" rows="4" required="true" />
+                                
+                            </h:panelGrid>
+                        </p:tab>  
+                        <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}" title="Áreas de Conhecimento" >
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Palavras-Chave:" />
+                                <p:inputText  value="#{cadastroRapidoProjetoController.projeto.palavrasChave}" style="width: 100%"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="3">
+                                <h:outputLabel value="Area de Conhecimento:" />   
+                                <p:autoComplete id="txtAreaConhecimento" converter="#{areaConhecimentoConverter}" value="#{cadastroRapidoProjetoController.areaConhecimento}"
+                                                completeMethod="#{areaConhecimentoConverter.autoCompleteAreaConhecimento}"
+                                                var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                                    #{item}
+                                </p:autoComplete>
+
+                                <p:commandButton  value="Adicionar" icon="ui-icon-check" 
+                                                  action="#{cadastroRapidoProjetoController.addAreaConhecimento()}" style="margin:0"
+                                                  update="tblAreaConhecimento txtAreaConhecimento"/>
+
+                            </h:panelGrid>
+
+                            <p:dataTable id="tblAreaConhecimento"  value="#{cadastroRapidoProjetoController.projeto.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
+                                    #{item}
+                                </p:column>                                                   
+
+                                <p:column  headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover"  action="#{cadastroRapidoProjetoController.removeAreaConhecimento()}">
+                                        <f:setPropertyActionListener target="#{cadastroRapidoProjetoController.areaConhecimento}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab>   
+                        <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}"  title="Coordenador">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Coordenador já Cadastrado:" />                             
+                                <p:autoComplete  converter="#{orientadorConverter}" value="#{cadastroRapidoProjetoController.projeto.coordenador}"
+                                                 completeMethod="#{orientadorConverter.autoCompleteOrientador}"
+                                                 var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                                    #{item.nome}
+                                </p:autoComplete>
+
+                                <h:outputLabel value="Nome Completo*:" />
+                                <p:inputText value="#{cadastroRapidoProjetoController.orientador.nome}" style="width: 200%"/> 
+
+                                <h:outputText value="E-Mail (Login): " />
+                                <p:inputText value="#{cadastroRapidoProjetoController.orientador.email}" />
+
+                                <h:outputLabel value="CPF*:" />
+                                <p:inputMask value="#{cadastroRapidoProjetoController.orientador.cpf}" mask="999.999.999-99"/>
+
+                                <h:outputLabel value="Curriculum Lattes:" />
+                                <p:inputText value="#{cadastroRapidoProjetoController.orientador.lattes}" required="false"/> 
+
+                                <h:outputLabel value="Data de Nascimento:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.orientador.dataNascimento}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+
+                                <p:commandButton ajax="false"  value="Salvar Novo" action="#{cadastroRapidoProjetoController.salvarOrientador()}" style="margin:0" />
+                            </h:panelGrid>
+
+                        </p:tab>  
+                        <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}"  title="Bolsista">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Bolsista já Cadastrado:" />                             
+                                <p:autoComplete  converter="#{alunoConverter}" value="#{cadastroRapidoProjetoController.aluno}"
+                                                 completeMethod="#{alunoConverter.autoCompleteAluno}"
+                                                 var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                                    #{item.nome}
+                                </p:autoComplete>
+
+                                <h:outputLabel value="Nome Completo:" />
+                                <p:inputText value="#{cadastroRapidoProjetoController.aluno.nome}"  style="width: 100%"/>   
+
+                                <h:outputText value="E-Mail (Login): " />
+                                <p:inputText value="#{cadastroRapidoProjetoController.aluno.email}" />
+
+                                <h:outputLabel value="CPF:" />
+                                <p:inputMask value="#{cadastroRapidoProjetoController.aluno.cpf}" mask="999.999.999-99"/>
+
+                                <h:outputLabel value="Data de Nascimento:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.aluno.dataNascimento}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+
+                                <p:commandButton ajax="false" value="Salvar Novo" action="#{cadastroRapidoProjetoController.salvarAluno()}" style="margin:0" />
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}"  title="Bolsa">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Modalidade:" />                   
+                                <p:selectOneMenu value="#{cadastroRapidoProjetoController.bolsa.modalidade}" converter="#{modalidadeConverter}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.modalidades}"/>
+
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Agência Financiadora:" />                    
+                                <p:selectOneMenu value="#{cadastroRapidoProjetoController.bolsa.agenciaFinanciadora}" converter="#{agenciaFinanciadoraConverter}" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.agenciaFinanciadoras}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Edital:" />                    
+                                <p:selectOneMenu value="#{cadastroRapidoProjetoController.bolsa.edital}" converter="#{editalConverter}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.editais}"/>
+                                </p:selectOneMenu>
+                                
+                                <h:outputLabel value="Data de Início:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.bolsa.dataInicio}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+
+                                <h:outputLabel value="Data de Término:" />
+                                <p:calendar value="#{cadastroRapidoProjetoController.bolsa.dataTermino}" required="false"
+                                            pattern="dd/MM/yyyy" locale="pt_BR"  />  
+                                
+                                <p:commandButton  ajax="false" value="Salvar Novo" action="#{cadastroRapidoProjetoController.salvarBolsa()}" style="margin:0" />
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab rendered="#{cadastroRapidoProjetoController.projeto.id > 0}"  title="Documentos">
+                            <h:panelGrid columns="3">
+                                <h:outputLabel value="Tipo de Documento:" />                   
+                                <p:selectOneMenu value="#{cadastroRapidoProjetoController.documento.tipoDocumento}" 
+                                                 converter="#{tipoDocumentoConverter}" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="#{cadastroRapidoProjetoController.tiposDocumentos}"/>
+                                </p:selectOneMenu>
+
+                                <p:commandButton  value="Adicionar" icon="ui-icon-check" 
+                                                  action="#{cadastroRapidoProjetoController.addDocumento()}" style="margin:0"
+                                                  update="tblDocumento "/>
+
+                            </h:panelGrid>
+
+                            <p:dataTable id="tblDocumento"  value="#{cadastroRapidoProjetoController.projeto.documentos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column  headerText="Documentos" >
+                                    #{item}
+                                </p:column>                                                   
+
+                                <p:column  headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover"  action="#{cadastroRapidoProjetoController.removeDocumento()}">
+                                        <f:setPropertyActionListener target="#{cadastroRapidoProjetoController.documento}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab> 
+                    </p:tabView>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnSalvar" value="Salvar" icon="ui-icon-pencil" onclick="msgSalvar.show();"  />
+                        <p:commandButton ajax="false" id="btnNovo" value="Novo" immediate="true"   action="#{cadastroRapidoProjetoController.novo()}" />
+                        <p:commandButton ajax="false" value="Voltar" immediate="true"   action="listagemProjetos.xhtml" />
+                    </f:facet>
+                    <p:confirmDialog id="confirmaSalvar" message="Deseja realmente salvar as alterações?"  
+                                     header="Confirmação" severity="alert" widgetVar="msgSalvar">  
+                        <p:commandButton ajax="false" id="simSalvar" value="SIM" action="#{cadastroRapidoProjetoController.salvar()}" />  
+                        <p:commandButton id="naoSalvar" value="NÃO" onclick="msgSalvar.hide();" type="button" />   
+                    </p:confirmDialog>  
+                </p:panel>    
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+

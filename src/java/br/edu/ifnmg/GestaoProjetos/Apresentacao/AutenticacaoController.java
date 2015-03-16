@@ -6,11 +6,16 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBase;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ValidadorCPF;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AutorizacaoService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PerfilRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import java.io.IOException;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -38,9 +43,18 @@ public class AutenticacaoController
     public AutenticacaoController() {
 
     }
+    
+    UsuarioTipo tipo;
 
     @EJB
     PessoaRepositorio dao;
+    
+    @EJB
+    OrientadorRepositorio daoO;
+    
+    @EJB
+    AlunoRepositorio daoA;
+    
     @EJB
     HashService hash;
     @EJB
@@ -89,6 +103,30 @@ public class AutenticacaoController
             AppendLog("Cadastro do usuário " + usuario.getEmail());
         } else {
             AppendLog("Erro ao cadastrar usuário: " + dao.getErro().toString());
+        }
+    }
+    
+    public void cadastrarAluno() {
+        Aluno a = getAluno();
+        a.setPerfil(perfilDAO.getPadrao());
+        a.setSenha(java.util.UUID.randomUUID().toString());
+        if (daoA.Salvar(a)) {
+            autenticacao.redefinirSenha(a.getEmail());
+            AppendLog("Cadastro do usuário " + a.getEmail());
+        } else {
+            AppendLog("Erro ao cadastrar usuário: " + daoA.getErro().toString());
+        }
+    }
+    
+    public void cadastrarOrientador() {
+        Orientador o = getOrientador();
+        o.setPerfil(perfilDAO.getPadrao());
+        o.setSenha(java.util.UUID.randomUUID().toString());
+        if (daoO.Salvar(o)) {
+            autenticacao.redefinirSenha(o.getEmail());
+            AppendLog("Cadastro do usuário " + o.getEmail());
+        } else {
+            AppendLog("Erro ao cadastrar usuário: " + daoO.getErro().toString());
         }
     }
 
@@ -140,6 +178,26 @@ public class AutenticacaoController
             }
         }
         return usuario;
+    }
+    
+    public Aluno getAluno() {
+        if (usuario == null) {
+            usuario = (Pessoa) getSessao("usuarioAutenticado", daoA);
+            if (usuario == null) {
+                usuario = new Aluno();
+            }
+        }
+        return (Aluno)usuario;
+    }
+    
+    public Orientador getOrientador() {
+        if (usuario == null) {
+            usuario = (Pessoa) getSessao("usuarioAutenticado", daoO);
+            if (usuario == null) {
+                usuario = new Orientador();
+            }
+        }
+        return (Orientador)usuario;
     }
 
     public void setUsuario(Pessoa usuario) {
@@ -201,6 +259,18 @@ public class AutenticacaoController
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);
         }
+    }
+
+    public UsuarioTipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(UsuarioTipo tipo) {
+        this.tipo = tipo;
+    }
+    
+    public UsuarioTipo[] getTipos() {
+        return UsuarioTipo.values();
     }
 
 }

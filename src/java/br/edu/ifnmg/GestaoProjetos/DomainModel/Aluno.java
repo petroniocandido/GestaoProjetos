@@ -82,8 +82,8 @@ public class Aluno extends Pessoa implements Entidade, Serializable {
     private String localTrabalho;
 
     public Aluno() {
-
         super();  
+        setUsuarioTipo(UsuarioTipo.Aluno);
     }
 
     @Override

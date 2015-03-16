@@ -6,6 +6,12 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" >
     <h:panelGrid columns="2" cellpadding="3">
+        <h:outputLabel value="Campus do IFNMG*:" />
+        <p:selectOneMenu value="${pessoa.campus}" label="Campus" 
+                         converter="${campusConverter}" required="false" >
+            <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+            <f:selectItems value="${campusController.listagem}"/>
+        </p:selectOneMenu>
         <h:outputText value="Nome: " />
         <p:inputText id="txtNome" value="#{pessoa.nome}" 
                      required="true" requiredMessage="O campo nome é obrigatório" />

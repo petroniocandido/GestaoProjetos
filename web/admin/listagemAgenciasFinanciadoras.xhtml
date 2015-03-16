@@ -24,7 +24,7 @@
                                 <h:outputLabel id="txtSigla" value="Sigla:" />
                                 <p:inputText value="${agenciaFinanciadoraController.filtro.sigla}"/>
                             </p:panelGrid>
-                            <ui:include src="./comum/botoesListagem.xhtml">
+                            <ui:include src="../comum/botoesListagem.xhtml">
                                 <ui:param name="controller" value="#{agenciaFinanciadoraController}"  />
                                 <ui:param name="campos" value="txtNome txtSigla"  />
                             </ui:include>

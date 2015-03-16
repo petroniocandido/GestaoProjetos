@@ -4,7 +4,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.TipoDocumento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import javax.ejb.Local;
 
 /**
@@ -12,10 +12,6 @@ import javax.ejb.Local;
  * @author HOME
  */
 @Local
-public interface TipoDocumentoRepositorio
-    
-    extends Repositorio<TipoDocumento>
-
-    {
+public interface TipoDocumentoRepositorio extends Repositorio<DocumentoTipo>   {
     
 }

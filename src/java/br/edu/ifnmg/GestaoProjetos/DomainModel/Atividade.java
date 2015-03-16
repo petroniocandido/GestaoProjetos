@@ -6,6 +6,7 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,32 +37,42 @@ public class Atividade implements Entidade, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @ManyToOne
-    private Projeto projeto;
+    @ManyToOne(optional = false)
+    private Bolsa bolsa;
 
     @Lob
     @Column(nullable = false)
     private String descricao;
 
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataInicio;
 
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataFim;
 
     @Column(nullable = false)
     private int ordem;
-    
+        
     @Enumerated(EnumType.STRING)
-    private SituacaoAtividade situacao;
-    
+    private AtividadeSituacao situacao;
+
+    public Atividade() {
+        this.descricao = "";
+        this.dataInicio = new Date();
+        this.dataFim = new Date();
+        this.ordem = 0;
+        this.situacao = AtividadeSituacao.Pendente;
+    }
+       
     public Status getStatus() {
         Date hoje = new Date();
         
-        if(hoje.after(dataInicio) && hoje.before(dataFim) && situacao == SituacaoAtividade.Pendente)
+        if(hoje.after(dataInicio) && hoje.before(dataFim) && situacao == AtividadeSituacao.Pendente)
             return Status.Pendente;
         
-        if(hoje.after(dataFim) && situacao != SituacaoAtividade.Concluido)
+        if(hoje.after(dataFim) && situacao != AtividadeSituacao.Concluido)
             return Status.Pendente;
         
         return Status.Regular;
@@ -78,12 +89,12 @@ public class Atividade implements Entidade, Serializable {
         this.id = id;
     }
 
-    public Projeto getProjeto() {
-        return projeto;
+    public Bolsa getBolsa() {
+        return bolsa;
     }
 
-    public void setProjeto(Projeto projeto) {
-        this.projeto = projeto;
+    public void setBolsa(Bolsa p) {
+        this.bolsa = p;
     }
        
 
@@ -119,20 +130,22 @@ public class Atividade implements Entidade, Serializable {
         this.ordem = ordem;
     }
 
-    public SituacaoAtividade getSituacao() {
+    public AtividadeSituacao getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(SituacaoAtividade situacao) {
+    public void setSituacao(AtividadeSituacao situacao) {
         this.situacao = situacao;
     }
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.bolsa);
+        hash = 79 * hash + Objects.hashCode(this.descricao);
+        hash = 79 * hash + Objects.hashCode(this.dataInicio);
+        hash = 79 * hash + Objects.hashCode(this.dataFim);
         return hash;
     }
 
@@ -145,24 +158,24 @@ public class Atividade implements Entidade, Serializable {
             return false;
         }
         final Atividade other = (Atividade) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
+        if (!Objects.equals(this.bolsa, other.bolsa)) {
             return false;
         }
-        if (this.dataInicio != other.dataInicio && (this.dataInicio == null || !this.dataInicio.equals(other.dataInicio))) {
+        if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
-        if (this.dataFim != other.dataFim && (this.dataFim == null || !this.dataFim.equals(other.dataFim))) {
+        if (!Objects.equals(this.dataInicio, other.dataInicio)) {
             return false;
         }
-        if (this.ordem != other.ordem) {
+        if (!Objects.equals(this.dataFim, other.dataFim)) {
             return false;
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return descricao;

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+        <ui:composition template="./AdminTemplate.xhtml">
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Listagem de Documentos
+                    </f:facet>
+                    <p:accordionPanel styleClass="teste">
+                        <p:tab title="Filtros">
+                            <p:panelGrid columns="2">
+                                <h:outputLabel value="Campus:" />
+                                <p:selectOneMenu value="#{documentoController.campus}" 
+                                                 disabled="#{not documentoController.superAdmin}"
+                                                 converter="#{campusConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="#{campusController.listagem}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Projeto:" />                             
+                                <p:autoComplete  converter="#{projetoConverter}" value="#{documentoController.filtro.projeto}"
+                                                 completeMethod="#{projetoConverter.autoCompleteProjeto}"
+                                                 var="item" itemLabel="#{item.titulo}" itemValue="#{item}">
+                                    #{item.titulo}
+                                </p:autoComplete>
+                                <h:outputLabel value="Situação:" />
+                                <p:selectOneMenu value="#{documentoController.filtro.situacao}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="#{documentoController.situacoes}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Tipo de Documento:" />                   
+                                <p:selectOneMenu value="#{documentoController.filtro.tipoDocumento}" 
+                                                 converter="#{tipoDocumentoConverter}" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="#{documentoController.tipos}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Previsão de Entrega:" />
+                                <p:calendar value="#{documentoController.filtro.dataPrevista}" 
+                                            pattern="dd/MM/yyyy" locale="pt_BR" />  
+                            </p:panelGrid>
+                            <ui:include src="../comum/botoesListagem.xhtml">
+                                <ui:param name="controller" value="#{documentoController}"  />
+                                <ui:param name="campos" value=""  />
+                            </ui:include>
+                        </p:tab>
+                    </p:accordionPanel>
+                </p:panel>
+                <ui:include src="../comum/listagemDocumentos.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

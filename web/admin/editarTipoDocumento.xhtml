@@ -30,14 +30,20 @@
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                                     <f:selectItems value="${tipoDocumentoController.periodicidades}"/>
                                 </p:selectOneMenu>
+                                
+                                <h:outputLabel value="Unidade:" />
+                                <p:selectOneMenu value="#{tipoDocumentoController.entidade.unidade}">
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${tipoDocumentoController.unidades}"/>
+                                </p:selectOneMenu>
 
                             </h:panelGrid>
                         </p:tab>
-                        <ui:include src="./comum/tabSeguranca.xhtml">
+                        <ui:include src="../comum/tabSeguranca.xhtml">
                             <ui:param name="controller" value="#{tipoDocumentoController}"  />
                         </ui:include>
                     </p:tabView>
-                    <ui:include src="./comum/botoesEntidade.xhtml">
+                    <ui:include src="../comum/botoesEntidade.xhtml">
                         <ui:param name="controller" value="#{tipoDocumentoController}"  />
                     </ui:include>
                     (*) Campos de Preenchimento Obrigatório

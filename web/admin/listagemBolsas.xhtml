@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./AdminTemplate.xhtml">
+
+            <ui:define name="content">
+                <p:panel>
+                    <f:facet name="header">
+                        Listagem de Bolsas 
+                    </f:facet>
+                    <p:accordionPanel styleClass="teste">
+                        <p:tab title="Filtros">
+                            <p:panelGrid columns="2">
+                                 <h:outputLabel value="Campus:" />
+                                <p:selectOneMenu value="${bolsaController.campus}" disabled="#{not bolsaController.superAdmin}"
+                                                 converter="${campusConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${campusController.listagem}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Projeto*:" />                             
+                                <p:autoComplete  converter="#{projetoConverter}" value="#{bolsaController.filtro.projeto}"
+                                                 completeMethod="#{projetoConverter.autoCompleteProjeto}"
+                                                 var="item" itemLabel="#{item.titulo}" itemValue="#{item}">
+                                    #{item.titulo}
+                                </p:autoComplete>
+                                <h:outputLabel value="Modalidade:" />                   
+                                <p:selectOneMenu value="${bolsaController.filtro.modalidade}" 
+                                                 converter="${modalidadeConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${modalidadeController.listagem}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Agência Financiadora*:" />                    
+                                <p:selectOneMenu value="${bolsaController.filtro.agenciaFinanciadora}"  
+                                                 converter="${agenciaFinanciadoraConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Edital:" />                    
+                                <p:selectOneMenu value="${bolsaController.filtro.edital}"  
+                                                 converter="${editalConverter}" required="false" >
+                                    <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+                                    <f:selectItems value="${editalController.listagem}"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <ui:include src="../comum/botoesListagem.xhtml">
+                                <ui:param name="controller" value="#{bolsaController}"  />
+                                <ui:param name="campos" value=""  />
+                            </ui:include>
+                        </p:tab>
+                    </p:accordionPanel>
+
+                    <ui:include src="../comum/listagemBolsas.xhtml" />
+
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

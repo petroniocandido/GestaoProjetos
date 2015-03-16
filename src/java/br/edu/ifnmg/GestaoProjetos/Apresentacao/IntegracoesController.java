@@ -4,20 +4,22 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
-import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBase;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.AreaConhecimentoCSVImporter;
+import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.BolsaCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.OrientadorCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.OrientandoCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.PessoaCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.ProjetoCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AreaConhecimentoRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.BolsaRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
@@ -63,6 +65,12 @@ public class IntegracoesController
 
     @EJB
     ProjetoRepositorio daoProjeto;
+    
+    @EJB
+    BolsaRepositorio daoBolsa;
+    
+    @EJB
+    BolsaCSVImporter impBolsa;
     
     @EJB
     ProjetoCSVImporter impProjeto;
@@ -118,6 +126,9 @@ public class IntegracoesController
                 break;
             case "Projetos":
                 importarProjetos();
+                break;
+            case "Bolsas":
+                importarBolsas();
                 break;
         }
     }
@@ -181,6 +192,18 @@ public class IntegracoesController
 
         }
 
+    }
+    
+    public void importarBolsas() {
+        List<Bolsa> tmp = impBolsa.importarCSV(abreArquivo());
+        for (Bolsa p : tmp) {
+            Rastrear(p);
+            if (daoBolsa.Salvar(p)) {
+                Mensagem(p.getOrientando() + "Salvo com sucesso", p.getOrientando() + "Salvo com sucesso");
+            } else {
+                Mensagem(p.getOrientando()+ " - Falhou", daoProjeto.getErro().getMessage());
+            }
+        }
     }
 
     public void importarProjetos() {

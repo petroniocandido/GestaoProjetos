@@ -7,13 +7,13 @@ package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Curso;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CursoRepositorio;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 
 /**
  *
  * @author Isla Guedes
  */
-@Stateless(name = "CursoRepositorio")
+@Singleton
 public class CursoDAO
         extends DAOGenerico<Curso>
         implements CursoRepositorio {
