@@ -34,7 +34,12 @@ public abstract class ControllerBaseEntidade<T extends Entidade> extends Control
     private String paginaListagem;
 
     @EJB
-    ArquivoRepositorio arqDAO; 
+    private ArquivoRepositorio arqDAO; 
+
+    protected ArquivoRepositorio getArquivoRepositorio() {
+        return arqDAO;
+    }
+       
 
     public Long getId() {
         if (id == null || id == 0L) {

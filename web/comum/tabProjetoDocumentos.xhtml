@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <p:tab rendered="#{controller.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoDocumentos')}" 
+           title="Documentos">
+        <h:panelGrid  rendered="#{controller.alteraDadosGerais}" columns="2">
+            <h:outputLabel value="Tipo de Documento*:" />
+            <p:selectOneMenu id="txtTipoDocumento" value="#{controller.documento.tipoDocumento}" label="Tipo de Documento"
+                             converter="#{tipoDocumentoConverter}" required="false">
+                <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
+                <f:selectItems value="#{tipoDocumentoConverter.tipoDocumentos}"/>
+
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Data Prevista*:" />
+            <p:calendar id="txtDataPrevista" value="#{controller.documento.dataPrevista}" required="false"
+                        label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>                   
+
+        </h:panelGrid>
+        <p:fileUpload  fileUploadListener="#{controller.fileUploadListener}"  mode="advanced"
+                       auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)$/"
+                       fileLimit="1" fileLimitMessage="Só é possível escolher um arquivo!"
+                       invalidFileMessage="Tipo de arquivo não permitido!"
+                       invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
+                       label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
+                       dragDropSupport="flase" multiple="false" update="lnkArquivo" />
+        <h:outputLink disabled="#{empty controller.arquivo}" 
+                      id="lnkArquivo"  value="#{request.contextPath}/arquivos/#{controller.arquivo.uri}" >
+            Visualizar arquivo
+        </h:outputLink>
+
+        <p:commandButton value="Adicionar" icon="ui-icon-check" 
+                         action="#{controller.addDocumento()}" style="margin:0"
+                         update="tblTipoDocumento txtTipoDocumento txtDataPrevista" /> 
+        <p:dataTable id="tblTipoDocumento" value="#{controller.entidade.documentos}" 
+                     var="item" emptyMessage="Registros não Encontrados!" >
+
+            <p:column headerText="Tipo de Documento">
+                #{item.tipoDocumento}
+            </p:column>
+
+            <p:column headerText="Data Efetiva">
+                <h:outputLabel value="#{item.dataEfetiva}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputLabel>
+            </p:column>
+
+            <p:column headerText="Arquivo">
+                <h:outputLink rendered="#{not empty item.arquivo}" 
+                              value="#{request.contextPath}/arquivos/#{item.arquivo.uri}" >
+                    Visualizar
+                </h:outputLink>
+            </p:column>
+
+            <p:column  rendered="#{controller.admin}" sortBy="editar" headerText="Editar">
+                <p:commandButton ajax="false" value="Editar" >
+                    <f:setPropertyActionListener target="#{controller.documento}" value="#{item}" />
+                </p:commandButton>
+            </p:column>
+
+            <p:column rendered="#{controller.admin}" sortBy="remover" headerText="Remover" >
+                <p:commandButton ajax="false" value="Remover" action="#{controller.removeDocumento()}">
+                    <f:setPropertyActionListener target="#{controller.documento}" value="#{item}" />
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </p:tab>
+</ui:composition>
+

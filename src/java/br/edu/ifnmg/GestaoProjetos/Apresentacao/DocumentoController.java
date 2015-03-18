@@ -105,7 +105,7 @@ public class DocumentoController
             setPaginaEdicao("editarDocumento.xhtml");
         else
             setPaginaEdicao("visualizarDocumento.xhtml");
-        setPaginaListagem("listagemEditais.xhtml");
+        setPaginaListagem("listagemDocumentos.xhtml");
         setCampus(new Campus());
     }
     

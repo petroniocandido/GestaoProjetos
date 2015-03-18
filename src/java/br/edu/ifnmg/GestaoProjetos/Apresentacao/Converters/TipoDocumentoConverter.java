@@ -33,4 +33,13 @@ public class TipoDocumentoConverter
         i.setNome(query);
         return dao.Buscar(i);
     }
+    
+    List<DocumentoTipo> tipos;
+    
+    public List<DocumentoTipo> getTipoDocumentos(){
+        if(tipos == null)
+            tipos = dao.Ordenar("nome", "asc").Buscar();
+        
+        return tipos;
+    }
 }

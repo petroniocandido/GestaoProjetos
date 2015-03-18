@@ -135,68 +135,9 @@
                 </h:panelGrid>
             </p:tab>
 
-            <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoDocumentos')}" 
-                   title="Documentos">
-                <h:panelGrid  rendered="#{projetoController.alteraDadosGerais}" columns="4">
-                    <h:outputLabel value="Tipo de Documento*:" />
-                    <p:selectOneMenu id="txtTipoDocumento" value="${projetoController.documento.tipoDocumento}" label="Tipo de Documento"
-                                     converter="${tipoDocumentoConverter}" required="false">
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                        <f:selectItems value="${tipoDocumentoController.listagem}"/>
-
-                    </p:selectOneMenu>
-
-                    <h:outputLabel value="Data Prevista*:" />
-                    <p:calendar id="txtDataPrevista" value="${projetoController.documento.dataPrevista}" required="false"
-                                label="Data Prevista" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-                    <h:outputLabel value="Data Efetiva*:" />
-                    <p:calendar id="txtDataEfetiva" value="${projetoController.documento.dataEfetiva}" required="false"
-                                label="Data Efetiva" pattern="dd/MM/yyyy" locale="pt_BR"/>
-
-
-                    <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     action="${projetoController.addDocumento()}" style="margin:0"
-                                     update="tblTipoDocumento txtTipoDocumento txtDataPrevista txtDataEfetiva" /> 
-
-                </h:panelGrid>
-                <p:dataTable id="tblTipoDocumento" value="${projetoController.entidade.documentos}" 
-                             var="item" emptyMessage="Registros não Encontrados!" >
-
-                    <p:column sortBy="funcionarioRecebedor" headerText="Funcionário Recebedor">
-                        ${item.funcionarioRecebedor}
-                    </p:column>
-
-                    <p:column sortBy="tipoDocumento" headerText="Tipo de Documento">
-                        ${item.tipoDocumento}
-                    </p:column>
-
-                    <p:column sortBy="dataPrevista" headerText="Data Prevista">
-                        <h:outputLabel value="${item.dataPrevista}">
-                            <f:convertDateTime pattern="MM/yyyy" />
-                        </h:outputLabel>
-                    </p:column>
-
-                    <p:column sortBy="dataEfetiva" headerText="Data Efetiva">
-                        <h:outputLabel value="${item.dataEfetiva}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputLabel>
-                    </p:column>
-
-                    <p:column  rendered="#{projetoController.admin}" sortBy="editar" headerText="Editar">
-                        <p:commandButton ajax="false" value="Editar" >
-                            <f:setPropertyActionListener target="#{projetoController.documento}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-
-                    <p:column rendered="#{projetoController.admin}" sortBy="remover" headerText="Remover" >
-                        <p:commandButton ajax="false" value="Remover" action="#{projetoController.removeDocumento()}">
-                            <f:setPropertyActionListener target="#{projetoController.documento}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-            </p:tab>
-
+            <ui:include src="tabProjetoDocumentos.xhtml">
+                <ui:param name="controller" value="#{projetoController}"  />
+            </ui:include>
             <p:tab rendered="#{projetoController.entidade.id > 0 and autenticacaoController.autorizacao('tabProjetoOrcamento')}" 
                    title="Financiamentos">
                 <h:panelGrid  rendered="#{projetoController.alteraDadosGerais}" columns="4">

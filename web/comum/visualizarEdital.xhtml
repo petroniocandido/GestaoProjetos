@@ -53,7 +53,7 @@
             <p:tab title="Arquivos">
                 <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                     <p:column headerText="Arquivo">
-                        <a href="/arquivos/#{item.uri}">${item}</a>
+                        <a href="#{request.contextPath}/arquivos/#{item.uri}">${item}</a>
                     </p:column>
                 </p:dataTable>
             </p:tab>
