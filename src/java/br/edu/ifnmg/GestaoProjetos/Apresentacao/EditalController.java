@@ -11,12 +11,15 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.EditalRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -36,6 +39,14 @@ public class EditalController
     DocumentoTipo documento;
     
     Arquivo arquivo;
+    
+    Modalidade modalidade;
+    
+    AgenciaFinanciadora agenciaFinanciadora;
+    
+    String evento;
+    
+    Date data;
         
     
     /**
@@ -57,9 +68,7 @@ public class EditalController
     public Edital getFiltro() {
         if (filtro == null) {
             filtro = new Edital();
-            filtro.setNumero(getSessao("edctrl_numero") != null ? Integer.parseInt(getSessao("edctrl_numero")) : 0);
             filtro.setSigla(getSessao("edctrl_sigla"));
-            filtro.setAgenciaFinanciadora((AgenciaFinanciadora)getSessao("edctrl_agencia", daoAgencia));
             filtro.setCampus((Campus)getSessao("edctrl_campus", daoAgencia));
             if(filtro.getCampus() == null){
                 filtro.setCampus(getUsuarioCorrente().getCampus());
@@ -72,9 +81,7 @@ public class EditalController
     public void setFiltro(Edital filtro) {
         this.filtro = filtro;
         if (filtro != null) {
-            setSessao("edctrl_numero",Integer.toString(filtro.getNumero()));
             setSessao("edctrl_sigla",filtro.getSigla());
-            setSessao("edctrl_agencia", filtro.getAgenciaFinanciadora());
             setSessao("edctrl_campus", filtro.getCampus());
         }
     }
@@ -95,29 +102,61 @@ public class EditalController
     }
     
     public void addDocumento(){
-        //entidade = dao.Refresh(entidade.getId());
-        entidade.add(documento);
+        getEntidade().add(documento);
         SalvarAgregado(documento);
         documento = new DocumentoTipo();
     }
     
     public void removeDocumento(){
-        //entidade = dao.Refresh(entidade.getId());
-        entidade.remove(documento);
+        getEntidade().remove(documento);
         RemoverAgregado(documento);
         documento = new DocumentoTipo();
     }
     
+    public void addCronograma(){
+        getEntidade().addCronograma(evento,data);
+        SalvarEntidade();
+        evento = "";
+        data = new Date();
+    }
+    
+    public void removeCronograma(){
+        getEntidade().removeCronograma(data);
+        SalvarEntidade();
+    }
+    
+    public void addAgenciaFinanciadora(){
+        getEntidade().add(agenciaFinanciadora);
+        SalvarAgregado(agenciaFinanciadora);
+        agenciaFinanciadora = new AgenciaFinanciadora();
+    }
+    
+    public void removeAgenciaFinanciadora(){
+        getEntidade().remove(agenciaFinanciadora);
+        RemoverAgregado(agenciaFinanciadora);
+        agenciaFinanciadora = new AgenciaFinanciadora();
+    }
+    
+    public void addModalidade(){
+        getEntidade().add(modalidade);
+        SalvarAgregado(modalidade);
+        modalidade = new Modalidade();
+    }
+    
+    public void removeModalidade(){
+        getEntidade().remove(modalidade);
+        RemoverAgregado(modalidade);
+        modalidade = new Modalidade();
+    }
+    
     public void addArquivo(){
-        //entidade = dao.Refresh(entidade.getId());
-        entidade.add(arquivo);
+        getEntidade().add(arquivo);
         SalvarAgregado(arquivo);
         arquivo = new Arquivo();
     }
     
     public void removeArquivo(){
-        //entidade = dao.Refresh(entidade.getId());
-        entidade.remove(arquivo);
+        getEntidade().remove(arquivo);
         RemoverAgregado(arquivo);
         arquivo = new Arquivo();
     }
@@ -164,6 +203,42 @@ public class EditalController
 
     public void setArquivo(Arquivo arquivo) {
         this.arquivo = arquivo;
+    }
+
+    public Modalidade getModalidade() {
+        return modalidade;
+    }
+
+    public void setModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
+    }
+
+    public AgenciaFinanciadora getAgenciaFinanciadora() {
+        return agenciaFinanciadora;
+    }
+
+    public void setAgenciaFinanciadora(AgenciaFinanciadora agenciaFinanciadora) {
+        this.agenciaFinanciadora = agenciaFinanciadora;
+    }
+
+    public String getEvento() {
+        return evento;
+    }
+
+    public void setEvento(String evento) {
+        this.evento = evento;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+    
+    public Object[] getCronograma() {
+        return getEntidade().getCronograma().entrySet().toArray();
     }
 
    

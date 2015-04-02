@@ -35,7 +35,7 @@ public class OrientadorController
      * Creates a new instance of OrientadorController
      */
     public OrientadorController() {
-        areaConhecimento = new AreaConhecimento();
+        //areaConhecimento = new AreaConhecimento();
     }
 
     @EJB
@@ -94,11 +94,17 @@ public class OrientadorController
     public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
         this.areaConhecimento = areaConhecimento;
     }
+    
+    public void addAreaConhecimento() {
+        getEntidade().addAreaConhecimento(areaConhecimento);
+        dao.Salvar(entidade);
+        areaConhecimento = null; 
+    }
 
     public void removeAreaConhecimento() {
         entidade.removeAreaConhecimento(areaConhecimento);
         dao.Salvar(entidade);
-        areaConhecimento = new AreaConhecimento();
+        areaConhecimento = null; 
     }
     
      public List<Pessoa> getPessoas() {

@@ -44,7 +44,7 @@
 
                     <h:outputLabel value="Modalidade*:" />
                     <p:autoComplete  converter="#{modalidadeConverter}" value="#{bolsaController.entidade.modalidade}"
-                                     completeMethod="#{modalidadeConverter.autoCompleteModalidade}" size="140"
+                                     completeMethod="#{modalidadeConverter.autoCompleteModalidade}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
                                      disabled="#{not bolsaController.alteraDadosGerais}"
                                      required="true" requiredMessage="O campo modalidade é obrigatório!">
@@ -53,7 +53,7 @@
 
                     <h:outputLabel value="Agência Financiadora*:" />                    
                     <p:autoComplete  converter="#{agenciaFinanciadoraConverter}" value="#{bolsaController.entidade.agenciaFinanciadora}"
-                                     completeMethod="#{agenciaFinanciadoraConverter.autoCompleteAgenciaFinanciadora}" size="140"
+                                     completeMethod="#{agenciaFinanciadoraConverter.autoCompleteAgenciaFinanciadora}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
                                      disabled="#{not bolsaController.alteraDadosGerais}"
                                      required="true" requiredMessage="O campo agência financiadra é obrigatório!">
@@ -62,7 +62,7 @@
 
                     <h:outputLabel value="Edital*:" />                    
                     <p:autoComplete  converter="#{editalConverter}" value="#{bolsaController.entidade.edital}"
-                                     completeMethod="#{editalConverter.autoCompleteEdital}" size="140"
+                                     completeMethod="#{editalConverter.autoCompleteEdital}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
                                      disabled="#{not bolsaController.alteraDadosGerais}"
                                      required="false" >

@@ -6,6 +6,7 @@ package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Email;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Estados;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone;
@@ -26,6 +27,8 @@ public abstract class ControllerBasePessoa<T extends Pessoa> extends ControllerB
     HashService hash;
 
     String senha1, senha2;
+    
+    Estados[] estados;
 
     /**
      * Creates a new instance of AlunoController
@@ -131,4 +134,12 @@ public abstract class ControllerBasePessoa<T extends Pessoa> extends ControllerB
         // atualiza a listagem
         filtrar();
     }
+
+    public Estados[] getEstados() {
+        if(estados == null)
+            estados = Estados.values();
+        return estados;
+    }
+    
+    
 }

@@ -128,14 +128,7 @@ public class DocumentoController
             AppendLog("Erro ao anexar o arquivo " + tmp + " ao evento " + entidade + ":" + dao.getErro());
         }        
     }
-    
-    
-    public List<DocumentoTipo> getTipos() {
-        if (tipos == null) {
-            tipos = daoTipo.Ordenar("nome", "ASC").Buscar();
-        }               
-        return tipos;
-    }
+        
 
     public DocumentoSituacao[] getSituacoes() {
         if(situacoes == null)

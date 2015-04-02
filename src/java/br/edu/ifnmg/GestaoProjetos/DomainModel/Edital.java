@@ -7,17 +7,24 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Cacheable;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyTemporal;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,96 +35,120 @@ import javax.persistence.Version;
  * @author Isla Guedes
  */
 @Entity
-@Table(name="editais")
+@Table(name = "editais")
 @Cacheable(true)
 public class Edital implements Entidade, Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column
     private int numero;
-    
+
     @Column
     private int numeroBolsas;
-    
-    @ManyToOne
-    private AgenciaFinanciadora agenciaFinanciadora;
-    
+
+    @ManyToMany
+    private List<AgenciaFinanciadora> agenciasFinanciadoras;
+
     @OneToOne
     private Campus campus;
-    
-    @OneToOne
-    private Modalidade modalidade;
-    
-    @Temporal(javax.persistence.TemporalType.DATE) 
-    private Date lancamentoEdital;
-    
-    @Temporal(javax.persistence.TemporalType.DATE) 
-    private Date inicioInscricao;
-    
-    @Temporal(javax.persistence.TemporalType.DATE) 
-    private Date terminoInscricao;
-    
-    @Temporal(javax.persistence.TemporalType.DATE) 
-    private Date divulgacaoResultados;
-    
-    @Temporal(javax.persistence.TemporalType.DATE) 
-    private Date inicioRecursos;
-    
-    @Temporal(javax.persistence.TemporalType.DATE) 
-    private Date terminoRecursos;
-    
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date inicioValidade;
-    
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date terminoValidade;
-    
-    @Column(nullable=false, unique = true)
+
+    @ManyToMany
+    private List<Modalidade> modalidades;
+
+    @Column(nullable = false, unique = true)
     private String sigla;
-    
+
     @ManyToMany
     private List<Arquivo> arquivos;
-    
+
     @ManyToMany
     private List<DocumentoTipo> documentosObrigatorios;
+
+    @OrderBy("data")
+    @ElementCollection
+    @CollectionTable(
+            name = "editais_cronogramas",
+            joinColumns = @JoinColumn(name = "edital")
+    )
+    @MapKeyTemporal(TemporalType.TIMESTAMP)
+    private Map<Date, String> cronograma;
 
     public Edital() {
         arquivos = new ArrayList<>();
         documentosObrigatorios = new ArrayList<>();
-                
-    }   
-    
-     public void add(Arquivo t){
-        if(!arquivos.contains(t)){
+        cronograma = new HashMap<>();
+
+    }
+
+    public void add(Arquivo t) {
+        if (!arquivos.contains(t)) {
             arquivos.add(t);
         }
-        
+
     }
-    
-    public void remove(Arquivo t){
-        if(arquivos.contains(t)){
+
+    public void remove(Arquivo t) {
+        if (arquivos.contains(t)) {
             arquivos.remove(t);
         }
     }
-    
-     public void add(DocumentoTipo t){
-        if(!documentosObrigatorios.contains(t)){
+
+    public void addCronograma(String evt, Date data) {
+        if (!cronograma.containsKey(data)) {
+            cronograma.put(data, evt);
+        }
+    }
+
+    public void removeCronograma(Date evt) {
+        if (cronograma.containsKey(evt)) {
+            cronograma.remove(evt);
+        }
+    }
+
+    public void add(DocumentoTipo t) {
+        if (!documentosObrigatorios.contains(t)) {
             documentosObrigatorios.add(t);
         }
-        
+
     }
-    
-    public void remove(DocumentoTipo t){
-        if(documentosObrigatorios.contains(t)){
+
+    public void remove(DocumentoTipo t) {
+        if (documentosObrigatorios.contains(t)) {
             documentosObrigatorios.remove(t);
         }
     }
-    
+
+    public void add(Modalidade t) {
+        if (!modalidades.contains(t)) {
+            modalidades.add(t);
+        }
+
+    }
+
+    public void remove(Modalidade t) {
+        if (modalidades.contains(t)) {
+            modalidades.remove(t);
+        }
+    }
+
+    public void add(AgenciaFinanciadora t) {
+        if (!agenciasFinanciadoras.contains(t)) {
+            agenciasFinanciadoras.add(t);
+        }
+
+    }
+
+    public void remove(AgenciaFinanciadora t) {
+        if (agenciasFinanciadoras.contains(t)) {
+            agenciasFinanciadoras.remove(t);
+        }
+    }
+
     //GETTER E SETTER
-    
     @Override
     public Long getId() {
         return id;
@@ -134,80 +165,6 @@ public class Edital implements Entidade, Serializable {
 
     public void setNumeroBolsas(int numeroBolsas) {
         this.numeroBolsas = numeroBolsas;
-    }
-    
-    public Date getLancamentoEdital() {
-        return lancamentoEdital;
-    }
-
-    public void setLancamentoEdital(Date lancamentoEdital) {
-        this.lancamentoEdital = lancamentoEdital;
-    }
-
-    public Date getInicioInscricao() {
-        return inicioInscricao;
-    }
-
-    public void setInicioInscricao(Date inicioInscricao) {
-        this.inicioInscricao = inicioInscricao;
-    }
-
-    public Date getTerminoInscricao() {
-        return terminoInscricao;
-    }
-
-    public void setTerminoInscricao(Date terminoInscricao) {
-        this.terminoInscricao = terminoInscricao;
-    }
-
-    public Date getDivulgacaoResultados() {
-        return divulgacaoResultados;
-    }
-
-    public void setDivulgacaoResultados(Date divulgacaoResultados) {
-        this.divulgacaoResultados = divulgacaoResultados;
-    }
-
-    public Date getInicioRecursos() {
-        return inicioRecursos;
-    }
-
-    public void setInicioRecursos(Date inicioRecursos) {
-        this.inicioRecursos = inicioRecursos;
-    }
-
-    public Date getTerminoRecursos() {
-        return terminoRecursos;
-    }
-
-    public void setTerminoRecursos(Date terminoRecursos) {
-        this.terminoRecursos = terminoRecursos;
-    }
-
-    public Date getInicioValidade() {
-        return inicioValidade;
-    }
-
-    public void setInicioValidade(Date inicioValidade) {
-        this.inicioValidade = inicioValidade;
-    }
-
-    public Date getTerminoValidade() {
-        return terminoValidade;
-    }
-
-    public void setTerminoValidade(Date terminoValidade) {
-        this.terminoValidade = terminoValidade;
-    }
-
-   
-
-    public AgenciaFinanciadora getAgenciaFinanciadora() {
-        return agenciaFinanciadora;
-    }
-
-    public void setAgenciaFinanciadora(AgenciaFinanciadora agenciaFinanciadora) {
-        this.agenciaFinanciadora = agenciaFinanciadora;
     }
 
     public int getNumero() {
@@ -250,17 +207,30 @@ public class Edital implements Entidade, Serializable {
         this.documentosObrigatorios = documentosObrigatorios;
     }
 
-    public Modalidade getModalidade() {
-        return modalidade;
+    public Map<Date, String> getCronograma() {
+        return cronograma;
     }
 
-    public void setModalidade(Modalidade modalidade) {
-        this.modalidade = modalidade;
+    public void setCronograma(Map<Date, String> cronograma) {
+        this.cronograma = cronograma;
     }
-    
-    
-    
-    
+
+    public List<AgenciaFinanciadora> getAgenciasFinanciadoras() {
+        return agenciasFinanciadoras;
+    }
+
+    public void setAgenciasFinanciadoras(List<AgenciaFinanciadora> agenciaFinanciadoras) {
+        this.agenciasFinanciadoras = agenciaFinanciadoras;
+    }
+
+    public List<Modalidade> getModalidades() {
+        return modalidades;
+    }
+
+    public void setModalidades(List<Modalidade> modalidades) {
+        this.modalidades = modalidades;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -283,24 +253,23 @@ public class Edital implements Entidade, Serializable {
 
     @Override
     public String toString() {
-        return sigla + "/" + Integer.toString(numero);
+        return sigla;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa criador;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa ultimoAlterador;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataUltimaAlteracao;
-    
+
     @Version
     private Long versao;
-    
 
     @Override
     public Pessoa getCriador() {
@@ -350,5 +319,5 @@ public class Edital implements Entidade, Serializable {
     public void setVersao(Long versao) {
         this.versao = versao;
     }
-    
+
 }

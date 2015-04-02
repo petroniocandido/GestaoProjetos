@@ -20,7 +20,7 @@
                                                  disabled="#{not documentoController.superAdmin}"
                                                  converter="#{campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="#{campusController.listagem}"/>
+                                    <f:selectItems value="#{campusConverter.listagem}"/>
                                 </p:selectOneMenu>
                                 <h:outputLabel value="Projeto:" />                             
                                 <p:autoComplete  converter="#{projetoConverter}" value="#{documentoController.filtro.projeto}"
@@ -37,7 +37,7 @@
                                 <p:selectOneMenu value="#{documentoController.filtro.tipoDocumento}" 
                                                  converter="#{tipoDocumentoConverter}" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="#{documentoController.tipos}"/>
+                                    <f:selectItems value="#{tipoDocumentoConverter.listagem}"/>
                                 </p:selectOneMenu>
                                 <h:outputLabel value="Previsão de Entrega:" />
                                 <p:calendar value="#{documentoController.filtro.dataPrevista}" 

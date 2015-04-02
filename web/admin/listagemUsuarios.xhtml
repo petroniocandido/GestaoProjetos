@@ -19,10 +19,10 @@
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
                                 <h:outputLabel value="Campus:" />
-                                <p:selectOneMenu value="${usuarioController.filtro.campus}" label="Campus" 
-                                                 converter="${campusConverter}" required="false" >
+                                <p:selectOneMenu value="#{usuarioController.filtro.campus}" label="Campus" 
+                                                 converter="#{campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${campusController.listagem}"/>
+                                    <f:selectItems value="#{campusConverter.listagem}"/>
                                 </p:selectOneMenu>
                                 <h:outputText value="Nome: " />
                                 <p:inputText id="txtNome" size="150" value="#{usuarioController.filtro.nome}"/> 

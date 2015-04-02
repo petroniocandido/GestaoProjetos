@@ -13,25 +13,14 @@
             <p:tab title="Filtros">
                 <p:panelGrid columns="2">
                     <h:outputLabel value="Campus do IFNMG*:" />
-                    <p:selectOneMenu value="${editalController.filtro.campus}" label="Campus" 
-                                     converter="${campusConverter}" required="false" >
+                    <p:selectOneMenu value="#{editalController.filtro.campus}" label="Campus" 
+                                     converter="#{campusConverter}" required="false" >
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${campusController.listagem}"/>
+                        <f:selectItems value="#{campusConverter.listagem}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Sigla:"  />
-                    <p:inputText value="${editalController.filtro.sigla}"/>  
-
-                    <h:outputLabel value="Número:"  />
-                    <p:inputText value="${editalController.filtro.numero}"/>  
-
-                    <h:outputLabel value="Agência Financiadora:"  />
-                    <p:selectOneMenu value="${editalController.filtro.agenciaFinanciadora}" 
-                                     converter="#{agenciaFinanciadoraConverter}" label="Agência Financiadora" >
-                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                        <f:selectItems value="${agenciaFinanciadoraController.listagem}" />                      
-
-                    </p:selectOneMenu>
+                    <p:inputText value="#{editalController.filtro.sigla}"/>  
                 </p:panelGrid>
                 <ui:include src="../comum/botoesListagem.xhtml">
                     <ui:param name="controller" value="#{editalController}"  />
@@ -46,16 +35,10 @@
 
             <p:ajax event="rowSelect" listener="#{editalController.onRowSelect}" />
             <p:column sortBy="sigla" headerText="Sigla">
-                ${item.sigla}
+                #{item.sigla}
             </p:column>
             <p:column sortBy="campus" headerText="Campus">
-                ${item.campus}
-            </p:column>
-            <p:column sortBy="numero" headerText="Número">
-                ${item.numero}
-            </p:column>
-            <p:column sortBy="agenciaFinanciadora" headerText="Agência Financiadora">
-                ${item.agenciaFinanciadora}
+                #{item.campus}
             </p:column>
         </p:dataTable>
     </p:panel>

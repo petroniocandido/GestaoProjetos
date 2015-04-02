@@ -28,27 +28,6 @@
                     <h:outputLabel value="Número de bolsas:" />
                     <p:outputLabel value="${editalController.entidade.numeroBolsas}" />
                 </h:panelGrid>
-                <h:panelGrid columns="2"> 
-                    <h:outputLabel value="Período de inscrições:" />
-                    <h:outputFormat value="De {0, date, dd/MM/yyyy} à {1, date, dd/MM/yyyy}">
-                        <f:param value="${editalController.entidade.inicioInscricao}" />
-                        <f:param value="${editalController.entidade.terminoInscricao}" />
-                    </h:outputFormat> 
-                    <h:outputLabel value="Divulgação do resultado final:" />
-                    <p:outputLabel value="${editalController.entidade.divulgacaoResultados}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                    </p:outputLabel> 
-                    <h:outputLabel value="Período para entrada de recursos:" />
-                    <h:outputFormat value="De {0, date, dd/MM/yyyy} à {1, date, dd/MM/yyyy}">
-                        <f:param value="${editalController.entidade.inicioRecursos}" />
-                        <f:param value="${editalController.entidade.terminoRecursos}" />
-                    </h:outputFormat>
-                    <h:outputLabel value="Período de vigência das bolsas:" />
-                    <h:outputFormat value="De {0, date, dd/MM/yyyy} à {1, date, dd/MM/yyyy}">
-                        <f:param value="${editalController.entidade.inicioValidade}" />
-                        <f:param value="${editalController.entidade.terminoValidade}" />
-                    </h:outputFormat>
-                </h:panelGrid>
             </p:tab>
             <p:tab title="Arquivos">
                 <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">

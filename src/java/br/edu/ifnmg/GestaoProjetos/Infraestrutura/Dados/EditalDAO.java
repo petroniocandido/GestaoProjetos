@@ -27,8 +27,6 @@ public class EditalDAO
         return IgualA("id", filtro.getId())
                 .IgualA("numero", filtro.getNumero())
                 .IgualA("campus", filtro.getCampus())
-                .IgualA("agenciafinanciadora", filtro.getAgenciaFinanciadora())
-                .Ordenar("lancamentoEdital", "DESC")
                 .Buscar();
     }
 

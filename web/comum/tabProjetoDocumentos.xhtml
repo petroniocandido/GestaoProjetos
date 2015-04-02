@@ -28,11 +28,12 @@
                        invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
                        label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
                        dragDropSupport="flase" multiple="false" update="lnkArquivo" />
-        <h:outputLink disabled="#{empty controller.arquivo}" 
+        <br />
+        <h:outputLink disabled="#{empty controller.arquivo}" target="_new"
                       id="lnkArquivo"  value="#{request.contextPath}/arquivos/#{controller.arquivo.uri}" >
             Visualizar arquivo
         </h:outputLink>
-
+        <br />
         <p:commandButton value="Adicionar" icon="ui-icon-check" 
                          action="#{controller.addDocumento()}" style="margin:0"
                          update="tblTipoDocumento txtTipoDocumento txtDataPrevista" /> 

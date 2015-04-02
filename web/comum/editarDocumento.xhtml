@@ -27,7 +27,7 @@
                     <p:selectOneMenu value="${documentoController.entidade.tipoDocumento}" 
                                      converter="${tipoDocumentoConverter}" required="true" >
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${documentoController.tipos}"/>
+                        <f:selectItems value="${tipoDocumentoConverter.listagem}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Projeto*:" />                             
