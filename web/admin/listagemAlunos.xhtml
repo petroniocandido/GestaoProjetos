@@ -19,23 +19,23 @@
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
                                 <h:outputLabel value="Campus do IFNMG*:" />
-                                <p:selectOneMenu value="${alunoController.filtro.campus}" disabled="#{not projetoController.superAdmin}"
-                                                 converter="${campusConverter}" required="false" >
+                                <p:selectOneMenu value="#{alunoController.filtro.campus}" disabled="#{not projetoController.superAdmin}"
+                                                 converter="#{campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${campusController.listagem}"/>
+                                    <f:selectItems value="#{campusConverter.listagem}"/>
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="CPF:" />
-                                <p:inputText value="${alunoController.filtro.cpf}"/>  
+                                <p:inputText value="#{alunoController.filtro.cpf}"/>  
 
                                 <h:outputLabel value="Nome:" />
-                                <p:inputText value="${alunoController.filtro.nome}"/>
+                                <p:inputText value="#{alunoController.filtro.nome}"/>
 
                                 <h:outputLabel value="Curso:" />
-                                <p:selectOneMenu value="${alunoController.filtro.curso}" label="Curso" 
-                                                 converter="${cursoConverter}" required="false" >
+                                <p:selectOneMenu value="#{alunoController.filtro.curso}" label="Curso" 
+                                                 converter="#{cursoConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                                    <f:selectItems value="${cursoController.listagem}" />
+                                    <f:selectItems value="#{cursoConverter.listagem}" />
 
                                 </p:selectOneMenu>
                             </p:panelGrid>
@@ -53,15 +53,15 @@
 
                                 <p:ajax event="rowSelect" listener="#{alunoController.onRowSelect}" />
                                 <p:column sortBy="matricula" headerText="CPF">
-                                    ${item.cpf}
+                                    #{item.cpf}
                                 </p:column>
 
                                 <p:column sortBy="nome" headerText="Nome">
-                                    ${item.nome}
+                                    #{item.nome}
                                 </p:column>
 
                                 <p:column sortBy="email" headerText="E-mail">
-                                    ${item.email}
+                                    #{item.email}
                                 </p:column>
                             </p:dataTable>
                         </p:tab>

@@ -6,6 +6,7 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeAcompanhamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
@@ -17,19 +18,23 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AtividadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.BolsaRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -45,6 +50,7 @@ public class BolsaController
     
     Documento documento;
     Atividade atividade;
+    Arquivo arquivo;
     AtividadeAcompanhamento acompanhamento;
     ProjetoSituacao[] situacoesProjeto;
     AtividadeSituacao[] situacoesAtividade;
@@ -85,6 +91,9 @@ public class BolsaController
 
     @EJB
     CampusRepositorio daoCampus;
+    
+    @EJB
+    TipoDocumentoRepositorio daoDocTipo;
 
     Campus campus;
 
@@ -170,9 +179,13 @@ public class BolsaController
     }
 
     public void addDocumento() {
+        documento.setArquivo(arquivo);
+        documento.setDataEfetiva(new Date());
+        documento.setPessoa(getUsuarioCorrente());
         getEntidade().addDocumento(documento);
         SalvarAgregado(documento);
         documento = new Documento();
+        arquivo = new Arquivo();
     }
 
     public void removeDocumento() {
@@ -246,4 +259,21 @@ public class BolsaController
         return cronograma;
     }
     
+    public void fileUploadListener(FileUploadEvent event) {  
+        Arquivo tmp = criaArquivo(event.getFile());
+        
+        setArquivo(tmp);        
+    }
+
+    public Arquivo getArquivo() {
+        if(arquivo == null)
+            arquivo = (Arquivo)getSessao("prctrl_arquivo", getArquivoRepositorio());
+        return arquivo;
+    }
+
+    public void setArquivo(Arquivo arquivo) {
+        this.arquivo = arquivo;
+        setSessao("prctrl_arquivo",arquivo);
+    }   
+   
 }

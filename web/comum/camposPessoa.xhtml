@@ -10,7 +10,7 @@
         <p:selectOneMenu value="${pessoa.campus}" label="Campus" 
                          converter="${campusConverter}" required="false" >
             <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-            <f:selectItems value="${campusController.listagem}"/>
+            <f:selectItems value="${campusConverter.listagem}"/>
         </p:selectOneMenu>
         <h:outputText value="Nome: " />
         <p:inputText id="txtNome" value="#{pessoa.nome}" 

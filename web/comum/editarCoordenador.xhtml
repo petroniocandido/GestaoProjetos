@@ -14,45 +14,44 @@
                 <h:panelGrid columns="2">
 
                     <h:outputLabel value="Nome Completo*:" />
-                    <p:inputText value="${orientadorController.entidade.nome}" required="true" style="width: 200%"
+                    <p:inputText value="#{orientadorController.entidade.nome}" required="true" style="width: 200%"
                                  requiredMessage="O campo nome é obrigatório!"/> 
                     
-                    <h:outputText value="E-Mail (Login): " />
+                    <h:outputText value="E-Mail (Login)*: " />
                     <p:inputText value="#{orientadorController.entidade.email}" 
                                  required="true" requiredMessage="O campo e-mail é obrigatório" />
+                    
+                    <h:outputLabel value="CPF*:" />
+                    <p:inputMask value="#{orientadorController.entidade.cpf}" label="CPF" 
+                                 required="true" mask="999.999.999-99"
+                                 requiredMessage="O campo cpf é obrigatório!"/>
 
-                    <h:outputLabel value="Matrícula SIAPE*:" />
-                    <p:inputText value="${orientadorController.entidade.matriculaSiape}" />  
+                    <h:outputLabel value="Matrícula SIAPE:" />
+                    <p:inputText value="#{orientadorController.entidade.matriculaSiape}" />  
 
-
-                    <h:outputLabel value="Campus onde trabalha*:" />           
-                    <p:selectOneMenu value="${orientadorController.entidade.campus}" label="Campus" 
-                                     converter="${campusConverter}" required="false" >
+                    <h:outputLabel value="Campus onde trabalha:" />           
+                    <p:selectOneMenu value="#{orientadorController.entidade.campus}" label="Campus" 
+                                     converter="#{campusConverter}" required="false" >
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${campusController.listagem}"/>
-
+                        <f:selectItems value="#{campusConverter.listagem}"/>
                     </p:selectOneMenu>
 
-                    <h:outputLabel value="Local de Permanência*:" />
-                    <p:inputText value="${orientadorController.entidade.localPermanencia}" required="false"/>   
-
-
+                    <h:outputLabel value="Local de Permanência:" />
+                    <p:inputText value="#{orientadorController.entidade.localPermanencia}" required="false"/>   
 
                     <h:outputLabel value="Data de Nascimento*:" />
-                    <p:calendar value="${orientadorController.entidade.dataNascimento}" required="true"
+                    <p:calendar value="#{orientadorController.entidade.dataNascimento}" required="true"
                                 label="Data de Nascimento" pattern="dd/MM/yyyy" locale="pt_BR"
                                 requiredMessage="O campo data de nascimento é obrigatório!"/>                   
 
-                    <h:outputLabel value="Naturalidade-UF*:" />
-                    <p:inputText value="${orientadorController.entidade.naturalidadeUF}" required="false" maxlength="2"/> 
+                    <h:outputLabel value="Nacionalidade:" />           
+                    <p:inputText value="#{orientadorController.entidade.nacionalidade}" required="false"/>
 
-                    <h:outputLabel value="Nacionalidade*:" />           
-                    <p:inputText value="${orientadorController.entidade.nacionalidade}" required="false"/>
-
-
-                    <h:outputLabel value="Estado*:" />           
-                    <p:inputText value="${orientadorController.entidade.estado}" required="false"/>
-
+                    <h:outputLabel value="Estado:" /> 
+                    <p:selectOneMenu value="#{orientadorController.entidade.estado}"  >
+                        <f:selectItem itemLabel="Selecione..." itemValue="" />
+                        <f:selectItems value="#{orientadorController.estados}"/>
+                    </p:selectOneMenu>
 
                 </h:panelGrid>
             </p:tab>
@@ -68,23 +67,22 @@
                 <br/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Area de Conhecimento:" />           
-                    <p:selectOneMenu id="txtAreaConhecimento" value="${orientadorController.areaConhecimento}" label="Area de Conhecimento"
-                                     converter="${areaConhecimentoConverter}" required="false"
-                                     >
-                        <f:selectItem itemLabel="Selecione..." noSelectionOption="false"/>
-                        <f:selectItems value="${areaConhecimentoController.listagem}"/>
-
-                    </p:selectOneMenu>
+                    <p:autoComplete  id="txtAreaConhecimento"
+                                     converter="#{areaConhecimentoConverter}" value="#{orientadorController.areaConhecimento}"
+                                     completeMethod="#{areaConhecimentoConverter.autoCompleteAreaConhecimento}" size="140"
+                                     var="item" itemLabel="#{item}" itemValue="#{item}">
+                        #{item}
+                    </p:autoComplete>
                     <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                     update="tblAreaConhecimento txtAreaConhecimento" action="${orientadorController.addAreaConhecimento()}" style="margin:0"/>
+                                     update="tblAreaConhecimento txtAreaConhecimento" action="#{orientadorController.addAreaConhecimento()}" style="margin:0"/>
 
                 </h:panelGrid> 
 
                 <br/>
 
-                <p:dataTable id="tblAreaConhecimento"  value="${orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                <p:dataTable id="tblAreaConhecimento"  value="#{orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                     <p:column sortBy="nome" headerText="Nome" >
-                        ${item.nome}
+                        #{item.nome}
                     </p:column>                                                     
 
                     <p:column sortBy="remover" headerText="Remover" >
@@ -99,22 +97,16 @@
 
             <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Documentos">
                 <br/>
-                <h:panelGrid columns="4">
-                    <h:outputLabel value="Carteira de identidade*:" />
-                    <p:inputText value="${orientadorController.entidade.rg}" required="false"/>   
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Carteira de identidade:" />
+                    <p:inputText value="#{orientadorController.entidade.rg}" required="false"/>   
 
-                    <h:outputLabel value="Órgão Expedidor*:" />
-                    <p:inputText value="${orientadorController.entidade.orgaoExpeditor}" required="false"/>                      
+                    <h:outputLabel value="Órgão Expedidor:" />
+                    <p:inputText value="#{orientadorController.entidade.orgaoExpeditor}" required="false"/>                      
 
-                    <h:outputLabel value="Data de Expedição*:" />
-                    <p:calendar value="${orientadorController.entidade.dataExpedicao}" required="false"
+                    <h:outputLabel value="Data de Expedição:" />
+                    <p:calendar value="#{orientadorController.entidade.dataExpedicao}" required="false"
                                 label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/> 
-
-
-                    <h:outputLabel value="CPF*:" />
-                    <p:inputMask value="${orientadorController.entidade.cpf}" label="CPF" 
-                                 required="true" mask="999.999.999-99"
-                                 requiredMessage="O campo cpf é obrigatório!"/>
 
                 </h:panelGrid> 
 
@@ -124,14 +116,14 @@
             <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Dados Formação">
                 <br/>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Formação Universitária*:" /> 
-                    <p:inputText value="${orientadorController.entidade.formacaoUniversitaria}" required="false"/> 
+                    <h:outputLabel value="Formação Universitária:" /> 
+                    <p:inputText value="#{orientadorController.entidade.formacaoUniversitaria}" required="false"/> 
 
-                    <h:outputLabel value="Título Acadêmico(Maior)*:" />
-                    <p:inputText value="${orientadorController.entidade.tituloAcademico}" required="false"/> 
+                    <h:outputLabel value="Título Acadêmico(Maior):" />
+                    <p:inputText value="#{orientadorController.entidade.tituloAcademico}" required="false"/> 
 
                     <h:outputLabel value="Curriculum Lattes:" />
-                    <p:inputText value="${orientadorController.entidade.lattes}" required="false"/> 
+                    <p:inputText value="#{orientadorController.entidade.lattes}" required="false"/> 
 
                 </h:panelGrid> 
 

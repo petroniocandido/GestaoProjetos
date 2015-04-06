@@ -62,16 +62,17 @@
 
     </p:tab>
 
+    <!--
     <p:tab rendered="#{controller.entidade.id > 0}" title="Telefones">
         <br/>
         <h:panelGrid columns="5">
             <h:outputLabel value="DDD*:" />
-            <p:inputMask id="txtDDD" value="${controller.telefone.ddd}" mask="99" required="false"/>   
+            <p:inputMask id="txtDDD" value="${controller.telefone.ddd}" mask="99" size="2" required="false"/>   
 
             <h:outputLabel value="Número*:" />
-            <p:inputMask id="txtNumero" value="${controller.telefone.numero}" mask="9999-9999" required="false"/>                      
+            <p:inputMask id="txtNumero" value="${controller.telefone.numero}" mask="9999-9999" size="9" required="false"/>                      
 
-            <p:commandButton value="Adicionar" icon="ui-icon-check" 
+            <p:commandButton value="Adicionar" icon="ui-icon-check" ajax="false"
                              action="${controller.addTelefone}" style="margin:0"
                              update="tblTelefone txtDDD txtNumero"/>
 
@@ -136,6 +137,7 @@
 
         </p:dataTable>
 
-    </p:tab> 
+    </p:tab>
+    -->
 </ui:composition>
 

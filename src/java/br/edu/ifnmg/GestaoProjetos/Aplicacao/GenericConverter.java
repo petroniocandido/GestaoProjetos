@@ -7,6 +7,7 @@ package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Entidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.Repositorio;
+import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -57,5 +58,14 @@ public class GenericConverter<TObj extends Entidade, TDAO extends Repositorio<TO
         } catch (Exception ex) {
             return "";
         }
+    }
+    
+    List<TObj> list;
+    
+    public List<TObj> getListagem() {
+        if(list == null)
+            list = repositorio.Buscar();
+        
+        return list;
     }
 }

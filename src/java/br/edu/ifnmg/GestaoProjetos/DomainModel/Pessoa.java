@@ -105,7 +105,8 @@ public class Pessoa implements Entidade, Serializable {
     @ManyToMany(cascade= CascadeType.ALL) 
     private List<Email> emails;
     
-    private String estado;      
+    @Enumerated(EnumType.STRING)
+    private Estados estado;      
     
     private String nacionalidade;   
     
@@ -250,11 +251,11 @@ public class Pessoa implements Entidade, Serializable {
         this.emails = email;
     }
 
-    public String getEstado() {
+    public Estados getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estados estado) {
         this.estado = estado;
     }
 

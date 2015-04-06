@@ -18,24 +18,13 @@
                             <h:panelGrid columns="2">
 
                                 <h:outputLabel value="Sigla*:" />
-                                <p:inputText value="${editalController.entidade.sigla}" required="true"/>                      
-
-                                <h:outputLabel value="Número*:" />
-                                <p:inputText value="${editalController.entidade.numero}" required="true"/>                      
-
-                                <h:outputLabel value="Agência Financiadora*:" />           
-                                <p:selectOneMenu value="${editalController.entidade.agenciaFinanciadora}" label="Agência Financiadora" 
-                                                 converter="#{agenciaFinanciadoraConverter}" required="true" >
-                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                                    <f:selectItems value="${agenciaFinanciadoraController.listagem}" />
-
-                                </p:selectOneMenu>
+                                <p:inputText value="#{editalController.entidade.sigla}" required="true"/>                      
 
                                 <h:outputLabel value="Campus do IFNMG*:" />                   
-                                <p:selectOneMenu value="${editalController.entidade.campus}" label="Campus" 
-                                                 converter="${campusConverter}" required="false" >
+                                <p:selectOneMenu value="#{editalController.entidade.campus}" label="Campus" 
+                                                 converter="#{campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${campusController.listagem}"/>
+                                    <f:selectItems value="#{campusConverter.listagem}"/>
 
                                 </p:selectOneMenu>
 
@@ -48,44 +37,84 @@
                         </p:tab>
                         <p:tab title="Datas">
                             <h:panelGrid columns="2">
-                                <h:outputLabel value="Lançamento do Edital*:" />
-                                <p:calendar value="${editalController.entidade.lancamentoEdital}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                <h:outputLabel value="Início Período de Inscrições*:" />
-                                <p:calendar value="${editalController.entidade.inicioInscricao}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                <h:outputLabel value="Término Período de Inscrições*:" />
-                                <p:calendar value="${editalController.entidade.terminoInscricao}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                <h:outputLabel value="Divulgação do Resultado Geral*:" />
-                                <p:calendar value="${editalController.entidade.divulgacaoResultados}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                <h:outputLabel value="Início do Período de Recursos*:" />
-                                <p:calendar value="${editalController.entidade.inicioRecursos}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                <h:outputLabel value="Término do Período de Recursos*:" />
-                                <p:calendar value="${editalController.entidade.terminoRecursos}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                <h:outputLabel value="Início do Período de Execução*:" />
-                                <p:calendar value="${editalController.entidade.inicioValidade}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                <h:outputLabel value="Término do Período de Execução*:" />
-                                <p:calendar value="${editalController.entidade.terminoValidade}" required="true"
-                                            pattern="dd/MM/yyyy" locale="pt_BR"/>
-
+                                <h:outputLabel value="Evento:" />
+                                <p:inputText value="#{editalController.evento}"/> 
+                                <h:outputLabel value="Data:" />
+                                <p:calendar value="#{editalController.data}" 
+                                            pattern="dd/MM/yyyy" locale="pt_BR"/>  
+                                <p:commandButton value="Adicionar" action="#{editalController.addCronograma()}" ajax="false"/>
                             </h:panelGrid>
+                            <table>
+                                <ui:repeat value="#{editalController.cronograma}" var="entry">
+                                    <tr>
+                                        <td>#{entry.key}</td> 
+                                        <td>#{entry.value}</td>
+                                        <td>
+                                            <p:commandButton ajax="false" value="Remover" action="#{editalController.removeCronograma()}">
+                                                <f:setPropertyActionListener target="#{editalController.data}" value="#{entry.key}" />
+                                            </p:commandButton>
+                                        </td>
+                                    </tr>
+                                </ui:repeat>                            
+                            </table>
+                        </p:tab>
+                        <p:tab title="Agências">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Agência Financiadora*:" />           
+                                <p:selectOneMenu value="#{editalController.agenciaFinanciadora}" 
+                                                 converter="#{agenciaFinanciadoraConverter}" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{agenciaFinanciadoraConverter.listagem}" />
+                                </p:selectOneMenu>
+                                <p:commandButton value="Adicionar" action="#{editalController.addAgenciaFinanciadora()}" ajax="false"/>
+                            </h:panelGrid>
+                            <p:dataTable id="tblAgencias" value="#{editalController.entidade.agenciasFinanciadoras}" 
+                                         var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column headerText="Agência">
+                                    #{item}
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{editalController.removeAgenciaFinanciadora()}">
+                                        <f:setPropertyActionListener target="#{editalController.agenciaFinanciadora}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Modalidades">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Modalidade:" />           
+                                <p:selectOneMenu value="#{editalController.modalidade}" 
+                                                 converter="#{modalidadeConverter}" >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{modalidadeConverter.listagem}" />
+                                </p:selectOneMenu>
+                                <p:commandButton value="Adicionar" action="#{editalController.addModalidade()}" ajax="false"/>
+                            </h:panelGrid>
+                            <p:dataTable id="tblModalidades" value="#{editalController.entidade.modalidades}" 
+                                         var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                                <p:column headerText="Agência">
+                                    #{item}
+                                </p:column>
+
+                                <p:column sortBy="remover" headerText="Remover" >
+                                    <p:commandButton ajax="false" value="Remover" action="#{editalController.removeModalidade()}">
+                                        <f:setPropertyActionListener target="#{editalController.modalidade}" value="#{item}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
                         </p:tab>
                         <p:tab title="Arquivos">
                             <p:fileUpload  fileUploadListener="#{editalController.fileUploadListener}"  mode="advanced"
-                                           auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)$/"
+                                           auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)#/"
                                            fileLimit="1" fileLimitMessage="Só é possível escolher um arquivo!"
                                            invalidFileMessage="Tipo de arquivo não permitido!"
                                            invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
                                            label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
                                            dragDropSupport="flase" multiple="false" update="tblArquivos" />
-                            <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblArquivos" value="#{editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column headerText="Arquivo">
-                                    ${item}
+                                    #{item}
                                 </p:column>
 
                                 <p:column sortBy="remover" headerText="Remover" >
@@ -100,16 +129,16 @@
                                 <h:outputLabel value="Documento:" />
                                 <p:selectOneMenu value="#{editalController.documento}" converter="#{tipoDocumentoConverter}">
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${tipoDocumentoController.listagemGeral}"/>
+                                    <f:selectItems value="#{tipoDocumentoConverter.listagem}"/>
                                 </p:selectOneMenu>
 
                                 <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                                                 action="${editalController.addDocumento()}" style="margin:0"
-                                                 update="tblDocumentos"/>
+                                                 action="#{editalController.addDocumento()}" style="margin:0"
+                                                 ajax="false"/>
                             </h:panelGrid> 
-                            <p:dataTable id="tblDocumentos" value="${editalController.entidade.documentosObrigatorios}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                            <p:dataTable id="tblDocumentos" value="#{editalController.entidade.documentosObrigatorios}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column headerText="Documento">
-                                    ${item}
+                                    #{item}
                                 </p:column>
 
                                 <p:column sortBy="remover" headerText="Remover" >

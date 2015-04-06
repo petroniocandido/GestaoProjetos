@@ -5,7 +5,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <p:panel>
         <f:facet name="header">
             Editar Documento 
@@ -26,7 +27,7 @@
                     <p:selectOneMenu value="${documentoController.entidade.tipoDocumento}" 
                                      converter="${tipoDocumentoConverter}" required="true" >
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                        <f:selectItems value="${documentoController.tipos}"/>
+                        <f:selectItems value="${tipoDocumentoConverter.listagem}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Projeto*:" />                             
@@ -55,6 +56,18 @@
             </p:tab>
             
             <p:tab title="Arquivo">  
+                <p:fileUpload  fileUploadListener="#{documentoController.fileUploadListener}"  mode="advanced"
+                                           auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)$/"
+                                           fileLimit="1" fileLimitMessage="Só é possível escolher um arquivo!"
+                                           invalidFileMessage="Tipo de arquivo não permitido!"
+                                           invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
+                                           label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
+                                           dragDropSupport="flase" multiple="false" update="lnkArquivo" />
+                <h:outputLink disabled="#{empty documentoController.entidade.arquivo}" 
+                              id="lnkArquivo"  value="#{request.contextPath}/arquivos/#{documentoController.entidade.arquivo.uri}" >
+                   Visualizar arquivo
+               </h:outputLink>
+                
             </p:tab>
   
             <ui:include src="tabSeguranca.xhtml">

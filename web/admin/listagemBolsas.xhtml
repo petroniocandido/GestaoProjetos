@@ -19,34 +19,40 @@
                         <p:tab title="Filtros">
                             <p:panelGrid columns="2">
                                  <h:outputLabel value="Campus:" />
-                                <p:selectOneMenu value="${bolsaController.campus}" disabled="#{not bolsaController.superAdmin}"
-                                                 converter="${campusConverter}" required="false" >
+                                <p:selectOneMenu value="#{bolsaController.campus}" disabled="#{not bolsaController.superAdmin}"
+                                                 converter="#{campusConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${campusController.listagem}"/>
+                                    <f:selectItems value="#{campusConverter.listagem}"/>
                                 </p:selectOneMenu>
-                                <h:outputLabel value="Projeto*:" />                             
+                                <h:outputLabel value="Projeto:" />                             
                                 <p:autoComplete  converter="#{projetoConverter}" value="#{bolsaController.filtro.projeto}"
                                                  completeMethod="#{projetoConverter.autoCompleteProjeto}"
                                                  var="item" itemLabel="#{item.titulo}" itemValue="#{item}">
                                     #{item.titulo}
                                 </p:autoComplete>
+                                <h:outputLabel value="Bolsista:" />                             
+                                <p:autoComplete  converter="#{alunoConverter}" value="#{bolsaController.filtro.orientando}"
+                                                 completeMethod="#{alunoConverter.autoCompleteAluno}"
+                                                 var="item" itemLabel="#{item.nome}" itemValue="#{item}">
+                                    #{item}
+                                </p:autoComplete>
                                 <h:outputLabel value="Modalidade:" />                   
-                                <p:selectOneMenu value="${bolsaController.filtro.modalidade}" 
-                                                 converter="${modalidadeConverter}" required="false" >
+                                <p:selectOneMenu value="#{bolsaController.filtro.modalidade}" 
+                                                 converter="#{modalidadeConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${modalidadeController.listagem}"/>
+                                    <f:selectItems value="#{modalidadeConverter.listagem}"/>
                                 </p:selectOneMenu>
                                 <h:outputLabel value="Agência Financiadora*:" />                    
-                                <p:selectOneMenu value="${bolsaController.filtro.agenciaFinanciadora}"  
-                                                 converter="${agenciaFinanciadoraConverter}" required="false" >
+                                <p:selectOneMenu value="#{bolsaController.filtro.agenciaFinanciadora}"  
+                                                 converter="#{agenciaFinanciadoraConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${agenciaFinanciadoraController.listagem}"/>
+                                    <f:selectItems value="#{agenciaFinanciadoraConverter.listagem}"/>
                                 </p:selectOneMenu>
                                 <h:outputLabel value="Edital:" />                    
-                                <p:selectOneMenu value="${bolsaController.filtro.edital}"  
-                                                 converter="${editalConverter}" required="false" >
+                                <p:selectOneMenu value="#{bolsaController.filtro.edital}"  
+                                                 converter="#{editalConverter}" required="false" >
                                     <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
-                                    <f:selectItems value="${editalController.listagem}"/>
+                                    <f:selectItems value="#{editalConverter.listagem}"/>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                             <ui:include src="../comum/botoesListagem.xhtml">
