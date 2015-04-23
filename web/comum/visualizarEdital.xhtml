@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -13,30 +13,57 @@
             <p:tab id="tabDados" title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="NÃºmero:" />
+                    <h:outputLabel value="Número:" />
                     <p:outputLabel value="${editalController.entidade.numero}" />                      
-
-                    <h:outputLabel value="AgÃªncia Financiadora:" />           
-                    <p:outputLabel value="${editalController.entidade.agenciaFinanciadora}" />
-
-                    <h:outputLabel value="Campus do IFNMG:" />                   
+					<h:outputLabel value="Campus do IFNMG:" />                   
                     <p:outputLabel value="${editalController.entidade.campus}"/>
-                    <h:outputLabel value="LanÃ§amento do Edital:" />
-                    <p:outputLabel value="${editalController.entidade.lancamentoEdital}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:outputLabel> 
-                    <h:outputLabel value="NÃºmero de bolsas:" />
+
+                    <h:outputLabel value="Agências Financiadoras:" />           
+                    <p:dataTable value="#{editalController.entidade.agenciasFinanciadoras}" var="item">
+						<p:column headerText="Sigla">
+							#{item}
+						</p:column>
+						<p:column headerText="Nome">
+							#{item.nome}
+						</p:column>
+					</p:dataTable>
+                    <h:outputLabel value="Modalidades:" />           
+                    <p:dataTable value="${editalController.entidade.modalidades}" var="item">
+						<p:column headerText="Sigla">
+							#{item}
+						</p:column>
+						<p:column headerText="Nome">
+							#{item.nome}
+						</p:column>
+					</p:dataTable>
+                    <h:outputLabel value="Número de bolsas:" />
                     <p:outputLabel value="${editalController.entidade.numeroBolsas}" />
                 </h:panelGrid>
             </p:tab>
+            <p:tab title="Datas">
+                <table style="border-style: solid;  border-width: 5px;">
+					<tr><td>Data</td><td>Atividade</td></tr>
+                                <ui:repeat value="#{editalController.cronograma}" var="entry">
+                                    <tr>
+                                        <td>
+											<p:outputLabel value="#{entry.key}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</p:outputLabel>
+										</td> 
+                                        <td> - #{entry.value}</td>
+                                       
+                                    </tr>
+                                </ui:repeat>                            
+                            </table>
+            </p:tab>
             <p:tab title="Arquivos">
-                <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros nÃ£o Encontrados!" style="font: medium; color: blue">
+                <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                     <p:column headerText="Arquivo">
-                        <a href="#{request.contextPath}/arquivos/#{item.uri}">${item}</a>
+                        <a href="#{request.contextPath}/arquivos/#{item.uri}" target="_blank">${item}</a>
                     </p:column>
                 </p:dataTable>
             </p:tab>
         </p:tabView>  
-        <p:commandButton value="Criar novo projeto para esse Edital" />
+        <p:commandButton value="Criar nova bolsa para esse Edital" />
     </p:panel>       
 </ui:composition>

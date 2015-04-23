@@ -76,15 +76,15 @@ public class ConfiguracaoController
         Rastrear(getEntidade());
 
         // salva o objeto no BD
-        if (dao.Set(getEntidade().getUsuario(), getEntidade().getChave(), getEntidade().getValor())) {
+        if (dao.Set(entidade.getUsuario(), entidade.getChave(), entidade.getValor())) {
 
-            setId(getEntidade().getId());
+            setId(entidade.getId());
 
             Mensagem("Sucesso", "Registro salvo com sucesso!");
-            AppendLog("Editou a entidade " + getEntidade().getClass().getSimpleName() + " " + getEntidade().getId() + "(" + getEntidade().toString() + ")");
+            AppendLog("Editou a entidade " + entidade.getClass().getSimpleName() + " " + entidade.getId() + "(" + entidade.toString() + ")");
         } else {
             MensagemErro("Falha", "Registro não foi salvo! Consulte o Log ou o administrador do sistema!");
-            AppendLog("Falha ao editar a entidade " + getEntidade().getClass().getSimpleName() + " " + getEntidade().getId() + "(" + getEntidade().toString() + ")" + ": " + repositorio.getErro().getMessage());
+            AppendLog("Falha ao editar a entidade " + entidade.getClass().getSimpleName() + " " + entidade.getId() + "(" + getEntidade().toString() + ")" + ": " + repositorio.getErro().getMessage());
         }
 
         // atualiza a listagem

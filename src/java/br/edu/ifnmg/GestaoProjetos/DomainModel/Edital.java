@@ -68,7 +68,7 @@ public class Edital implements Entidade, Serializable {
     @ManyToMany
     private List<DocumentoTipo> documentosObrigatorios;
 
-    @OrderBy("data")
+    @OrderBy("CRONOGRAMA_KEY")
     @ElementCollection
     @CollectionTable(
             name = "editais_cronogramas",

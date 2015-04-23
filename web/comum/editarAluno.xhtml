@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -15,18 +15,18 @@
 
                     <h:outputLabel value="Nome Completo*:" />
                     <p:inputText value="#{alunoController.entidade.nome}" required="true" style="width: 100%"
-                                 requiredMessage="O campo nome Ã© obrigatÃ³rio!" />   
+                                 requiredMessage="O campo nome é obrigatório!" />   
 
                     <h:outputText value="E-Mail (Login)*: " />
-                    <p:inputText value="#{alunoController.entidade.email}" 
-                                 required="true" requiredMessage="O campo e-mail Ã© obrigatÃ³rio!" />
+                    <p:inputText value="#{alunoController.entidade.email}"  style="width: 100%"
+                                 required="true" requiredMessage="O campo e-mail é obrigatório!" />
                     
                     <h:outputLabel value="CPF*:" />
                     <p:inputMask value="#{alunoController.entidade.cpf}" label="CPF" 
                                  required="true" mask="999.999.999-99"
-                                 requiredMessage="O campo cpf Ã© obrigatÃ³rio!"/>
+                                 requiredMessage="O campo cpf é obrigatório!"/>
 
-                    <h:outputLabel value="MatrÃ­cula:" />
+                    <h:outputLabel value="Matrícula:" />
                     <p:inputText value="#{alunoController.entidade.matricula}" />  
 
                     <h:outputLabel value="Curso:" />           
@@ -39,14 +39,14 @@
                     <h:outputLabel value="Campus*:" />           
                     <p:selectOneMenu value="#{alunoController.entidade.campus}" label="Campus"
                                      converter="#{campusConverter}" required="true" 
-                                     requiredMessage="O campo campus Ã© obrigatÃ³rio!" >
+                                     requiredMessage="O campo campus é obrigatório!" >
                         <f:selectItem itemLabel="Selecione..." itemValue=""/>
                         <f:selectItems value="#{campusConverter.listagem}"/>
                     </p:selectOneMenu>
 
                     <h:outputLabel value="Data de Nascimento*:" />
                     <p:calendar value="#{alunoController.entidade.dataNascimento}" required="true"
-                                requiredMessage="O campo data de nascimento Ã© obrigatÃ³rio!"
+                                requiredMessage="O campo data de nascimento é obrigatório!"
                                 pattern="dd/MM/yyyy" locale="pt_BR" />                   
 
                     <h:outputLabel value="Nacionalidade:" />           
@@ -75,42 +75,42 @@
                     <h:outputLabel value="Carteira de identidade:" />
                     <p:inputText value="#{alunoController.entidade.rg}" />   
 
-                    <h:outputLabel value="Ã“rgÃ£o Expeditor:" />
+                    <h:outputLabel value="Órgão Expeditor:" />
                     <p:inputText value="#{alunoController.entidade.orgaoExpeditor}" />                      
 
-                    <h:outputLabel value="Data de ExpediÃ§Ã£o:" />
+                    <h:outputLabel value="Data de Expedição:" />
                     <p:calendar value="#{alunoController.entidade.dataExpedicao}" 
-                                label="Data de ExpediÃ§Ã£o" pattern="dd/MM/yyyy" locale="pt_BR"/> 
+                                label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/> 
 
-                    <h:outputLabel value="TÃ­tulo Eleitoral:" />
+                    <h:outputLabel value="Título Eleitoral:" />
                     <p:inputText value="#{alunoController.entidade.tituloEleitoral}" />  
 
-                    <h:outputLabel value="SessÃ£o Eleitoral:" />
+                    <h:outputLabel value="Sessão Eleitoral:" />
                     <p:inputText value="#{alunoController.entidade.secaoEleitoral}" />  
 
                     <h:outputLabel value="Zona Eleitoral:" />
                     <p:inputText value="#{alunoController.entidade.zonaEleitoral}" />                     
 
-                    <h:outputLabel value="SituaÃ§Ã£o Militar:" />
+                    <h:outputLabel value="Situação Militar:" />
                     <p:inputText value="#{alunoController.entidade.situacaoMilitar}" /> 
 
-                    <h:outputLabel value="CertidÃ£o Militar:" />
+                    <h:outputLabel value="Certidão Militar:" />
                     <p:inputText value="#{alunoController.entidade.certidaoMilitar}" /> 
 
                 </h:panelGrid> 
 
             </p:tab>
             
-            <p:tab rendered="#{alunoController.entidade.id > 0}"  title="Dados Conta BancÃ¡ria">
+            <p:tab rendered="#{alunoController.entidade.id > 0}"  title="Dados Conta Bancária">
                 <br/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Banco:" />
                     <p:inputText value="#{alunoController.entidade.banco}" /> 
 
-                    <h:outputLabel value="NÃºmero da Conta BancÃ¡ria:" />
+                    <h:outputLabel value="Número da Conta Bancária:" />
                     <p:inputText value="#{alunoController.entidade.contaBancaria}" /> 
 
-                    <h:outputLabel value="NÃºmero da AgÃªncia:" />
+                    <h:outputLabel value="Número da Agência:" />
                     <p:inputText value="#{alunoController.entidade.agencia}" /> 
                 </h:panelGrid>  
             </p:tab>
@@ -118,10 +118,10 @@
             <p:tab rendered="#{alunoController.entidade.id > 0}" title="Dados dos Pais">
                 <br/>
                 <h:panelGrid columns="4">
-                    <h:outputLabel value="Nome do pai ou responsÃ¡vel:" /> 
+                    <h:outputLabel value="Nome do pai ou responsável:" /> 
                     <p:inputText value="#{alunoController.entidade.nomePai}" /> 
 
-                    <h:outputLabel value="Nome da mÃ£e:" /> 
+                    <h:outputLabel value="Nome da mãe:" /> 
                     <p:inputText value="#{alunoController.entidade.nomeMae}" /> 
 
                     <h:outputLabel value="Carteira de identidade:" />
@@ -130,10 +130,10 @@
                     <h:outputLabel value="Carteira de identidade:" />
                     <p:inputText value="#{alunoController.entidade.rgMae}" /> 
 
-                    <h:outputLabel value="Ã“rgÃ£o Expeditor:" />
+                    <h:outputLabel value="Órgão Expeditor:" />
                     <p:inputText value="#{alunoController.entidade.orgaoExpedidorPai}" />
 
-                    <h:outputLabel value="Ã“rgÃ£o Expeditor:" />
+                    <h:outputLabel value="Órgão Expeditor:" />
                     <p:inputText value="#{alunoController.entidade.orgaoExpedidorMae}" />
 
                     <h:outputLabel value="CPF do Pai:" />
@@ -149,13 +149,13 @@
             </p:tab>
 
 
-            <p:tab rendered="#{alunoController.entidade.id > 0}" title="Outras informaÃ§Ãµes">
+            <p:tab rendered="#{alunoController.entidade.id > 0}" title="Outras informações">
                 <br/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Trabalha?:" />  
                     <p:selectOneRadio value="#{alunoController.entidade.trabalhoStatus}" required="false" label="trabalho">
                         <f:selectItem itemLabel="Sim" itemValue="S"/>
-                        <f:selectItem itemLabel="NÃ£o" itemValue="N"/>
+                        <f:selectItem itemLabel="Não" itemValue="N"/>
                     </p:selectOneRadio>
 
                     <h:outputLabel value="Local do Trabalho:" />           
@@ -177,7 +177,7 @@
         <ui:include src="botoesEntidade.xhtml">
             <ui:param name="controller" value="#{alunoController}"  />
         </ui:include>
-        () Campos de Preenchimento ObrigatÃ³rio
+        () Campos de Preenchimento Obrigatório
     </p:panel>
 </ui:composition>
 

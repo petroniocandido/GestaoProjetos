@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -45,10 +45,15 @@
                                 <p:commandButton value="Adicionar" action="#{editalController.addCronograma()}" ajax="false"/>
                             </h:panelGrid>
                             <table>
+								<th><td>Data</td><td>Atividade</td></th>
                                 <ui:repeat value="#{editalController.cronograma}" var="entry">
                                     <tr>
-                                        <td>#{entry.key}</td> 
-                                        <td>#{entry.value}</td>
+                                        <td>
+											<p:outputLabel value="#{entry.key}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</p:outputLabel>
+										</td> 
+                                        <td> - #{entry.value}</td>
                                         <td>
                                             <p:commandButton ajax="false" value="Remover" action="#{editalController.removeCronograma()}">
                                                 <f:setPropertyActionListener target="#{editalController.data}" value="#{entry.key}" />
@@ -105,13 +110,13 @@
                             </p:dataTable>
                         </p:tab>
                         <p:tab title="Arquivos">
-                            <p:fileUpload  fileUploadListener="#{editalController.fileUploadListener}"  mode="advanced"
-                                           auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)#/"
-                                           fileLimit="1" fileLimitMessage="Só é possível escolher um arquivo!"
-                                           invalidFileMessage="Tipo de arquivo não permitido!"
-                                           invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
-                                           label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
-                                           dragDropSupport="flase" multiple="false" update="tblArquivos" />
+							 <p:fileUpload  fileUploadListener="#{editalController.fileUploadListener}"  mode="advanced"
+                       auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)$/"
+                       fileLimit="1" fileLimitMessage="Só é possível escolher um arquivo!"
+                       invalidFileMessage="Tipo de arquivo não permitido!"
+                       invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
+                       label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
+                       dragDropSupport="flase" multiple="false"  update="tblArquivos" />
                             <p:dataTable id="tblArquivos" value="#{editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                                 <p:column headerText="Arquivo">
                                     #{item}

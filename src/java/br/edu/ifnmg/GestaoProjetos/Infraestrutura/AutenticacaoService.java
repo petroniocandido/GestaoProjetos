@@ -17,13 +17,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 
-
-
-@Named
 @SessionScoped
 public class AutenticacaoService implements br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AutenticacaoService, Serializable {
 

@@ -405,4 +405,13 @@ public class DAOGenerico<T extends Entidade> implements Repositorio<T> {
         }
         return obj;
     }
+
+    @Override
+    public Repositorio<T> In(String campo, List lista) {
+        if (lista == null || lista.isEmpty()) {
+            return this;
+        }
+        addOp(campo, "in ", lista);
+        return this;
+    }
 }
