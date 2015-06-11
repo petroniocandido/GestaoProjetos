@@ -16,11 +16,11 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Mensagem;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.MensagemPerfil;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MailService;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MensagemPerfilRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MensagemRepositorio;
+import br.edu.ifnmg.DomainModel.Mensagem;
+import br.edu.ifnmg.DomainModel.MensagemPerfil;
+import br.edu.ifnmg.DomainModel.Services.MailService;
+import br.edu.ifnmg.DomainModel.Services.MensagemPerfilRepositorio;
+import br.edu.ifnmg.DomainModel.Services.MensagemRepositorio;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 

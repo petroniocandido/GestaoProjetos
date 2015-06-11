@@ -4,6 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,7 +71,7 @@ public class Edital implements Entidade, Serializable {
     @ManyToMany
     private List<DocumentoTipo> documentosObrigatorios;
 
-    @OrderBy("data")
+    @OrderBy("CRONOGRAMA_KEY")
     @ElementCollection
     @CollectionTable(
             name = "editais_cronogramas",

@@ -4,12 +4,16 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -55,11 +59,15 @@ public class AtividadeAcompanhamento implements Entidade, Serializable {
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataFim;
+    
+    @Enumerated(EnumType.ORDINAL)
+    private AtividadeSituacao situacao;
 
     public AtividadeAcompanhamento() {
         dataInicio = new Date();
         dataFim = new Date();
         descricao = "";
+        situacao = AtividadeSituacao.Pendente;
     }
     
     
@@ -122,6 +130,14 @@ public class AtividadeAcompanhamento implements Entidade, Serializable {
         this.dataFim = dataFim;
     }
 
+    public AtividadeSituacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(AtividadeSituacao situacao) {
+        this.situacao = situacao;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;

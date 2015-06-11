@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class GrupoPesquisaDAO
-        extends DAOGenerico<GrupoPesquisa>
+        extends DAO<GrupoPesquisa>
         implements GrupoPesquisaRepositorio {
 
     public GrupoPesquisaDAO() {

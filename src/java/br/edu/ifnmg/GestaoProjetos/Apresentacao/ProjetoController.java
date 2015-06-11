@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeAcompanhamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;

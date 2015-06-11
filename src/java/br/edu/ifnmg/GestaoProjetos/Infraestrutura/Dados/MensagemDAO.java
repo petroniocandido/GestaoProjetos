@@ -17,9 +17,9 @@
 
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Mensagem;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.MensagemPerfil;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MensagemRepositorio;
+import br.edu.ifnmg.DomainModel.Mensagem;
+import br.edu.ifnmg.DomainModel.MensagemPerfil;
+import br.edu.ifnmg.DomainModel.Services.MensagemRepositorio;
 import java.util.List;
 import javax.ejb.Singleton;
 
@@ -29,7 +29,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class MensagemDAO 
-    extends DAOGenerico<Mensagem> 
+    extends DAO<Mensagem> 
     implements MensagemRepositorio {
 
     public MensagemDAO(){

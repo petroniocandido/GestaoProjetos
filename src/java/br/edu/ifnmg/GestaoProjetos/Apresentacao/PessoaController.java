@@ -6,9 +6,9 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBasePessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "usuarioController")
 @RequestScoped
 public class PessoaController
-        extends ControllerBasePessoa<Pessoa>
+        extends ControllerBasePessoa<PessoaProjeto>
         implements Serializable {
 
     /**
@@ -34,7 +34,7 @@ public class PessoaController
     }
 
     @EJB
-    PessoaRepositorio dao;
+    PessoaProjetoRepositorio dao;
 
     @EJB
     CampusRepositorio daoCampus;
@@ -47,9 +47,9 @@ public class PessoaController
     }
 
     @Override
-    public Pessoa getFiltro() {
+    public PessoaProjeto getFiltro() {
         if (filtro == null) {
-            filtro = new Pessoa();
+            filtro = new PessoaProjeto();
             filtro.setNome(getSessao("pctrl_nome"));
             filtro.setCpf(getSessao("pctrl_cpf"));
             filtro.setEmail(getSessao("pctrl_email"));
@@ -62,7 +62,7 @@ public class PessoaController
     }
 
     @Override
-    public void setFiltro(Pessoa filtro) {
+    public void setFiltro(PessoaProjeto filtro) {
         this.filtro = filtro;
         if (filtro != null) {
             setSessao("pctrl_nome", filtro.getNome());
@@ -74,12 +74,12 @@ public class PessoaController
 
     @Override
     public void limpar() {
-        setEntidade(new Pessoa());
+        setEntidade(new PessoaProjeto());
     }
 
-    public List<Pessoa> getPessoas() {
+    public List<PessoaProjeto> getPessoas() {
         if (getEntidade() != null) {
-            List<Pessoa> tmp = new ArrayList<>();
+            List<PessoaProjeto> tmp = new ArrayList<>();
             tmp.add(entidade);
             return tmp;
         } else {

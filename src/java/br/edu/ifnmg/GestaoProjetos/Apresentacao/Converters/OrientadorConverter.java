@@ -6,6 +6,7 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao.Converters;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.GenericConverter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Infraestrutura.AutenticacaoService;
 import javax.inject.Named;
@@ -35,7 +36,7 @@ public class OrientadorConverter
     
     public List<Orientador> autoCompleteOrientador(String query) {
         Orientador i = new Orientador();
-        i.setCampus(autenticacao.getUsuarioCorrente().getCampus());
+        i.setCampus(((PessoaProjeto)autenticacao.getUsuarioCorrente()).getCampus());
         i.setNome(query);
         return dao.Buscar(i);
     }

@@ -17,7 +17,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class BolsaDAO
-        extends DAOGenerico<Bolsa>
+        extends DAO<Bolsa>
         implements BolsaRepositorio {
 
     public BolsaDAO() {

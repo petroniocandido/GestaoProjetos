@@ -8,7 +8,7 @@ import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBasePessoa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
@@ -107,9 +107,9 @@ public class OrientadorController
         areaConhecimento = null; 
     }
     
-     public List<Pessoa> getPessoas() {
-        List<Pessoa> pessoas = new ArrayList<>();
-        for(Pessoa i : getListagem())
+     public List<PessoaProjeto> getPessoas() {
+        List<PessoaProjeto> pessoas = new ArrayList<>();
+        for(PessoaProjeto i : getListagem())
             pessoas.add(i);
         
         return pessoas;

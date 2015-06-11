@@ -15,7 +15,7 @@
     <h:body>
 
         <h:form acceptcharset="ISO-8859-1" lang="pt_BR"  enctype="multipart/form-data"  >            
-            <img  src="../resources/img/cabecalho-administrador.gif" style="width: 100%; height: 180px"/>
+            <img  src="../resources/img/cabecalho.gif" style="width: 100%; height: 180px"/>
             <p:growl id="growl" showDetail="true" sticky="true" />
 
             <p:menubar>
@@ -58,6 +58,7 @@
                     </p:submenu>
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/listagemLogs.xhtml')}" value="Logs" url="listagemLogs.xhtml"  />
                     <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/importaCSV.xhtml')}" value="Importar CSV" url="importaCSV.xhtml"  />
+                    <p:menuitem rendered="#{autenticacaoController.autorizacao('admin/manutencao.xhtml')}" value="Manutenção" url="manutencao.xhtml"  />
 
                 </p:submenu>
                 <p:menuitem ajax="false" immediate="true" value="Sair" action="#{autenticacaoController.logout()}"  />

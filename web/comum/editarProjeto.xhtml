@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -14,7 +14,7 @@
             <p:tab rendered="#{autenticacaoController.autorizacao('tabProjetoDadosGerais')}"  title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="SituaÃ§Ã£o:" />
+                    <h:outputLabel value="Situação:" />
                     <p:selectOneMenu value="#{projetoController.entidade.situacao}" disabled="#{not projetoController.admin}">
                         <f:selectItems value="#{projetoController.situacoesProjeto}"/>
                     </p:selectOneMenu>
@@ -28,10 +28,10 @@
                         <f:selectItems value="#{projetoController.tiposProjeto}"/>
                     </p:selectOneMenu>
 
-                    <h:outputLabel value="NÃºmero de Cadastro:" />
+                    <h:outputLabel value="Número de Cadastro:" />
                     <p:inputText value="#{projetoController.entidade.numeroCadastro}" disabled="#{not projetoController.alteraDadosGerais}"/>
 
-                    <h:outputLabel value="TÃ­tulo*:" />
+                    <h:outputLabel value="Título*:" />
                     <p:inputTextarea value="#{projetoController.entidade.titulo}" cols="100" rows="4" required="true" 
                                      disabled="#{not projetoController.alteraDadosGerais}"/>
 
@@ -46,13 +46,13 @@
                     <h:outputLabel value="Setor do Coordenador/Campus do IFNMG*:" />
                     <p:inputText value="#{projetoController.entidade.setorCoordenador}" required="false"/> 
 
-                    <h:outputLabel value="Data de InÃ­cio*:" />
+                    <h:outputLabel value="Data de Início*:" />
                     <p:calendar value="#{projetoController.entidade.dataInicio}" required="false"
-                                label="Data de InÃ­cio" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
 
-                    <h:outputLabel value="Data de TÃ©rmino*:" />
+                    <h:outputLabel value="Data de Término*:" />
                     <p:calendar value="#{projetoController.entidade.dataTermino}" required="false"
-                                label="Data de InÃ­cio" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
+                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  disabled="#{not projetoController.alteraDadosGerais}"/>  
 
                     <h:outputLabel value="Grupo de Pesquisa:" />                             
                     <p:autoComplete  converter="#{grupoPesquisaConverter}" value="#{projetoController.entidade.grupoPesquisa}"
@@ -66,7 +66,7 @@
             </p:tab>
 
             <p:tab rendered="#{projetoController.entidade.id > 0 and autenticacaoController.autorizacao('tabProjetoAreasConhecimento')}" 
-                   title="Resumo e Ãreas" >
+                   title="Resumo e Áreas" >
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Resumo*:" /> 
                     <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="#{projetoController.entidade.resumo}" width="600" height="200" />
@@ -75,10 +75,10 @@
                     <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" value="#{projetoController.entidade.palavrasChave}" required="false" style="width: 100%"/>
                 </h:panelGrid>
                 <h:panelGrid columns="3">
-                    <h:outputLabel value="Area de Conhecimento*:" />  
+                    <h:outputLabel value="Área de Conhecimento*:" />  
                     <p:autoComplete  id="txtareaConhecimento"
                         converter="#{areaConhecimentoConverter}" value="#{projetoController.areaConhecimento}"
-                                     completeMethod="#{areaConhecimentoConverter.autoCompleteAreaConhecimento}" size="140"
+                                     completeMethod="#{areaConhecimentoConverter.autoCompleteAreaConhecimento}" size="100"
                                      var="item" itemLabel="#{item}" itemValue="#{item}">
                         #{item}
                     </p:autoComplete>
@@ -90,8 +90,8 @@
 
                 </h:panelGrid>
 
-                <p:dataTable id="tblAreaConhecimento"  value="#{projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros nÃ£o Encontrados!" style="font: medium; color: blue">
-                    <p:column sortBy="areaconhecimento" headerText="Ãrea de Conhecimento" >
+                <p:dataTable id="tblAreaConhecimento"  value="#{projetoController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                    <p:column sortBy="areaconhecimento" headerText="Área de Conhecimento" >
                         #{item}
                     </p:column>                                                   
 
@@ -105,16 +105,16 @@
             </p:tab>   
 
             <p:tab rendered="#{projetoController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoPlanoTrabalho')}" 
-                   title="Plano de Trabalho">
+                   title="Dados do Projeto">
                 <br/>
                 <h:panelGrid columns="2">                   
-                    <h:outputLabel value="Local de realizaÃ§Ã£o do Projeto(LaboratÃ³rio, sala, etc):" />
+                    <h:outputLabel value="Local de realização do Projeto(Laboratório, sala, etc):" />
                     <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" value="#{projetoController.entidade.localRealizacaoProjeto}" required="false"/> 
 
-                    <h:outputLabel value="Programa a que o plano estÃ¡ envolvido:" />
+                    <h:outputLabel value="Programa a que o plano está envolvido:" />
                     <p:inputText  disabled="#{not projetoController.alteraDadosGerais}" value="#{projetoController.entidade.programaPlano}" required="false"/> 
 
-                    <h:outputLabel value="IntroduÃ§Ã£o / Programa a ser estudado*:" />
+                    <h:outputLabel value="Introdução / Programa a ser estudado*:" />
                     <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="#{projetoController.entidade.introducao}" width="600" height="200" />
 
                     <h:outputLabel value="Justificativa*:" />
@@ -129,7 +129,7 @@
                     <h:outputLabel value="Resultados Esperados*:" />
                     <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="#{projetoController.entidade.resutadosEsperados}" width="600" height="200" />
 
-                    <h:outputLabel value="ReferÃªncias BibliogrÃ¡ficas*:" />
+                    <h:outputLabel value="Referências Bibliográficas*:" />
                     <p:editor  disabled="#{not projetoController.alteraDadosGerais}" required="false" value="#{projetoController.entidade.referenciasBibliograficas}" width="600" height="200" />
 
 
@@ -150,13 +150,13 @@
                     <p:calendar  disabled="#{not projetoController.alteraDadosGerais}" 
                                  id="txtOrcamentoDataTermino" value="#{projetoController.financiamento.dataTermino}" required="false"
                                  pattern="dd/MM/yyyy" locale="pt_BR"/>
-                    <h:outputLabel value="Valor OrÃ§ado:" />
+                    <h:outputLabel value="Valor Orçado:" />
                     <pe:inputNumber  id="txtOrcamentoVlrUn" symbol="R# " value="#{projetoController.financiamento.valorOrcado}" converter="#{bigDecimalConverter}" 
                                      thousandSeparator="" />
                     <h:outputLabel value="Valor Executado:" />
                     <pe:inputNumber  id="txtOrcamentoVlrTot" symbol="R# " value="#{projetoController.financiamento.valorExecutado}" converter="#{bigDecimalConverter}" 
                                      thousandSeparator="" />
-                    <h:outputLabel value="AgÃªncia Financiadora:" />                    
+                    <h:outputLabel value="Agência Financiadora:" />                    
                     <p:selectOneMenu value="#{projetoController.financiamento.agenciaFinanciadora}" 
                                      converter="#{agenciaFinanciadoraConverter}" required="false" >
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
@@ -167,13 +167,13 @@
                                       update="txtOrcamentoDataInicio txtOrcamentoDataTermino txtOrcamentoVlrUn txtOrcamentoVlrTot tblOrcamento" /> 
                 </h:panelGrid>
                 <p:dataTable id="tblOrcamento" value="#{projetoController.entidade.financiamentos}" 
-                             var="item" emptyMessage="Registros nÃ£o Encontrados!" >
+                             var="item" emptyMessage="Registros não Encontrados!" >
                     <p:column headerText="Inicio">
                         <h:outputLabel value="#{item.dataInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
-                    <p:column headerText="TÃ©rmino">
+                    <p:column headerText="Término">
                         <h:outputLabel value="#{item.dataTermino}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
@@ -197,7 +197,7 @@
 
             <p:tab title="Bolsas">
                 <p:dataTable value="#{projetoController.entidade.bolsas}" var="item" >  
-                    <p:column headerText="CÃ³d.">
+                    <p:column headerText="Cód.">
                         #{item.id}
                     </p:column>
                     <p:column headerText="Modalidade">
@@ -227,6 +227,6 @@
         <ui:include src="botoesEntidade.xhtml">
             <ui:param name="controller" value="#{projetoController}"  />
         </ui:include>
-        (*) Campos de Preenchimento ObrigatÃ³rio
+        (*) Campos de Preenchimento Obrigatório
     </p:panel>
 </ui:composition>

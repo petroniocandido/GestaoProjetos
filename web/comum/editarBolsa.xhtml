@@ -5,7 +5,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <p:panel>
         <f:facet name="header">
             Editar Bolsa 
@@ -14,7 +15,7 @@
             <p:tab rendered="#{autenticacaoController.autorizacao('tabProjetoDadosGerais')}"  title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="Situação:" />
+                    <h:outputLabel value="Situaçãoo:" />
                     <p:selectOneMenu value="#{bolsaController.entidade.situacao}" required="true" disabled="#{not bolsaController.admin}"
                                      requiredMessage="O campo situação é obrigatório!">
                         <f:selectItems value="#{bolsaController.situacoesProjeto}"/>
@@ -27,7 +28,7 @@
                     <p:autoComplete  converter="#{projetoConverter}" value="#{bolsaController.entidade.projeto}"
                                      completeMethod="#{projetoConverter.autoCompleteProjeto}" size="140"
                                      var="item" itemLabel="#{item.titulo}" itemValue="#{item}"
-                                     disabled="#{not bolsaController.alteraDadosGerais}"
+                                     disabled="#{not projetoController.admin}"
                                      required="true" requiredMessage="O campo projeto é obrigatório!">
                         #{item.titulo}
                     </p:autoComplete>
@@ -46,7 +47,7 @@
                     <p:autoComplete  converter="#{modalidadeConverter}" value="#{bolsaController.entidade.modalidade}"
                                      completeMethod="#{modalidadeConverter.autoCompleteModalidade}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
-                                     disabled="#{not bolsaController.alteraDadosGerais}"
+                                     disabled="#{not projetoController.admin}"
                                      required="true" requiredMessage="O campo modalidade é obrigatório!">
                         #{item.sigla}
                     </p:autoComplete>
@@ -55,7 +56,7 @@
                     <p:autoComplete  converter="#{agenciaFinanciadoraConverter}" value="#{bolsaController.entidade.agenciaFinanciadora}"
                                      completeMethod="#{agenciaFinanciadoraConverter.autoCompleteAgenciaFinanciadora}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
-                                     disabled="#{not bolsaController.alteraDadosGerais}"
+                                     disabled="#{not projetoController.admin}"
                                      required="true" requiredMessage="O campo agência financiadra é obrigatório!">
                         #{item.sigla}
                     </p:autoComplete>
@@ -64,7 +65,7 @@
                     <p:autoComplete  converter="#{editalConverter}" value="#{bolsaController.entidade.edital}"
                                      completeMethod="#{editalConverter.autoCompleteEdital}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
-                                     disabled="#{not bolsaController.alteraDadosGerais}"
+                                     disabled="#{not projetoController.admin}"
                                      required="false" >
                         #{item.sigla}
                     </p:autoComplete>
@@ -72,19 +73,19 @@
                     <h:outputLabel value="Data de Início*:" />
                     <p:calendar value="#{bolsaController.entidade.dataInicio}" 
                                 label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  
-                                disabled="#{not bolsaController.alteraDadosGerais}"
+                                disabled="#{not projetoController.admin}"
                                 required="true" requiredMessage="O campo data de início é obrigatório!"/>  
 
                     <h:outputLabel value="Data de Término*:" />
                     <p:calendar value="#{bolsaController.entidade.dataTermino}"
                                 label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  
-                                disabled="#{not bolsaController.alteraDadosGerais}"
+                                disabled="#{not projetoController.admin}"
                                 required="true" requiredMessage="O campo data término é obrigatório!"/>  
                 </h:panelGrid>
             </p:tab>
 
             <p:tab rendered="#{bolsaController.entidade.id > 0  and autenticacaoController.autorizacao('tabProjetoCronograma')}" 
-                   title="Cronograma">
+                   title="Plano de Trabalho/Cronograma">
 
                 <p:panelGrid rendered="#{bolsaController.alteraDadosGerais}" columns="2"> 
                     <h:outputLabel value="Situação:" />
@@ -104,7 +105,7 @@
                     <p:calendar  id="txtCronogramaDataFim" value="#{bolsaController.atividade.dataFim}" required="false"
                                  label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
-                    <p:commandButton  value="Adicionar" icon="ui-icon-check" action="#{bolsaController.addAtividade()}" ajax="false"
+                    <p:commandButton  value="Salvar" icon="ui-icon-check" action="#{bolsaController.addAtividade()}" ajax="false"
                                       update="tblAtividades somCronogramaSituacao txtCronogramaDescricao txtCronogramaDataInicio txtCronogramaDataFim" /> 
 
                 </p:panelGrid>
@@ -118,7 +119,7 @@
 
                     <p:column headerText="Data Início">
                         <h:outputLabel value="#{item.dataInicio}">
-                            <f:convertDateTime pattern="MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
 
@@ -127,7 +128,9 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
-
+                    <p:column headerText="Situação">
+                        <p:outputLabel value="#{item.situacao}" style="background-color: #{item.situacao.cor}" />
+                    </p:column>
                     <p:column rendered="#{bolsaController.alteraDadosGerais}" sortBy="editar" headerText="Editar">
                         <p:commandButton ajax="false" value="Editar" >
                             <f:setPropertyActionListener target="#{bolsaController.atividade}" value="#{item}" />
@@ -185,16 +188,18 @@
                     <p:column headerText="Participante">
                         #{item.pessoa}
                     </p:column>
-                    <p:column>
+                    <p:column headerText="Situação">
+                        <p:outputLabel value="#{item.situacao}" style="background-color: #{item.situacao.cor}" />
+                    </p:column>
+                    <p:column headerText="Alterar Situação">
+                        <p:selectOneMenu  value="#{item.situacao}">
+                            <f:selectItems value="#{bolsaController.situacoesAtividade}"/>
+                        </p:selectOneMenu>
                         <p:commandButton ajax="false" value="Editar" >
                             <f:setPropertyActionListener target="#{bolsaController.acompanhamento}" value="#{item}" />
                         </p:commandButton>
                     </p:column>
-                    <p:column>
-                        <p:commandButton ajax="false" value="Apagar" action="#{bolsaController.removeAcompanhamento()}" >
-                            <f:setPropertyActionListener target="#{bolsaController.acompanhamento}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
+
                 </p:dataTable>
             </p:tab>
             <ui:include src="tabProjetoDocumentos.xhtml">

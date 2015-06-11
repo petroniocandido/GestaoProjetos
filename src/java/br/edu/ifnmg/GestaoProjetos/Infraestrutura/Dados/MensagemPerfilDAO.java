@@ -6,8 +6,8 @@
 
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura.Dados;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.MensagemPerfil;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MensagemPerfilRepositorio;
+import br.edu.ifnmg.DomainModel.MensagemPerfil;
+import br.edu.ifnmg.DomainModel.Services.MensagemPerfilRepositorio;
 import javax.ejb.Singleton;
 
 /**
@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  * @author petronio
  */
 @Singleton
-public class MensagemPerfilDAO extends DAOGenerico<MensagemPerfil> implements MensagemPerfilRepositorio {
+public class MensagemPerfilDAO extends DAO<MensagemPerfil> implements MensagemPerfilRepositorio {
 
     public MensagemPerfilDAO() {
         super(MensagemPerfil.class);

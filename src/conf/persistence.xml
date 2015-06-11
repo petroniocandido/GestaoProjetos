@@ -3,7 +3,35 @@
   <persistence-unit name="GestaoProjetosPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>GestaoProjetos</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>br.edu.ifnmg.DomainModel.Arquivo</class>
+    <class>br.edu.ifnmg.DomainModel.Configuracao</class>
+    <class>br.edu.ifnmg.DomainModel.Log</class>
+    <class>br.edu.ifnmg.DomainModel.Mensagem</class>
+    <class>br.edu.ifnmg.DomainModel.MensagemPerfil</class>
+    <class>br.edu.ifnmg.DomainModel.Perfil</class>
+    <class>br.edu.ifnmg.DomainModel.Permissao</class>
+    <class>br.edu.ifnmg.DomainModel.Pessoa</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeAcompanhamento</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Campus</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Curso</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Documento</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Edital</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Email</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Financiamento</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.GrupoPesquisa</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Modalidade</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto</class>
+    <class>br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
     </properties>

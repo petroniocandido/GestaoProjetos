@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class AgenciaFinanciadoraDAO
-    extends DAOGenerico<AgenciaFinanciadora>
+    extends DAO<AgenciaFinanciadora>
     implements AgenciaFinanciadoraRepositorio {
 
     public AgenciaFinanciadoraDAO() {

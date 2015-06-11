@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -15,18 +15,18 @@
 
                     <h:outputLabel value="Nome Completo*:" />
                     <p:inputText value="#{orientadorController.entidade.nome}" required="true" style="width: 200%"
-                                 requiredMessage="O campo nome Ã© obrigatÃ³rio!"/> 
+                                 requiredMessage="O campo nome é obrigatório!"/> 
                     
                     <h:outputText value="E-Mail (Login)*: " />
-                    <p:inputText value="#{orientadorController.entidade.email}" 
-                                 required="true" requiredMessage="O campo e-mail Ã© obrigatÃ³rio" />
+                    <p:inputText value="#{orientadorController.entidade.email}" style="width: 200%"
+                                 required="true" requiredMessage="O campo e-mail é obrigatório" />
                     
                     <h:outputLabel value="CPF*:" />
-                    <p:inputMask value="#{orientadorController.entidade.cpf}" label="CPF" 
+                    <p:inputMask value="#{orientadorController.entidade.cpf}" 
                                  required="true" mask="999.999.999-99"
-                                 requiredMessage="O campo cpf Ã© obrigatÃ³rio!"/>
+                                 requiredMessage="O campo cpf é obrigatório!"/>
 
-                    <h:outputLabel value="MatrÃ­cula SIAPE:" />
+                    <h:outputLabel value="Matrícula SIAPE:" />
                     <p:inputText value="#{orientadorController.entidade.matriculaSiape}" />  
 
                     <h:outputLabel value="Campus onde trabalha:" />           
@@ -36,13 +36,13 @@
                         <f:selectItems value="#{campusConverter.listagem}"/>
                     </p:selectOneMenu>
 
-                    <h:outputLabel value="Local de PermanÃªncia:" />
+                    <h:outputLabel value="Local de Permanência:" />
                     <p:inputText value="#{orientadorController.entidade.localPermanencia}" required="false"/>   
 
                     <h:outputLabel value="Data de Nascimento*:" />
                     <p:calendar value="#{orientadorController.entidade.dataNascimento}" required="true"
                                 label="Data de Nascimento" pattern="dd/MM/yyyy" locale="pt_BR"
-                                requiredMessage="O campo data de nascimento Ã© obrigatÃ³rio!"/>                   
+                                requiredMessage="O campo data de nascimento é obrigatório!"/>                   
 
                     <h:outputLabel value="Nacionalidade:" />           
                     <p:inputText value="#{orientadorController.entidade.nacionalidade}" required="false"/>
@@ -63,7 +63,7 @@
                 <ui:param name="controller" value="#{orientadorController}"  />
             </ui:include>
             
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Ãrea Conhecimento" >
+            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Área Conhecimento" >
                 <br/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Area de Conhecimento:" />           
@@ -80,7 +80,7 @@
 
                 <br/>
 
-                <p:dataTable id="tblAreaConhecimento"  value="#{orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros nÃ£o Encontrados!" style="font: medium; color: blue">
+                <p:dataTable id="tblAreaConhecimento"  value="#{orientadorController.entidade.areaConhecimento}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
                     <p:column sortBy="nome" headerText="Nome" >
                         #{item.nome}
                     </p:column>                                                     
@@ -101,29 +101,29 @@
                     <h:outputLabel value="Carteira de identidade:" />
                     <p:inputText value="#{orientadorController.entidade.rg}" required="false"/>   
 
-                    <h:outputLabel value="Ã“rgÃ£o Expedidor:" />
+                    <h:outputLabel value="Órgão Expedidor:" />
                     <p:inputText value="#{orientadorController.entidade.orgaoExpeditor}" required="false"/>                      
 
-                    <h:outputLabel value="Data de ExpediÃ§Ã£o:" />
+                    <h:outputLabel value="Data de Expedição:" />
                     <p:calendar value="#{orientadorController.entidade.dataExpedicao}" required="false"
-                                label="Data de ExpediÃ§Ã£o" pattern="dd/MM/yyyy" locale="pt_BR"/> 
+                                label="Data de Expedição" pattern="dd/MM/yyyy" locale="pt_BR"/> 
 
                 </h:panelGrid> 
 
             </p:tab>
 
 
-            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Dados FormaÃ§Ã£o">
+            <p:tab rendered="#{orientadorController.entidade.id > 0}" title="Dados Formação">
                 <br/>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="FormaÃ§Ã£o UniversitÃ¡ria:" /> 
-                    <p:inputText value="#{orientadorController.entidade.formacaoUniversitaria}" required="false"/> 
+                    <h:outputLabel value="Formação Universitária:" /> 
+                    <p:inputText value="#{orientadorController.entidade.formacaoUniversitaria}" style="width: 200%" required="false"/> 
 
-                    <h:outputLabel value="TÃ­tulo AcadÃªmico(Maior):" />
-                    <p:inputText value="#{orientadorController.entidade.tituloAcademico}" required="false"/> 
+                    <h:outputLabel value="Título Acadêmico(Maior):" />
+                    <p:inputText value="#{orientadorController.entidade.tituloAcademico}" style="width: 200%" required="false"/> 
 
                     <h:outputLabel value="Curriculum Lattes:" />
-                    <p:inputText value="#{orientadorController.entidade.lattes}" required="false"/> 
+                    <p:inputText value="#{orientadorController.entidade.lattes}" style="width: 200%" required="false"/> 
 
                 </h:panelGrid> 
 
@@ -135,6 +135,6 @@
         <ui:include src="botoesEntidade.xhtml">
             <ui:param name="controller" value="#{orientadorController}"  />
         </ui:include>
-        (*) Campos de Preenchimento ObrigatÃ³rio
+        (*) Campos de Preenchimento Obrigatório
     </p:panel>
 </ui:composition>

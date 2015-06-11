@@ -4,17 +4,17 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Services.AutorizacaoService;
+import br.edu.ifnmg.DomainModel.Services.HashService;
+import br.edu.ifnmg.DomainModel.Services.PerfilRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBase;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ValidadorCPF;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AutorizacaoService;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PerfilRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import java.io.IOException;
 import javax.inject.Named;
@@ -47,7 +47,7 @@ public class AutenticacaoController
     UsuarioTipo tipo;
 
     @EJB
-    PessoaRepositorio dao;
+    PessoaProjetoRepositorio dao;
     
     @EJB
     OrientadorRepositorio daoO;
@@ -63,7 +63,7 @@ public class AutenticacaoController
     AutorizacaoService autorizacao;
 
     private String login, senha, senhaconferencia;
-    Pessoa usuario;
+    PessoaProjeto usuario;
 
     public void validar() {
         if (autenticacao.login(login, senha)) {
@@ -170,11 +170,11 @@ public class AutenticacaoController
         this.senhaconferencia = senhaconferencia;
     }
 
-    public Pessoa getUsuario() {
+    public PessoaProjeto getUsuario() {
         if (usuario == null) {
-            usuario = (Pessoa) getSessao("usuarioAutenticado", dao);
+            usuario = (PessoaProjeto) getSessao("usuarioAutenticado", dao);
             if (usuario == null) {
-                usuario = new Pessoa();
+                usuario = new PessoaProjeto();
             }
         }
         return usuario;
@@ -182,7 +182,7 @@ public class AutenticacaoController
     
     public Aluno getAluno() {
         if (usuario == null) {
-            usuario = (Pessoa) getSessao("usuarioAutenticado", daoA);
+            usuario = (PessoaProjeto) getSessao("usuarioAutenticado", daoA);
             if (usuario == null) {
                 usuario = new Aluno();
             }
@@ -192,7 +192,7 @@ public class AutenticacaoController
     
     public Orientador getOrientador() {
         if (usuario == null) {
-            usuario = (Pessoa) getSessao("usuarioAutenticado", daoO);
+            usuario = (PessoaProjeto) getSessao("usuarioAutenticado", daoO);
             if (usuario == null) {
                 usuario = new Orientador();
             }
@@ -200,7 +200,7 @@ public class AutenticacaoController
         return (Orientador)usuario;
     }
 
-    public void setUsuario(Pessoa usuario) {
+    public void setUsuario(PessoaProjeto usuario) {
         this.usuario = usuario;
         setSessao("usuarioAutenticado", usuario);
     }
@@ -228,7 +228,7 @@ public class AutenticacaoController
             return;
         }
 
-        Pessoa tmp = dao.AbrirPorCPF(value.toString());
+        PessoaProjeto tmp = dao.AbrirPorCPF(value.toString());
 
         if (tmp != null) {
             FacesMessage msg
@@ -251,7 +251,7 @@ public class AutenticacaoController
             return;
         }
 
-        Pessoa tmp = dao.Abrir(value.toString());
+        PessoaProjeto tmp = dao.Abrir(value.toString());
 
         if (tmp != null) {
             FacesMessage msg

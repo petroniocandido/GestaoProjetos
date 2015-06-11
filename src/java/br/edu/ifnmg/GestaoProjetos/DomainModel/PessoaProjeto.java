@@ -5,6 +5,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +22,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
@@ -28,7 +29,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 
 /**
@@ -37,12 +37,10 @@ import javax.persistence.Version;
  */
 @Cacheable(true)
 @Entity
-@Table(name = "pessoas", indexes = {
-    @Index(columnList = "cpf"),
-    @Index(columnList = "email")})
+@Table(name = "pessoasprojetos")
 @DiscriminatorColumn(name = "DTYPE")
 @Inheritance(strategy= InheritanceType.JOINED)
-public class Pessoa implements Entidade, Serializable {
+public class PessoaProjeto extends Pessoa implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,29 +51,7 @@ public class Pessoa implements Entidade, Serializable {
     @Column(name = "DTYPE")
     protected UsuarioTipo usuarioTipo;
    
-    @Column(nullable = false, length = 300)
-    private String nome;
-
-    @Column(nullable = false, length = 11)
-    private String cpf;
-
-    @Column(nullable = false, unique = true, length = 300)
-    private String email;
-
-    @Column(length = 11)
-    private String telefone;
-
-    @Column(nullable = false)
-    private String senha;
-
-    @Temporal(TemporalType.DATE)
-    private Date dataNascimento;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Perfil perfil;
-    
-    @Enumerated(EnumType.STRING)
-    protected PessoaTipo tipo;
+    private String rg;
     
     private String orgaoExpeditor;
     
@@ -84,8 +60,6 @@ public class Pessoa implements Entidade, Serializable {
     
     @Column(length=2)
     private String naturalidadeUF;
-    
-    private String rg;
     
     private String titulacao;
     
@@ -110,7 +84,7 @@ public class Pessoa implements Entidade, Serializable {
     
     private String nacionalidade;   
     
-    public Pessoa() {
+    public PessoaProjeto() {
         id = 0L;
         this.enderecos = new ArrayList<>();
         this.telefones = new ArrayList<>();
@@ -267,91 +241,7 @@ public class Pessoa implements Entidade, Serializable {
         this.nacionalidade = nacionalidade;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    @Transient
-    private String cpfFormatado;
-
-    public String getCpf() {
-        if (cpfFormatado == null) {
-            if (cpf != null && cpf.length() == 11) {
-                cpfFormatado = cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, 11);
-            }
-        }
-        return cpfFormatado;
-    }
-
-    public void setCpf(String cpf) {
-        if (cpf != null) {
-            this.cpf = cpf.replace(".", "").replace("-", "");
-            cpfFormatado = null;
-        }
-    }
-
-    @Transient
-    private String telefoneFormatado;
-
-    public String getTelefone() {
-        if (telefoneFormatado == null) {
-            if (telefone != null && telefone.length() == 10) {
-                telefoneFormatado = "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 6) + "-" + telefone.substring(6, 10);
-            }
-        }
-        return telefoneFormatado;
-    }
-
-    public void setTelefone(String telefone) {
-        if (telefone != null) {
-            this.telefone = telefone.replace(" ", "").replace("(", "").replace(")", "").replace("-", "");
-        }
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Perfil getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public PessoaTipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(PessoaTipo tipo) {
-        this.tipo = tipo;
-    }
-
+    
     public UsuarioTipo getUsuarioTipo() {
         return usuarioTipo;
     }
@@ -371,21 +261,17 @@ public class Pessoa implements Entidade, Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning  this method won't work in the case the id fields are not set
         if (!(object instanceof Pessoa)) {
             return false;
         }
-        Pessoa other = (Pessoa) object;
+        PessoaProjeto other = (PessoaProjeto) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return nome + " [" + getEmail()+ "]";
-    }
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Pessoa criador;
@@ -448,6 +334,7 @@ public class Pessoa implements Entidade, Serializable {
         return versao;
     }
 
+    @Override
     public void setVersao(Long versao) {
         this.versao = versao;
     }

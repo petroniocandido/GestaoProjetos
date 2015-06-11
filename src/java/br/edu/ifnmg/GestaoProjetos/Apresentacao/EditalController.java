@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AgenciaFinanciadoraRepositorio;
@@ -19,7 +19,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -161,20 +160,25 @@ public class EditalController
         arquivo = new Arquivo();
     }
     
-    public void fileUploadListener(FileUploadEvent event) {  
-        entidade = dao.Refresh(getEntidade());
+     public void fileUploadListener(FileUploadEvent event) {  
         Arquivo tmp = criaArquivo(event.getFile());
         
-        entidade.add(tmp);
-        
-        if(dao.Salvar(entidade)){
-            Mensagem("Sucesso", "Arquivo anexado com êxito!");
-            AppendLog("Anexou o arquivo " + tmp + " ao evento " + entidade);
-        } else {
-            Mensagem("Falha", "Falha ao anexar o arquivo!");
-            AppendLog("Erro ao anexar o arquivo " + tmp + " ao evento " + entidade + ":" + dao.getErro());
-        }        
+        setArquivo(tmp);        
     }
+
+    public Arquivo getArquivo() {
+        if(arquivo == null)
+            arquivo = (Arquivo)getSessao("edctrl_arquivo", getArquivoRepositorio());
+        return arquivo;
+    }
+
+    public void setArquivo(Arquivo arquivo) {
+        this.arquivo = arquivo;
+        getEntidade().add(arquivo);
+        SalvarEntidade();
+        setSessao("edctrl_arquivo",arquivo);
+    }   
+    
     
     public List<AgenciaFinanciadora> getListagemAgencia() {
         if (listagemAgencia == null) {
@@ -195,14 +199,6 @@ public class EditalController
 
     public void setDocumento(DocumentoTipo documento) {
         this.documento = documento;
-    }
-
-    public Arquivo getArquivo() {
-        return arquivo;
-    }
-
-    public void setArquivo(Arquivo arquivo) {
-        this.arquivo = arquivo;
     }
 
     public Modalidade getModalidade() {

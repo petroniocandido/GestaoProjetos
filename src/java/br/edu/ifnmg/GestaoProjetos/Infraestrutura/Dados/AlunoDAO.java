@@ -16,7 +16,7 @@ import javax.ejb.Singleton;
 @Singleton
 public class AlunoDAO 
 
-    extends DAOGenerico<Aluno>
+    extends DAO<Aluno>
     implements AlunoRepositorio {     
     
     

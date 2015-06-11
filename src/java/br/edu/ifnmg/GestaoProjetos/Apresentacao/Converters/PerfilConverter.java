@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao.Converters;
 
+import br.edu.ifnmg.DomainModel.Perfil;
+import br.edu.ifnmg.DomainModel.Services.PerfilRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.GenericConverter;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Perfil;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PerfilRepositorio;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

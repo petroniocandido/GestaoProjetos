@@ -1,35 +1,35 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" >
-    <p:tab rendered="#{controller.entidade.id > 0}" title="EndereÃ§os">
+    <p:tab rendered="#{controller.entidade.id > 0}" title="Endereços">
         <br/>
         <h:panelGrid columns="4">                    
 
             <h:outputLabel value="Rua/Av/Estrada*:" />
-            <p:inputText id="txtRua" value="${controller.endereco.rua}" required="false"/>   
+            <p:inputText id="txtRua" value="#{controller.endereco.rua}" required="false"/>   
 
 
-            <h:outputLabel value="NÃºmero*:" />
-            <p:inputText id="txtNum" value="${controller.endereco.numero}"  required="false"/>   
+            <h:outputLabel value="Número*:" />
+            <p:inputText id="txtNum" value="#{controller.endereco.numero}"  required="false"/>   
 
             <h:outputLabel value="Complemento:" />
-            <p:inputText id="txtComplemento" value="${controller.endereco.complemento}" required="false"/>                      
+            <p:inputText id="txtComplemento" value="#{controller.endereco.complemento}" required="false"/>                      
 
             <h:outputLabel value="Bairro*:" />
-            <p:inputText id="txtBairro" value="${controller.endereco.bairro}" required="false"/> 
+            <p:inputText id="txtBairro" value="#{controller.endereco.bairro}" required="false"/> 
 
             <h:outputLabel value="Cidade*:" />
-            <p:inputText id="txtCidade" value="${controller.endereco.cidade}" required="false"/>  
+            <p:inputText id="txtCidade" value="#{controller.endereco.cidade}" required="false"/>  
 
             <h:outputLabel value="Cep*:" />
-            <p:inputMask id="txtCep" value="${controller.endereco.cep}" mask="99.999-99" required="false"/> 
+            <p:inputMask id="txtCep" value="#{controller.endereco.cep}" mask="99.999-99" required="false"/> 
 
             <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                             action="${controller.addEndereco()}" style="margin:0"
+                             action="#{controller.addEndereco()}" style="margin:0"
                              update="tblEnderecos txtRua txtNum txtComplemento txtBairro 
                              txtCidade txtCep" /> 
 
@@ -37,11 +37,11 @@
 
         <br/>
 
-        <p:dataTable id="tblEnderecos" value="${controller.entidade.enderecos}" 
-                     var="item" emptyMessage="Registros nÃ£o Encontrados!" >
+        <p:dataTable id="tblEnderecos" value="#{controller.entidade.enderecos}" 
+                     var="item" emptyMessage="Registros não Encontrados!" >
 
-            <p:column sortBy="endereco" headerText="EndereÃ§os">
-                ${item}
+            <p:column sortBy="endereco" headerText="Endereços">
+                #{item}
             </p:column>
 
             <p:column sortBy="editar" headerText="Editar">
@@ -67,26 +67,26 @@
         <br/>
         <h:panelGrid columns="5">
             <h:outputLabel value="DDD*:" />
-            <p:inputMask id="txtDDD" value="${controller.telefone.ddd}" mask="99" size="2" required="false"/>   
+            <p:inputMask id="txtDDD" value="#{controller.telefone.ddd}" mask="99" size="2" required="false"/>   
 
-            <h:outputLabel value="NÃºmero*:" />
-            <p:inputMask id="txtNumero" value="${controller.telefone.numero}" mask="9999-9999" size="9" required="false"/>                      
+            <h:outputLabel value="Número*:" />
+            <p:inputMask id="txtNumero" value="#{controller.telefone.numero}" mask="9999-9999" size="9" required="false"/>                      
 
             <p:commandButton value="Adicionar" icon="ui-icon-check" ajax="false"
-                             action="${controller.addTelefone}" style="margin:0"
+                             action="#{controller.addTelefone}" style="margin:0"
                              update="tblTelefone txtDDD txtNumero"/>
 
 
         </h:panelGrid> 
         <br/>
 
-        <p:dataTable id="tblTelefone" value="${controller.entidade.telefones}" var="item" emptyMessage="Registros nÃ£o Encontrados!" style="font: medium; color: blue">
+        <p:dataTable id="tblTelefone" value="#{controller.entidade.telefones}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
             <p:column sortBy="ddd" headerText="DDD">
-                ${item.ddd}
+                #{item.ddd}
             </p:column>
 
-            <p:column sortBy="numero" headerText="NÃºmero">
-                ${item.numero}
+            <p:column sortBy="numero" headerText="Número">
+                #{item.numero}
             </p:column>                            
 
             <p:column sortBy="editar" headerText="Editar">
@@ -109,18 +109,18 @@
         <br/>
         <h:panelGrid columns="2">                            
             <h:outputLabel value="E-mail*:" />
-            <p:inputText id="txtEndereco" value="${controller.email.endereco}" required="false" style="width: 150%"/>   
+            <p:inputText id="txtEndereco" value="#{controller.email.endereco}" required="false" style="width: 150%"/>   
 
             <p:commandButton value="Adicionar" icon="ui-icon-check" 
-                             action="${controller.addEmail()}" update="tblEmail txtEndereco"/>
+                             action="#{controller.addEmail()}" update="tblEmail txtEndereco"/>
 
         </h:panelGrid> 
 
         <br/>
 
-        <p:dataTable id="tblEmail" value="${controller.entidade.emails}" var="item" emptyMessage="Registros nÃ£o Encontrados!" style="font: medium; color: blue">
+        <p:dataTable id="tblEmail" value="#{controller.entidade.emails}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
             <p:column sortBy="endereco" headerText="Email">
-                ${item.endereco}
+                #{item.endereco}
             </p:column>                                                     
 
             <p:column sortBy="editar" headerText="Editar">

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -15,7 +15,7 @@
             <p:tab title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="SituaÃ§Ã£o*:" />
+                    <h:outputLabel value="Situação*:" />
                     <p:selectOneMenu value="#{documentoController.entidade.situacao}" required="true">
                         <f:selectItems value="${documentoController.situacoes}"/>
                     </p:selectOneMenu>
@@ -37,14 +37,14 @@
                         #{item.titulo}
                     </p:autoComplete>
                     
-                    <h:outputLabel value="ResponsÃ¡vel*:" />                 
+                    <h:outputLabel value="Responsável*:" />                 
                     <p:autoComplete converter="#{usuarioConverter}" value="#{documentoController.entidade.pessoa}"
                                     completeMethod="#{usuarioConverter.autoCompletePessoa}"  required="true"
                                     var="item" itemLabel="#{item.nome}" itemValue="#{item}">
                         #{item.nome}
                     </p:autoComplete>
 
-                    <h:outputLabel value="PrevisÃ£o de Entrega*:" />
+                    <h:outputLabel value="Previsão de Entrega*:" />
                     <p:calendar value="${documentoController.entidade.dataPrevista}" required="true"
                                 pattern="dd/MM/yyyy" locale="pt_BR" />  
 
@@ -58,9 +58,9 @@
             <p:tab title="Arquivo">  
                 <p:fileUpload  fileUploadListener="#{documentoController.fileUploadListener}"  mode="advanced"
                                            auto="false" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|doc|rtf|odt)$/"
-                                           fileLimit="1" fileLimitMessage="SÃ³ Ã© possÃ­vel escolher um arquivo!"
-                                           invalidFileMessage="Tipo de arquivo nÃ£o permitido!"
-                                           invalidSizeMessage="O arquivo excedeu o tamanho mÃ¡ximo permitido!"
+                                           fileLimit="1" fileLimitMessage="Só é possível escolher um arquivo!"
+                                           invalidFileMessage="Tipo de arquivo não permitido!"
+                                           invalidSizeMessage="O arquivo excedeu o tamanho máximo permitido!"
                                            label="Escolher arquivo!" cancelLabel="Cancelar" uploadLabel="Enviar" 
                                            dragDropSupport="flase" multiple="false" update="lnkArquivo" />
                 <h:outputLink disabled="#{empty documentoController.entidade.arquivo}" 
@@ -77,6 +77,6 @@
         <ui:include src="botoesEntidade.xhtml">
             <ui:param name="controller" value="#{documentoController}"  />
         </ui:include>
-        (*) Campos de Preenchimento ObrigatÃ³rio
+        (*) Campos de Preenchimento Obrigatório
     </p:panel>
 </ui:composition>

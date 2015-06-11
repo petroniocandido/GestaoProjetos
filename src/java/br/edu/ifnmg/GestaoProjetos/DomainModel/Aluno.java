@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -27,7 +29,7 @@ import javax.persistence.Version;
 @Entity
 @Table(name="alunos")
 @Cacheable(true)
-public class Aluno extends Pessoa implements Entidade, Serializable {
+public class Aluno extends PessoaProjeto implements Entidade, Serializable {
 
     private static final long serialVersionUID = 1L;
     

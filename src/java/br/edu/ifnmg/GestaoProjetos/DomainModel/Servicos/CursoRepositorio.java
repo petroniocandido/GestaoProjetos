@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos;
 
+import br.edu.ifnmg.DomainModel.Services.Repositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Curso;
 import javax.ejb.Local;
 
@@ -12,10 +13,7 @@ import javax.ejb.Local;
  * @author Isla Guedes
  */
 @Local
-public interface CursoRepositorio
-    
-    extends Repositorio<Curso>
-    {
+public interface CursoRepositorio extends Repositorio<Curso>  {
     
 }
 

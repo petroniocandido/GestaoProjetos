@@ -4,8 +4,11 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -130,23 +133,47 @@ public class Endereco implements Entidade, Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.bairro);
+        hash = 31 * hash + Objects.hashCode(this.rua);
+        hash = 31 * hash + this.numero;
+        hash = 31 * hash + Objects.hashCode(this.cidade);
+        hash = 31 * hash + Objects.hashCode(this.cep);
+        hash = 31 * hash + Objects.hashCode(this.complemento);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Endereco)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Endereco other = (Endereco) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Endereco other = (Endereco) obj;
+        if (!Objects.equals(this.bairro, other.bairro)) {
+            return false;
+        }
+        if (!Objects.equals(this.rua, other.rua)) {
+            return false;
+        }
+        if (this.numero != other.numero) {
+            return false;
+        }
+        if (!Objects.equals(this.cidade, other.cidade)) {
+            return false;
+        }
+        if (!Objects.equals(this.cep, other.cep)) {
+            return false;
+        }
+        if (!Objects.equals(this.complemento, other.complemento)) {
             return false;
         }
         return true;
     }
+
+    
 
     @Override
     public String toString() {

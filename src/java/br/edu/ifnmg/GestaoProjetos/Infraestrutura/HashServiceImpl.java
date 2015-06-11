@@ -5,7 +5,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
+import br.edu.ifnmg.DomainModel.Services.HashService;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;

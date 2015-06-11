@@ -4,11 +4,11 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Log;
+import br.edu.ifnmg.DomainModel.Services.LogRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Log;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.LogRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -35,7 +35,7 @@ public class LogController
     LogRepositorio dao;
 
     @EJB
-    PessoaRepositorio pessoaDAO;
+    PessoaProjetoRepositorio pessoaDAO;
 
     @PostConstruct
     public void init() {
@@ -48,7 +48,7 @@ public class LogController
     public Log getFiltro() {
         if (filtro == null) {
             filtro = new Log();
-            filtro.setUsuario((Pessoa) getSessao("logctrl_usuario", pessoaDAO));
+            filtro.setUsuario((PessoaProjeto) getSessao("logctrl_usuario", pessoaDAO));
             filtro.setDataEvento(getSessaoData("logctrl_data"));
         }
         return filtro;

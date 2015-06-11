@@ -16,9 +16,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Mensagem;
+import br.edu.ifnmg.DomainModel.Services.MensagemRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Mensagem;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MensagemRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;

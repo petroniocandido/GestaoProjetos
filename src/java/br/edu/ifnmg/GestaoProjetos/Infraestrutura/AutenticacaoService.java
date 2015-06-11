@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifnmg.GestaoProjetos.Infraestrutura;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ConfiguracaoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MailService;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.DomainModel.Pessoa;
+import br.edu.ifnmg.DomainModel.Services.ConfiguracaoRepositorio;
+import br.edu.ifnmg.DomainModel.Services.HashService;
+import br.edu.ifnmg.DomainModel.Services.MailService;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Random;
@@ -17,19 +13,13 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-
-
-
-@Named
 @SessionScoped
-public class AutenticacaoService implements br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AutenticacaoService, Serializable {
+public class AutenticacaoService implements br.edu.ifnmg.DomainModel.Services.AutenticacaoService, Serializable {
 
     @EJB
-    PessoaRepositorio dao;
-    
+    PessoaProjetoRepositorio dao;
     @EJB
     HashService hash;
     @EJB
@@ -94,7 +84,7 @@ public class AutenticacaoService implements br.edu.ifnmg.GestaoProjetos.DomainMo
             usuario.setSenha(hash.getMD5(tmpsenha));
             msg = msg.replace("###SENHA###", tmpsenha);
             if (mail.enviar(usuario.getEmail(), "Nova Senha", msg)) {
-                dao.Salvar(usuario);
+                dao.Salvar((PessoaProjeto)usuario);
                 return true;
             } else {
                 usuario.setSenha(senhaantiga);

@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class EditalDAO
-        extends DAOGenerico<Edital>
+        extends DAO<Edital>
         implements EditalRepositorio {
 
     public EditalDAO() {

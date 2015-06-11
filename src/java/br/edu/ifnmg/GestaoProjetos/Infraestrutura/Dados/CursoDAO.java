@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class CursoDAO
-        extends DAOGenerico<Curso>
+        extends DAO<Curso>
         implements CursoRepositorio {
 
     public CursoDAO() {

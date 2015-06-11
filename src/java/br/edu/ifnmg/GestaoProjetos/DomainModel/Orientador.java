@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +34,7 @@ import javax.persistence.Version;
 @Entity
 @Table(name="orientadores")
 @Cacheable(true)
-public class Orientador extends Pessoa implements Entidade, Serializable{
+public class Orientador extends PessoaProjeto implements Entidade, Serializable{
     private static final long serialVersionUID = 1L;
    
     @Id
@@ -241,6 +243,7 @@ public class Orientador extends Pessoa implements Entidade, Serializable{
         return versao;
     }
 
+    @Override
     public void setVersao(Long versao) {
         this.versao = versao;
     }

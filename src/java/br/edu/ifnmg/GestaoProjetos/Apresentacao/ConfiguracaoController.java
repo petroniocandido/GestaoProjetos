@@ -4,11 +4,11 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Configuracao;
+import br.edu.ifnmg.DomainModel.Services.ConfiguracaoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Configuracao;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ConfiguracaoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -36,7 +36,7 @@ public class ConfiguracaoController
     ConfiguracaoRepositorio dao;
 
     @EJB
-    PessoaRepositorio pessoaDAO;
+    PessoaProjetoRepositorio pessoaDAO;
 
     @PostConstruct
     public void init() {
@@ -56,7 +56,7 @@ public class ConfiguracaoController
         if (filtro == null) {
             filtro = new Configuracao();
             filtro.setChave(getSessao("cnfctrl_chave"));
-            filtro.setUsuario((Pessoa) getSessao("cnfctrl_usuario", pessoaDAO));
+            filtro.setUsuario((PessoaProjeto) getSessao("cnfctrl_usuario", pessoaDAO));
         }
         return filtro;
     }
@@ -76,15 +76,15 @@ public class ConfiguracaoController
         Rastrear(getEntidade());
 
         // salva o objeto no BD
-        if (dao.Set(getEntidade().getUsuario(), getEntidade().getChave(), getEntidade().getValor())) {
+        if (dao.Set(entidade.getUsuario(), entidade.getChave(), entidade.getValor())) {
 
-            setId(getEntidade().getId());
+            setId(entidade.getId());
 
             Mensagem("Sucesso", "Registro salvo com sucesso!");
-            AppendLog("Editou a entidade " + getEntidade().getClass().getSimpleName() + " " + getEntidade().getId() + "(" + getEntidade().toString() + ")");
+            AppendLog("Editou a entidade " + entidade.getClass().getSimpleName() + " " + entidade.getId() + "(" + entidade.toString() + ")");
         } else {
             MensagemErro("Falha", "Registro não foi salvo! Consulte o Log ou o administrador do sistema!");
-            AppendLog("Falha ao editar a entidade " + getEntidade().getClass().getSimpleName() + " " + getEntidade().getId() + "(" + getEntidade().toString() + ")" + ": " + repositorio.getErro().getMessage());
+            AppendLog("Falha ao editar a entidade " + entidade.getClass().getSimpleName() + " " + entidade.getId() + "(" + getEntidade().toString() + ")" + ": " + repositorio.getErro().getMessage());
         }
 
         // atualiza a listagem

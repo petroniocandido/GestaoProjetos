@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AgenciaFinanciadora;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Atividade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeAcompanhamento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
@@ -18,7 +18,6 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ModalidadeRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AtividadeSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.ProjetoSituacao;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AtividadeRepositorio;
@@ -195,7 +194,8 @@ public class BolsaController
     }
 
     public void addAtividade() {
-        getEntidade().addAtividade(atividade);
+        if(atividade.getId() == null || atividade.getId() == 0L)
+            getEntidade().addAtividade(atividade);
         SalvarAgregado(atividade);
         atividade = new Atividade();
     }
