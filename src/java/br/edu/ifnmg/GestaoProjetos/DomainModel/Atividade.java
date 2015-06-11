@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -140,12 +142,9 @@ public class Atividade implements Entidade, Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.bolsa);
-        hash = 79 * hash + Objects.hashCode(this.descricao);
-        hash = 79 * hash + Objects.hashCode(this.dataInicio);
-        hash = 79 * hash + Objects.hashCode(this.dataFim);
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.bolsa);
         return hash;
     }
 
@@ -164,17 +163,10 @@ public class Atividade implements Entidade, Serializable {
         if (!Objects.equals(this.bolsa, other.bolsa)) {
             return false;
         }
-        if (!Objects.equals(this.descricao, other.descricao)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataInicio, other.dataInicio)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataFim, other.dataFim)) {
-            return false;
-        }
         return true;
     }
+
+    
     
     @Override
     public String toString() {

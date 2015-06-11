@@ -4,7 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Entidade;
+
+import br.edu.ifnmg.DomainModel.Entidade;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;

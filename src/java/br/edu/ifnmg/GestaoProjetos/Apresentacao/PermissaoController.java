@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Permissao;
+import br.edu.ifnmg.DomainModel.Services.PermissaoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Permissao;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PermissaoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;

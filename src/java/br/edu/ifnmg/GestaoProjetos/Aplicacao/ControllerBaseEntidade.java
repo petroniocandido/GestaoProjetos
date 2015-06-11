@@ -4,10 +4,10 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Entidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ArquivoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.Repositorio;
+import br.edu.ifnmg.DomainModel.Arquivo;
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Services.ArquivoRepositorio;
+import br.edu.ifnmg.DomainModel.Services.Repositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
 import java.io.IOException;
 import java.util.List;

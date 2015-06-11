@@ -7,7 +7,7 @@
 package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVExporter;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -15,12 +15,12 @@ import java.text.SimpleDateFormat;
  *
  * @author petronio
  */
-public class PessoaCSVExporter extends CSVExporter<Pessoa> {
+public class PessoaCSVExporter extends CSVExporter<PessoaProjeto> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");
     
     @Override
-    protected StringBuilder gerarLinha(Pessoa obj) {
+    protected StringBuilder gerarLinha(PessoaProjeto obj) {
         return new StringBuilder(obj.getNome()).append(";")
                 .append(obj.getCpf() != null ? obj.getCpf() : "").append(";")
                 .append(obj.getTelefone() != null ? obj.getTelefone(): "").append(";")
@@ -31,7 +31,7 @@ public class PessoaCSVExporter extends CSVExporter<Pessoa> {
     }
 
     @Override
-    protected StringBuilder gerarCabecalho(Pessoa obj) {
+    protected StringBuilder gerarCabecalho(PessoaProjeto obj) {
         return new StringBuilder("nome;cpf;telefone;email;dataNascimento;perfil;tipo;");
         
     }

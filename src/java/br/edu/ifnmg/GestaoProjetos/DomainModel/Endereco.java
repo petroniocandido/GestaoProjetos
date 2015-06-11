@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;

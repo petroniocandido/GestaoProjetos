@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
+import br.edu.ifnmg.DomainModel.Services.ArquivoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ArquivoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;

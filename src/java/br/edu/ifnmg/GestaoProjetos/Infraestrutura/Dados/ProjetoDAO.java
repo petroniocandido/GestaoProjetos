@@ -17,7 +17,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class ProjetoDAO
-        extends DAOGenerico<Projeto>
+        extends DAO<Projeto>
         implements ProjetoRepositorio {
 
     public ProjetoDAO() {

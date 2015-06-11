@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class AtividadeDAO
-        extends DAOGenerico<Atividade>
+        extends DAO<Atividade>
         implements AtividadeRepositorio {
 
     public AtividadeDAO() {

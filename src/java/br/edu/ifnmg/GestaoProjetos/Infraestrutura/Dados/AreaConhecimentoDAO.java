@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class AreaConhecimentoDAO
-        extends DAOGenerico<AreaConhecimento>
+        extends DAO<AreaConhecimento>
         implements AreaConhecimentoRepositorio {
 
     public AreaConhecimentoDAO() {

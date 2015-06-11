@@ -4,17 +4,17 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Documento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.DocumentoSituacao;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.DocumentoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.TipoDocumentoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.UsuarioTipo;
@@ -44,7 +44,7 @@ public class DocumentoController
     TipoDocumentoRepositorio daoTipo;
     
     @EJB
-    PessoaRepositorio daoPessoa;
+    PessoaProjetoRepositorio daoPessoa;
     
     @EJB
     ProjetoRepositorio daoProjeto;
@@ -62,7 +62,7 @@ public class DocumentoController
     public Documento getFiltro() {
         if (filtro == null) {
             filtro = new Documento();
-            filtro.setPessoa((Pessoa)getSessao("docctrl_pessoa", daoPessoa));
+            filtro.setPessoa((PessoaProjeto)getSessao("docctrl_pessoa", daoPessoa));
             filtro.setTipoDocumento((DocumentoTipo)getSessao("docctrl_tipo", daoTipo));
             filtro.setDataPrevista(getSessaoData("docctrl_dtprevista"));            
             filtro.setDataEfetiva(getSessaoData("docctrl_dtprevista"));

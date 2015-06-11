@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao.Converters;
 
+import br.edu.ifnmg.DomainModel.Permissao;
+import br.edu.ifnmg.DomainModel.Services.PermissaoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.GenericConverter;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Permissao;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PermissaoRepositorio;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

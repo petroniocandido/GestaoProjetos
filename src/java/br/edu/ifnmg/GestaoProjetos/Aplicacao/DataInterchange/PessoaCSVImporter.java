@@ -6,9 +6,9 @@
 
 package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
+import br.edu.ifnmg.DomainModel.PessoaTipo;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaTipo;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,14 +21,14 @@ import javax.ejb.Stateless;
  * @author petronio
  */
 @Stateless
-public class PessoaCSVImporter extends CSVImporter<Pessoa> {
+public class PessoaCSVImporter extends CSVImporter<PessoaProjeto> {
 
     DateFormat df = new SimpleDateFormat("dd/MM/yy hh:mm");
     
     @Override
-    protected Pessoa gerarObjeto(String linha) {
+    protected PessoaProjeto gerarObjeto(String linha) {
         String colunas[] = linha.split(";");
-        Pessoa obj = new Pessoa();
+        PessoaProjeto obj = new PessoaProjeto();
         obj.setNome(colunas[cabecalho.get("nome")]);
         if(cabecalho.containsKey("cpf"))
             obj.setCpf(colunas[cabecalho.get("cpf")]);

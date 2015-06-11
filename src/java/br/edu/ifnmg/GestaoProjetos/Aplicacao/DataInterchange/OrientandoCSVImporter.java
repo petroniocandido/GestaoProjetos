@@ -5,11 +5,11 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange;
 
+import br.edu.ifnmg.DomainModel.PessoaTipo;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.CSVImporter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaTipo;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.CampusRepositorio;
 import java.text.DateFormat;
 import java.text.ParseException;

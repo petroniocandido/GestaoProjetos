@@ -4,6 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -34,13 +37,13 @@ public class Documento implements Serializable, Entidade {
     private Long id;
    
     @ManyToOne
-    private Pessoa pessoa;
+    private PessoaProjeto pessoa;
     
     @ManyToOne
     private Projeto projeto;
     
     @ManyToOne
-    private Pessoa funcionarioRecebedor;
+    private PessoaProjeto funcionarioRecebedor;
     
     @ManyToOne
     private DocumentoTipo tipoDocumento;
@@ -83,11 +86,11 @@ public class Documento implements Serializable, Entidade {
         this.id = id;
     }
 
-    public Pessoa getFuncionarioRecebedor() {
+    public PessoaProjeto getFuncionarioRecebedor() {
         return funcionarioRecebedor;
     }
 
-    public void setFuncionarioRecebedor(Pessoa funcionarioRecebedor) {
+    public void setFuncionarioRecebedor(PessoaProjeto funcionarioRecebedor) {
         this.funcionarioRecebedor = funcionarioRecebedor;
     }
 
@@ -123,11 +126,11 @@ public class Documento implements Serializable, Entidade {
         this.arquivo = arquivo;
     }
 
-    public Pessoa getPessoa() {
+    public PessoaProjeto getPessoa() {
         return pessoa;
     }
 
-    public void setPessoa(Pessoa pessoa) {
+    public void setPessoa(PessoaProjeto pessoa) {
         this.pessoa = pessoa;
     }
 

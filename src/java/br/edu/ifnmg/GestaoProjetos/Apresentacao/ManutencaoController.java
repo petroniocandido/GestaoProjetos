@@ -5,10 +5,9 @@
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaIndice;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -27,11 +26,9 @@ public class ManutencaoController
         implements Serializable {
 
     
-    @EJB
-    PessoaIndice pessoaIndex;
     
     @EJB
-    PessoaRepositorio pessoaDAO;
+    PessoaProjetoRepositorio pessoaDAO;
     
     /**
      * Creates a new instance of FuncionarioBean
@@ -51,17 +48,9 @@ public class ManutencaoController
     
     String texto;
     
-    List<Pessoa> pessoas;
+    List<PessoaProjeto> pessoas;
     
-    public void criaIndice() {
-        pessoaIndex.indexacaoGeral();
-    }
-    
-    public void teste() {
-       pessoas  = pessoaIndex.buscar("nome", texto);
-       
-    }
-
+  
     public String getTexto() {
         return texto;
     }
@@ -70,11 +59,11 @@ public class ManutencaoController
         this.texto = texto;
     }
 
-    public List<Pessoa> getPessoas() {
+    public List<PessoaProjeto> getPessoas() {
         return pessoas;
     }
 
-    public void setPessoas(List<Pessoa> pessoas) {
+    public void setPessoas(List<PessoaProjeto> pessoas) {
         this.pessoas = pessoas;
     }
 

@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Services.HashService;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBase;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.AreaConhecimentoCSVImporter;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.DataInterchange.BolsaCSVImporter;
@@ -15,14 +16,13 @@ import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.AreaConhecimento;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Bolsa;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Projeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AreaConhecimentoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.BolsaRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ProjetoRepositorio;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class IntegracoesController
 
     }
     @EJB
-    PessoaRepositorio daoP;
+    PessoaProjetoRepositorio daoP;
     
     @EJB
     PessoaCSVImporter impPessoa;
@@ -161,8 +161,8 @@ public class IntegracoesController
     }
 
     public void importarPessoas() {
-        List<Pessoa> tmp = impPessoa.importarCSV(abreArquivo());
-        for (Pessoa p : tmp) {
+        List<PessoaProjeto> tmp = impPessoa.importarCSV(abreArquivo());
+        for (PessoaProjeto p : tmp) {
             if (daoP.AbrirPorCPF(p.getCpf()) == null) {
                 p.setSenha(hash.getMD5("123456"));
                 Rastrear(p);

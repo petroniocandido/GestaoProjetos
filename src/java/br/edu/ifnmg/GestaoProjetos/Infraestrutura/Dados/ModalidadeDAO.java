@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class ModalidadeDAO
-        extends DAOGenerico<Modalidade>
+        extends DAO<Modalidade>
         implements ModalidadeRepositorio {
 
     public ModalidadeDAO() {

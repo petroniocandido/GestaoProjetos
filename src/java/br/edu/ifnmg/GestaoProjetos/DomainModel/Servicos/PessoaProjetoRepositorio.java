@@ -6,7 +6,8 @@
 
 package br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.DomainModel.Services.Repositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import javax.ejb.Local;
 
 /**
@@ -14,7 +15,7 @@ import javax.ejb.Local;
  * @author petronio
  */
 @Local
-public interface PessoaRepositorio extends Repositorio<Pessoa> {
-    public Pessoa Abrir(String login);
-    public Pessoa AbrirPorCPF(String cpf);
+public interface PessoaProjetoRepositorio extends Repositorio<PessoaProjeto> {
+    public PessoaProjeto Abrir(String login);
+    public PessoaProjeto AbrirPorCPF(String cpf);
 }

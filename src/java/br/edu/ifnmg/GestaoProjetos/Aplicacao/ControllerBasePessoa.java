@@ -4,11 +4,11 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
+import br.edu.ifnmg.DomainModel.Services.HashService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Email;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Endereco;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Estados;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.HashService;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Telefone;
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  * @author petronio
  * @param <T>
  */
-public abstract class ControllerBasePessoa<T extends Pessoa> extends ControllerBaseEntidade<T> {
+public abstract class ControllerBasePessoa<T extends PessoaProjeto> extends ControllerBaseEntidade<T> {
 
     Email email;
     Telefone telefone;

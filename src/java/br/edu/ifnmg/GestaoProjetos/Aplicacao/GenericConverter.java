@@ -5,8 +5,8 @@
 package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Entidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.Repositorio;
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Services.Repositorio;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

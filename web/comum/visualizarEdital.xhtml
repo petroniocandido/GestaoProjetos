@@ -13,12 +13,12 @@
             <p:tab id="tabDados" title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="Número:" />
+                    <h:outputLabel value="NÃºmero:" />
                     <p:outputLabel value="${editalController.entidade.numero}" />                      
 					<h:outputLabel value="Campus do IFNMG:" />                   
                     <p:outputLabel value="${editalController.entidade.campus}"/>
 
-                    <h:outputLabel value="Agências Financiadoras:" />           
+                    <h:outputLabel value="AgÃªncias Financiadoras:" />           
                     <p:dataTable value="#{editalController.entidade.agenciasFinanciadoras}" var="item">
 						<p:column headerText="Sigla">
 							#{item}
@@ -36,7 +36,7 @@
 							#{item.nome}
 						</p:column>
 					</p:dataTable>
-                    <h:outputLabel value="Número de bolsas:" />
+                    <h:outputLabel value="NÃºmero de bolsas:" />
                     <p:outputLabel value="${editalController.entidade.numeroBolsas}" />
                 </h:panelGrid>
             </p:tab>
@@ -57,7 +57,7 @@
                             </table>
             </p:tab>
             <p:tab title="Arquivos">
-                <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros não Encontrados!" style="font: medium; color: blue">
+                <p:dataTable id="tblArquivos" value="${editalController.entidade.arquivos}" var="item" emptyMessage="Registros nÃ£o Encontrados!" style="font: medium; color: blue">
                     <p:column headerText="Arquivo">
                         <a href="#{request.contextPath}/arquivos/#{item.uri}" target="_blank">${item}</a>
                     </p:column>

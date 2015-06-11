@@ -6,8 +6,8 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao.Converters;
 
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.GenericConverter;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,19 +22,19 @@ import javax.inject.Singleton;
 @Named(value = "usuarioConverter")
 @Singleton
 public class PessoaConverter
-        extends GenericConverter<Pessoa, PessoaRepositorio>
+        extends GenericConverter<PessoaProjeto, PessoaProjetoRepositorio>
         implements Serializable {
 
     @EJB
-    PessoaRepositorio dao;
+    PessoaProjetoRepositorio dao;
 
     @PostConstruct
     public void init() {
         setRepositorio(dao);
     }
     
-    public List<Pessoa> autoCompletePessoa(String query) {
-        Pessoa i = new Pessoa();
+    public List<PessoaProjeto> autoCompletePessoa(String query) {
+        PessoaProjeto i = new PessoaProjeto();
         i.setNome(query);
         return dao.Buscar(i);
     }

@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class OrientadorDAO
-        extends DAOGenerico<Orientador>
+        extends DAO<Orientador>
         implements OrientadorRepositorio {
 
     public OrientadorDAO() {

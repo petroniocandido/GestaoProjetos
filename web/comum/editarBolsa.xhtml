@@ -1,11 +1,12 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <p:panel>
         <f:facet name="header">
             Editar Bolsa 
@@ -14,9 +15,9 @@
             <p:tab rendered="#{autenticacaoController.autorizacao('tabProjetoDadosGerais')}"  title="Dados Gerais">  
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="Situação:" />
+                    <h:outputLabel value="SituaÃ§Ã£oo:" />
                     <p:selectOneMenu value="#{bolsaController.entidade.situacao}" required="true" disabled="#{not bolsaController.admin}"
-                                     requiredMessage="O campo situação é obrigatório!">
+                                     requiredMessage="O campo situaÃ§Ã£o Ã© obrigatÃ³rio!">
                         <f:selectItems value="#{bolsaController.situacoesProjeto}"/>
                     </p:selectOneMenu>
 
@@ -28,7 +29,7 @@
                                      completeMethod="#{projetoConverter.autoCompleteProjeto}" size="140"
                                      var="item" itemLabel="#{item.titulo}" itemValue="#{item}"
                                      disabled="#{not projetoController.admin}"
-                                     required="true" requiredMessage="O campo projeto é obrigatório!">
+                                     required="true" requiredMessage="O campo projeto Ã© obrigatÃ³rio!">
                         #{item.titulo}
                     </p:autoComplete>
 
@@ -38,7 +39,7 @@
                                     completeMethod="#{alunoConverter.autoCompleteAluno}"  size="140"
                                     var="item" itemLabel="#{item.nome}" itemValue="#{item}"
                                     disabled="#{not projetoController.admin}"
-                                    required="true" requiredMessage="O campo orientando é obrigatório!">
+                                    required="true" requiredMessage="O campo orientando Ã© obrigatÃ³rio!">
                         #{item.nome}
                     </p:autoComplete>
 
@@ -47,16 +48,16 @@
                                      completeMethod="#{modalidadeConverter.autoCompleteModalidade}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
                                      disabled="#{not projetoController.admin}"
-                                     required="true" requiredMessage="O campo modalidade é obrigatório!">
+                                     required="true" requiredMessage="O campo modalidade Ã© obrigatÃ³rio!">
                         #{item.sigla}
                     </p:autoComplete>
 
-                    <h:outputLabel value="Agência Financiadora*:" />                    
+                    <h:outputLabel value="AgÃªncia Financiadora*:" />                    
                     <p:autoComplete  converter="#{agenciaFinanciadoraConverter}" value="#{bolsaController.entidade.agenciaFinanciadora}"
                                      completeMethod="#{agenciaFinanciadoraConverter.autoCompleteAgenciaFinanciadora}" 
                                      var="item" itemLabel="#{item.sigla}" itemValue="#{item}"
                                      disabled="#{not projetoController.admin}"
-                                     required="true" requiredMessage="O campo agência financiadra é obrigatório!">
+                                     required="true" requiredMessage="O campo agÃªncia financiadra Ã© obrigatÃ³rio!">
                         #{item.sigla}
                     </p:autoComplete>
 
@@ -69,17 +70,17 @@
                         #{item.sigla}
                     </p:autoComplete>
 
-                    <h:outputLabel value="Data de Início*:" />
+                    <h:outputLabel value="Data de InÃ­cio*:" />
                     <p:calendar value="#{bolsaController.entidade.dataInicio}" 
-                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  
+                                label="Data de InÃ­cio" pattern="dd/MM/yyyy" locale="pt_BR"  
                                 disabled="#{not projetoController.admin}"
-                                required="true" requiredMessage="O campo data de início é obrigatório!"/>  
+                                required="true" requiredMessage="O campo data de inÃ­cio Ã© obrigatÃ³rio!"/>  
 
-                    <h:outputLabel value="Data de Término*:" />
+                    <h:outputLabel value="Data de TÃ©rmino*:" />
                     <p:calendar value="#{bolsaController.entidade.dataTermino}"
-                                label="Data de Início" pattern="dd/MM/yyyy" locale="pt_BR"  
+                                label="Data de InÃ­cio" pattern="dd/MM/yyyy" locale="pt_BR"  
                                 disabled="#{not projetoController.admin}"
-                                required="true" requiredMessage="O campo data término é obrigatório!"/>  
+                                required="true" requiredMessage="O campo data tÃ©rmino Ã© obrigatÃ³rio!"/>  
                 </h:panelGrid>
             </p:tab>
 
@@ -87,16 +88,16 @@
                    title="Plano de Trabalho/Cronograma">
 
                 <p:panelGrid rendered="#{bolsaController.alteraDadosGerais}" columns="2"> 
-                    <h:outputLabel value="Situação:" />
+                    <h:outputLabel value="SituaÃ§Ã£o:" />
                     <p:selectOneMenu  id="somCronogramaSituacao" value="#{bolsaController.atividade.situacao}">
                         <f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
                         <f:selectItems value="#{bolsaController.situacoesAtividade}"/>
                     </p:selectOneMenu>
 
-                    <h:outputLabel value="Descrição:" />
+                    <h:outputLabel value="DescriÃ§Ã£o:" />
                     <p:inputTextarea  id="txtCronogramaDescricao" value="#{bolsaController.atividade.descricao}" cols="100" rows="4" />
 
-                    <h:outputLabel value="Data Início*:" />
+                    <h:outputLabel value="Data InÃ­cio*:" />
                     <p:calendar  id="txtCronogramaDataInicio" value="#{bolsaController.atividade.dataInicio}" required="false"
                                  label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
@@ -104,19 +105,19 @@
                     <p:calendar  id="txtCronogramaDataFim" value="#{bolsaController.atividade.dataFim}" required="false"
                                  label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
-                    <p:commandButton  value="Adicionar" icon="ui-icon-check" action="#{bolsaController.addAtividade()}" ajax="false"
+                    <p:commandButton  value="Salvar" icon="ui-icon-check" action="#{bolsaController.addAtividade()}" ajax="false"
                                       update="tblAtividades somCronogramaSituacao txtCronogramaDescricao txtCronogramaDataInicio txtCronogramaDataFim" /> 
 
                 </p:panelGrid>
                 <p:dataTable id="tblAtividades" value="#{bolsaController.entidade.cronogramaAtividade}" 
-                             var="item" emptyMessage="Registros não Encontrados!" 
+                             var="item" emptyMessage="Registros nÃ£o Encontrados!" 
                              style="font: medium; color: blue">
 
-                    <p:column headerText="Descrição">
+                    <p:column headerText="DescriÃ§Ã£o">
                         #{item.descricao}
                     </p:column>
 
-                    <p:column headerText="Data Início">
+                    <p:column headerText="Data InÃ­cio">
                         <h:outputLabel value="#{item.dataInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
@@ -127,7 +128,9 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
                     </p:column>
-
+                    <p:column headerText="SituaÃ§Ã£o">
+                        <p:outputLabel value="#{item.situacao}" style="background-color: #{item.situacao.cor}" />
+                    </p:column>
                     <p:column rendered="#{bolsaController.alteraDadosGerais}" sortBy="editar" headerText="Editar">
                         <p:commandButton ajax="false" value="Editar" >
                             <f:setPropertyActionListener target="#{bolsaController.atividade}" value="#{item}" />
@@ -152,12 +155,12 @@
                                      value="#{bolsaController.acompanhamento.atividade}" converter="#{atividadeConverter}">
                         <f:selectItems value="#{bolsaController.cronograma}" />
                     </p:selectOneMenu>
-                    <h:outputLabel value="Descrição do trabalho:" />
+                    <h:outputLabel value="DescriÃ§Ã£o do trabalho:" />
                     <p:inputTextarea id="txtDescricaoAcompanhamento" value="#{bolsaController.acompanhamento.descricao}" 
                                      rows="3" cols="120"/>
                 </h:panelGrid>
                 <h:panelGrid columns="4">
-                    <h:outputLabel value="Início:" />
+                    <h:outputLabel value="InÃ­cio:" />
                     <p:calendar id="txtDataInicioAcompanhamento" value="#{bolsaController.acompanhamento.dataInicio}" required="false"
                                 label="Data Inicio" pattern="dd/MM/yyyy" locale="pt_BR"/>
 
@@ -170,8 +173,8 @@
                                      txtDataTerminoAcompanhamento tblAcompanhamento" />
                 </h:panelGrid>
                 <p:dataTable id="tblAcompanhamento" value="#{bolsaController.entidade.acompanhamentoAtividades}" 
-                             var="item" emptyMessage="Registros não Encontrados!" >
-                    <p:column headerText="Início">
+                             var="item" emptyMessage="Registros nÃ£o Encontrados!" >
+                    <p:column headerText="InÃ­cio">
                         <h:outputLabel value="#{item.dataInicio}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputLabel>
@@ -179,22 +182,24 @@
                     <p:column headerText="Atividade">
                         #{item.atividade}
                     </p:column>
-                    <p:column headerText="Descrição">
+                    <p:column headerText="DescriÃ§Ã£o">
                         #{item.descricao}
                     </p:column>
                     <p:column headerText="Participante">
                         #{item.pessoa}
                     </p:column>
-                    <p:column>
+                    <p:column headerText="SituaÃ§Ã£o">
+                        <p:outputLabel value="#{item.situacao}" style="background-color: #{item.situacao.cor}" />
+                    </p:column>
+                    <p:column headerText="Alterar SituaÃ§Ã£o">
+                        <p:selectOneMenu  value="#{item.situacao}">
+                            <f:selectItems value="#{bolsaController.situacoesAtividade}"/>
+                        </p:selectOneMenu>
                         <p:commandButton ajax="false" value="Editar" >
                             <f:setPropertyActionListener target="#{bolsaController.acompanhamento}" value="#{item}" />
                         </p:commandButton>
                     </p:column>
-                    <p:column>
-                        <p:commandButton ajax="false" value="Apagar" action="#{bolsaController.removeAcompanhamento()}" >
-                            <f:setPropertyActionListener target="#{bolsaController.acompanhamento}" value="#{item}" />
-                        </p:commandButton>
-                    </p:column>
+
                 </p:dataTable>
             </p:tab>
             <ui:include src="tabProjetoDocumentos.xhtml">
@@ -207,6 +212,6 @@
         <ui:include src="botoesEntidade.xhtml">
             <ui:param name="controller" value="#{bolsaController}"  />
         </ui:include>
-        (*) Campos de Preenchimento Obrigatório
+        (*) Campos de Preenchimento ObrigatÃ³rio
     </p:panel>
 </ui:composition>

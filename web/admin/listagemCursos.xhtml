@@ -20,10 +20,10 @@
                             <p:panelGrid columns="2">
 
                                 <h:outputLabel value="Nome:" />
-                                <p:inputText value="${cursoController.filtro.nome}"/>  
+                                <p:inputText value="#{cursoController.filtro.nome}"/>  
 
                                 <h:outputLabel value="Sigla:" />
-                                <p:inputText value="${cursoController.filtro.sigla}"/>
+                                <p:inputText value="#{cursoController.filtro.sigla}"/>
                             </p:panelGrid>
                             <ui:include src="../comum/botoesListagem.xhtml">
                                 <ui:param name="controller" value="#{cursoController}"  />

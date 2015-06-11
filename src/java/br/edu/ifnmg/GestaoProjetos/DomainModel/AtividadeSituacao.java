@@ -11,15 +11,19 @@ package br.edu.ifnmg.GestaoProjetos.DomainModel;
  * @author petronio
  */
 public enum AtividadeSituacao {
-    Pendente(0, "Pendente"),
-    EmExecucao(1, "Em Execução"),
-    Concluido(2, "Concluído");    
+    Pendente(0, "Pendente", "red"),
+    EmExecucao(1, "Em Execução", "yellow"),
+    Concluido(2, "Concluída Satisfatoriamente", "greenyellow"),
+    NaoConcluido(3, "Não Concluído", "red");
+    
     private int id;
     private String descricao;
+    private String cor;
 
-    private AtividadeSituacao(int id, String descricao) {
+    private AtividadeSituacao(int id, String descricao, String cor) {
         this.id = id;
         this.descricao = descricao;
+        this.cor = cor;
     }
 
     public int getId() {
@@ -38,8 +42,16 @@ public enum AtividadeSituacao {
         this.descricao = descricao;
     }
 
+    public String getCor() {
+        return cor;
+    }
+    
+    
+
     @Override
     public String toString() {
         return descricao;
     }
+    
+    
 }

@@ -4,9 +4,9 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao.Converters;
 
+import br.edu.ifnmg.DomainModel.Arquivo;
+import br.edu.ifnmg.DomainModel.Services.ArquivoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.GenericConverter;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Arquivo;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ArquivoRepositorio;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

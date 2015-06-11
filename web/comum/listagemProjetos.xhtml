@@ -10,16 +10,16 @@
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >  
 
         <p:ajax event="rowSelect" listener="#{projetoController.onRowSelect}" />
-        <p:column headerText="Cód.">
+        <p:column headerText="CÃ³d.">
             ${item.id}
         </p:column>
         <p:column headerText="Campus">
             ${item.campus}
         </p:column>
-        <p:column headerText="Título">
+        <p:column headerText="TÃ­tulo">
             ${item.titulo}
         </p:column>
-        <p:column  headerText="Situação">
+        <p:column  headerText="SituaÃ§Ã£o">
             ${item.situacao}
         </p:column>
         <p:column  headerText="Status">

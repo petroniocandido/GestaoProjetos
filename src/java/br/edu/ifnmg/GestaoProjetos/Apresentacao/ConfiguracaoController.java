@@ -4,11 +4,11 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Configuracao;
+import br.edu.ifnmg.DomainModel.Services.ConfiguracaoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Configuracao;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ConfiguracaoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -36,7 +36,7 @@ public class ConfiguracaoController
     ConfiguracaoRepositorio dao;
 
     @EJB
-    PessoaRepositorio pessoaDAO;
+    PessoaProjetoRepositorio pessoaDAO;
 
     @PostConstruct
     public void init() {
@@ -56,7 +56,7 @@ public class ConfiguracaoController
         if (filtro == null) {
             filtro = new Configuracao();
             filtro.setChave(getSessao("cnfctrl_chave"));
-            filtro.setUsuario((Pessoa) getSessao("cnfctrl_usuario", pessoaDAO));
+            filtro.setUsuario((PessoaProjeto) getSessao("cnfctrl_usuario", pessoaDAO));
         }
         return filtro;
     }

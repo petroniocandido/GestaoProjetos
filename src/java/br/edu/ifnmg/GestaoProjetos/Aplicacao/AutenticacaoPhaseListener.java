@@ -4,8 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AutorizacaoService;
+import br.edu.ifnmg.DomainModel.Services.AutorizacaoService;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.Infraestrutura.AutenticacaoService;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -40,7 +40,7 @@ public class AutenticacaoPhaseListener implements PhaseListener {
         String viewid = fc.getViewRoot().getViewId();
         if (viewid.contains("/admin/") || viewid.contains("/publico/")) {
             
-            Pessoa usuario = autenticacao.getUsuarioCorrente();
+            PessoaProjeto usuario = (PessoaProjeto)autenticacao.getUsuarioCorrente();
 
             if (usuario == null) {
                 try {

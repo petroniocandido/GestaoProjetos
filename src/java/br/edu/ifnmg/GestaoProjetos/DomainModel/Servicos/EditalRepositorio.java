@@ -4,7 +4,7 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos;
 
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Campus;
+import br.edu.ifnmg.DomainModel.Services.Repositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Edital;
 import javax.ejb.Local;
 

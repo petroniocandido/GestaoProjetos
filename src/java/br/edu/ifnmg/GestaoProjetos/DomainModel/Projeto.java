@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.GestaoProjetos.DomainModel;
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Pessoa;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;

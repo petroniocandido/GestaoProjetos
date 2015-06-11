@@ -6,16 +6,16 @@ package br.edu.ifnmg.GestaoProjetos.Aplicacao;
 
 
 
+import br.edu.ifnmg.DomainModel.Entidade;
+import br.edu.ifnmg.DomainModel.Services.ConfiguracaoService;
+import br.edu.ifnmg.DomainModel.Services.LogService;
+import br.edu.ifnmg.DomainModel.Services.MailService;
+import br.edu.ifnmg.DomainModel.Services.Repositorio;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Entidade;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Orientador;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.ConfiguracaoService;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.LogService;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.MailService;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.OrientadorRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.Repositorio;
 import br.edu.ifnmg.GestaoProjetos.Infraestrutura.AutenticacaoService;
 import br.edu.ifnmg.GestaoProjetos.Infraestrutura.SessaoService;
 import java.io.IOException;
@@ -60,10 +60,10 @@ public abstract class ControllerBase {
     @EJB
     OrientadorRepositorio daoOrientador;
     
-    List<Pessoa> destinatarios;
+    List<PessoaProjeto> destinatarios;
     
-    public Pessoa getUsuarioCorrente() {
-        return autenticacao.getUsuarioCorrente();
+    public PessoaProjeto getUsuarioCorrente() {
+        return (PessoaProjeto)autenticacao.getUsuarioCorrente();
     }
     
     public Aluno getAlunoCorrente() {
@@ -117,7 +117,7 @@ public abstract class ControllerBase {
         AppendLog("Alterando configuração global" + chave + " = " + valor);
     }
 
-    public void setConfiguracao(Pessoa usr, String chave, String valor) {
+    public void setConfiguracao(PessoaProjeto usr, String chave, String valor) {
         configuracao.setLocal(chave, valor);
         AppendLog("Alterando configuração de usuário " + chave + " = " + valor);
     }
@@ -142,18 +142,18 @@ public abstract class ControllerBase {
         this.mensagem = mensagem;
     }
 
-    public List<Pessoa> getDestinatarios() {
+    public List<PessoaProjeto> getDestinatarios() {
         return destinatarios;
     }
 
-    public void setDestinatarios(List<Pessoa> destinatarios) {
+    public void setDestinatarios(List<PessoaProjeto> destinatarios) {
         this.destinatarios = destinatarios;
     }
     
     public void enviarMensagem() {
         int sucesso = 0, erro = 0;
         String erros = "";
-        for(Pessoa p : destinatarios){
+        for(PessoaProjeto p : destinatarios){
             if(mail.enviar(p.getEmail(), assunto, mensagem)){
                 sucesso++;
             } else {

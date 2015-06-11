@@ -4,12 +4,12 @@
  */
 package br.edu.ifnmg.GestaoProjetos.Apresentacao;
 
+import br.edu.ifnmg.DomainModel.Perfil;
+import br.edu.ifnmg.DomainModel.Permissao;
+import br.edu.ifnmg.DomainModel.Services.PerfilRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.ControllerBaseEntidade;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Perfil;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Permissao;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Pessoa;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PerfilRepositorio;
-import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaRepositorio;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.PessoaProjetoRepositorio;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -38,7 +38,7 @@ public class PerfilController
     PerfilRepositorio dao;
 
     @EJB
-    PessoaRepositorio daoP;
+    PessoaProjetoRepositorio daoP;
 
     Permissao permissao;
 
@@ -88,7 +88,7 @@ public class PerfilController
         this.permissao = permissao;
     }
 
-    public List<Pessoa> getPessoas() {
+    public List<PessoaProjeto> getPessoas() {
         return daoP.IgualA("perfil", entidade).Buscar();
     }
 

@@ -15,7 +15,7 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class TipoDocumentoDAO
-        extends DAOGenerico<DocumentoTipo>
+        extends DAO<DocumentoTipo>
         implements TipoDocumentoRepositorio {
 
     public TipoDocumentoDAO() {

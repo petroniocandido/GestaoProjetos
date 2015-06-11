@@ -6,8 +6,10 @@ package br.edu.ifnmg.GestaoProjetos.Apresentacao.Converters;
 
 import br.edu.ifnmg.GestaoProjetos.Aplicacao.GenericConverter;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Aluno;
+import br.edu.ifnmg.GestaoProjetos.DomainModel.PessoaProjeto;
 import br.edu.ifnmg.GestaoProjetos.DomainModel.Servicos.AlunoRepositorio;
 import br.edu.ifnmg.GestaoProjetos.Infraestrutura.AutenticacaoService;
+
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -39,7 +41,7 @@ public class AlunoConverter
     
     public List<Aluno> autoCompleteAluno(String query) {
         Aluno i = new Aluno();
-        i.setCampus(autenticacao.getUsuarioCorrente().getCampus());
+        i.setCampus(((PessoaProjeto)autenticacao.getUsuarioCorrente()).getCampus());
         i.setNome(query);
         return dao.Buscar(i);
     }
